@@ -1,0 +1,12 @@
+{
+  "title": "devjfk",
+  "speaker": "devjfk",
+  "year": null,
+  "source": null,
+  "licence": "public domain",
+  "duration": 28.62,
+  "words": 56,
+  "align_conf": 0.0,
+  "f0_median_hz": 102.7,
+  "align_method": "fallback-energy"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Interpretive Reading",
+  "description": "Reading a text aloud: expressiveness and pause placement carry the interpretation.",
+  "weights": {
+    "pace": 0.9,
+    "pausing": 1.3,
+    "fluency": 0.8,
+    "pitch_variety": 1.5,
+    "volume": 0.9,
+    "clarity": 1.0
+  },
+  "bands": [
+    {
+      "min": 90,
+      "label": "Championship"
+    },
+    {
+      "min": 75,
+      "label": "Strong"
+    },
+    {
+      "min": 60,
+      "label": "Developing"
+    },
+    {
+      "min": 40,
+      "label": "Weak"
+    },
+    {
+      "min": 0,
+      "label": "Needs major work"
+    }
+  ]
+}

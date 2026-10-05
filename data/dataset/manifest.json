@@ -1,0 +1,3235 @@
+{
+ "version": 1,
+ "flaw_types": [
+  "rushed",
+  "dragging",
+  "monotone",
+  "trailing_off",
+  "pause_omission",
+  "awkward_pause",
+  "filler",
+  "mumbling",
+  "stutter"
+ ],
+ "severity_scale": "1 = near-perfect ... 5 = egregious",
+ "sources": [
+  "devfdr",
+  "devjfk"
+ ],
+ "clips": [
+  {
+   "id": "devfdr__gold",
+   "source": "devfdr",
+   "kind": "control",
+   "duration": 25.23,
+   "labels": [],
+   "max_severity": 0,
+   "control": "identity"
+  },
+  {
+   "id": "devfdr__ctrl_pitch_up4",
+   "source": "devfdr",
+   "kind": "control",
+   "duration": 25.23,
+   "labels": [],
+   "max_severity": 0,
+   "control": "pitch_up4"
+  },
+  {
+   "id": "devfdr__ctrl_pitch_down4",
+   "source": "devfdr",
+   "kind": "control",
+   "duration": 25.23,
+   "labels": [],
+   "max_severity": 0,
+   "control": "pitch_down4"
+  },
+  {
+   "id": "devfdr__ctrl_quiet12db",
+   "source": "devfdr",
+   "kind": "control",
+   "duration": 25.23,
+   "labels": [],
+   "max_severity": 0,
+   "control": "quiet12db"
+  },
+  {
+   "id": "devfdr__rushed_s1",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 24.51,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 1,
+     "start": 8.87,
+     "end": 12.041,
+     "word_start": 19,
+     "word_end": 29,
+     "params": {
+      "duration_factor": 0.88
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devfdr__rushed_s2",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 24.33,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 2,
+     "start": 14.29,
+     "end": 16.571,
+     "word_start": 34,
+     "word_end": 42,
+     "params": {
+      "duration_factor": 0.8
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devfdr__rushed_s3",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 24.45,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 3,
+     "start": 9.99,
+     "end": 11.147,
+     "word_start": 22,
+     "word_end": 28,
+     "params": {
+      "duration_factor": 0.72
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devfdr__rushed_s4",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 22.97,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 4,
+     "start": 17.47,
+     "end": 19.735,
+     "word_start": 43,
+     "word_end": 54,
+     "params": {
+      "duration_factor": 0.64
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devfdr__rushed_s5",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 23.21,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 5,
+     "start": 4.01,
+     "end": 5.271,
+     "word_start": 10,
+     "word_end": 16,
+     "params": {
+      "duration_factor": 0.55
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devfdr__dragging_s1",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.94,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 1,
+     "start": 6.66,
+     "end": 11.122,
+     "word_start": 16,
+     "word_end": 23,
+     "params": {
+      "duration_factor": 1.12
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devfdr__dragging_s2",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.09,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 2,
+     "start": 12.76,
+     "end": 15.811,
+     "word_start": 30,
+     "word_end": 36,
+     "params": {
+      "duration_factor": 1.24
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devfdr__dragging_s3",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.73,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 3,
+     "start": 18.62,
+     "end": 22.614,
+     "word_start": 47,
+     "word_end": 52,
+     "params": {
+      "duration_factor": 1.36
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devfdr__dragging_s4",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.37,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 4,
+     "start": 14.71,
+     "end": 17.306,
+     "word_start": 36,
+     "word_end": 40,
+     "params": {
+      "duration_factor": 1.48
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devfdr__dragging_s5",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 29.33,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 5,
+     "start": 14.5,
+     "end": 22.303,
+     "word_start": 35,
+     "word_end": 44,
+     "params": {
+      "duration_factor": 1.62
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devfdr__monotone_s1",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 1,
+     "start": 4.99,
+     "end": 9.33,
+     "word_start": 12,
+     "word_end": 19,
+     "params": {
+      "excursion_removed": 0.35
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devfdr__monotone_s2",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 2,
+     "start": 5.62,
+     "end": 9.99,
+     "word_start": 14,
+     "word_end": 21,
+     "params": {
+      "excursion_removed": 0.55
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devfdr__monotone_s3",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 3,
+     "start": 7.29,
+     "end": 10.83,
+     "word_start": 17,
+     "word_end": 24,
+     "params": {
+      "excursion_removed": 0.7
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devfdr__monotone_s4",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 4,
+     "start": 5.41,
+     "end": 11.26,
+     "word_start": 13,
+     "word_end": 26,
+     "params": {
+      "excursion_removed": 0.85
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devfdr__monotone_s5",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 5,
+     "start": 20.11,
+     "end": 23.89,
+     "word_start": 51,
+     "word_end": 59,
+     "params": {
+      "excursion_removed": 0.97
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devfdr__trailing_off_s1",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 1,
+     "start": 0.62,
+     "end": 4.01,
+     "word_start": 1,
+     "word_end": 9,
+     "params": {
+      "drop_db": 4
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devfdr__trailing_off_s2",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 2,
+     "start": 18.2,
+     "end": 22.83,
+     "word_start": 45,
+     "word_end": 56,
+     "params": {
+      "drop_db": 7
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devfdr__trailing_off_s3",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 3,
+     "start": 17.68,
+     "end": 21.11,
+     "word_start": 44,
+     "word_end": 52,
+     "params": {
+      "drop_db": 10
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devfdr__trailing_off_s4",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 4,
+     "start": 2.83,
+     "end": 8.87,
+     "word_start": 7,
+     "word_end": 18,
+     "params": {
+      "drop_db": 14
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devfdr__trailing_off_s5",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 5,
+     "start": 8.87,
+     "end": 12.76,
+     "word_start": 19,
+     "word_end": 29,
+     "params": {
+      "drop_db": 18
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devfdr__pause_omission_s1",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 1,
+     "start": 11.92,
+     "end": 16.16,
+     "word_start": 29,
+     "word_end": 40,
+     "params": {
+      "pause_kept": 0.6,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devfdr__pause_omission_s2",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 2,
+     "start": 1.38,
+     "end": 4.99,
+     "word_start": 2,
+     "word_end": 11,
+     "params": {
+      "pause_kept": 0.45,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devfdr__pause_omission_s3",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 3,
+     "start": 15.16,
+     "end": 19.66,
+     "word_start": 38,
+     "word_end": 48,
+     "params": {
+      "pause_kept": 0.3,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devfdr__pause_omission_s4",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 4,
+     "start": 14.71,
+     "end": 21.11,
+     "word_start": 36,
+     "word_end": 52,
+     "params": {
+      "pause_kept": 0.15,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devfdr__pause_omission_s5",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 5,
+     "start": 15.16,
+     "end": 21.32,
+     "word_start": 38,
+     "word_end": 53,
+     "params": {
+      "pause_kept": 0.04,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devfdr__awkward_pause_s1",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.58,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 1,
+     "start": 22.41,
+     "end": 22.766,
+     "word_start": 55,
+     "word_end": 56,
+     "params": {
+      "inserted_s": 0.356
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devfdr__awkward_pause_s2",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.83,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 2,
+     "start": 21.11,
+     "end": 21.711,
+     "word_start": 52,
+     "word_end": 53,
+     "params": {
+      "inserted_s": 0.601
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devfdr__awkward_pause_s3",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.8,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 1.38,
+     "end": 2.155,
+     "word_start": 1,
+     "word_end": 2,
+     "params": {
+      "inserted_s": 0.775
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 17.145,
+     "end": 17.941,
+     "word_start": 41,
+     "word_end": 42,
+     "params": {
+      "inserted_s": 0.797
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devfdr__awkward_pause_s4",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 27.74,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 15.58,
+     "end": 16.877,
+     "word_start": 38,
+     "word_end": 39,
+     "params": {
+      "inserted_s": 1.297
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 23.287,
+     "end": 24.505,
+     "word_start": 54,
+     "word_end": 55,
+     "params": {
+      "inserted_s": 1.218
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devfdr__awkward_pause_s5",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 30.68,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 5,
+     "start": 2.01,
+     "end": 3.659,
+     "word_start": 3,
+     "word_end": 4,
+     "params": {
+      "inserted_s": 1.649
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 5,
+     "start": 8.099,
+     "end": 9.89,
+     "word_start": 14,
+     "word_end": 15,
+     "params": {
+      "inserted_s": 1.791
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 5,
+     "start": 17.73,
+     "end": 19.743,
+     "word_start": 33,
+     "word_end": 34,
+     "params": {
+      "inserted_s": 2.013
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devfdr__filler_s1",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.66,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 1,
+     "start": 24.31,
+     "end": 24.74,
+     "word_start": 61,
+     "word_end": 62,
+     "params": {
+      "filler_s": 0.28
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devfdr__filler_s2",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.09,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 2,
+     "start": 1.38,
+     "end": 1.81,
+     "word_start": 1,
+     "word_end": 2,
+     "params": {
+      "filler_s": 0.36
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 2,
+     "start": 22.84,
+     "end": 23.27,
+     "word_start": 55,
+     "word_end": 56,
+     "params": {
+      "filler_s": 0.36
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devfdr__filler_s3",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.09,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 14.01,
+     "end": 14.44,
+     "word_start": 32,
+     "word_end": 33,
+     "params": {
+      "filler_s": 0.45
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 16.8,
+     "end": 17.23,
+     "word_start": 41,
+     "word_end": 42,
+     "params": {
+      "filler_s": 0.45
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devfdr__filler_s4",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.52,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 5.41,
+     "end": 5.84,
+     "word_start": 12,
+     "word_end": 13,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 20.3,
+     "end": 20.73,
+     "word_start": 49,
+     "word_end": 50,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 23.9,
+     "end": 24.33,
+     "word_start": 57,
+     "word_end": 58,
+     "params": {
+      "filler_s": 0.55
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devfdr__filler_s5",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.95,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 9.54,
+     "end": 9.97,
+     "word_start": 20,
+     "word_end": 21,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 11.47,
+     "end": 11.9,
+     "word_start": 25,
+     "word_end": 26,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 15.36,
+     "end": 15.79,
+     "word_start": 34,
+     "word_end": 35,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 17.45,
+     "end": 17.88,
+     "word_start": 40,
+     "word_end": 41,
+     "params": {
+      "filler_s": 0.65
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devfdr__mumbling_s1",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 1,
+     "start": 9.54,
+     "end": 11.04,
+     "word_start": 21,
+     "word_end": 25,
+     "params": {
+      "lowpass_hz": 5000
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devfdr__mumbling_s2",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 2,
+     "start": 10.2,
+     "end": 12.96,
+     "word_start": 23,
+     "word_end": 30,
+     "params": {
+      "lowpass_hz": 3500
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devfdr__mumbling_s3",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 3,
+     "start": 7.29,
+     "end": 11.04,
+     "word_start": 17,
+     "word_end": 25,
+     "params": {
+      "lowpass_hz": 2500
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devfdr__mumbling_s4",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 4,
+     "start": 19.66,
+     "end": 23.04,
+     "word_start": 49,
+     "word_end": 57,
+     "params": {
+      "lowpass_hz": 1800
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devfdr__mumbling_s5",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 5,
+     "start": 3.38,
+     "end": 5.62,
+     "word_start": 9,
+     "word_end": 13,
+     "params": {
+      "lowpass_hz": 1200
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devfdr__stutter_s1",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.46,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 1,
+     "start": 4.99,
+     "end": 5.647,
+     "word_start": 12,
+     "word_end": 12,
+     "params": {
+      "repetitions": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devfdr__stutter_s2",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.45,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 2,
+     "start": 4.22,
+     "end": 5.211,
+     "word_start": 11,
+     "word_end": 11,
+     "params": {
+      "repetitions": 1
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devfdr__stutter_s3",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 25.56,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 3,
+     "start": 22.83,
+     "end": 23.372,
+     "word_start": 57,
+     "word_end": 57,
+     "params": {
+      "repetitions": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devfdr__stutter_s4",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.17,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 6.66,
+     "end": 7.758,
+     "word_start": 16,
+     "word_end": 16,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 22.878,
+     "end": 23.77,
+     "word_start": 56,
+     "word_end": 56,
+     "params": {
+      "repetitions": 2
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devfdr__stutter_s5",
+   "source": "devfdr",
+   "kind": "single",
+   "duration": 26.44,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 15.16,
+     "end": 16.307,
+     "word_start": 38,
+     "word_end": 38,
+     "params": {
+      "repetitions": 3
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 16.307,
+     "end": 17.018,
+     "word_start": 39,
+     "word_end": 39,
+     "params": {
+      "repetitions": 3
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devfdr__mix1",
+   "source": "devfdr",
+   "kind": "mixed",
+   "duration": 25.23,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 2,
+     "start": 2.41,
+     "end": 5.62,
+     "word_start": 5,
+     "word_end": 13,
+     "params": {
+      "excursion_removed": 0.55
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 2,
+     "start": 14.95,
+     "end": 18.62,
+     "word_start": 37,
+     "word_end": 46,
+     "params": {
+      "pause_kept": 0.45,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 2,
+   "mix_level": 1
+  },
+  {
+   "id": "devfdr__mix2",
+   "source": "devfdr",
+   "kind": "mixed",
+   "duration": 24.01,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 1,
+     "start": 9.33,
+     "end": 9.635,
+     "word_start": 19,
+     "word_end": 20,
+     "params": {
+      "inserted_s": 0.305
+     }
+    },
+    {
+     "type": "rushed",
+     "severity": 2,
+     "start": 19.135,
+     "end": 22.677,
+     "word_start": 48,
+     "word_end": 59,
+     "params": {
+      "duration_factor": 0.8
+     }
+    }
+   ],
+   "max_severity": 2,
+   "mix_level": 2
+  },
+  {
+   "id": "devfdr__mix3",
+   "source": "devfdr",
+   "kind": "mixed",
+   "duration": 26.93,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 2,
+     "start": 1.38,
+     "end": 7.29,
+     "word_start": 2,
+     "word_end": 16,
+     "params": {
+      "pause_kept": 0.45,
+      "pauses_shortened": 0
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 9.54,
+     "end": 10.405,
+     "word_start": 20,
+     "word_end": 21,
+     "params": {
+      "inserted_s": 0.865
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 11.695,
+     "end": 12.539,
+     "word_start": 24,
+     "word_end": 25,
+     "params": {
+      "inserted_s": 0.844
+     }
+    },
+    {
+     "type": "monotone",
+     "severity": 3,
+     "start": 18.079,
+     "end": 23.029,
+     "word_start": 42,
+     "word_end": 53,
+     "params": {
+      "excursion_removed": 0.7
+     }
+    }
+   ],
+   "max_severity": 3,
+   "mix_level": 3
+  },
+  {
+   "id": "devfdr__mix4",
+   "source": "devfdr",
+   "kind": "mixed",
+   "duration": 27.4,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 2,
+     "start": 2.62,
+     "end": 5.92,
+     "word_start": 6,
+     "word_end": 16,
+     "params": {
+      "duration_factor": 0.8
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 12.92,
+     "end": 13.35,
+     "word_start": 33,
+     "word_end": 34,
+     "params": {
+      "filler_s": 0.45
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 13.56,
+     "end": 13.99,
+     "word_start": 34,
+     "word_end": 35,
+     "params": {
+      "filler_s": 0.45
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 20.25,
+     "end": 21.669,
+     "word_start": 51,
+     "word_end": 52,
+     "params": {
+      "inserted_s": 1.419
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 23.739,
+     "end": 25.003,
+     "word_start": 56,
+     "word_end": 57,
+     "params": {
+      "inserted_s": 1.263
+     }
+    }
+   ],
+   "max_severity": 4,
+   "mix_level": 4
+  },
+  {
+   "id": "devfdr__mix5",
+   "source": "devfdr",
+   "kind": "mixed",
+   "duration": 27.51,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 3,
+     "start": 4.99,
+     "end": 7.368,
+     "word_start": 12,
+     "word_end": 18,
+     "params": {
+      "duration_factor": 0.72
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 8.908,
+     "end": 10.108,
+     "word_start": 23,
+     "word_end": 24,
+     "params": {
+      "inserted_s": 1.2
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 11.378,
+     "end": 12.678,
+     "word_start": 27,
+     "word_end": 28,
+     "params": {
+      "inserted_s": 1.3
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 15.498,
+     "end": 15.928,
+     "word_start": 34,
+     "word_end": 35,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 19.108,
+     "end": 19.538,
+     "word_start": 43,
+     "word_end": 44,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "trailing_off",
+     "severity": 3,
+     "start": 20.058,
+     "end": 24.268,
+     "word_start": 45,
+     "word_end": 55,
+     "params": {
+      "drop_db": 10
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 26.168,
+     "end": 26.598,
+     "word_start": 61,
+     "word_end": 62,
+     "params": {
+      "filler_s": 0.55
+     }
+    }
+   ],
+   "max_severity": 4,
+   "mix_level": 5
+  },
+  {
+   "id": "devfdr__mix6",
+   "source": "devfdr",
+   "kind": "mixed",
+   "duration": 25.85,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 3,
+     "start": 2.83,
+     "end": 8.588,
+     "word_start": 7,
+     "word_end": 14,
+     "params": {
+      "duration_factor": 1.36
+     }
+    },
+    {
+     "type": "rushed",
+     "severity": 4,
+     "start": 12.128,
+     "end": 13.583,
+     "word_start": 22,
+     "word_end": 30,
+     "params": {
+      "duration_factor": 0.64
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 4,
+     "start": 16.203,
+     "end": 22.613,
+     "word_start": 39,
+     "word_end": 54,
+     "params": {
+      "pause_kept": 0.15,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 4,
+   "mix_level": 6
+  },
+  {
+   "id": "devfdr__mix7",
+   "source": "devfdr",
+   "kind": "mixed",
+   "duration": 28.47,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 2.01,
+     "end": 3.269,
+     "word_start": 3,
+     "word_end": 4,
+     "params": {
+      "inserted_s": 1.259
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 4.089,
+     "end": 4.876,
+     "word_start": 7,
+     "word_end": 7,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "rushed",
+     "severity": 4,
+     "start": 6.696,
+     "end": 7.986,
+     "word_start": 12,
+     "word_end": 17,
+     "params": {
+      "duration_factor": 0.64
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 9.736,
+     "end": 10.265,
+     "word_start": 20,
+     "word_end": 20,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 4,
+     "start": 11.135,
+     "end": 12.645,
+     "word_start": 24,
+     "word_end": 28,
+     "params": {
+      "lowpass_hz": 1800
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 15.435,
+     "end": 16.823,
+     "word_start": 35,
+     "word_end": 36,
+     "params": {
+      "inserted_s": 1.388
+     }
+    },
+    {
+     "type": "dragging",
+     "severity": 4,
+     "start": 25.153,
+     "end": 27.79,
+     "word_start": 58,
+     "word_end": 62,
+     "params": {
+      "duration_factor": 1.48
+     }
+    }
+   ],
+   "max_severity": 4,
+   "mix_level": 7
+  },
+  {
+   "id": "devfdr__mix8",
+   "source": "devfdr",
+   "kind": "mixed",
+   "duration": 33.4,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 1.38,
+     "end": 1.81,
+     "word_start": 1,
+     "word_end": 2,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 3.6,
+     "end": 4.03,
+     "word_start": 7,
+     "word_end": 8,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 6.48,
+     "end": 8.026,
+     "word_start": 14,
+     "word_end": 14,
+     "params": {
+      "repetitions": 3
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 5,
+     "start": 10.446,
+     "end": 12.01,
+     "word_start": 18,
+     "word_end": 19,
+     "params": {
+      "inserted_s": 1.565
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 13.13,
+     "end": 13.56,
+     "word_start": 21,
+     "word_end": 22,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 14.61,
+     "end": 15.323,
+     "word_start": 26,
+     "word_end": 26,
+     "params": {
+      "repetitions": 3
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 5,
+     "start": 15.323,
+     "end": 17.653,
+     "word_start": 27,
+     "word_end": 31,
+     "params": {
+      "lowpass_hz": 1200
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 5,
+     "start": 19.013,
+     "end": 22.893,
+     "word_start": 37,
+     "word_end": 47,
+     "params": {
+      "pause_kept": 0.04,
+      "pauses_shortened": 0
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 5,
+     "start": 24.823,
+     "end": 26.503,
+     "word_start": 51,
+     "word_end": 52,
+     "params": {
+      "inserted_s": 1.68
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 27.063,
+     "end": 27.493,
+     "word_start": 53,
+     "word_end": 54,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 5,
+     "start": 29.003,
+     "end": 31.009,
+     "word_start": 56,
+     "word_end": 57,
+     "params": {
+      "inserted_s": 2.006
+     }
+    }
+   ],
+   "max_severity": 5,
+   "mix_level": 8
+  },
+  {
+   "id": "devjfk__gold",
+   "source": "devjfk",
+   "kind": "control",
+   "duration": 28.62,
+   "labels": [],
+   "max_severity": 0,
+   "control": "identity"
+  },
+  {
+   "id": "devjfk__ctrl_pitch_up4",
+   "source": "devjfk",
+   "kind": "control",
+   "duration": 28.62,
+   "labels": [],
+   "max_severity": 0,
+   "control": "pitch_up4"
+  },
+  {
+   "id": "devjfk__ctrl_pitch_down4",
+   "source": "devjfk",
+   "kind": "control",
+   "duration": 28.62,
+   "labels": [],
+   "max_severity": 0,
+   "control": "pitch_down4"
+  },
+  {
+   "id": "devjfk__ctrl_quiet12db",
+   "source": "devjfk",
+   "kind": "control",
+   "duration": 28.62,
+   "labels": [],
+   "max_severity": 0,
+   "control": "quiet12db"
+  },
+  {
+   "id": "devjfk__rushed_s1",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 27.67,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 1,
+     "start": 18.02,
+     "end": 22.218,
+     "word_start": 35,
+     "word_end": 44,
+     "params": {
+      "duration_factor": 0.88
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devjfk__rushed_s2",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 26.93,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 2,
+     "start": 18.31,
+     "end": 22.394,
+     "word_start": 36,
+     "word_end": 45,
+     "params": {
+      "duration_factor": 0.8
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devjfk__rushed_s3",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 25.66,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 3,
+     "start": 2.15,
+     "end": 6.48,
+     "word_start": 5,
+     "word_end": 16,
+     "params": {
+      "duration_factor": 0.72
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devjfk__rushed_s4",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 26.73,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 4,
+     "start": 16.39,
+     "end": 18.249,
+     "word_start": 32,
+     "word_end": 39,
+     "params": {
+      "duration_factor": 0.64
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devjfk__rushed_s5",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 26.44,
+   "labels": [
+    {
+     "type": "rushed",
+     "severity": 5,
+     "start": 19.27,
+     "end": 20.707,
+     "word_start": 38,
+     "word_end": 43,
+     "params": {
+      "duration_factor": 0.55
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devjfk__dragging_s1",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.35,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 1,
+     "start": 20.43,
+     "end": 25.127,
+     "word_start": 41,
+     "word_end": 46,
+     "params": {
+      "duration_factor": 1.12
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devjfk__dragging_s2",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.76,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 2,
+     "start": 19.27,
+     "end": 23.431,
+     "word_start": 38,
+     "word_end": 42,
+     "params": {
+      "duration_factor": 1.24
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devjfk__dragging_s3",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 31.12,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 3,
+     "start": 23.17,
+     "end": 29.947,
+     "word_start": 45,
+     "word_end": 53,
+     "params": {
+      "duration_factor": 1.36
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devjfk__dragging_s4",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 32.41,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 4,
+     "start": 22.29,
+     "end": 30.648,
+     "word_start": 43,
+     "word_end": 52,
+     "params": {
+      "duration_factor": 1.48
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devjfk__dragging_s5",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 31.84,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 5,
+     "start": 21.71,
+     "end": 27.898,
+     "word_start": 42,
+     "word_end": 47,
+     "params": {
+      "duration_factor": 1.62
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devjfk__monotone_s1",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 1,
+     "start": 9.44,
+     "end": 16.7,
+     "word_start": 17,
+     "word_end": 32,
+     "params": {
+      "excursion_removed": 0.35
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devjfk__monotone_s2",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 2,
+     "start": 16.39,
+     "end": 20.43,
+     "word_start": 32,
+     "word_end": 40,
+     "params": {
+      "excursion_removed": 0.55
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devjfk__monotone_s3",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 3,
+     "start": 19.85,
+     "end": 26.86,
+     "word_start": 39,
+     "word_end": 52,
+     "params": {
+      "excursion_removed": 0.7
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devjfk__monotone_s4",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 4,
+     "start": 15.22,
+     "end": 23.17,
+     "word_start": 29,
+     "word_end": 44,
+     "params": {
+      "excursion_removed": 0.85
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devjfk__monotone_s5",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 5,
+     "start": 1.81,
+     "end": 10.72,
+     "word_start": 4,
+     "word_end": 19,
+     "params": {
+      "excursion_removed": 0.97
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devjfk__trailing_off_s1",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 1,
+     "start": 22.88,
+     "end": 26.16,
+     "word_start": 44,
+     "word_end": 50,
+     "params": {
+      "drop_db": 4
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devjfk__trailing_off_s2",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 2,
+     "start": 14.93,
+     "end": 19.27,
+     "word_start": 28,
+     "word_end": 37,
+     "params": {
+      "drop_db": 7
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devjfk__trailing_off_s3",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 3,
+     "start": 0.88,
+     "end": 6.19,
+     "word_start": 2,
+     "word_end": 10,
+     "params": {
+      "drop_db": 10
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devjfk__trailing_off_s4",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 4,
+     "start": 18.02,
+     "end": 20.43,
+     "word_start": 35,
+     "word_end": 40,
+     "params": {
+      "drop_db": 14
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devjfk__trailing_off_s5",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 5,
+     "start": 1.81,
+     "end": 6.19,
+     "word_start": 4,
+     "word_end": 10,
+     "params": {
+      "drop_db": 18
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devjfk__pause_omission_s1",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 1,
+     "start": 0.28,
+     "end": 9.76,
+     "word_start": 1,
+     "word_end": 17,
+     "params": {
+      "pause_kept": 0.6,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devjfk__pause_omission_s2",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 2,
+     "start": 3.22,
+     "end": 10.72,
+     "word_start": 6,
+     "word_end": 19,
+     "params": {
+      "pause_kept": 0.45,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devjfk__pause_omission_s3",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 3,
+     "start": 6.48,
+     "end": 14.06,
+     "word_start": 12,
+     "word_end": 24,
+     "params": {
+      "pause_kept": 0.3,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devjfk__pause_omission_s4",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 4,
+     "start": 8.69,
+     "end": 16.7,
+     "word_start": 15,
+     "word_end": 32,
+     "params": {
+      "pause_kept": 0.15,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devjfk__pause_omission_s5",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "pause_omission",
+     "severity": 5,
+     "start": 0.28,
+     "end": 10.05,
+     "word_start": 1,
+     "word_end": 18,
+     "params": {
+      "pause_kept": 0.04,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devjfk__awkward_pause_s1",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.93,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 1,
+     "start": 10.72,
+     "end": 11.033,
+     "word_start": 19,
+     "word_end": 20,
+     "params": {
+      "inserted_s": 0.313
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devjfk__awkward_pause_s2",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.13,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 2,
+     "start": 19.27,
+     "end": 19.787,
+     "word_start": 37,
+     "word_end": 38,
+     "params": {
+      "inserted_s": 0.517
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devjfk__awkward_pause_s3",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 30.51,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 23.17,
+     "end": 24.119,
+     "word_start": 44,
+     "word_end": 45,
+     "params": {
+      "inserted_s": 0.949
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 25.029,
+     "end": 25.971,
+     "word_start": 45,
+     "word_end": 46,
+     "params": {
+      "inserted_s": 0.942
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devjfk__awkward_pause_s4",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 30.96,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 8.4,
+     "end": 9.61,
+     "word_start": 13,
+     "word_end": 14,
+     "params": {
+      "inserted_s": 1.21
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 25.6,
+     "end": 26.737,
+     "word_start": 46,
+     "word_end": 47,
+     "params": {
+      "inserted_s": 1.137
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devjfk__awkward_pause_s5",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 34.14,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 5,
+     "start": 3.51,
+     "end": 5.074,
+     "word_start": 6,
+     "word_end": 7,
+     "params": {
+      "inserted_s": 1.564
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 5,
+     "start": 15.914,
+     "end": 17.982,
+     "word_start": 25,
+     "word_end": 26,
+     "params": {
+      "inserted_s": 2.068
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 5,
+     "start": 20.332,
+     "end": 22.228,
+     "word_start": 32,
+     "word_end": 33,
+     "params": {
+      "inserted_s": 1.895
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devjfk__filler_s1",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.05,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 1,
+     "start": 14.93,
+     "end": 15.36,
+     "word_start": 27,
+     "word_end": 28,
+     "params": {
+      "filler_s": 0.28
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devjfk__filler_s2",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.48,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 2,
+     "start": 3.51,
+     "end": 3.94,
+     "word_start": 6,
+     "word_end": 7,
+     "params": {
+      "filler_s": 0.36
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 2,
+     "start": 10.48,
+     "end": 10.91,
+     "word_start": 18,
+     "word_end": 19,
+     "params": {
+      "filler_s": 0.36
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devjfk__filler_s3",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.48,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 4.85,
+     "end": 5.28,
+     "word_start": 9,
+     "word_end": 10,
+     "params": {
+      "filler_s": 0.45
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 19.03,
+     "end": 19.46,
+     "word_start": 36,
+     "word_end": 37,
+     "params": {
+      "filler_s": 0.45
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devjfk__filler_s4",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.91,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 1.49,
+     "end": 1.92,
+     "word_start": 2,
+     "word_end": 3,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 23.6,
+     "end": 24.03,
+     "word_start": 44,
+     "word_end": 45,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 28.3,
+     "end": 28.73,
+     "word_start": 53,
+     "word_end": 54,
+     "params": {
+      "filler_s": 0.55
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devjfk__filler_s5",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 30.34,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 1.49,
+     "end": 1.92,
+     "word_start": 2,
+     "word_end": 3,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 16.82,
+     "end": 17.25,
+     "word_start": 31,
+     "word_end": 32,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 20.71,
+     "end": 21.14,
+     "word_start": 38,
+     "word_end": 39,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 25.68,
+     "end": 26.11,
+     "word_start": 46,
+     "word_end": 47,
+     "params": {
+      "filler_s": 0.65
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devjfk__mumbling_s1",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 1,
+     "start": 22.88,
+     "end": 25.83,
+     "word_start": 44,
+     "word_end": 49,
+     "params": {
+      "lowpass_hz": 5000
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devjfk__mumbling_s2",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 2,
+     "start": 14.06,
+     "end": 16.39,
+     "word_start": 25,
+     "word_end": 31,
+     "params": {
+      "lowpass_hz": 3500
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devjfk__mumbling_s3",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 3,
+     "start": 24.39,
+     "end": 27.44,
+     "word_start": 47,
+     "word_end": 53,
+     "params": {
+      "lowpass_hz": 2500
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devjfk__mumbling_s4",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 4,
+     "start": 14.64,
+     "end": 17.11,
+     "word_start": 27,
+     "word_end": 33,
+     "params": {
+      "lowpass_hz": 1800
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devjfk__mumbling_s5",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.62,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 5,
+     "start": 21.71,
+     "end": 26.45,
+     "word_start": 42,
+     "word_end": 51,
+     "params": {
+      "lowpass_hz": 1200
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devjfk__stutter_s1",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.82,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 1,
+     "start": 9.15,
+     "end": 9.638,
+     "word_start": 16,
+     "word_end": 16,
+     "params": {
+      "repetitions": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "devjfk__stutter_s2",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 28.85,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 2,
+     "start": 19.27,
+     "end": 20.087,
+     "word_start": 38,
+     "word_end": 38,
+     "params": {
+      "repetitions": 1
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "devjfk__stutter_s3",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.04,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 3,
+     "start": 4.08,
+     "end": 4.789,
+     "word_start": 8,
+     "word_end": 8,
+     "params": {
+      "repetitions": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "devjfk__stutter_s4",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.43,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 4.08,
+     "end": 4.764,
+     "word_start": 8,
+     "word_end": 8,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 8.794,
+     "end": 9.499,
+     "word_start": 14,
+     "word_end": 14,
+     "params": {
+      "repetitions": 2
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "devjfk__stutter_s5",
+   "source": "devjfk",
+   "kind": "single",
+   "duration": 29.88,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 1.49,
+     "end": 2.448,
+     "word_start": 3,
+     "word_end": 3,
+     "params": {
+      "repetitions": 3
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 24.718,
+     "end": 25.651,
+     "word_start": 46,
+     "word_end": 46,
+     "params": {
+      "repetitions": 3
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "devjfk__mix1",
+   "source": "devjfk",
+   "kind": "mixed",
+   "duration": 29.21,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 2,
+     "start": 3.22,
+     "end": 3.812,
+     "word_start": 5,
+     "word_end": 6,
+     "params": {
+      "inserted_s": 0.592
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 2,
+     "start": 7.652,
+     "end": 14.942,
+     "word_start": 13,
+     "word_end": 25,
+     "params": {
+      "pause_kept": 0.45,
+      "pauses_shortened": 0
+     }
+    }
+   ],
+   "max_severity": 2,
+   "mix_level": 1
+  },
+  {
+   "id": "devjfk__mix2",
+   "source": "devjfk",
+   "kind": "mixed",
+   "duration": 28.57,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 1.81,
+     "end": 2.24,
+     "word_start": 3,
+     "word_end": 4,
+     "params": {
+      "filler_s": 0.45
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 2.58,
+     "end": 3.01,
+     "word_start": 4,
+     "word_end": 5,
+     "params": {
+      "filler_s": 0.45
+     }
+    },
+    {
+     "type": "rushed",
+     "severity": 1,
+     "start": 15.79,
+     "end": 19.801,
+     "word_start": 28,
+     "word_end": 38,
+     "params": {
+      "duration_factor": 0.88
+     }
+    }
+   ],
+   "max_severity": 3,
+   "mix_level": 2
+  },
+  {
+   "id": "devjfk__mix3",
+   "source": "devjfk",
+   "kind": "mixed",
+   "duration": 32.3,
+   "labels": [
+    {
+     "type": "dragging",
+     "severity": 2,
+     "start": 9.44,
+     "end": 15.11,
+     "word_start": 17,
+     "word_end": 22,
+     "params": {
+      "duration_factor": 1.24
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 15.982,
+     "end": 17.013,
+     "word_start": 25,
+     "word_end": 26,
+     "params": {
+      "inserted_s": 1.031
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 3,
+     "start": 18.483,
+     "end": 23.093,
+     "word_start": 31,
+     "word_end": 40,
+     "params": {
+      "lowpass_hz": 2500
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 27.053,
+     "end": 28.069,
+     "word_start": 46,
+     "word_end": 47,
+     "params": {
+      "inserted_s": 1.016
+     }
+    }
+   ],
+   "max_severity": 3,
+   "mix_level": 3
+  },
+  {
+   "id": "devjfk__mix4",
+   "source": "devjfk",
+   "kind": "mixed",
+   "duration": 26.01,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 2,
+     "start": 0.88,
+     "end": 7.06,
+     "word_start": 2,
+     "word_end": 12,
+     "params": {
+      "drop_db": 7
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 4,
+     "start": 8.4,
+     "end": 14.06,
+     "word_start": 14,
+     "word_end": 24,
+     "params": {
+      "pause_kept": 0.15,
+      "pauses_shortened": 0
+     }
+    },
+    {
+     "type": "rushed",
+     "severity": 3,
+     "start": 18.02,
+     "end": 21.787,
+     "word_start": 35,
+     "word_end": 46,
+     "params": {
+      "duration_factor": 0.72
+     }
+    }
+   ],
+   "max_severity": 4,
+   "mix_level": 4
+  },
+  {
+   "id": "devjfk__mix5",
+   "source": "devjfk",
+   "kind": "mixed",
+   "duration": 29.13,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 3,
+     "start": 1.81,
+     "end": 9.44,
+     "word_start": 4,
+     "word_end": 16,
+     "params": {
+      "excursion_removed": 0.7
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 14.35,
+     "end": 15.295,
+     "word_start": 25,
+     "word_end": 26,
+     "params": {
+      "inserted_s": 0.945
+     }
+    },
+    {
+     "type": "trailing_off",
+     "severity": 3,
+     "start": 16.475,
+     "end": 21.085,
+     "word_start": 30,
+     "word_end": 39,
+     "params": {
+      "drop_db": 10
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 23.235,
+     "end": 24.263,
+     "word_start": 42,
+     "word_end": 43,
+     "params": {
+      "inserted_s": 1.029
+     }
+    },
+    {
+     "type": "rushed",
+     "severity": 4,
+     "start": 24.853,
+     "end": 26.342,
+     "word_start": 44,
+     "word_end": 49,
+     "params": {
+      "duration_factor": 0.64
+     }
+    }
+   ],
+   "max_severity": 4,
+   "mix_level": 5
+  },
+  {
+   "id": "devjfk__mix6",
+   "source": "devjfk",
+   "kind": "mixed",
+   "duration": 30.73,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 1.81,
+     "end": 2.24,
+     "word_start": 3,
+     "word_end": 4,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 6.91,
+     "end": 7.34,
+     "word_start": 11,
+     "word_end": 12,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 3,
+     "start": 14.92,
+     "end": 15.608,
+     "word_start": 25,
+     "word_end": 25,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 3,
+     "start": 15.608,
+     "end": 17.648,
+     "word_start": 26,
+     "word_end": 31,
+     "params": {
+      "lowpass_hz": 2500
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 18.368,
+     "end": 18.798,
+     "word_start": 33,
+     "word_end": 34,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "trailing_off",
+     "severity": 5,
+     "start": 19.998,
+     "end": 26.078,
+     "word_start": 36,
+     "word_end": 46,
+     "params": {
+      "drop_db": 18
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 29.128,
+     "end": 29.558,
+     "word_start": 53,
+     "word_end": 54,
+     "params": {
+      "filler_s": 0.65
+     }
+    }
+   ],
+   "max_severity": 5,
+   "mix_level": 6
+  },
+  {
+   "id": "devjfk__mix7",
+   "source": "devjfk",
+   "kind": "mixed",
+   "duration": 27.37,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 4,
+     "start": 0.28,
+     "end": 4.37,
+     "word_start": 1,
+     "word_end": 8,
+     "params": {
+      "drop_db": 14
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 9.15,
+     "end": 10.019,
+     "word_start": 16,
+     "word_end": 16,
+     "params": {
+      "repetitions": 3
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 13.179,
+     "end": 14.766,
+     "word_start": 22,
+     "word_end": 22,
+     "params": {
+      "repetitions": 3
+     }
+    },
+    {
+     "type": "monotone",
+     "severity": 5,
+     "start": 15.056,
+     "end": 18.396,
+     "word_start": 24,
+     "word_end": 33,
+     "params": {
+      "excursion_removed": 0.97
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 5,
+     "start": 19.596,
+     "end": 23.576,
+     "word_start": 36,
+     "word_end": 42,
+     "params": {
+      "lowpass_hz": 1200
+     }
+    },
+    {
+     "type": "rushed",
+     "severity": 5,
+     "start": 25.366,
+     "end": 27.064,
+     "word_start": 46,
+     "word_end": 54,
+     "params": {
+      "duration_factor": 0.55
+     }
+    }
+   ],
+   "max_severity": 5,
+   "mix_level": 7
+  },
+  {
+   "id": "devjfk__mix8",
+   "source": "devjfk",
+   "kind": "mixed",
+   "duration": 33.98,
+   "labels": [
+    {
+     "type": "trailing_off",
+     "severity": 5,
+     "start": 1.49,
+     "end": 6.19,
+     "word_start": 3,
+     "word_end": 10,
+     "params": {
+      "drop_db": 18
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 8.69,
+     "end": 9.12,
+     "word_start": 14,
+     "word_end": 15,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 10.19,
+     "end": 10.62,
+     "word_start": 17,
+     "word_end": 18,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 11.58,
+     "end": 12.01,
+     "word_start": 19,
+     "word_end": 20,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "dragging",
+     "severity": 5,
+     "start": 15.06,
+     "end": 19.414,
+     "word_start": 24,
+     "word_end": 30,
+     "params": {
+      "duration_factor": 1.62
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 20.704,
+     "end": 22.312,
+     "word_start": 34,
+     "word_end": 34,
+     "params": {
+      "repetitions": 3
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 5,
+     "start": 22.602,
+     "end": 23.032,
+     "word_start": 35,
+     "word_end": 36,
+     "params": {
+      "filler_s": 0.65
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 5,
+     "start": 24.572,
+     "end": 25.498,
+     "word_start": 39,
+     "word_end": 39,
+     "params": {
+      "repetitions": 3
+     }
+    },
+    {
+     "type": "monotone",
+     "severity": 5,
+     "start": 25.498,
+     "end": 31.518,
+     "word_start": 40,
+     "word_end": 50,
+     "params": {
+      "excursion_removed": 0.97
+     }
+    }
+   ],
+   "max_severity": 5,
+   "mix_level": 8
+  }
+ ]
+}

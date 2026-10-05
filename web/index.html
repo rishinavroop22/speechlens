@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SpeechLens</title>
+<link rel="stylesheet" href="app.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 16h4l3-9 4 18 4-14 3 8 2-3h8' fill='none' stroke='%231E66D0' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#analyze" aria-label="SpeechLens home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M2 16h4l3-9 4 18 4-14 3 8 2-3h8"/></svg>
+    <span>SpeechLens</span>
+  </a>
+  <nav class="tabs" role="tablist">
+    <a href="#analyze" role="tab" data-view="analyze">Analyze</a>
+    <a href="#dataset" role="tab" data-view="dataset">Dataset</a>
+    <a href="#evaluation" role="tab" data-view="evaluation">Evaluation</a>
+  </nav>
+  <label class="rubric-pick">
+    <span>Rubric</span>
+    <select id="rubric"></select>
+  </label>
+</header>
+
+<main>
+  <!-- ============================== ANALYZE ============================ -->
+  <section id="view-analyze" class="view">
+    <aside class="rail">
+      <form id="form" autocomplete="off">
+        <fieldset>
+          <legend>Reference</legend>
+          <p class="hint">The well-delivered version the participant is compared against.</p>
+          <select id="ref-select"></select>
+          <details id="ref-upload">
+            <summary>Use my own reference</summary>
+            <input type="file" id="ref-file" accept="audio/*">
+            <textarea id="ref-text" rows="4" placeholder="Paste the transcript of the reference recording"></textarea>
+          </details>
+        </fieldset>
+        <fieldset>
+          <legend>Participant</legend>
+          <label class="drop" id="drop">
+            <input type="file" id="par-file" accept="audio/*">
+            <span class="drop-main">Drop a recording or choose a file</span>
+            <span class="drop-sub" id="par-name">WAV, MP3, M4A, OGG</span>
+          </label>
+          <details>
+            <summary>Transcript differs from the reference</summary>
+            <textarea id="par-text" rows="4" placeholder="Leave empty if the participant read the reference transcript"></textarea>
+          </details>
+        </fieldset>
+        <button type="submit" class="primary" id="go">Analyze delivery</button>
+        <p class="status" id="status" role="status"></p>
+      </form>
+      <div class="samples">
+        <h3>Try a dataset clip</h3>
+        <p class="hint">Flawed versions from the contrastive dataset. Ground truth is drawn above the waveform.</p>
+        <div id="sample-list"></div>
+      </div>
+    </aside>
+
+    <div class="stage">
+      <div class="empty" id="empty">
+        <h1>Hear exactly where a delivery goes wrong.</h1>
+        <p>SpeechLens lines a participant's reading up against a reference reading of the same text, word by word, and marks each delivery flaw with its time span, the numbers behind it, and a fix.</p>
+        <p class="hint">Pick a dataset clip on the left to see it work.</p>
+      </div>
+
+      <div class="report" id="report" hidden>
+        <div class="scoreline">
+          <div class="score">
+            <div class="score-num"><span id="score-num">0</span><small>/100</small></div>
+            <div class="score-band" id="score-band"></div>
+            <div class="score-rubric" id="score-rubric"></div>
+          </div>
+          <div class="dims" id="dims"></div>
+        </div>
+
+        <div class="player">
+          <button class="play" id="play" aria-label="Play">
+            <svg viewBox="0 0 24 24" class="i-play"><path d="M7 4l13 8-13 8z"/></svg>
+            <svg viewBox="0 0 24 24" class="i-pause"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          </button>
+          <span class="clock" id="clock">0:00.0</span>
+          <div class="legend">
+            <span><i class="sw sw-par"></i>Participant</span>
+            <span><i class="sw sw-ref"></i>Reference, time-aligned</span>
+            <span id="legend-truth" hidden><i class="sw sw-truth"></i>Ground truth</span>
+          </div>
+          <div class="zoom">
+            <button id="zoom-out" aria-label="Zoom out">−</button>
+            <button id="zoom-in" aria-label="Zoom in">+</button>
+          </div>
+        </div>
+
+        <div class="tape-wrap" id="tape-wrap">
+          <div class="tape" id="tape">
+            <div class="lane-labels">
+              <div class="ll ll-truth" id="ll-truth" hidden>Truth</div>
+              <div class="ll ll-wave">Waveform</div>
+              <div class="ll">Pitch<small>semitones</small></div>
+              <div class="ll">Loudness<small>dB, own level</small></div>
+              <div class="ll">Articulation<small>% above 2 kHz</small></div>
+              <div class="ll ll-words">Words</div>
+            </div>
+            <div class="lanes" id="lanes">
+              <canvas id="cv-truth" class="lane lane-truth" hidden></canvas>
+              <canvas id="cv-wave" class="lane lane-wave"></canvas>
+              <canvas id="cv-pitch" class="lane"></canvas>
+              <canvas id="cv-loud" class="lane"></canvas>
+              <canvas id="cv-art" class="lane"></canvas>
+              <div id="words" class="lane lane-words"></div>
+              <div id="bands" class="bands"></div>
+              <div id="playhead" class="playhead"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="findings">
+          <div class="flist">
+            <h2 id="flist-title">Findings</h2>
+            <ol id="flist"></ol>
+          </div>
+          <article class="fdetail" id="fdetail" aria-live="polite"></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== DATASET ============================ -->
+  <section id="view-dataset" class="view" hidden>
+    <div class="page">
+      <h1>The contrastive dataset</h1>
+      <p class="lede">Each reference speech is mirrored by recordings of the same transcript with delivery flaws, from near-perfect (severity 1) to egregious (severity 5). Synthetic flaws are injected with PSOLA resynthesis in the speaker's own voice, so every label is exact to the sample. Human recordings were made by the team following a scripted flaw sheet.</p>
+      <div id="ds-sources" class="sources"></div>
+      <div class="ds-filters">
+        <label>Speech <select id="f-src"></select></label>
+        <label>Kind <select id="f-kind"><option value="">All</option><option value="single">Single flaw</option><option value="mixed">Mixed gradient</option><option value="human">Human recording</option><option value="control">Control</option></select></label>
+        <label>Flaw <select id="f-type"></select></label>
+        <span id="ds-count" class="hint"></span>
+      </div>
+      <table class="ds-table">
+        <thead><tr><th>Clip</th><th>Kind</th><th>Flaws</th><th>Length</th><th></th></tr></thead>
+        <tbody id="ds-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- =========================== EVALUATION ============================ -->
+  <section id="view-evaluation" class="view" hidden>
+    <div class="page" id="eval"></div>
+  </section>
+</main>
+
+<audio id="audio" preload="auto"></audio>
+<audio id="ref-audio" preload="auto"></audio>
+<script src="app.js" type="module"></script>
+</body>
+</html>

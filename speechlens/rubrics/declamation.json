@@ -1,0 +1,34 @@
+{
+  "name": "Declamation",
+  "description": "Delivering a famous speech: fidelity to its rhythm and vocal variety dominate.",
+  "weights": {
+    "pace": 1.0,
+    "pausing": 1.2,
+    "fluency": 1.0,
+    "pitch_variety": 1.3,
+    "volume": 1.0,
+    "clarity": 1.0
+  },
+  "bands": [
+    {
+      "min": 90,
+      "label": "Championship"
+    },
+    {
+      "min": 75,
+      "label": "Strong"
+    },
+    {
+      "min": 60,
+      "label": "Developing"
+    },
+    {
+      "min": 40,
+      "label": "Weak"
+    },
+    {
+      "min": 0,
+      "label": "Needs major work"
+    }
+  ]
+}

@@ -1,0 +1,598 @@
+{
+ "id": "devfdr__rushed_s5",
+ "source": "devfdr",
+ "kind": "single",
+ "duration": 23.21,
+ "labels": [
+  {
+   "type": "rushed",
+   "severity": 5,
+   "start": 4.01,
+   "end": 5.271,
+   "word_start": 10,
+   "word_end": 16,
+   "params": {
+    "duration_factor": 0.55
+   }
+  }
+ ],
+ "max_severity": 5,
+ "words": [
+  {
+   "i": 0,
+   "text": "Yesterday,",
+   "norm": "YESTERDAY",
+   "start": 0.0,
+   "end": 0.62,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 1,
+   "text": "December",
+   "norm": "DECEMBER",
+   "start": 0.62,
+   "end": 1.38,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 2,
+   "text": "seventh,",
+   "norm": "SEVENTH",
+   "start": 1.38,
+   "end": 1.8,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 3,
+   "text": "a",
+   "norm": "A",
+   "start": 1.8,
+   "end": 2.01,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 4,
+   "text": "date",
+   "norm": "DATE",
+   "start": 2.01,
+   "end": 2.41,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 5,
+   "text": "which",
+   "norm": "WHICH",
+   "start": 2.41,
+   "end": 2.62,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 6,
+   "text": "will",
+   "norm": "WILL",
+   "start": 2.62,
+   "end": 2.83,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 7,
+   "text": "live",
+   "norm": "LIVE",
+   "start": 2.83,
+   "end": 3.17,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 8,
+   "text": "in",
+   "norm": "IN",
+   "start": 3.17,
+   "end": 3.38,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 9,
+   "text": "infamy,",
+   "norm": "INFAMY",
+   "start": 3.38,
+   "end": 4.01,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 10,
+   "text": "the",
+   "norm": "THE",
+   "start": 4.01,
+   "end": 4.107,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 11,
+   "text": "United",
+   "norm": "UNITED",
+   "start": 4.107,
+   "end": 4.399,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 12,
+   "text": "States",
+   "norm": "STATES",
+   "start": 4.399,
+   "end": 4.558,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 13,
+   "text": "of",
+   "norm": "OF",
+   "start": 4.558,
+   "end": 4.638,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 14,
+   "text": "America",
+   "norm": "AMERICA",
+   "start": 4.638,
+   "end": 4.953,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 15,
+   "text": "was",
+   "norm": "WAS",
+   "start": 4.953,
+   "end": 5.032,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 16,
+   "text": "suddenly",
+   "norm": "SUDDENLY",
+   "start": 5.032,
+   "end": 5.271,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 17,
+   "text": "and",
+   "norm": "AND",
+   "start": 5.271,
+   "end": 5.561,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 18,
+   "text": "deliberately",
+   "norm": "DELIBERATELY",
+   "start": 5.561,
+   "end": 6.851,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 19,
+   "text": "attacked",
+   "norm": "ATTACKED",
+   "start": 6.851,
+   "end": 7.311,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 20,
+   "text": "by",
+   "norm": "BY",
+   "start": 7.311,
+   "end": 7.521,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 21,
+   "text": "naval",
+   "norm": "NAVAL",
+   "start": 7.521,
+   "end": 7.971,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 22,
+   "text": "and",
+   "norm": "AND",
+   "start": 7.971,
+   "end": 8.181,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 23,
+   "text": "air",
+   "norm": "AIR",
+   "start": 8.181,
+   "end": 8.391,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 24,
+   "text": "forces",
+   "norm": "FORCES",
+   "start": 8.391,
+   "end": 8.811,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 25,
+   "text": "of",
+   "norm": "OF",
+   "start": 8.811,
+   "end": 9.021,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 26,
+   "text": "the",
+   "norm": "THE",
+   "start": 9.021,
+   "end": 9.241,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 27,
+   "text": "Empire",
+   "norm": "EMPIRE",
+   "start": 9.241,
+   "end": 9.661,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 28,
+   "text": "of",
+   "norm": "OF",
+   "start": 9.661,
+   "end": 9.901,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 29,
+   "text": "Japan.",
+   "norm": "JAPAN",
+   "start": 9.901,
+   "end": 10.741,
+   "conf": 0.0,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 30,
+   "text": "The",
+   "norm": "THE",
+   "start": 10.741,
+   "end": 10.941,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 31,
+   "text": "United",
+   "norm": "UNITED",
+   "start": 10.941,
+   "end": 11.571,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 32,
+   "text": "States",
+   "norm": "STATES",
+   "start": 11.571,
+   "end": 11.991,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 33,
+   "text": "was",
+   "norm": "WAS",
+   "start": 11.991,
+   "end": 12.271,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 34,
+   "text": "at",
+   "norm": "AT",
+   "start": 12.271,
+   "end": 12.481,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 35,
+   "text": "peace",
+   "norm": "PEACE",
+   "start": 12.481,
+   "end": 12.691,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 36,
+   "text": "with",
+   "norm": "WITH",
+   "start": 12.691,
+   "end": 12.931,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 37,
+   "text": "that",
+   "norm": "THAT",
+   "start": 12.931,
+   "end": 13.141,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 38,
+   "text": "nation",
+   "norm": "NATION",
+   "start": 13.141,
+   "end": 13.561,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 39,
+   "text": "and,",
+   "norm": "AND",
+   "start": 13.561,
+   "end": 13.781,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 40,
+   "text": "at",
+   "norm": "AT",
+   "start": 13.781,
+   "end": 14.141,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 41,
+   "text": "the",
+   "norm": "THE",
+   "start": 14.141,
+   "end": 14.351,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 42,
+   "text": "solicitation",
+   "norm": "SOLICITATION",
+   "start": 14.351,
+   "end": 15.451,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 43,
+   "text": "of",
+   "norm": "OF",
+   "start": 15.451,
+   "end": 15.661,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 44,
+   "text": "Japan,",
+   "norm": "JAPAN",
+   "start": 15.661,
+   "end": 16.181,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 45,
+   "text": "was",
+   "norm": "WAS",
+   "start": 16.181,
+   "end": 16.391,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 46,
+   "text": "still",
+   "norm": "STILL",
+   "start": 16.391,
+   "end": 16.601,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 47,
+   "text": "in",
+   "norm": "IN",
+   "start": 16.601,
+   "end": 16.811,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 48,
+   "text": "conversation",
+   "norm": "CONVERSATION",
+   "start": 16.811,
+   "end": 17.641,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 49,
+   "text": "with",
+   "norm": "WITH",
+   "start": 17.641,
+   "end": 17.851,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 50,
+   "text": "its",
+   "norm": "ITS",
+   "start": 17.851,
+   "end": 18.091,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 51,
+   "text": "government",
+   "norm": "GOVERNMENT",
+   "start": 18.091,
+   "end": 18.741,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 52,
+   "text": "and",
+   "norm": "AND",
+   "start": 18.741,
+   "end": 19.091,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 53,
+   "text": "its",
+   "norm": "ITS",
+   "start": 19.091,
+   "end": 19.301,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 54,
+   "text": "emperor",
+   "norm": "EMPEROR",
+   "start": 19.301,
+   "end": 19.971,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 55,
+   "text": "looking",
+   "norm": "LOOKING",
+   "start": 19.971,
+   "end": 20.391,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 56,
+   "text": "toward",
+   "norm": "TOWARD",
+   "start": 20.391,
+   "end": 20.811,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 57,
+   "text": "the",
+   "norm": "THE",
+   "start": 20.811,
+   "end": 21.021,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 58,
+   "text": "maintenance",
+   "norm": "MAINTENANCE",
+   "start": 21.021,
+   "end": 21.661,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 59,
+   "text": "of",
+   "norm": "OF",
+   "start": 21.661,
+   "end": 21.871,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 60,
+   "text": "peace",
+   "norm": "PEACE",
+   "start": 21.871,
+   "end": 22.081,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 61,
+   "text": "in",
+   "norm": "IN",
+   "start": 22.081,
+   "end": 22.291,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 62,
+   "text": "the",
+   "norm": "THE",
+   "start": 22.291,
+   "end": 22.521,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 63,
+   "text": "Pacific.",
+   "norm": "PACIFIC",
+   "start": 22.521,
+   "end": 23.181,
+   "conf": 0.0,
+   "punct_after": "sentence"
+  }
+ ]
+}

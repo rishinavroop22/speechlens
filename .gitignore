@@ -1,0 +1,8 @@
+__pycache__/
+.cache/
+models/
+data/raw/
+data/dataset/clips/
+data/dev/
+results/predictions.json
+*.pyc

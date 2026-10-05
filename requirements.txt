@@ -1,0 +1,11 @@
+numpy>=1.26
+scipy>=1.11
+librosa>=0.10
+soundfile>=0.12
+praat-parselmouth>=0.4.4
+onnxruntime>=1.17
+ruptures>=1.1
+num2words>=0.5.13
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9

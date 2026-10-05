@@ -1,0 +1,34 @@
+{
+  "name": "Persuasive Oratory",
+  "description": "Original persuasive speech: projection and controlled pace drive impact.",
+  "weights": {
+    "pace": 1.2,
+    "pausing": 1.0,
+    "fluency": 1.0,
+    "pitch_variety": 1.1,
+    "volume": 1.4,
+    "clarity": 1.1
+  },
+  "bands": [
+    {
+      "min": 90,
+      "label": "Championship"
+    },
+    {
+      "min": 75,
+      "label": "Strong"
+    },
+    {
+      "min": 60,
+      "label": "Developing"
+    },
+    {
+      "min": 40,
+      "label": "Weak"
+    },
+    {
+      "min": 0,
+      "label": "Needs major work"
+    }
+  ]
+}

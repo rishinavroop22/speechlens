@@ -1,0 +1,548 @@
+{
+ "id": "devjfk__awkward_pause_s5",
+ "source": "devjfk",
+ "kind": "single",
+ "duration": 34.14,
+ "labels": [
+  {
+   "type": "awkward_pause",
+   "severity": 5,
+   "start": 3.51,
+   "end": 5.074,
+   "word_start": 6,
+   "word_end": 7,
+   "params": {
+    "inserted_s": 1.564
+   }
+  },
+  {
+   "type": "awkward_pause",
+   "severity": 5,
+   "start": 15.914,
+   "end": 17.982,
+   "word_start": 25,
+   "word_end": 26,
+   "params": {
+    "inserted_s": 2.068
+   }
+  },
+  {
+   "type": "awkward_pause",
+   "severity": 5,
+   "start": 20.332,
+   "end": 22.228,
+   "word_start": 32,
+   "word_end": 33,
+   "params": {
+    "inserted_s": 1.895
+   }
+  }
+ ],
+ "max_severity": 5,
+ "words": [
+  {
+   "i": 0,
+   "text": "We",
+   "norm": "WE",
+   "start": 0.0,
+   "end": 0.28,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 1,
+   "text": "observe",
+   "norm": "OBSERVE",
+   "start": 0.28,
+   "end": 0.88,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 2,
+   "text": "today",
+   "norm": "TODAY",
+   "start": 0.88,
+   "end": 1.49,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 3,
+   "text": "not",
+   "norm": "NOT",
+   "start": 1.49,
+   "end": 1.81,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 4,
+   "text": "a",
+   "norm": "A",
+   "start": 1.81,
+   "end": 2.15,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 5,
+   "text": "victory",
+   "norm": "VICTORY",
+   "start": 2.15,
+   "end": 3.22,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 6,
+   "text": "of",
+   "norm": "OF",
+   "start": 3.22,
+   "end": 3.51,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 7,
+   "text": "party,",
+   "norm": "PARTY",
+   "start": 5.074,
+   "end": 5.644,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 8,
+   "text": "but",
+   "norm": "BUT",
+   "start": 5.644,
+   "end": 5.934,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 9,
+   "text": "a",
+   "norm": "A",
+   "start": 5.934,
+   "end": 6.414,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 10,
+   "text": "celebration",
+   "norm": "CELEBRATION",
+   "start": 6.414,
+   "end": 7.754,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 11,
+   "text": "of",
+   "norm": "OF",
+   "start": 7.754,
+   "end": 8.044,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 12,
+   "text": "freedom,",
+   "norm": "FREEDOM",
+   "start": 8.044,
+   "end": 8.624,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 13,
+   "text": "symbolizing",
+   "norm": "SYMBOLIZING",
+   "start": 8.624,
+   "end": 9.964,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 14,
+   "text": "an",
+   "norm": "AN",
+   "start": 9.964,
+   "end": 10.254,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 15,
+   "text": "end,",
+   "norm": "END",
+   "start": 10.254,
+   "end": 10.714,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 16,
+   "text": "as",
+   "norm": "AS",
+   "start": 10.714,
+   "end": 11.004,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 17,
+   "text": "well",
+   "norm": "WELL",
+   "start": 11.004,
+   "end": 11.324,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 18,
+   "text": "as",
+   "norm": "AS",
+   "start": 11.324,
+   "end": 11.614,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 19,
+   "text": "a",
+   "norm": "A",
+   "start": 11.614,
+   "end": 12.284,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 20,
+   "text": "beginning,",
+   "norm": "BEGINNING",
+   "start": 12.284,
+   "end": 13.154,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 21,
+   "text": "signifying",
+   "norm": "SIGNIFYING",
+   "start": 13.154,
+   "end": 14.164,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 22,
+   "text": "renewal,",
+   "norm": "RENEWAL",
+   "start": 14.164,
+   "end": 15.044,
+   "conf": 0.0,
+   "punct_after": "comma"
+  },
+  {
+   "i": 23,
+   "text": "as",
+   "norm": "AS",
+   "start": 15.044,
+   "end": 15.334,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 24,
+   "text": "well",
+   "norm": "WELL",
+   "start": 15.334,
+   "end": 15.624,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 25,
+   "text": "as",
+   "norm": "AS",
+   "start": 15.624,
+   "end": 15.914,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 26,
+   "text": "change.",
+   "norm": "CHANGE",
+   "start": 17.982,
+   "end": 18.272,
+   "conf": 0.0,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 27,
+   "text": "For",
+   "norm": "FOR",
+   "start": 18.272,
+   "end": 18.562,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 28,
+   "text": "I",
+   "norm": "I",
+   "start": 18.562,
+   "end": 18.852,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 29,
+   "text": "have",
+   "norm": "HAVE",
+   "start": 18.852,
+   "end": 19.162,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 30,
+   "text": "sworn",
+   "norm": "SWORN",
+   "start": 19.162,
+   "end": 19.452,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 31,
+   "text": "before",
+   "norm": "BEFORE",
+   "start": 19.452,
+   "end": 20.022,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 32,
+   "text": "you",
+   "norm": "YOU",
+   "start": 20.022,
+   "end": 20.332,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 33,
+   "text": "and",
+   "norm": "AND",
+   "start": 22.228,
+   "end": 22.638,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 34,
+   "text": "Almighty",
+   "norm": "ALMIGHTY",
+   "start": 22.638,
+   "end": 23.548,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 35,
+   "text": "God",
+   "norm": "GOD",
+   "start": 23.548,
+   "end": 23.838,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 36,
+   "text": "the",
+   "norm": "THE",
+   "start": 23.838,
+   "end": 24.128,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 37,
+   "text": "same",
+   "norm": "SAME",
+   "start": 24.128,
+   "end": 24.798,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 38,
+   "text": "solemn",
+   "norm": "SOLEMN",
+   "start": 24.798,
+   "end": 25.378,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 39,
+   "text": "oath",
+   "norm": "OATH",
+   "start": 25.378,
+   "end": 25.668,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 40,
+   "text": "our",
+   "norm": "OUR",
+   "start": 25.668,
+   "end": 25.958,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 41,
+   "text": "forebears",
+   "norm": "FOREBEARS",
+   "start": 25.958,
+   "end": 27.238,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 42,
+   "text": "prescribed",
+   "norm": "PRESCRIBED",
+   "start": 27.238,
+   "end": 27.818,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 43,
+   "text": "nearly",
+   "norm": "NEARLY",
+   "start": 27.818,
+   "end": 28.408,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 44,
+   "text": "a",
+   "norm": "A",
+   "start": 28.408,
+   "end": 28.698,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 45,
+   "text": "century",
+   "norm": "CENTURY",
+   "start": 28.698,
+   "end": 29.608,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 46,
+   "text": "and",
+   "norm": "AND",
+   "start": 29.608,
+   "end": 29.918,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 47,
+   "text": "three",
+   "norm": "THREE",
+   "start": 29.918,
+   "end": 30.208,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 48,
+   "text": "quarters",
+   "norm": "QUARTERS",
+   "start": 30.208,
+   "end": 30.778,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 49,
+   "text": "ago.",
+   "norm": "AGO",
+   "start": 30.778,
+   "end": 31.358,
+   "conf": 0.0,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 50,
+   "text": "The",
+   "norm": "THE",
+   "start": 31.358,
+   "end": 31.688,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 51,
+   "text": "world",
+   "norm": "WORLD",
+   "start": 31.688,
+   "end": 31.978,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 52,
+   "text": "is",
+   "norm": "IS",
+   "start": 31.978,
+   "end": 32.388,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 53,
+   "text": "very",
+   "norm": "VERY",
+   "start": 32.388,
+   "end": 32.968,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 54,
+   "text": "different",
+   "norm": "DIFFERENT",
+   "start": 32.968,
+   "end": 33.838,
+   "conf": 0.0,
+   "punct_after": null
+  },
+  {
+   "i": 55,
+   "text": "now.",
+   "norm": "NOW",
+   "start": 33.838,
+   "end": 34.138,
+   "conf": 0.0,
+   "punct_after": "sentence"
+  }
+ ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Extemporaneous",
+  "description": "Prepared-on-the-spot speaking: fluency and steady pace matter most.",
+  "weights": {
+    "pace": 1.1,
+    "pausing": 1.0,
+    "fluency": 1.5,
+    "pitch_variety": 1.0,
+    "volume": 0.9,
+    "clarity": 1.1
+  },
+  "bands": [
+    {
+      "min": 90,
+      "label": "Championship"
+    },
+    {
+      "min": 75,
+      "label": "Strong"
+    },
+    {
+      "min": 60,
+      "label": "Developing"
+    },
+    {
+      "min": 40,
+      "label": "Weak"
+    },
+    {
+      "min": 0,
+      "label": "Needs major work"
+    }
+  ]
+}

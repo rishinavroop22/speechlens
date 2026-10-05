@@ -1,0 +1,412 @@
+"""Contrastive analysis: compare a participant reading against a reference
+reading of the same transcript, word by word, and ground every delivery flaw
+to an exact time span with the numbers that justify it.
+
+Method
+------
+1. Words of the two readings are paired by transcript position (difflib on
+   the normalized spellings, so a skipped or added word does not derail it).
+2. For each pair we compute six contrast signals (pace, pitch variety,
+   loudness, articulation, pause, disfluency). Each continuous signal s_j is
+   split into a *global* offset g = median_j(s_j) - the speaker's overall
+   habit, reported separately - and a *local* deviation l_j = s_j - g that
+   pinpoints where delivery departs from the reference.
+3. Local deviations are scored in units of the reference speaker's own
+   word-to-word variability (robust z = l / (1.4826 * MAD)), smoothed over
+   neighbouring words, thresholded, and merged into contiguous regions.
+4. Each region carries its metric values, deltas, z-score and the threshold
+   that fired, which the explainer turns into a causal sentence.
+"""
+from __future__ import annotations
+
+import difflib
+from dataclasses import dataclass, field, asdict
+
+import numpy as np
+
+from .features import Analysis, HOP
+
+DIMENSION = {"rushed": "pace", "dragging": "pace", "pause_omission": "pausing", "awkward_pause": "pausing",
+             "filler": "fluency", "stutter": "fluency", "monotone": "pitch_variety",
+             "trailing_off": "volume", "mumbling": "clarity"}
+
+# local thresholds (in natural units) - see docs/methodology.md
+TH = {
+    "pace_log2": 0.20,          # >= 15 % faster / slower than the reference, locally
+    "pitch_log2": -0.55,        # pitch spread < 68 % of reference
+    "vol_db": -3.5,             # quieter than reference by > 3.5 dB (speaker-relative)
+    "clar_log2": -0.75,         # high-band articulation energy < 59 % of reference
+    "pause_keep": 0.40,         # a reference pause >= 180 ms shrunk to < 40 %
+    "pause_extra_s": 0.30,      # >= 300 ms longer than the reference pause
+    "filled_s": 0.15,           # >= 150 ms of voicing inside a pause
+}
+# global (whole-reading) thresholds
+TH_GLOBAL = {"pace_log2": 0.25, "pitch_log2": -0.6, "clar_log2": -0.8}
+
+
+@dataclass
+class Metric:
+    name: str
+    unit: str
+    reference: float
+    participant: float
+    delta: float
+    z: float | None = None
+    threshold: str = ""
+
+    def to_dict(self):
+        d = asdict(self)
+        for k in ("reference", "participant", "delta", "z"):
+            if d[k] is not None:
+                d[k] = round(float(d[k]), 3)
+        return d
+
+
+@dataclass
+class Region:
+    type: str
+    start: float
+    end: float
+    word_start: int            # participant word indices
+    word_end: int
+    severity: int              # 1..5 estimate
+    confidence: float          # 0..1
+    metrics: list[Metric] = field(default_factory=list)
+    scope: str = "local"       # "local" | "global"
+    ref_start: float | None = None
+    ref_end: float | None = None
+    text: str = ""
+    explanation: str = ""
+
+    @property
+    def dimension(self):
+        return DIMENSION[self.type]
+
+    def to_dict(self):
+        d = asdict(self)
+        d["dimension"] = self.dimension
+        d["metrics"] = [m.to_dict() for m in self.metrics]
+        return d
+
+
+# ------------------------------------------------------------------ utils ---
+def pair_words(ref: Analysis, par: Analysis) -> list[tuple[int, int]]:
+    a = [w.norm for w in ref.words]
+    b = [w.norm for w in par.words]
+    sm = difflib.SequenceMatcher(a=a, b=b, autojunk=False)
+    pairs = []
+    for blk in sm.get_matching_blocks():
+        pairs += [(blk.a + k, blk.b + k) for k in range(blk.size)]
+    return pairs
+
+
+def _robust_spread(x, floor):
+    x = np.asarray(x, float)
+    x = x[np.isfinite(x)]
+    if len(x) < 4:
+        return floor
+    return max(floor, 1.4826 * float(np.median(np.abs(x - np.median(x)))))
+
+
+def _smooth(x, k=3):
+    x = np.asarray(x, float)
+    out = np.empty_like(x)
+    h = k // 2
+    for i in range(len(x)):
+        w = x[max(0, i - h): i + h + 1]
+        w = w[np.isfinite(w)]
+        out[i] = np.mean(w) if len(w) else np.nan
+    return out
+
+
+def _runs(flags, min_len=1, hole=1):
+    """Contiguous True runs, closing gaps of <= `hole` False entries."""
+    f = np.asarray(flags, bool).copy()
+    idx = np.nonzero(f)[0]
+    for a, b in zip(idx[:-1], idx[1:]):
+        if 1 < b - a <= hole + 1:
+            f[a:b] = True
+    runs, start = [], None
+    for i, v in enumerate(np.r_[f, False]):
+        if v and start is None:
+            start = i
+        elif not v and start is not None:
+            if i - start >= min_len:
+                runs.append((start, i - 1))
+            start = None
+    return runs
+
+
+def _window(vals_num, vals_den, j, h):
+    a, b = max(0, j - h), j + h + 1
+    num, den = np.nansum(vals_num[a:b]), np.nansum(vals_den[a:b])
+    return num / den if den > 0 else np.nan
+
+
+def _f0_spread(an: Analysis, wi: list[int]) -> float:
+    fr = [an.ff.f0_st[an.ff.at(an.words[i].start, an.words[i].end)] for i in wi]
+    fr = np.concatenate(fr) if fr else np.array([])
+    fr = fr[np.isfinite(fr)]
+    if len(fr) < 8:
+        return np.nan
+    return float(np.percentile(fr, 90) - np.percentile(fr, 10))
+
+
+def _bursts(an: Analysis, a: float, b: float, thr=-16.0):
+    """Short energy bursts inside [a, b] (onset repetitions, fillers)."""
+    if b - a < 0.06:
+        return []
+    sl = an.ff.at(a, b)
+    on = an.ff.intensity_db[sl] > thr
+    segs, s = [], None
+    for i, v in enumerate(np.r_[on, False]):
+        if v and s is None:
+            s = i
+        elif not v and s is not None:
+            if i - s >= 3:
+                segs.append((a + s * HOP, a + i * HOP))
+            s = None
+    return segs
+
+
+def _onset_similarity(an: Analysis, burst, word_start, dur=0.12):
+    """Cosine similarity of mean MFCC (c1..c12) of a burst vs the next word's
+    first 120 ms. A repeated onset ("c-c-country") scores high; a neutral
+    filler vowel ("uh") scores low."""
+    m = an.ff.mfcc
+    a = m[1:, an.ff.at(*burst)].mean(axis=1)
+    b = m[1:, an.ff.at(word_start, word_start + dur)].mean(axis=1)
+    den = np.linalg.norm(a) * np.linalg.norm(b)
+    return float(a @ b / den) if den > 0 else 0.0
+
+
+MIN_Z = 1.5  # a local span flaw must exceed 1.5x the reference's own variability
+
+
+def _resolve(regions: list[Region]) -> list[Region]:
+    """Remove secondary detections explained by a stronger co-located flaw:
+    muffled articulation (low-pass) also lowers measured loudness, so a mild
+    volume drop inside a mumbling region is not reported twice."""
+    out = []
+    for r in regions:
+        z = r.metrics[0].z if r.metrics else None
+        if r.scope == "local" and z is not None and abs(z) < MIN_Z:
+            continue
+        if r.type == "trailing_off" and r.severity <= 2:
+            if any(o.type == "mumbling" and min(r.end, o.end) - max(r.start, o.start) > 0.5 * (r.end - r.start)
+                   for o in regions):
+                continue
+        out.append(r)
+    return out
+
+
+def _sev(value, table, increasing=True):
+    """Map a magnitude to severity 1..5 using the midpoints of `table`."""
+    t = np.asarray(table, float)
+    mids = (t[1:] + t[:-1]) / 2
+    if increasing:
+        return int(1 + np.sum(value > mids))
+    return int(1 + np.sum(value < mids))
+
+
+def _conf(z, z0=2.0):
+    return float(np.clip(1 - np.exp(-max(0.0, abs(z) - 0.5) / z0), 0.05, 0.99))
+
+
+# ------------------------------------------------------------------- main ---
+def compare(ref: Analysis, par: Analysis) -> dict:
+    pairs = pair_words(ref, par)
+    if len(pairs) < 5:
+        raise ValueError("fewer than 5 words could be matched between the two readings")
+    R = [ref.wf[i] for i, _ in pairs]
+    Pw = [par.wf[j] for _, j in pairs]
+    n = len(pairs)
+    regions: list[Region] = []
+    glob: dict = {}
+
+    def P(j):  # participant word index of pair j
+        return pairs[j][1]
+
+    def mk(t, j0, j1, sev, conf, metrics, scope="local"):
+        a, b = P(j0), P(j1)
+        reg = Region(t, par.words[a].start, par.words[b].end, a, b, int(np.clip(sev, 1, 5)), round(conf, 3),
+                     metrics, scope, ref.words[pairs[j0][0]].start, ref.words[pairs[j1][0]].end,
+                     " ".join(w.text for w in par.words[a:b + 1]))
+        regions.append(reg)
+        return reg
+
+    # ---------------- pace (articulation rate, pauses excluded) ----------
+    syl = np.array([w.syllables for w in R], float)
+    dr = np.array([w.dur for w in R])
+    dp = np.array([w.dur for w in Pw])
+    rr = np.array([_window(syl, dr, j, 1) for j in range(n)])
+    rp = np.array([_window(syl, dp, j, 1) for j in range(n)])
+    s = np.log2(rp / rr)
+    g = float(np.nanmedian(s))
+    loc = _smooth(s - g, 3)
+    spread = _robust_spread(np.log2(rr / np.nanmedian(rr)), 0.08)
+    glob["pace"] = {"log2_ratio": round(g, 3), "reference_sps": round(float(np.nansum(syl) / np.nansum(dr)), 2),
+                    "participant_sps": round(float(np.nansum(syl) / np.nansum(dp)), 2)}
+    for sign, t in ((1, "rushed"), (-1, "dragging")):
+        for j0, j1 in _runs(sign * loc > TH["pace_log2"], min_len=3, hole=1):
+            m = float(np.nanmean(loc[j0:j1 + 1]))
+            ref_r = float(syl[j0:j1 + 1].sum() / dr[j0:j1 + 1].sum())
+            par_r = float(syl[j0:j1 + 1].sum() / dp[j0:j1 + 1].sum())
+            factor = 2 ** (-m)  # duration factor relative to reference
+            tbl = [0.88, 0.80, 0.72, 0.64, 0.55] if t == "rushed" else [1.12, 1.24, 1.36, 1.48, 1.62]
+            sev = _sev(factor, tbl, increasing=(t == "dragging"))
+            mk(t, j0, j1, sev, _conf(m / spread), [
+                Metric("articulation_rate", "syll/s", ref_r, par_r, par_r - ref_r, m / spread,
+                       f"|log2 ratio| > {TH['pace_log2']} (local, after removing global offset {g:+.2f})")])
+    if abs(g) > TH_GLOBAL["pace_log2"]:
+        t = "rushed" if g > 0 else "dragging"
+        mk(t, 0, n - 1, _sev(2 ** -g, [0.88, 0.80, 0.72, 0.64, 0.55] if g > 0 else [1.12, 1.24, 1.36, 1.48, 1.62],
+                             increasing=(g < 0)), _conf(g / spread),
+           [Metric("overall_articulation_rate", "syll/s", glob["pace"]["reference_sps"], glob["pace"]["participant_sps"],
+                   glob["pace"]["participant_sps"] - glob["pace"]["reference_sps"], g / spread,
+                   f"|global log2 ratio| > {TH_GLOBAL['pace_log2']}")], scope="global")
+
+    # ---------------- pitch variety (F0 spread over 5-word windows) ------
+    sr_ = np.array([_f0_spread(ref, [pairs[k][0] for k in range(max(0, j - 2), min(n, j + 3))]) for j in range(n)])
+    sp_ = np.array([_f0_spread(par, [pairs[k][1] for k in range(max(0, j - 2), min(n, j + 3))]) for j in range(n)])
+    s = np.log2(np.maximum(sp_, 0.2) / np.maximum(sr_, 0.2))
+    g = float(np.nanmedian(s))
+    loc = s - g
+    spread = _robust_spread(np.log2(np.maximum(sr_, 0.2) / np.nanmedian(sr_)), 0.12)
+    glob["pitch"] = {"log2_ratio": round(g, 3), "reference_range_st": round(_f0_spread(ref, [i for i, _ in pairs]), 2),
+                     "participant_range_st": round(_f0_spread(par, [j for _, j in pairs]), 2)}
+    for j0, j1 in _runs(loc < TH["pitch_log2"], min_len=4, hole=1):
+        # trim the 2-word window bleed at each end
+        if j1 - j0 >= 6:
+            j0, j1 = j0 + 1, j1 - 1
+        m = float(np.nanmean(loc[j0:j1 + 1]))
+        keep = 2 ** m
+        rng_r = _f0_spread(ref, [pairs[k][0] for k in range(j0, j1 + 1)])
+        rng_p = _f0_spread(par, [pairs[k][1] for k in range(j0, j1 + 1)])
+        mk("monotone", j0, j1, _sev(1 - keep, [0.35, 0.55, 0.70, 0.85, 0.97]), _conf(m / spread),
+           [Metric("pitch_range_p10_p90", "semitones", rng_r, rng_p, rng_p - rng_r, m / spread,
+                   f"log2(spread ratio) < {TH['pitch_log2']}")])
+    if g < TH_GLOBAL["pitch_log2"]:
+        mk("monotone", 0, n - 1, _sev(1 - 2 ** g, [0.35, 0.55, 0.70, 0.85, 0.97]), _conf(g / spread),
+           [Metric("overall_pitch_range", "semitones", glob["pitch"]["reference_range_st"],
+                   glob["pitch"]["participant_range_st"], glob["pitch"]["participant_range_st"] - glob["pitch"]["reference_range_st"],
+                   g / spread, f"global log2 ratio < {TH_GLOBAL['pitch_log2']}")], scope="global")
+
+    # ---------------- loudness (speaker-relative dB) ---------------------
+    ir = np.array([w.int_mean_db for w in R])
+    ip = np.array([w.int_mean_db for w in Pw])
+    s = ip - ir
+    g = float(np.nanmedian(s))
+    loc = _smooth(s - g, 3)
+    spread = _robust_spread(ir - np.nanmedian(ir), 1.5)
+    glob["volume"] = {"offset_db": round(g, 2)}
+    for j0, j1 in _runs(loc < TH["vol_db"], min_len=3, hole=1):
+        m = float(np.nanmean(loc[j0:j1 + 1]))
+        worst = float(np.nanmin(loc[j0:j1 + 1]))
+        mk("trailing_off", j0, j1, _sev(-worst, [4, 7, 10, 14, 18]), _conf(m / spread),
+           [Metric("loudness_vs_reference", "dB", float(np.nanmean(ir[j0:j1 + 1])), float(np.nanmean(ip[j0:j1 + 1])), m, m / spread,
+                   f"speaker-relative level drop > {-TH['vol_db']} dB"),
+            Metric("deepest_drop", "dB", 0.0, worst, worst)])
+
+    # ---------------- articulation clarity (high-band share) ------------
+    hr = np.array([w.hiband for w in R])
+    hp = np.array([w.hiband for w in Pw])
+    hr4 = np.array([w.hiband4 for w in R])
+    hp4 = np.array([w.hiband4 for w in Pw])
+    # mean of the >2 kHz and >4 kHz log ratios: the 4 kHz band catches mild
+    # muffling that leaves 2-4 kHz intact
+    s = 0.5 * (np.log2(np.maximum(hp, 1e-4) / np.maximum(hr, 1e-4)) +
+               np.log2(np.maximum(hp4, 1e-5) / np.maximum(hr4, 1e-5)))
+    g = float(np.nanmedian(s))
+    loc = _smooth(s - g, 3)
+    spread = _robust_spread(0.5 * (np.log2(np.maximum(hr, 1e-4) / np.nanmedian(hr)) +
+                                   np.log2(np.maximum(hr4, 1e-5) / np.nanmedian(hr4))), 0.25)
+    cr = np.array([w.conf for w in R])
+    cp = np.array([w.conf for w in Pw])
+    glob["clarity"] = {"log2_ratio": round(g, 3)}
+    for j0, j1 in _runs(loc < TH["clar_log2"], min_len=3, hole=1):
+        m = float(np.nanmean(loc[j0:j1 + 1]))
+        mets = [Metric("energy_above_2kHz", "%", float(np.nanmean(hr[j0:j1 + 1])) * 100, float(np.nanmean(hp[j0:j1 + 1])) * 100,
+                       float(np.nanmean(hp[j0:j1 + 1]) - np.nanmean(hr[j0:j1 + 1])) * 100, m / spread,
+                       f"mean log2(high-band ratio, >2k & >4k) < {TH['clar_log2']}"),
+                Metric("energy_above_4kHz", "%", float(np.nanmean(hr4[j0:j1 + 1])) * 100, float(np.nanmean(hp4[j0:j1 + 1])) * 100,
+                       float(np.nanmean(hp4[j0:j1 + 1]) - np.nanmean(hr4[j0:j1 + 1])) * 100)]
+        if cr.any():
+            mets.append(Metric("recognizer_confidence", "", float(cr[j0:j1 + 1].mean()), float(cp[j0:j1 + 1].mean()),
+                               float(cp[j0:j1 + 1].mean() - cr[j0:j1 + 1].mean())))
+        mk("mumbling", j0, j1, _sev(-m, [0.8, 1.6, 2.6, 3.6, 5.0]), _conf(m / spread), mets)
+
+    # ---------------- pauses & disfluencies (per gap) --------------------
+    pause_flags = np.zeros(n, bool)
+    pause_info = {}
+    for j in range(n - 1):
+        if pairs[j + 1][0] != pairs[j][0] + 1 or pairs[j + 1][1] != pairs[j][1] + 1:
+            continue
+        pb, pp = R[j].pause_after, Pw[j].pause_after
+        fb, fp = R[j].filled_after, Pw[j].filled_after
+        nxt_p = par.words[P(j + 1)]
+        # stutter: short bursts right before the next word, or broken-up word onset
+        bursts = _bursts(par, Pw[j].end + 0.02, nxt_p.start - 0.01)
+        short = [b for b in bursts if b[1] - b[0] < 0.22]
+        ref_bursts = _bursts(ref, R[j].end + 0.02, ref.words[pairs[j + 1][0]].start - 0.01)
+        internal = _bursts(par, nxt_p.start, nxt_p.end)
+        internal_ref = _bursts(ref, ref.words[pairs[j + 1][0]].start, ref.words[pairs[j + 1][0]].end)
+        rep, sim = 0, None
+        if short and len(ref_bursts) == 0:
+            sim = _onset_similarity(par, short[0], nxt_p.start)
+            if len(short) >= 2 or sim > 0.85 or fp < 0.25:
+                rep = len(short) if (len(short) >= 2 or sim > 0.85) else 0
+            if rep == 0 and fp < 0.25:
+                rep = len(short)
+        elif len(internal) - len(internal_ref) >= 2 and Pw[j + 1].dur > 1.4 * R[j + 1].dur:
+            rep = len(internal) - len(internal_ref) - 1
+        if rep:
+            reg = Region("stutter", round(short[0][0] if short else nxt_p.start, 3), nxt_p.end, P(j + 1), P(j + 1),
+                         _sev(rep, [1, 1.5, 2, 2.5, 3]), 0.7,
+                         [Metric("onset_repetitions", "count", 0, rep, rep, None, ">= 1 extra onset burst before/inside word")]
+                         + ([Metric("burst_vs_word_onset_similarity", "cosine", 0, sim, sim, None, "MFCC cosine > 0.85 = repeated onset")]
+                            if sim is not None else []),
+                         text=nxt_p.text)
+            regions.append(reg)
+            continue
+        if fp - fb >= TH["filled_s"]:
+            mk_t = Region("filler", round(Pw[j].end, 3), round(nxt_p.start, 3), P(j), P(j + 1),
+                          _sev(fp, [0.28, 0.36, 0.45, 0.55, 0.65]), _conf((fp - fb) / 0.05),
+                          [Metric("voiced_sound_in_pause", "s", fb, fp, fp - fb, None, f">= {TH['filled_s']} s voiced, no word")],
+                          text=f"{par.words[P(j)].text} … {nxt_p.text}")
+            regions.append(mk_t)
+            continue
+        if pp - pb >= TH["pause_extra_s"] and pp > 1.8 * pb + 0.15:
+            regions.append(Region("awkward_pause", round(Pw[j].end, 3), round(nxt_p.start, 3), P(j), P(j + 1),
+                                  _sev(pp - pb, [0.35, 0.60, 0.90, 1.30, 1.80]), _conf((pp - pb) / 0.15),
+                                  [Metric("pause_length", "s", pb, pp, pp - pb, None,
+                                          f">= {TH['pause_extra_s']} s longer than reference" +
+                                          ("" if R[j].punct_after else ", mid-phrase (no punctuation)"))],
+                                  text=f"{par.words[P(j)].text} ▮ {nxt_p.text}"))
+            continue
+        if pb >= 0.18 and pp < TH["pause_keep"] * pb:
+            pause_flags[j] = True
+            pause_info[j] = (pb, pp)
+    # merge omitted pauses that sit within 6 words of each other
+    idx = np.nonzero(pause_flags)[0]
+    groups = []
+    for j in idx:
+        if groups and j - groups[-1][-1] <= 6:
+            groups[-1].append(j)
+        else:
+            groups.append([j])
+    for grp in groups:
+        pbs = np.array([pause_info[j][0] for j in grp])
+        pps = np.array([pause_info[j][1] for j in grp])
+        keep = float((pps / pbs).mean())
+        j0, j1 = max(0, grp[0] - 1), min(n - 1, grp[-1] + 2)
+        mk("pause_omission", j0, j1, _sev(keep, [0.60, 0.45, 0.30, 0.15, 0.04], increasing=False),
+           min(0.95, 0.45 + 0.15 * len(grp)),
+           [Metric("mean_pause_at_punctuation", "s", float(pbs.mean()), float(pps.mean()), float(pps.mean() - pbs.mean()), None,
+                   f"reference pause >= 0.18 s kept at < {int(TH['pause_keep'] * 100)} %"),
+            Metric("pauses_lost", "count", len(grp), 0, -len(grp))])
+
+    regions = _resolve(regions)
+    regions.sort(key=lambda r: (r.scope != "global", r.start))
+    return {"pairs": len(pairs), "regions": regions, "global": glob,
+            "coverage": round(len(pairs) / max(1, len(par.words)), 3)}
