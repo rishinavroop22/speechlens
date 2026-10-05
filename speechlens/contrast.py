@@ -155,6 +155,10 @@ def _f0_spread(an: Analysis, wi: list[int]) -> float:
     fr = fr[np.isfinite(fr)]
     if len(fr) < 8:
         return np.nan
+    # drop octave errors (a tracker jumping 12 st) before measuring the range
+    fr = fr[np.abs(fr - np.median(fr)) < 7]
+    if len(fr) < 8:
+        return np.nan
     return float(np.percentile(fr, 90) - np.percentile(fr, 10))
 
 
@@ -211,6 +215,25 @@ def _steady_mask(an: Analysis) -> np.ndarray:
     return m
 
 
+def _run_near(mask, a, b, t, min_len):
+    """Among True runs in [a, b] at least `min_len` s long, the one whose
+    centre is nearest `t` (falls back to the longest run)."""
+    sl = slice(int(a / HOP), int(b / HOP))
+    x = np.r_[mask[sl], False]
+    off = int(a / HOP)
+    runs, run = [], 0
+    for i, v in enumerate(x):
+        if v:
+            run += 1
+        elif run:
+            runs.append((run * HOP, (off + i - run) * HOP, (off + i) * HOP))
+            run = 0
+    long = [r for r in runs if r[0] >= min_len]
+    if long:
+        return min(long, key=lambda r: abs(0.5 * (r[1] + r[2]) - t))
+    return max(runs, default=(0.0, 0.0, 0.0))
+
+
 def _longest_run(mask, a, b):
     """Longest True run inside [a, b] s; returns (length_s, start_s, end_s)."""
     sl = slice(int(a / HOP), int(b / HOP))
@@ -259,6 +282,11 @@ def _resolve(regions: list[Region]) -> list[Region]:
         inside = lambda kind: any(o.type == kind and o.start - 0.2 <= r.start and r.end <= o.end + 0.2 for o in regions)
         # rushing eats pauses: missing pauses inside a rushed span are the same flaw
         if r.type == "pause_omission" and inside("rushed"):
+            continue
+        # dragging stretches the natural pauses too: a longer pause where the
+        # reference already paused, inside a dragging span, is the same flaw
+        if r.type == "awkward_pause" and inside("dragging") and r.metrics[0].reference >= 0.2 \
+                and r.metrics[0].participant <= 2.6 * r.metrics[0].reference:
             continue
         # a short span deviation around a point disfluency is the disfluency:
         # the aligner folds an inserted "uh", pause or repeated onset into the
@@ -451,30 +479,29 @@ def compare(ref: Analysis, par: Analysis) -> dict:
     st_p, st_r = _steady_mask(par), _steady_mask(ref)
     pause_flags = np.zeros(n, bool)
     pause_info = {}
+    # time added at each boundary, and the typical amount added at nearby
+    # boundaries: a disfluency adds time at ONE spot, a slow passage everywhere
+    raw_extra = np.full(n, np.nan)
+    pause_extra = np.full(n, np.nan)
     for j in range(n - 1):
-        if pairs[j + 1][0] != pairs[j][0] + 1 or pairs[j + 1][1] != pairs[j][1] + 1:
+        if pairs[j + 1][0] == pairs[j][0] + 1 and pairs[j + 1][1] == pairs[j][1] + 1:
+            raw_extra[j] = ((par.words[P(j + 1)].end - par.words[P(j)].start)
+                            - (ref.words[pairs[j + 1][0]].end - ref.words[pairs[j][0]].start))
+            pause_extra[j] = Pw[j].pause_after - R[j].pause_after
+
+    def local_base(x, j, h=3):
+        w = np.r_[x[max(0, j - h):j], x[j + 1:j + 1 + h]]
+        w = w[np.isfinite(w)]
+        return float(np.percentile(w, 75)) if len(w) else 0.0
+
+    last_filler_end = -1.0
+    for j in range(n - 1):
+        if not np.isfinite(raw_extra[j]):
             continue
         a, b = par.words[P(j)], par.words[P(j + 1)]
         ra, rb = ref.words[pairs[j][0]], ref.words[pairs[j + 1][0]]
         pb, pp = R[j].pause_after, Pw[j].pause_after
-        extra = (b.end - a.start) - (rb.end - ra.start)   # seconds added around this boundary
-
-        # filled pause: a held, steady vowel the reference does not have here,
-        # whether it sits in the gap or the aligner folded it into a word
-        if extra >= 0.15:
-            lp_, sp_, ep_ = _longest_run(st_p, a.start + 0.05, b.end)
-            lr_, _, _ = _longest_run(st_r, ra.start + 0.05, rb.end)
-            gap_voiced = Pw[j].filled_after - R[j].filled_after
-            if (lp_ - lr_ >= 0.14) or gap_voiced >= TH["filled_s"]:
-                held = max(lp_ - lr_, gap_voiced)
-                s0, e0 = (sp_, ep_) if lp_ - lr_ >= 0.14 else (a.end, b.start)
-                regions.append(Region("filler", round(s0, 3), round(e0, 3), P(j), P(j + 1),
-                                      _sevt("filler", held + 0.1, [0.28, 0.36, 0.45, 0.55, 0.65]), _conf(held / 0.06),
-                                      [Metric("held_steady_voicing", "s", lr_, lp_, lp_ - lr_, None,
-                                              "steady pitch + unchanging spectrum >= 140 ms longer than reference"),
-                                       Metric("time_added", "s", 0, extra, extra)],
-                                      text=f"{a.text} … {b.text}"))
-                continue
+        extra = raw_extra[j] - max(0.0, local_base(raw_extra, j))   # added here beyond the local trend
 
         # repeated onset: short fragments before the completed word, the first
         # one spectrally matching the word's own onset
@@ -483,8 +510,8 @@ def compare(ref: Analysis, par: Analysis) -> dict:
             fr_r = _bursts(ref, ra.end + 0.03, rb.end)
             if len(fr_p) >= 2 and len(fr_p) > len(fr_r) and all(f[1] - f[0] < 0.22 for f in fr_p[:-1]):
                 sim = _onset_similarity(par, fr_p[0], fr_p[-1][0])
-                if sim > 0.80:
-                    rep = len(fr_p) - max(1, len(fr_r))
+                rep = len(fr_p) - max(1, len(fr_r))
+                if sim > (0.88 if rep <= 1 else 0.80):
                     regions.append(Region("stutter", round(fr_p[0][0], 3), b.end, P(j + 1), P(j + 1),
                                           _sevt("stutter", rep, [1, 1.5, 2, 2.5, 3]), round(min(0.95, 0.4 + 0.5 * (sim - 0.8) / 0.2 + 0.1 * rep), 3),
                                           [Metric("onset_repetitions", "count", 0, rep, rep, None,
@@ -495,7 +522,27 @@ def compare(ref: Analysis, par: Analysis) -> dict:
                                           text=b.text))
                     continue
 
-        if pp - pb >= TH["pause_extra_s"] and pp > 1.8 * pb + 0.15:
+        # filled pause: a held, steady vowel the reference does not have here,
+        # whether it sits in the gap or the aligner folded it into a word
+        if extra >= 0.15:
+            lr_, _, _ = _longest_run(st_r, ra.start + 0.05, rb.end)
+            lp_, sp_, ep_ = _run_near(st_p, a.start + 0.05, b.end, 0.5 * (a.end + b.start), lr_ + 0.14)
+            gap_voiced = Pw[j].filled_after - R[j].filled_after
+            if ((lp_ - lr_ >= 0.14) or gap_voiced >= TH["filled_s"]) and \
+                    (sp_ if lp_ - lr_ >= 0.14 else a.end) >= last_filler_end - 0.05:
+                held = max(lp_ - lr_, gap_voiced)
+                s0, e0 = (sp_, ep_) if lp_ - lr_ >= 0.14 else (a.end, b.start)
+                last_filler_end = e0
+                regions.append(Region("filler", round(s0, 3), round(e0, 3), P(j), P(j + 1),
+                                      _sevt("filler", held + 0.1, [0.28, 0.36, 0.45, 0.55, 0.65]), _conf(held / 0.06),
+                                      [Metric("held_steady_voicing", "s", lr_, lp_, lp_ - lr_, None,
+                                              "steady pitch + unchanging spectrum >= 140 ms longer than reference"),
+                                       Metric("time_added", "s", 0, extra, extra)],
+                                      text=f"{a.text} … {b.text}"))
+                continue
+
+        pe = pause_extra[j] - max(0.0, local_base(pause_extra, j))
+        if pe >= TH["pause_extra_s"] and pp > 1.8 * pb + 0.15:
             regions.append(Region("awkward_pause", round(Pw[j].end, 3), round(b.start, 3), P(j), P(j + 1),
                                   _sevt("awkward_pause", pp - pb, [0.35, 0.60, 0.90, 1.30, 1.80]), _conf((pp - pb) / 0.15),
                                   [Metric("pause_length", "s", pb, pp, pp - pb, None,

@@ -709,13 +709,13 @@
    "id": "fdr__filler_s1",
    "source": "fdr",
    "kind": "single",
-   "duration": 110.93,
+   "duration": 110.94,
    "labels": [
     {
      "type": "filler",
      "severity": 1,
      "start": 63.01,
-     "end": 64.49,
+     "end": 64.5,
      "word_start": 90,
      "word_end": 91,
      "params": {
@@ -729,13 +729,13 @@
    "id": "fdr__filler_s2",
    "source": "fdr",
    "kind": "single",
-   "duration": 111.36,
+   "duration": 111.54,
    "labels": [
     {
      "type": "filler",
      "severity": 2,
      "start": 53.98,
-     "end": 54.41,
+     "end": 54.5,
      "word_start": 75,
      "word_end": 76,
      "params": {
@@ -745,8 +745,8 @@
     {
      "type": "filler",
      "severity": 2,
-     "start": 62.29,
-     "end": 62.72,
+     "start": 62.38,
+     "end": 62.9,
      "word_start": 88,
      "word_end": 89,
      "params": {
@@ -760,13 +760,13 @@
    "id": "fdr__filler_s3",
    "source": "fdr",
    "kind": "single",
-   "duration": 111.36,
+   "duration": 111.72,
    "labels": [
     {
      "type": "filler",
      "severity": 3,
      "start": 38.43,
-     "end": 38.86,
+     "end": 39.04,
      "word_start": 54,
      "word_end": 55,
      "params": {
@@ -776,8 +776,8 @@
     {
      "type": "filler",
      "severity": 3,
-     "start": 79.24,
-     "end": 79.67,
+     "start": 79.42,
+     "end": 80.03,
      "word_start": 112,
      "word_end": 113,
      "params": {
@@ -791,13 +791,13 @@
    "id": "fdr__filler_s4",
    "source": "fdr",
    "kind": "single",
-   "duration": 111.79,
+   "duration": 112.63,
    "labels": [
     {
      "type": "filler",
      "severity": 4,
      "start": 13.5,
-     "end": 13.93,
+     "end": 14.21,
      "word_start": 18,
      "word_end": 19,
      "params": {
@@ -807,8 +807,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 62.29,
-     "end": 62.72,
+     "start": 62.57,
+     "end": 63.28,
      "word_start": 88,
      "word_end": 89,
      "params": {
@@ -818,8 +818,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 76.3,
-     "end": 76.73,
+     "start": 76.86,
+     "end": 77.57,
      "word_start": 107,
      "word_end": 108,
      "params": {
@@ -833,13 +833,13 @@
    "id": "fdr__filler_s5",
    "source": "fdr",
    "kind": "single",
-   "duration": 112.22,
+   "duration": 113.74,
    "labels": [
     {
      "type": "filler",
      "severity": 5,
      "start": 51.92,
-     "end": 52.35,
+     "end": 52.73,
      "word_start": 72,
      "word_end": 73,
      "params": {
@@ -849,8 +849,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 65.24,
-     "end": 66.09,
+     "start": 65.62,
+     "end": 66.85,
      "word_start": 91,
      "word_end": 92,
      "params": {
@@ -860,8 +860,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 81.4,
-     "end": 81.83,
+     "start": 82.16,
+     "end": 82.97,
      "word_start": 116,
      "word_end": 117,
      "params": {
@@ -871,8 +871,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 99.27,
-     "end": 99.7,
+     "start": 100.41,
+     "end": 101.22,
      "word_start": 138,
      "word_end": 139,
      "params": {
@@ -1108,13 +1108,13 @@
    "id": "fdr__mix1",
    "source": "fdr",
    "kind": "mixed",
-   "duration": 111.74,
+   "duration": 111.92,
    "labels": [
     {
      "type": "filler",
      "severity": 2,
      "start": 13.36,
-     "end": 13.79,
+     "end": 13.88,
      "word_start": 17,
      "word_end": 18,
      "params": {
@@ -1124,8 +1124,8 @@
     {
      "type": "awkward_pause",
      "severity": 1,
-     "start": 25.23,
-     "end": 25.607,
+     "start": 25.32,
+     "end": 25.697,
      "word_start": 35,
      "word_end": 36,
      "params": {
@@ -1135,8 +1135,8 @@
     {
      "type": "filler",
      "severity": 2,
-     "start": 37.487,
-     "end": 37.917,
+     "start": 37.577,
+     "end": 38.097,
      "word_start": 51,
      "word_end": 52,
      "params": {
@@ -1271,13 +1271,13 @@
    "id": "fdr__mix5",
    "source": "fdr",
    "kind": "mixed",
-   "duration": 110.65,
+   "duration": 111.49,
    "labels": [
     {
      "type": "filler",
      "severity": 4,
      "start": 16.5,
-     "end": 16.93,
+     "end": 17.21,
      "word_start": 21,
      "word_end": 22,
      "params": {
@@ -1287,8 +1287,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 31.27,
-     "end": 31.98,
+     "start": 31.55,
+     "end": 32.54,
      "word_start": 43,
      "word_end": 44,
      "params": {
@@ -1298,8 +1298,8 @@
     {
      "type": "dragging",
      "severity": 3,
-     "start": 37.29,
-     "end": 41.276,
+     "start": 37.85,
+     "end": 41.836,
      "word_start": 51,
      "word_end": 55,
      "params": {
@@ -1309,8 +1309,8 @@
     {
      "type": "mumbling",
      "severity": 4,
-     "start": 49.739,
-     "end": 56.579,
+     "start": 50.299,
+     "end": 57.139,
      "word_start": 67,
      "word_end": 75,
      "params": {
@@ -1320,8 +1320,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 69.299,
-     "end": 69.729,
+     "start": 69.859,
+     "end": 70.569,
      "word_start": 94,
      "word_end": 95,
      "params": {
@@ -1331,8 +1331,8 @@
     {
      "type": "rushed",
      "severity": 4,
-     "start": 106.049,
-     "end": 109.452,
+     "start": 106.889,
+     "end": 110.292,
      "word_start": 148,
      "word_end": 156,
      "params": {
@@ -1489,7 +1489,7 @@
    "id": "fdr__mix8",
    "source": "fdr",
    "kind": "mixed",
-   "duration": 117.97,
+   "duration": 119.49,
    "labels": [
     {
      "type": "awkward_pause",
@@ -1506,7 +1506,7 @@
      "type": "filler",
      "severity": 5,
      "start": 7.096,
-     "end": 7.526,
+     "end": 7.906,
      "word_start": 6,
      "word_end": 7,
      "params": {
@@ -1516,8 +1516,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 7.846,
-     "end": 8.277,
+     "start": 8.226,
+     "end": 9.037,
      "word_start": 7,
      "word_end": 8,
      "params": {
@@ -1527,8 +1527,8 @@
     {
      "type": "awkward_pause",
      "severity": 5,
-     "start": 16.056,
-     "end": 18.098,
+     "start": 16.817,
+     "end": 18.858,
      "word_start": 17,
      "word_end": 18,
      "params": {
@@ -1538,8 +1538,8 @@
     {
      "type": "trailing_off",
      "severity": 5,
-     "start": 24.518,
-     "end": 31.548,
+     "start": 25.278,
+     "end": 32.308,
      "word_start": 29,
      "word_end": 39,
      "params": {
@@ -1549,8 +1549,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 38.918,
-     "end": 39.348,
+     "start": 39.678,
+     "end": 40.488,
      "word_start": 47,
      "word_end": 48,
      "params": {
@@ -1560,8 +1560,8 @@
     {
      "type": "awkward_pause",
      "severity": 5,
-     "start": 44.178,
-     "end": 46.882,
+     "start": 45.318,
+     "end": 48.022,
      "word_start": 55,
      "word_end": 56,
      "params": {
@@ -1571,8 +1571,8 @@
     {
      "type": "monotone",
      "severity": 5,
-     "start": 61.622,
-     "end": 68.982,
+     "start": 62.762,
+     "end": 70.122,
      "word_start": 78,
      "word_end": 89,
      "params": {
@@ -1582,8 +1582,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 72.782,
-     "end": 73.212,
+     "start": 73.922,
+     "end": 74.732,
      "word_start": 93,
      "word_end": 94,
      "params": {
@@ -1593,8 +1593,8 @@
     {
      "type": "rushed",
      "severity": 5,
-     "start": 96.952,
-     "end": 100.377,
+     "start": 98.472,
+     "end": 101.897,
      "word_start": 127,
      "word_end": 138,
      "params": {
@@ -1604,8 +1604,8 @@
     {
      "type": "dragging",
      "severity": 5,
-     "start": 106.117,
-     "end": 116.695,
+     "start": 107.637,
+     "end": 118.215,
      "word_start": 150,
      "word_end": 156,
      "params": {
@@ -2305,13 +2305,13 @@
    "id": "jfk__filler_s1",
    "source": "jfk",
    "kind": "single",
-   "duration": 79.49,
+   "duration": 79.5,
    "labels": [
     {
      "type": "filler",
      "severity": 1,
      "start": 55.67,
-     "end": 57.43,
+     "end": 57.44,
      "word_start": 83,
      "word_end": 84,
      "params": {
@@ -2325,13 +2325,13 @@
    "id": "jfk__filler_s2",
    "source": "jfk",
    "kind": "single",
-   "duration": 79.92,
+   "duration": 80.1,
    "labels": [
     {
      "type": "filler",
      "severity": 2,
      "start": 5.19,
-     "end": 7.02,
+     "end": 7.11,
      "word_start": 2,
      "word_end": 3,
      "params": {
@@ -2341,8 +2341,8 @@
     {
      "type": "filler",
      "severity": 2,
-     "start": 61.58,
-     "end": 62.01,
+     "start": 61.67,
+     "end": 62.19,
      "word_start": 92,
      "word_end": 93,
      "params": {
@@ -2356,13 +2356,13 @@
    "id": "jfk__filler_s3",
    "source": "jfk",
    "kind": "single",
-   "duration": 79.92,
+   "duration": 80.28,
    "labels": [
     {
      "type": "filler",
      "severity": 3,
      "start": 33.18,
-     "end": 33.62,
+     "end": 33.8,
      "word_start": 44,
      "word_end": 45,
      "params": {
@@ -2372,8 +2372,8 @@
     {
      "type": "filler",
      "severity": 3,
-     "start": 48.62,
-     "end": 50.15,
+     "start": 48.8,
+     "end": 50.51,
      "word_start": 71,
      "word_end": 72,
      "params": {
@@ -2387,13 +2387,13 @@
    "id": "jfk__filler_s4",
    "source": "jfk",
    "kind": "single",
-   "duration": 80.35,
+   "duration": 81.19,
    "labels": [
     {
      "type": "filler",
      "severity": 4,
      "start": 27.07,
-     "end": 27.51,
+     "end": 27.79,
      "word_start": 36,
      "word_end": 37,
      "params": {
@@ -2403,8 +2403,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 45.43,
-     "end": 47.0,
+     "start": 45.71,
+     "end": 47.56,
      "word_start": 66,
      "word_end": 67,
      "params": {
@@ -2414,8 +2414,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 67.78,
-     "end": 68.21,
+     "start": 68.34,
+     "end": 69.05,
      "word_start": 104,
      "word_end": 105,
      "params": {
@@ -2429,13 +2429,13 @@
    "id": "jfk__filler_s5",
    "source": "jfk",
    "kind": "single",
-   "duration": 80.78,
+   "duration": 82.3,
    "labels": [
     {
      "type": "filler",
      "severity": 5,
      "start": 24.96,
-     "end": 25.39,
+     "end": 25.77,
      "word_start": 33,
      "word_end": 34,
      "params": {
@@ -2445,8 +2445,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 40.5,
-     "end": 40.93,
+     "start": 40.88,
+     "end": 41.69,
      "word_start": 56,
      "word_end": 57,
      "params": {
@@ -2456,8 +2456,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 42.04,
-     "end": 42.47,
+     "start": 42.8,
+     "end": 43.61,
      "word_start": 59,
      "word_end": 60,
      "params": {
@@ -2467,8 +2467,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 43.62,
-     "end": 45.22,
+     "start": 44.76,
+     "end": 46.74,
      "word_start": 62,
      "word_end": 63,
      "params": {
@@ -2736,13 +2736,13 @@
    "id": "jfk__mix2",
    "source": "jfk",
    "kind": "mixed",
-   "duration": 81.15,
+   "duration": 81.33,
    "labels": [
     {
      "type": "filler",
      "severity": 2,
      "start": 30.14,
-     "end": 30.57,
+     "end": 30.66,
      "word_start": 40,
      "word_end": 41,
      "params": {
@@ -2752,8 +2752,8 @@
     {
      "type": "dragging",
      "severity": 2,
-     "start": 57.69,
-     "end": 62.384,
+     "start": 57.78,
+     "end": 62.474,
      "word_start": 85,
      "word_end": 91,
      "params": {
@@ -2763,8 +2763,8 @@
     {
      "type": "filler",
      "severity": 2,
-     "start": 70.244,
-     "end": 71.654,
+     "start": 70.334,
+     "end": 71.834,
      "word_start": 110,
      "word_end": 111,
      "params": {
@@ -2779,13 +2779,13 @@
    "id": "jfk__mix3",
    "source": "jfk",
    "kind": "mixed",
-   "duration": 83.29,
+   "duration": 83.47,
    "labels": [
     {
      "type": "filler",
      "severity": 2,
      "start": 41.4,
-     "end": 41.83,
+     "end": 41.92,
      "word_start": 60,
      "word_end": 61,
      "params": {
@@ -2795,8 +2795,8 @@
     {
      "type": "stutter",
      "severity": 3,
-     "start": 44.63,
-     "end": 45.162,
+     "start": 44.72,
+     "end": 45.252,
      "word_start": 65,
      "word_end": 65,
      "params": {
@@ -2806,8 +2806,8 @@
     {
      "type": "dragging",
      "severity": 3,
-     "start": 59.331,
-     "end": 67.578,
+     "start": 59.421,
+     "end": 67.668,
      "word_start": 88,
      "word_end": 97,
      "params": {
@@ -2817,8 +2817,8 @@
     {
      "type": "filler",
      "severity": 2,
-     "start": 71.883,
-     "end": 72.313,
+     "start": 71.973,
+     "end": 72.493,
      "word_start": 108,
      "word_end": 109,
      "params": {
@@ -2887,13 +2887,13 @@
    "id": "jfk__mix5",
    "source": "jfk",
    "kind": "mixed",
-   "duration": 80.71,
+   "duration": 81.55,
    "labels": [
     {
      "type": "filler",
      "severity": 4,
      "start": 7.62,
-     "end": 8.05,
+     "end": 8.33,
      "word_start": 5,
      "word_end": 6,
      "params": {
@@ -2903,8 +2903,8 @@
     {
      "type": "pause_omission",
      "severity": 3,
-     "start": 11.05,
-     "end": 17.099,
+     "start": 11.33,
+     "end": 17.379,
      "word_start": 12,
      "word_end": 21,
      "params": {
@@ -2915,8 +2915,8 @@
     {
      "type": "awkward_pause",
      "severity": 3,
-     "start": 22.559,
-     "end": 23.455,
+     "start": 22.839,
+     "end": 23.735,
      "word_start": 31,
      "word_end": 32,
      "params": {
@@ -2926,8 +2926,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 27.045,
-     "end": 27.485,
+     "start": 27.325,
+     "end": 28.045,
      "word_start": 36,
      "word_end": 37,
      "params": {
@@ -2937,8 +2937,8 @@
     {
      "type": "awkward_pause",
      "severity": 3,
-     "start": 37.085,
-     "end": 37.899,
+     "start": 37.645,
+     "end": 38.459,
      "word_start": 50,
      "word_end": 51,
      "params": {
@@ -2948,8 +2948,8 @@
     {
      "type": "monotone",
      "severity": 3,
-     "start": 44.899,
-     "end": 54.079,
+     "start": 45.459,
+     "end": 54.639,
      "word_start": 64,
      "word_end": 78,
      "params": {
@@ -2959,8 +2959,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 58.479,
-     "end": 58.909,
+     "start": 59.039,
+     "end": 59.749,
      "word_start": 84,
      "word_end": 85,
      "params": {
@@ -2975,13 +2975,13 @@
    "id": "jfk__mix6",
    "source": "jfk",
    "kind": "mixed",
-   "duration": 78.52,
+   "duration": 78.88,
    "labels": [
     {
      "type": "filler",
      "severity": 3,
      "start": 10.62,
-     "end": 11.05,
+     "end": 11.23,
      "word_start": 11,
      "word_end": 12,
      "params": {
@@ -2991,8 +2991,8 @@
     {
      "type": "pause_omission",
      "severity": 3,
-     "start": 15.91,
-     "end": 21.27,
+     "start": 16.09,
+     "end": 21.45,
      "word_start": 20,
      "word_end": 27,
      "params": {
@@ -3003,8 +3003,8 @@
     {
      "type": "mumbling",
      "severity": 3,
-     "start": 39.64,
-     "end": 43.43,
+     "start": 39.82,
+     "end": 43.61,
      "word_start": 58,
      "word_end": 65,
      "params": {
@@ -3014,8 +3014,8 @@
     {
      "type": "trailing_off",
      "severity": 4,
-     "start": 56.03,
-     "end": 60.18,
+     "start": 56.21,
+     "end": 60.36,
      "word_start": 84,
      "word_end": 92,
      "params": {
@@ -3025,8 +3025,8 @@
     {
      "type": "filler",
      "severity": 3,
-     "start": 63.18,
-     "end": 63.61,
+     "start": 63.36,
+     "end": 63.97,
      "word_start": 99,
      "word_end": 100,
      "params": {
@@ -3128,7 +3128,7 @@
    "id": "jfk__mix8",
    "source": "jfk",
    "kind": "mixed",
-   "duration": 78.56,
+   "duration": 80.08,
    "labels": [
     {
      "type": "stutter",
@@ -3178,7 +3178,7 @@
      "type": "filler",
      "severity": 5,
      "start": 47.973,
-     "end": 48.403,
+     "end": 48.783,
      "word_start": 76,
      "word_end": 77,
      "params": {
@@ -3188,8 +3188,8 @@
     {
      "type": "trailing_off",
      "severity": 5,
-     "start": 54.643,
-     "end": 57.963,
+     "start": 55.023,
+     "end": 58.343,
      "word_start": 84,
      "word_end": 89,
      "params": {
@@ -3199,8 +3199,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 61.003,
-     "end": 61.433,
+     "start": 61.383,
+     "end": 62.193,
      "word_start": 96,
      "word_end": 97,
      "params": {
@@ -3210,8 +3210,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 67.883,
-     "end": 68.313,
+     "start": 68.643,
+     "end": 69.453,
      "word_start": 111,
      "word_end": 112,
      "params": {
@@ -3221,8 +3221,8 @@
     {
      "type": "stutter",
      "severity": 5,
-     "start": 73.863,
-     "end": 74.689,
+     "start": 75.003,
+     "end": 75.829,
      "word_start": 122,
      "word_end": 122,
      "params": {
@@ -3232,8 +3232,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 75.989,
-     "end": 76.419,
+     "start": 77.129,
+     "end": 77.939,
      "word_start": 127,
      "word_end": 128,
      "params": {
@@ -3933,13 +3933,13 @@
    "id": "lbj__filler_s1",
    "source": "lbj",
    "kind": "single",
-   "duration": 89.35,
+   "duration": 89.36,
    "labels": [
     {
      "type": "filler",
      "severity": 1,
      "start": 42.96,
-     "end": 43.39,
+     "end": 43.4,
      "word_start": 57,
      "word_end": 58,
      "params": {
@@ -3953,13 +3953,13 @@
    "id": "lbj__filler_s2",
    "source": "lbj",
    "kind": "single",
-   "duration": 89.78,
+   "duration": 89.96,
    "labels": [
     {
      "type": "filler",
      "severity": 2,
      "start": 22.43,
-     "end": 24.45,
+     "end": 24.54,
      "word_start": 28,
      "word_end": 29,
      "params": {
@@ -3969,8 +3969,8 @@
     {
      "type": "filler",
      "severity": 2,
-     "start": 72.93,
-     "end": 73.36,
+     "start": 73.02,
+     "end": 73.54,
      "word_start": 98,
      "word_end": 99,
      "params": {
@@ -3984,13 +3984,13 @@
    "id": "lbj__filler_s3",
    "source": "lbj",
    "kind": "single",
-   "duration": 89.78,
+   "duration": 90.14,
    "labels": [
     {
      "type": "filler",
      "severity": 3,
      "start": 24.46,
-     "end": 24.89,
+     "end": 25.07,
      "word_start": 30,
      "word_end": 31,
      "params": {
@@ -4000,8 +4000,8 @@
     {
      "type": "filler",
      "severity": 3,
-     "start": 59.23,
-     "end": 59.66,
+     "start": 59.41,
+     "end": 60.02,
      "word_start": 83,
      "word_end": 84,
      "params": {
@@ -4015,13 +4015,13 @@
    "id": "lbj__filler_s4",
    "source": "lbj",
    "kind": "single",
-   "duration": 90.21,
+   "duration": 91.05,
    "labels": [
     {
      "type": "filler",
      "severity": 4,
      "start": 37.93,
-     "end": 38.36,
+     "end": 38.64,
      "word_start": 47,
      "word_end": 48,
      "params": {
@@ -4031,8 +4031,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 46.03,
-     "end": 46.46,
+     "start": 46.31,
+     "end": 47.02,
      "word_start": 61,
      "word_end": 62,
      "params": {
@@ -4042,8 +4042,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 74.34,
-     "end": 74.77,
+     "start": 74.9,
+     "end": 75.61,
      "word_start": 100,
      "word_end": 101,
      "params": {
@@ -4057,13 +4057,13 @@
    "id": "lbj__filler_s5",
    "source": "lbj",
    "kind": "single",
-   "duration": 90.64,
+   "duration": 92.16,
    "labels": [
     {
      "type": "filler",
      "severity": 5,
      "start": 57.36,
-     "end": 57.79,
+     "end": 58.17,
      "word_start": 79,
      "word_end": 80,
      "params": {
@@ -4073,8 +4073,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 71.22,
-     "end": 72.51,
+     "start": 71.6,
+     "end": 73.27,
      "word_start": 97,
      "word_end": 98,
      "params": {
@@ -4084,8 +4084,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 75.23,
-     "end": 75.66,
+     "start": 75.99,
+     "end": 76.8,
      "word_start": 101,
      "word_end": 102,
      "params": {
@@ -4095,8 +4095,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 84.41,
-     "end": 84.84,
+     "start": 85.55,
+     "end": 86.36,
      "word_start": 111,
      "word_end": 112,
      "params": {
@@ -4364,7 +4364,7 @@
    "id": "lbj__mix2",
    "source": "lbj",
    "kind": "mixed",
-   "duration": 89.35,
+   "duration": 89.36,
    "labels": [
     {
      "type": "mumbling",
@@ -4381,7 +4381,7 @@
      "type": "filler",
      "severity": 1,
      "start": 70.18,
-     "end": 70.61,
+     "end": 70.62,
      "word_start": 96,
      "word_end": 97,
      "params": {
@@ -4571,7 +4571,7 @@
    "id": "lbj__mix6",
    "source": "lbj",
    "kind": "mixed",
-   "duration": 95.46,
+   "duration": 96.98,
    "labels": [
     {
      "type": "stutter",
@@ -4588,7 +4588,7 @@
      "type": "filler",
      "severity": 5,
      "start": 10.86,
-     "end": 12.32,
+     "end": 12.7,
      "word_start": 12,
      "word_end": 13,
      "params": {
@@ -4598,8 +4598,8 @@
     {
      "type": "awkward_pause",
      "severity": 5,
-     "start": 12.72,
-     "end": 14.376,
+     "start": 13.1,
+     "end": 14.756,
      "word_start": 14,
      "word_end": 15,
      "params": {
@@ -4609,8 +4609,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 20.176,
-     "end": 20.606,
+     "start": 20.556,
+     "end": 21.366,
      "word_start": 23,
      "word_end": 24,
      "params": {
@@ -4620,8 +4620,8 @@
     {
      "type": "stutter",
      "severity": 5,
-     "start": 24.236,
-     "end": 25.153,
+     "start": 24.996,
+     "end": 25.913,
      "word_start": 26,
      "word_end": 26,
      "params": {
@@ -4631,8 +4631,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 39.393,
-     "end": 39.823,
+     "start": 40.153,
+     "end": 40.963,
      "word_start": 45,
      "word_end": 46,
      "params": {
@@ -4642,8 +4642,8 @@
     {
      "type": "awkward_pause",
      "severity": 5,
-     "start": 43.113,
-     "end": 45.337,
+     "start": 44.253,
+     "end": 46.477,
      "word_start": 49,
      "word_end": 50,
      "params": {
@@ -4653,8 +4653,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 53.117,
-     "end": 54.187,
+     "start": 54.257,
+     "end": 55.707,
      "word_start": 63,
      "word_end": 64,
      "params": {
@@ -4664,8 +4664,8 @@
     {
      "type": "pause_omission",
      "severity": 3,
-     "start": 71.007,
-     "end": 74.631,
+     "start": 72.527,
+     "end": 76.151,
      "word_start": 92,
      "word_end": 94,
      "params": {
@@ -4676,8 +4676,8 @@
     {
      "type": "awkward_pause",
      "severity": 5,
-     "start": 85.601,
-     "end": 87.238,
+     "start": 87.121,
+     "end": 88.758,
      "word_start": 109,
      "word_end": 110,
      "params": {
@@ -4692,7 +4692,7 @@
    "id": "lbj__mix7",
    "source": "lbj",
    "kind": "mixed",
-   "duration": 93.03,
+   "duration": 94.55,
    "labels": [
     {
      "type": "dragging",
@@ -4731,7 +4731,7 @@
      "type": "filler",
      "severity": 5,
      "start": 44.797,
-     "end": 45.227,
+     "end": 45.607,
      "word_start": 53,
      "word_end": 54,
      "params": {
@@ -4741,8 +4741,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 52.607,
-     "end": 53.037,
+     "start": 52.987,
+     "end": 53.797,
      "word_start": 64,
      "word_end": 65,
      "params": {
@@ -4752,8 +4752,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 53.887,
-     "end": 54.547,
+     "start": 54.647,
+     "end": 55.687,
      "word_start": 65,
      "word_end": 66,
      "params": {
@@ -4763,8 +4763,8 @@
     {
      "type": "rushed",
      "severity": 4,
-     "start": 60.265,
-     "end": 62.479,
+     "start": 61.405,
+     "end": 63.619,
      "word_start": 75,
      "word_end": 83,
      "params": {
@@ -4774,8 +4774,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 78.049,
-     "end": 78.479,
+     "start": 79.189,
+     "end": 79.999,
      "word_start": 101,
      "word_end": 102,
      "params": {
@@ -4790,13 +4790,13 @@
    "id": "lbj__mix8",
    "source": "lbj",
    "kind": "mixed",
-   "duration": 92.24,
+   "duration": 93.76,
    "labels": [
     {
      "type": "filler",
      "severity": 5,
      "start": 2.84,
-     "end": 3.27,
+     "end": 3.65,
      "word_start": 1,
      "word_end": 2,
      "params": {
@@ -4806,8 +4806,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 8.93,
-     "end": 9.48,
+     "start": 9.31,
+     "end": 10.24,
      "word_start": 9,
      "word_end": 10,
      "params": {
@@ -4817,8 +4817,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 10.16,
-     "end": 10.59,
+     "start": 10.92,
+     "end": 11.73,
      "word_start": 10,
      "word_end": 11,
      "params": {
@@ -4828,8 +4828,8 @@
     {
      "type": "stutter",
      "severity": 5,
-     "start": 18.65,
-     "end": 20.111,
+     "start": 19.79,
+     "end": 21.251,
      "word_start": 24,
      "word_end": 24,
      "params": {
@@ -4839,8 +4839,8 @@
     {
      "type": "pause_omission",
      "severity": 5,
-     "start": 26.671,
-     "end": 30.487,
+     "start": 27.811,
+     "end": 31.627,
      "word_start": 32,
      "word_end": 39,
      "params": {
@@ -4851,8 +4851,8 @@
     {
      "type": "stutter",
      "severity": 5,
-     "start": 38.177,
-     "end": 39.527,
+     "start": 39.317,
+     "end": 40.667,
      "word_start": 50,
      "word_end": 50,
      "params": {
@@ -4862,8 +4862,8 @@
     {
      "type": "monotone",
      "severity": 5,
-     "start": 48.717,
-     "end": 54.617,
+     "start": 49.857,
+     "end": 55.757,
      "word_start": 66,
      "word_end": 75,
      "params": {
@@ -4873,8 +4873,8 @@
     {
      "type": "dragging",
      "severity": 5,
-     "start": 56.815,
-     "end": 66.548,
+     "start": 57.955,
+     "end": 67.688,
      "word_start": 77,
      "word_end": 85,
      "params": {
@@ -4884,8 +4884,8 @@
     {
      "type": "rushed",
      "severity": 5,
-     "start": 78.908,
-     "end": 80.36,
+     "start": 80.048,
+     "end": 81.5,
      "word_start": 101,
      "word_end": 106,
      "params": {
@@ -4895,8 +4895,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 86.272,
-     "end": 86.702,
+     "start": 87.412,
+     "end": 88.222,
      "word_start": 112,
      "word_end": 113,
      "params": {
@@ -5596,13 +5596,13 @@
    "id": "obama__filler_s1",
    "source": "obama",
    "kind": "single",
-   "duration": 81.83,
+   "duration": 81.84,
    "labels": [
     {
      "type": "filler",
      "severity": 1,
      "start": 51.78,
-     "end": 52.21,
+     "end": 52.22,
      "word_start": 67,
      "word_end": 68,
      "params": {
@@ -5616,13 +5616,13 @@
    "id": "obama__filler_s2",
    "source": "obama",
    "kind": "single",
-   "duration": 82.26,
+   "duration": 82.44,
    "labels": [
     {
      "type": "filler",
      "severity": 2,
      "start": 20.94,
-     "end": 21.37,
+     "end": 21.46,
      "word_start": 18,
      "word_end": 19,
      "params": {
@@ -5632,8 +5632,8 @@
     {
      "type": "filler",
      "severity": 2,
-     "start": 43.97,
-     "end": 44.4,
+     "start": 44.06,
+     "end": 44.58,
      "word_start": 50,
      "word_end": 51,
      "params": {
@@ -5647,13 +5647,13 @@
    "id": "obama__filler_s3",
    "source": "obama",
    "kind": "single",
-   "duration": 82.26,
+   "duration": 82.62,
    "labels": [
     {
      "type": "filler",
      "severity": 3,
      "start": 22.6,
-     "end": 23.03,
+     "end": 23.21,
      "word_start": 22,
      "word_end": 23,
      "params": {
@@ -5663,8 +5663,8 @@
     {
      "type": "filler",
      "severity": 3,
-     "start": 70.74,
-     "end": 71.17,
+     "start": 70.92,
+     "end": 71.53,
      "word_start": 102,
      "word_end": 103,
      "params": {
@@ -5678,13 +5678,13 @@
    "id": "obama__filler_s4",
    "source": "obama",
    "kind": "single",
-   "duration": 82.69,
+   "duration": 83.53,
    "labels": [
     {
      "type": "filler",
      "severity": 4,
      "start": 43.07,
-     "end": 43.67,
+     "end": 43.95,
      "word_start": 49,
      "word_end": 50,
      "params": {
@@ -5694,8 +5694,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 70.44,
-     "end": 70.87,
+     "start": 70.72,
+     "end": 71.43,
      "word_start": 101,
      "word_end": 102,
      "params": {
@@ -5705,8 +5705,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 71.28,
-     "end": 71.71,
+     "start": 71.84,
+     "end": 72.55,
      "word_start": 103,
      "word_end": 104,
      "params": {
@@ -5720,13 +5720,13 @@
    "id": "obama__filler_s5",
    "source": "obama",
    "kind": "single",
-   "duration": 83.12,
+   "duration": 84.64,
    "labels": [
     {
      "type": "filler",
      "severity": 5,
      "start": 12.86,
-     "end": 13.29,
+     "end": 13.67,
      "word_start": 7,
      "word_end": 8,
      "params": {
@@ -5736,8 +5736,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 17.73,
-     "end": 18.16,
+     "start": 18.11,
+     "end": 18.92,
      "word_start": 13,
      "word_end": 14,
      "params": {
@@ -5747,8 +5747,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 21.92,
-     "end": 22.35,
+     "start": 22.68,
+     "end": 23.49,
      "word_start": 19,
      "word_end": 20,
      "params": {
@@ -5758,8 +5758,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 36.63,
-     "end": 37.06,
+     "start": 37.77,
+     "end": 38.58,
      "word_start": 39,
      "word_end": 40,
      "params": {
@@ -6145,13 +6145,13 @@
    "id": "obama__mix5",
    "source": "obama",
    "kind": "mixed",
-   "duration": 84.02,
+   "duration": 84.38,
    "labels": [
     {
      "type": "filler",
      "severity": 3,
      "start": 12.44,
-     "end": 12.87,
+     "end": 13.05,
      "word_start": 5,
      "word_end": 6,
      "params": {
@@ -6161,8 +6161,8 @@
     {
      "type": "filler",
      "severity": 3,
-     "start": 17.93,
-     "end": 18.36,
+     "start": 18.11,
+     "end": 18.72,
      "word_start": 15,
      "word_end": 16,
      "params": {
@@ -6172,8 +6172,8 @@
     {
      "type": "mumbling",
      "severity": 4,
-     "start": 59.12,
-     "end": 65.28,
+     "start": 59.48,
+     "end": 65.64,
      "word_start": 78,
      "word_end": 86,
      "params": {
@@ -6183,8 +6183,8 @@
     {
      "type": "dragging",
      "severity": 4,
-     "start": 71.17,
-     "end": 75.16,
+     "start": 71.53,
+     "end": 75.52,
      "word_start": 103,
      "word_end": 107,
      "params": {
@@ -6194,8 +6194,8 @@
     {
      "type": "trailing_off",
      "severity": 4,
-     "start": 79.02,
-     "end": 82.32,
+     "start": 79.38,
+     "end": 82.68,
      "word_start": 114,
      "word_end": 122,
      "params": {
@@ -6276,7 +6276,7 @@
    "id": "obama__mix7",
    "source": "obama",
    "kind": "mixed",
-   "duration": 85.42,
+   "duration": 86.94,
    "labels": [
     {
      "type": "awkward_pause",
@@ -6304,7 +6304,7 @@
      "type": "filler",
      "severity": 5,
      "start": 24.037,
-     "end": 24.627,
+     "end": 25.007,
      "word_start": 17,
      "word_end": 18,
      "params": {
@@ -6314,8 +6314,8 @@
     {
      "type": "rushed",
      "severity": 4,
-     "start": 24.837,
-     "end": 27.713,
+     "start": 25.217,
+     "end": 28.093,
      "word_start": 19,
      "word_end": 27,
      "params": {
@@ -6325,8 +6325,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 29.163,
-     "end": 29.593,
+     "start": 29.543,
+     "end": 30.353,
      "word_start": 32,
      "word_end": 33,
      "params": {
@@ -6336,8 +6336,8 @@
     {
      "type": "monotone",
      "severity": 4,
-     "start": 46.043,
-     "end": 50.723,
+     "start": 46.803,
+     "end": 51.483,
      "word_start": 53,
      "word_end": 62,
      "params": {
@@ -6347,8 +6347,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 62.723,
-     "end": 63.153,
+     "start": 63.483,
+     "end": 64.293,
      "word_start": 83,
      "word_end": 84,
      "params": {
@@ -6358,8 +6358,8 @@
     {
      "type": "awkward_pause",
      "severity": 5,
-     "start": 69.183,
-     "end": 70.817,
+     "start": 70.323,
+     "end": 71.957,
      "word_start": 93,
      "word_end": 94,
      "params": {
@@ -6369,8 +6369,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 72.087,
-     "end": 72.517,
+     "start": 73.227,
+     "end": 74.037,
      "word_start": 95,
      "word_end": 96,
      "params": {
@@ -6380,8 +6380,8 @@
     {
      "type": "mumbling",
      "severity": 5,
-     "start": 73.297,
-     "end": 75.277,
+     "start": 74.817,
+     "end": 76.797,
      "word_start": 99,
      "word_end": 105,
      "params": {
@@ -6396,13 +6396,13 @@
    "id": "obama__mix8",
    "source": "obama",
    "kind": "mixed",
-   "duration": 84.89,
+   "duration": 86.41,
    "labels": [
     {
      "type": "filler",
      "severity": 5,
      "start": 12.86,
-     "end": 13.29,
+     "end": 13.67,
      "word_start": 7,
      "word_end": 8,
      "params": {
@@ -6412,8 +6412,8 @@
     {
      "type": "mumbling",
      "severity": 5,
-     "start": 28.37,
-     "end": 35.86,
+     "start": 28.75,
+     "end": 36.24,
      "word_start": 32,
      "word_end": 40,
      "params": {
@@ -6423,8 +6423,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 48.15,
-     "end": 48.58,
+     "start": 48.53,
+     "end": 49.34,
      "word_start": 57,
      "word_end": 58,
      "params": {
@@ -6434,8 +6434,8 @@
     {
      "type": "stutter",
      "severity": 5,
-     "start": 50.06,
-     "end": 51.094,
+     "start": 50.82,
+     "end": 51.854,
      "word_start": 63,
      "word_end": 63,
      "params": {
@@ -6445,8 +6445,8 @@
     {
      "type": "trailing_off",
      "severity": 5,
-     "start": 52.984,
-     "end": 54.644,
+     "start": 53.744,
+     "end": 55.404,
      "word_start": 66,
      "word_end": 71,
      "params": {
@@ -6456,8 +6456,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 61.864,
-     "end": 62.924,
+     "start": 62.624,
+     "end": 64.064,
      "word_start": 82,
      "word_end": 83,
      "params": {
@@ -6467,8 +6467,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 63.164,
-     "end": 63.594,
+     "start": 64.304,
+     "end": 65.114,
      "word_start": 83,
      "word_end": 84,
      "params": {
@@ -6478,8 +6478,8 @@
     {
      "type": "stutter",
      "severity": 5,
-     "start": 66.814,
-     "end": 67.664,
+     "start": 68.334,
+     "end": 69.184,
      "word_start": 87,
      "word_end": 87,
      "params": {
@@ -6489,8 +6489,8 @@
     {
      "type": "dragging",
      "severity": 5,
-     "start": 69.184,
-     "end": 75.418,
+     "start": 70.704,
+     "end": 76.938,
      "word_start": 90,
      "word_end": 98,
      "params": {
@@ -6500,8 +6500,8 @@
     {
      "type": "rushed",
      "severity": 5,
-     "start": 78.288,
-     "end": 80.189,
+     "start": 79.808,
+     "end": 81.709,
      "word_start": 107,
      "word_end": 115,
      "params": {
@@ -7201,13 +7201,13 @@
    "id": "reagan__filler_s1",
    "source": "reagan",
    "kind": "single",
-   "duration": 77.61,
+   "duration": 77.62,
    "labels": [
     {
      "type": "filler",
      "severity": 1,
      "start": 2.74,
-     "end": 3.17,
+     "end": 3.18,
      "word_start": 7,
      "word_end": 8,
      "params": {
@@ -7221,13 +7221,13 @@
    "id": "reagan__filler_s2",
    "source": "reagan",
    "kind": "single",
-   "duration": 78.04,
+   "duration": 78.22,
    "labels": [
     {
      "type": "filler",
      "severity": 2,
      "start": 15.58,
-     "end": 16.01,
+     "end": 16.1,
      "word_start": 45,
      "word_end": 46,
      "params": {
@@ -7237,8 +7237,8 @@
     {
      "type": "filler",
      "severity": 2,
-     "start": 61.61,
-     "end": 62.04,
+     "start": 61.7,
+     "end": 62.22,
      "word_start": 155,
      "word_end": 156,
      "params": {
@@ -7252,13 +7252,13 @@
    "id": "reagan__filler_s3",
    "source": "reagan",
    "kind": "single",
-   "duration": 78.04,
+   "duration": 78.4,
    "labels": [
     {
      "type": "filler",
      "severity": 3,
      "start": 46.22,
-     "end": 46.65,
+     "end": 46.83,
      "word_start": 131,
      "word_end": 132,
      "params": {
@@ -7268,8 +7268,8 @@
     {
      "type": "filler",
      "severity": 3,
-     "start": 47.11,
-     "end": 47.54,
+     "start": 47.29,
+     "end": 47.9,
      "word_start": 132,
      "word_end": 133,
      "params": {
@@ -7283,13 +7283,13 @@
    "id": "reagan__filler_s4",
    "source": "reagan",
    "kind": "single",
-   "duration": 78.47,
+   "duration": 79.31,
    "labels": [
     {
      "type": "filler",
      "severity": 4,
      "start": 8.9,
-     "end": 9.33,
+     "end": 9.61,
      "word_start": 29,
      "word_end": 30,
      "params": {
@@ -7299,8 +7299,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 41.51,
-     "end": 41.94,
+     "start": 41.79,
+     "end": 42.5,
      "word_start": 119,
      "word_end": 120,
      "params": {
@@ -7310,8 +7310,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 69.67,
-     "end": 70.1,
+     "start": 70.23,
+     "end": 70.94,
      "word_start": 172,
      "word_end": 173,
      "params": {
@@ -7325,13 +7325,13 @@
    "id": "reagan__filler_s5",
    "source": "reagan",
    "kind": "single",
-   "duration": 78.9,
+   "duration": 80.42,
    "labels": [
     {
      "type": "filler",
      "severity": 5,
      "start": 23.32,
-     "end": 23.75,
+     "end": 24.13,
      "word_start": 70,
      "word_end": 71,
      "params": {
@@ -7341,8 +7341,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 40.54,
-     "end": 40.97,
+     "start": 40.92,
+     "end": 41.73,
      "word_start": 114,
      "word_end": 115,
      "params": {
@@ -7352,8 +7352,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 65.16,
-     "end": 65.59,
+     "start": 65.92,
+     "end": 66.73,
      "word_start": 161,
      "word_end": 162,
      "params": {
@@ -7363,8 +7363,8 @@
     {
      "type": "filler",
      "severity": 5,
-     "start": 71.01,
-     "end": 71.44,
+     "start": 72.15,
+     "end": 72.96,
      "word_start": 175,
      "word_end": 176,
      "params": {
@@ -7665,13 +7665,13 @@
    "id": "reagan__mix3",
    "source": "reagan",
    "kind": "mixed",
-   "duration": 77.18,
+   "duration": 77.36,
    "labels": [
     {
      "type": "filler",
      "severity": 2,
      "start": 2.74,
-     "end": 3.17,
+     "end": 3.26,
      "word_start": 7,
      "word_end": 8,
      "params": {
@@ -7681,8 +7681,8 @@
     {
      "type": "trailing_off",
      "severity": 3,
-     "start": 15.51,
-     "end": 16.98,
+     "start": 15.6,
+     "end": 17.07,
      "word_start": 43,
      "word_end": 49,
      "params": {
@@ -7692,8 +7692,8 @@
     {
      "type": "pause_omission",
      "severity": 3,
-     "start": 21.55,
-     "end": 25.649,
+     "start": 21.64,
+     "end": 25.739,
      "word_start": 67,
      "word_end": 74,
      "params": {
@@ -7704,8 +7704,8 @@
     {
      "type": "filler",
      "severity": 2,
-     "start": 46.969,
-     "end": 47.399,
+     "start": 47.059,
+     "end": 47.579,
      "word_start": 135,
      "word_end": 136,
      "params": {
@@ -7720,7 +7720,7 @@
    "id": "reagan__mix4",
    "source": "reagan",
    "kind": "mixed",
-   "duration": 78.06,
+   "duration": 78.9,
    "labels": [
     {
      "type": "rushed",
@@ -7737,7 +7737,7 @@
      "type": "filler",
      "severity": 4,
      "start": 15.688,
-     "end": 16.118,
+     "end": 16.398,
      "word_start": 48,
      "word_end": 49,
      "params": {
@@ -7747,8 +7747,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 63.418,
-     "end": 63.848,
+     "start": 63.698,
+     "end": 64.408,
      "word_start": 158,
      "word_end": 159,
      "params": {
@@ -7758,8 +7758,8 @@
     {
      "type": "monotone",
      "severity": 4,
-     "start": 64.958,
-     "end": 70.728,
+     "start": 65.518,
+     "end": 71.288,
      "word_start": 164,
      "word_end": 178,
      "params": {
@@ -7769,8 +7769,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 76.258,
-     "end": 76.688,
+     "start": 76.818,
+     "end": 77.528,
      "word_start": 193,
      "word_end": 194,
      "params": {
@@ -7785,7 +7785,7 @@
    "id": "reagan__mix5",
    "source": "reagan",
    "kind": "mixed",
-   "duration": 79.39,
+   "duration": 79.75,
    "labels": [
     {
      "type": "stutter",
@@ -7824,7 +7824,7 @@
      "type": "filler",
      "severity": 3,
      "start": 23.943,
-     "end": 24.373,
+     "end": 24.553,
      "word_start": 72,
      "word_end": 73,
      "params": {
@@ -7834,8 +7834,8 @@
     {
      "type": "stutter",
      "severity": 4,
-     "start": 31.373,
-     "end": 32.478,
+     "start": 31.553,
+     "end": 32.658,
      "word_start": 91,
      "word_end": 91,
      "params": {
@@ -7845,8 +7845,8 @@
     {
      "type": "awkward_pause",
      "severity": 3,
-     "start": 36.378,
-     "end": 37.248,
+     "start": 36.558,
+     "end": 37.428,
      "word_start": 100,
      "word_end": 101,
      "params": {
@@ -7856,8 +7856,8 @@
     {
      "type": "filler",
      "severity": 3,
-     "start": 61.918,
-     "end": 62.348,
+     "start": 62.098,
+     "end": 62.708,
      "word_start": 153,
      "word_end": 154,
      "params": {
@@ -7937,7 +7937,7 @@
    "id": "reagan__mix7",
    "source": "reagan",
    "kind": "mixed",
-   "duration": 87.47,
+   "duration": 88.31,
    "labels": [
     {
      "type": "trailing_off",
@@ -7954,7 +7954,7 @@
      "type": "filler",
      "severity": 4,
      "start": 8.3,
-     "end": 8.73,
+     "end": 9.01,
      "word_start": 27,
      "word_end": 28,
      "params": {
@@ -7964,8 +7964,8 @@
     {
      "type": "monotone",
      "severity": 4,
-     "start": 9.33,
-     "end": 15.89,
+     "start": 9.61,
+     "end": 16.17,
      "word_start": 30,
      "word_end": 44,
      "params": {
@@ -7975,8 +7975,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 24.35,
-     "end": 24.78,
+     "start": 24.63,
+     "end": 25.34,
      "word_start": 72,
      "word_end": 73,
      "params": {
@@ -7986,8 +7986,8 @@
     {
      "type": "awkward_pause",
      "severity": 5,
-     "start": 26.94,
-     "end": 28.962,
+     "start": 27.5,
+     "end": 29.522,
      "word_start": 74,
      "word_end": 75,
      "params": {
@@ -7997,8 +7997,8 @@
     {
      "type": "awkward_pause",
      "severity": 5,
-     "start": 31.742,
-     "end": 33.533,
+     "start": 32.302,
+     "end": 34.093,
      "word_start": 82,
      "word_end": 83,
      "params": {
@@ -8008,8 +8008,8 @@
     {
      "type": "dragging",
      "severity": 5,
-     "start": 54.249,
-     "end": 60.32,
+     "start": 54.809,
+     "end": 60.88,
      "word_start": 139,
      "word_end": 144,
      "params": {
@@ -8019,8 +8019,8 @@
     {
      "type": "awkward_pause",
      "severity": 5,
-     "start": 62.885,
-     "end": 64.644,
+     "start": 63.445,
+     "end": 65.204,
      "word_start": 147,
      "word_end": 148,
      "params": {
@@ -8030,8 +8030,8 @@
     {
      "type": "filler",
      "severity": 4,
-     "start": 80.144,
-     "end": 80.574,
+     "start": 80.704,
+     "end": 81.414,
      "word_start": 178,
      "word_end": 179,
      "params": {

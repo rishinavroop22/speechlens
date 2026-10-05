@@ -104,7 +104,33 @@ Audio download: see the link in [`data/README.md`](data/README.md).
 
 All numbers come from running the full pipeline on raw audio, including forced alignment of the flawed recording (no oracle timings). Reproduce with `python tools/evaluate.py`; the dashboard's Evaluation tab renders `results/evaluation.json`.
 
-_Results table is filled in by the latest run; see `results/evaluation.json`._
+Headline (285 clips, 5 speeches, all on raw audio):
+
+| | |
+|---|---|
+| Flaw localization F1 (tIoU >= 0.3) | **0.73** (precision 0.75, recall 0.71) |
+| Median boundary error of matched flaws | **150 ms** |
+| False findings on unflawed controls (incl. voice shifted ±4 semitones, -12 dB) | **2 in 29 min** |
+| Score vs mixed-flaw level, Spearman ρ | **-0.954** |
+| Severity error, leave-one-speech-out | **0.493 levels**, 91% within one level |
+| Re-run on a fresh process | byte-identical |
+
+Per flaw type (tIoU >= 0.3):
+
+| Flaw | Precision | Recall | F1 | Mean tIoU | Boundary err (ms) |
+|---|---|---|---|---|---|
+| Rushed | 0.95 | 0.86 | 0.91 | 0.80 | 213 |
+| Dragging | 0.78 | 0.69 | 0.73 | 0.82 | 248 |
+| Monotone | 1.00 | 0.85 | 0.92 | 0.73 | 495 |
+| Trailing off | 0.88 | 0.68 | 0.77 | 0.67 | 475 |
+| Missing pauses | 0.66 | 0.62 | 0.64 | 0.99 | 3 |
+| Awkward pause | 0.78 | 0.77 | 0.77 | 0.80 | 117 |
+| Filler | 0.70 | 0.72 | 0.71 | 0.56 | 151 |
+| Muffled articulation | 1.00 | 0.52 | 0.69 | 0.77 | 370 |
+| Repeated onset | 0.51 | 0.61 | 0.55 | 0.84 | 21 |
+| **All flaws** | 0.75 | 0.71 | 0.73 | 0.74 | 150 |
+
+Detection rises with severity as designed: severity 1 is near-perfect by construction and mostly passes; from severity 3 up, pace, monotone, pause and fluency flaws are found 60-100 % of the time (full table in the dashboard's Evaluation tab).
 
 ---
 

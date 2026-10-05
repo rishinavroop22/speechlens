@@ -8,71 +8,71 @@
    "precision": 0.95,
    "recall": 0.864,
    "f1": 0.905,
-   "mean_tiou": 0.804,
-   "boundary_err_ms": 209,
+   "mean_tiou": 0.803,
+   "boundary_err_ms": 213,
    "tp": 38,
    "fp": 2,
    "fn": 6
   },
   "dragging": {
-   "precision": 0.6,
-   "recall": 0.643,
-   "f1": 0.621,
-   "mean_tiou": 0.821,
-   "boundary_err_ms": 270,
-   "tp": 27,
-   "fp": 18,
-   "fn": 15
+   "precision": 0.784,
+   "recall": 0.69,
+   "f1": 0.734,
+   "mean_tiou": 0.82,
+   "boundary_err_ms": 248,
+   "tp": 29,
+   "fp": 8,
+   "fn": 13
   },
   "monotone": {
-   "precision": 0.614,
-   "recall": 0.897,
-   "f1": 0.729,
-   "mean_tiou": 0.726,
-   "boundary_err_ms": 575,
-   "tp": 35,
-   "fp": 22,
-   "fn": 4
+   "precision": 1.0,
+   "recall": 0.846,
+   "f1": 0.917,
+   "mean_tiou": 0.731,
+   "boundary_err_ms": 495,
+   "tp": 33,
+   "fp": 0,
+   "fn": 6
   },
   "trailing_off": {
-   "precision": 0.933,
+   "precision": 0.875,
    "recall": 0.683,
-   "f1": 0.789,
-   "mean_tiou": 0.674,
-   "boundary_err_ms": 435,
+   "f1": 0.767,
+   "mean_tiou": 0.666,
+   "boundary_err_ms": 475,
    "tp": 28,
-   "fp": 2,
+   "fp": 4,
    "fn": 13
   },
   "pause_omission": {
-   "precision": 0.676,
+   "precision": 0.657,
    "recall": 0.622,
-   "f1": 0.648,
-   "mean_tiou": 0.959,
-   "boundary_err_ms": 4,
+   "f1": 0.639,
+   "mean_tiou": 0.986,
+   "boundary_err_ms": 3,
    "tp": 23,
-   "fp": 11,
+   "fp": 12,
    "fn": 14
   },
   "awkward_pause": {
-   "precision": 0.69,
+   "precision": 0.779,
    "recall": 0.769,
-   "f1": 0.727,
-   "mean_tiou": 0.798,
+   "f1": 0.774,
+   "mean_tiou": 0.796,
    "boundary_err_ms": 117,
    "tp": 60,
-   "fp": 27,
+   "fp": 17,
    "fn": 18
   },
   "filler": {
-   "precision": 0.302,
-   "recall": 0.33,
-   "f1": 0.315,
-   "mean_tiou": 0.844,
-   "boundary_err_ms": 10,
-   "tp": 38,
-   "fp": 88,
-   "fn": 77
+   "precision": 0.697,
+   "recall": 0.722,
+   "f1": 0.709,
+   "mean_tiou": 0.561,
+   "boundary_err_ms": 151,
+   "tp": 83,
+   "fp": 36,
+   "fn": 32
   },
   "mumbling": {
    "precision": 1.0,
@@ -85,24 +85,24 @@
    "fn": 20
   },
   "stutter": {
-   "precision": 0.295,
-   "recall": 0.508,
-   "f1": 0.373,
-   "mean_tiou": 0.825,
+   "precision": 0.507,
+   "recall": 0.607,
+   "f1": 0.552,
+   "mean_tiou": 0.845,
    "boundary_err_ms": 21,
-   "tp": 31,
-   "fp": 74,
-   "fn": 30
+   "tp": 37,
+   "fp": 36,
+   "fn": 24
   },
   "__all__": {
-   "precision": 0.553,
-   "recall": 0.605,
-   "f1": 0.578,
-   "mean_tiou": 0.799,
-   "boundary_err_ms": 125,
-   "tp": 302,
-   "fp": 244,
-   "fn": 197
+   "precision": 0.754,
+   "recall": 0.707,
+   "f1": 0.73,
+   "mean_tiou": 0.743,
+   "boundary_err_ms": 150,
+   "tp": 353,
+   "fp": 115,
+   "fn": 146
   }
  },
  "grounding_tiou_0.5": {
@@ -110,101 +110,101 @@
    "precision": 0.875,
    "recall": 0.795,
    "f1": 0.833,
-   "mean_tiou": 0.838,
-   "boundary_err_ms": 209,
+   "mean_tiou": 0.831,
+   "boundary_err_ms": 204,
    "tp": 35,
    "fp": 5,
    "fn": 9
   },
   "dragging": {
-   "precision": 0.556,
-   "recall": 0.595,
-   "f1": 0.575,
-   "mean_tiou": 0.856,
-   "boundary_err_ms": 230,
-   "tp": 25,
-   "fp": 20,
-   "fn": 17
+   "precision": 0.73,
+   "recall": 0.643,
+   "f1": 0.684,
+   "mean_tiou": 0.853,
+   "boundary_err_ms": 226,
+   "tp": 27,
+   "fp": 10,
+   "fn": 15
   },
   "monotone": {
-   "precision": 0.526,
-   "recall": 0.769,
-   "f1": 0.625,
-   "mean_tiou": 0.777,
-   "boundary_err_ms": 445,
-   "tp": 30,
-   "fp": 27,
-   "fn": 9
+   "precision": 0.788,
+   "recall": 0.667,
+   "f1": 0.722,
+   "mean_tiou": 0.818,
+   "boundary_err_ms": 320,
+   "tp": 26,
+   "fp": 7,
+   "fn": 13
   },
   "trailing_off": {
-   "precision": 0.733,
+   "precision": 0.688,
    "recall": 0.537,
-   "f1": 0.62,
-   "mean_tiou": 0.747,
-   "boundary_err_ms": 375,
+   "f1": 0.603,
+   "mean_tiou": 0.737,
+   "boundary_err_ms": 385,
    "tp": 22,
-   "fp": 8,
+   "fp": 10,
    "fn": 19
   },
   "pause_omission": {
-   "precision": 0.647,
-   "recall": 0.595,
-   "f1": 0.62,
+   "precision": 0.657,
+   "recall": 0.622,
+   "f1": 0.639,
    "mean_tiou": 0.986,
    "boundary_err_ms": 3,
-   "tp": 22,
+   "tp": 23,
    "fp": 12,
-   "fn": 15
+   "fn": 14
   },
   "awkward_pause": {
-   "precision": 0.655,
+   "precision": 0.74,
    "recall": 0.731,
-   "f1": 0.691,
-   "mean_tiou": 0.816,
-   "boundary_err_ms": 115,
+   "f1": 0.735,
+   "mean_tiou": 0.814,
+   "boundary_err_ms": 116,
    "tp": 57,
-   "fp": 30,
+   "fp": 20,
    "fn": 21
   },
   "filler": {
-   "precision": 0.254,
-   "recall": 0.278,
-   "f1": 0.266,
-   "mean_tiou": 0.935,
-   "boundary_err_ms": 10,
-   "tp": 32,
-   "fp": 94,
-   "fn": 83
+   "precision": 0.496,
+   "recall": 0.513,
+   "f1": 0.504,
+   "mean_tiou": 0.621,
+   "boundary_err_ms": 150,
+   "tp": 59,
+   "fp": 60,
+   "fn": 56
   },
   "mumbling": {
    "precision": 0.955,
    "recall": 0.5,
    "f1": 0.656,
    "mean_tiou": 0.784,
-   "boundary_err_ms": 344,
+   "boundary_err_ms": 345,
    "tp": 21,
    "fp": 1,
    "fn": 21
   },
   "stutter": {
-   "precision": 0.286,
-   "recall": 0.492,
-   "f1": 0.361,
-   "mean_tiou": 0.84,
-   "boundary_err_ms": 21,
-   "tp": 30,
-   "fp": 75,
-   "fn": 31
+   "precision": 0.493,
+   "recall": 0.59,
+   "f1": 0.537,
+   "mean_tiou": 0.858,
+   "boundary_err_ms": 20,
+   "tp": 36,
+   "fp": 37,
+   "fn": 25
   },
   "__all__": {
-   "precision": 0.502,
-   "recall": 0.549,
-   "f1": 0.524,
-   "mean_tiou": 0.84,
-   "boundary_err_ms": 111,
-   "tp": 274,
-   "fp": 272,
-   "fn": 225
+   "precision": 0.654,
+   "recall": 0.613,
+   "f1": 0.633,
+   "mean_tiou": 0.793,
+   "boundary_err_ms": 148,
+   "tp": 306,
+   "fp": 162,
+   "fn": 193
   }
  },
  "recall_by_severity": {
@@ -223,8 +223,8 @@
    0.8
   ],
   "monotone": [
-   0.4,
-   1.0,
+   0.0,
+   0.8,
    1.0,
    1.0,
    1.0
@@ -251,11 +251,11 @@
    0.933
   ],
   "filler": [
-   0.6,
-   0.2,
-   0.2,
-   0.267,
-   0.35
+   0.8,
+   0.3,
+   0.7,
+   0.733,
+   0.85
   ],
   "mumbling": [
    0.0,
@@ -267,16 +267,16 @@
   "stutter": [
    0.4,
    0.4,
-   0.4,
    0.6,
+   0.7,
    0.5
   ]
  },
  "severity": {
-  "mae": 0.801,
-  "within_1": 0.821,
-  "bias": -0.57,
-  "n": 302
+  "mae": 0.473,
+  "within_1": 0.921,
+  "bias": -0.212,
+  "n": 353
  },
  "controls": {
   "identity": {
@@ -288,17 +288,17 @@
   },
   "pitch_up4": {
    "clips": 5,
-   "false_regions": 2,
+   "false_regions": 1,
    "minutes": 7.28,
-   "false_per_min": 0.275,
-   "mean_score": 98.6
+   "false_per_min": 0.137,
+   "mean_score": 98.3
   },
   "pitch_down4": {
    "clips": 5,
-   "false_regions": 4,
+   "false_regions": 1,
    "minutes": 7.28,
-   "false_per_min": 0.549,
-   "mean_score": 97.6
+   "false_per_min": 0.137,
+   "mean_score": 98.4
   },
   "quiet12db": {
    "clips": 5,
@@ -309,30 +309,199 @@
   }
  },
  "score_validity": {
-  "spearman_load_vs_score": -0.735,
-  "p": 1.206263085825847e-49,
-  "spearman_mix_level_vs_score": -0.959,
-  "p_mix": 1.7264294310878147e-22,
+  "spearman_load_vs_score": -0.825,
+  "p": 2.9999637329041593e-72,
+  "spearman_mix_level_vs_score": -0.954,
+  "p_mix": 1.9736721148795884e-21,
   "spearman_severity_vs_score_by_type": {
-   "rushed": -0.812,
-   "dragging": -0.792,
-   "monotone": -0.926,
-   "trailing_off": -0.929,
-   "pause_omission": -0.892,
-   "awkward_pause": -0.898,
-   "filler": -0.701,
-   "mumbling": -0.645,
-   "stutter": -0.659
+   "rushed": -0.774,
+   "dragging": -0.613,
+   "monotone": -0.962,
+   "trailing_off": -0.92,
+   "pause_omission": -0.953,
+   "awkward_pause": -0.906,
+   "filler": -0.896,
+   "mumbling": -0.722,
+   "stutter": -0.83
   },
   "mean_score_by_mix_level": {
-   "1": 98.8,
-   "2": 97.7,
-   "3": 92.7,
-   "4": 87.7,
-   "5": 82.6,
-   "6": 79.5,
-   "7": 66.6,
-   "8": 56.5
+   "1": 98.6,
+   "2": 96.2,
+   "3": 88.5,
+   "4": 80.4,
+   "5": 70.7,
+   "6": 69.1,
+   "7": 52.1,
+   "8": 40.6
+  }
+ },
+ "severity_calibration": {
+  "default_tables": {
+   "mae": 0.64,
+   "within_1": 0.881,
+   "bias": -0.414,
+   "n": 353
+  },
+  "calibrated_leave_one_speech_out": {
+   "mae": 0.493,
+   "within_1": 0.909,
+   "bias": -0.198,
+   "n": 353
+  },
+  "tables": {
+   "rushed": {
+    "table": [
+     0.88,
+     0.7445,
+     0.6978,
+     0.6209,
+     0.5643
+    ],
+    "increasing": false,
+    "n": {
+     "1": 1,
+     "2": 8,
+     "3": 8,
+     "4": 9,
+     "5": 12
+    }
+   },
+   "dragging": {
+    "table": [
+     1.12,
+     1.258,
+     1.3821,
+     1.4119,
+     1.5278
+    ],
+    "increasing": true,
+    "n": {
+     "1": 0,
+     "2": 3,
+     "3": 8,
+     "4": 9,
+     "5": 9
+    }
+   },
+   "monotone": {
+    "table": [
+     0.35,
+     0.4812,
+     0.6438,
+     0.8157,
+     0.9372
+    ],
+    "increasing": true,
+    "n": {
+     "1": 0,
+     "2": 5,
+     "3": 9,
+     "4": 9,
+     "5": 10
+    }
+   },
+   "trailing_off": {
+    "table": [
+     4.0,
+     7.0,
+     9.0007,
+     12.4164,
+     14.6858
+    ],
+    "increasing": true,
+    "n": {
+     "1": 0,
+     "2": 1,
+     "3": 6,
+     "4": 10,
+     "5": 11
+    }
+   },
+   "pause_omission": {
+    "table": [
+     0.6,
+     0.45,
+     0.32,
+     0.1709,
+     0.0896
+    ],
+    "increasing": false,
+    "n": {
+     "1": 0,
+     "2": 0,
+     "3": 11,
+     "4": 7,
+     "5": 5
+    }
+   },
+   "awkward_pause": {
+    "table": [
+     0.35,
+     0.6,
+     0.6,
+     1.03,
+     1.49
+    ],
+    "increasing": true,
+    "n": {
+     "1": 1,
+     "2": 0,
+     "3": 13,
+     "4": 19,
+     "5": 27
+    }
+   },
+   "filler": {
+    "table": [
+     0.285,
+     0.37,
+     0.41,
+     0.47,
+     0.6
+    ],
+    "increasing": true,
+    "n": {
+     "1": 4,
+     "2": 6,
+     "3": 12,
+     "4": 19,
+     "5": 42
+    }
+   },
+   "mumbling": {
+    "table": [
+     0.8,
+     1.6,
+     4.6846,
+     6.3193,
+     6.7789
+    ],
+    "increasing": true,
+    "n": {
+     "1": 0,
+     "2": 1,
+     "3": 3,
+     "4": 9,
+     "5": 9
+    }
+   },
+   "stutter": {
+    "table": [
+     1.0,
+     1.5,
+     2.0,
+     2.0,
+     3.0
+    ],
+    "increasing": true,
+    "n": {
+     "1": 3,
+     "2": 2,
+     "3": 5,
+     "4": 15,
+     "5": 12
+    }
+   }
   }
  }
 }

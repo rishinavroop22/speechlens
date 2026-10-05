@@ -1,0 +1,92 @@
+{
+ "rushed": {
+  "table": [
+   0.88,
+   0.7445,
+   0.6978,
+   0.6209,
+   0.5643
+  ],
+  "increasing": false
+ },
+ "dragging": {
+  "table": [
+   1.12,
+   1.258,
+   1.3821,
+   1.4119,
+   1.5278
+  ],
+  "increasing": true
+ },
+ "monotone": {
+  "table": [
+   0.35,
+   0.4812,
+   0.6438,
+   0.8157,
+   0.9372
+  ],
+  "increasing": true
+ },
+ "trailing_off": {
+  "table": [
+   4.0,
+   7.0,
+   9.0007,
+   12.4164,
+   14.6858
+  ],
+  "increasing": true
+ },
+ "pause_omission": {
+  "table": [
+   0.6,
+   0.45,
+   0.32,
+   0.1709,
+   0.0896
+  ],
+  "increasing": false
+ },
+ "awkward_pause": {
+  "table": [
+   0.35,
+   0.6,
+   0.6,
+   1.03,
+   1.49
+  ],
+  "increasing": true
+ },
+ "filler": {
+  "table": [
+   0.285,
+   0.37,
+   0.41,
+   0.47,
+   0.6
+  ],
+  "increasing": true
+ },
+ "mumbling": {
+  "table": [
+   0.8,
+   1.6,
+   4.6846,
+   6.3193,
+   6.7789
+  ],
+  "increasing": true
+ },
+ "stutter": {
+  "table": [
+   1.0,
+   1.5,
+   2.0,
+   2.0,
+   3.0
+  ],
+  "increasing": true
+ }
+}

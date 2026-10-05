@@ -78,9 +78,9 @@ A fixed template per flaw type is filled with: location (time and words), the pr
 
 Six dimensions start at 10. Each region subtracts
 
-- span flaws: `severity x (0.55 + 4 x share of words covered)`;
-- point flaws (awkward pause, filler, repeated onset): `0.45 x severity` each;
-- whole-reading findings: `1.6 x severity`.
+- span flaws: `severity x (0.8 + 6 x share of words covered)`;
+- point flaws (awkward pause, filler, repeated onset): `0.7 x severity` each;
+- whole-reading findings: `2.4 x severity`.
 
 The overall score is `10 x` the rubric-weighted mean of the dimensions. Rubric presets (`speechlens/rubrics/*.json`) set the weights and score bands.
 

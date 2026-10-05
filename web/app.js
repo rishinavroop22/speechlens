@@ -20,6 +20,8 @@ const METRIC_NAMES = {
   mean_pause_at_punctuation: "Pause at punctuation", pauses_lost: "Pauses affected", pause_length: "Pause length",
   voiced_sound_in_pause: "Voiced sound in pause", onset_repetitions: "Onset repetitions",
   burst_vs_word_onset_similarity: "Burst vs onset similarity",
+  fragment_vs_word_onset_similarity: "Fragment vs word-onset similarity", held_steady_voicing: "Held steady vowel",
+  time_added: "Time added at this boundary",
 };
 const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const col = (t) => css(`--${DIM_OF[t] || t}`);
@@ -186,7 +188,7 @@ function showReport() {
   const hasTruth = Array.isArray(r.truth);
   $("#legend-truth").hidden = $("#cv-truth").hidden = $("#ll-truth").hidden = !hasTruth;
   const lanes = $("#lanes");
-  S.pps = Math.max(30, (lanes.clientWidth || 800) / r.duration);
+  S.pps = Math.max(4, (lanes.clientWidth || 800) / r.duration);  // open showing the whole recording
   drawTape();
   renderFindings();
 }
@@ -479,7 +481,8 @@ async function renderEval() {
     <table class="et heat"><thead><tr><th>Flaw</th>${[1, 2, 3, 4, 5].map((s) => `<th>Severity ${s}</th>`).join("")}</tr></thead><tbody>
       ${Object.entries(e.recall_by_severity).map(([t, row]) => `<tr><td>${NAMES[t]}</td>${row.map((v) => `<td class="h" style="${heat(v)}">${pct(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>
     <h2>Severity estimate</h2>
-    <p class="note">Mean absolute error ${e.severity.mae ?? "–"} levels; ${pct(e.severity.within_1)} within one level; bias ${e.severity.bias ?? "–"} (n = ${e.severity.n}).</p>
+    ${e.severity_calibration ? `<p class="note">Severity tables are fitted from data. Measured on speeches held out of the fit (leave-one-speech-out): mean absolute error ${e.severity_calibration.calibrated_leave_one_speech_out.mae} levels, ${pct(e.severity_calibration.calibrated_leave_one_speech_out.within_1)} within one level (n = ${e.severity_calibration.calibrated_leave_one_speech_out.n}). With the injection engine's own parameter tables instead: ${e.severity_calibration.default_tables.mae} levels, ${pct(e.severity_calibration.default_tables.within_1)} within one.</p>`
+      : `<p class="note">Mean absolute error ${e.severity.mae ?? "–"} levels; ${pct(e.severity.within_1)} within one level; bias ${e.severity.bias ?? "–"} (n = ${e.severity.n}).</p>`}
     <h2>Unflawed controls</h2>
     <p class="note">The same reference delivery, unchanged or with the voice shifted 4 semitones up or down, or 12 dB quieter. A speaker-agnostic system should report nothing here.</p>
     <table class="et"><thead><tr><th>Control</th><th>Clips</th><th>False findings</th><th>Per minute</th><th>Mean score</th></tr></thead><tbody>

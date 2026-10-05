@@ -27,8 +27,8 @@ WHY = {
                       "running through them merges separate thoughts into one stream.",
     "awkward_pause": "A long silence where the reference has none - especially mid-phrase - breaks the "
                      "syntactic unit and signals lost place rather than deliberate emphasis.",
-    "filler": "Voiced sound inside a pause that maps to no word in the transcript is a filled pause "
-              "(\"uh\"/\"um\"), heard as hesitation and penalised under fluency.",
+    "filler": "A held, unchanging vowel that maps to no word in the transcript is a filled pause; "
+              "listeners hear it as hesitation, and judges penalise it under fluency.",
     "stutter": "Repeated onsets before the word is completed fragment it and interrupt the speech rhythm.",
 }
 
@@ -81,10 +81,11 @@ def explain(r: Region) -> str:
                           f"shrank from {ref} to {par} on average.",
         "awkward_pause": f"At {r.start:.2f}s, between {LQ}{pair_txt}{RQ}, a {par} silence "
                          f"replaced the reference's {ref} pause.",
-        "filler": f"At {r.start:.2f}s, {par} of voiced sound appears in the pause between "
-                  f"{LQ}{pair_txt}{RQ} where the reference has {ref}.",
+        "filler": (f"At {r.start:.2f}s, between {LQ}{pair_txt}{RQ}, a {par} held vowel ({LQ}uh{RQ}/{LQ}um{RQ}) appears "
+                   f"where the reference holds {ref}"
+                   + (f", adding {_fmt(r.metrics[1].participant, 's')} at this word boundary" if len(r.metrics) > 1 else "") + "."),
         "stutter": f"At {r.start:.2f}s, the onset of “{r.text}” is repeated {par} time(s) before the word is completed"
-                   + (f" (burst-to-onset spectral similarity {r.metrics[1].participant:.2f})" if len(r.metrics) > 1 else "") + ".",
+                   + (f" (fragment-to-onset spectral similarity {r.metrics[1].participant:.2f})" if len(r.metrics) > 1 else "") + ".",
     }[r.type]
     return f"{head} {WHY[r.type]} Fix: {ADVICE[r.type]}"
 
@@ -116,12 +117,12 @@ def score(regions: list[Region], n_words: int, duration: float, rubric: dict) ->
     pen = {d: 0.0 for d in DIMENSIONS}
     for r in regions:
         if r.scope == "global":
-            pen[r.dimension] += r.severity * 1.6
+            pen[r.dimension] += r.severity * 2.4
         elif r.type in ("awkward_pause", "filler", "stutter"):
-            pen[r.dimension] += r.severity * 0.45
+            pen[r.dimension] += r.severity * 0.7
         else:
             cover = (r.word_end - r.word_start + 1) / max(1, n_words)
-            pen[r.dimension] += r.severity * (0.55 + 4.0 * cover)
+            pen[r.dimension] += r.severity * (0.8 + 6.0 * cover)
     dims = {d: round(max(0.0, 10.0 - pen[d]), 2) for d in DIMENSIONS}
     w = rubric["weights"]
     total = sum(w[d] for d in DIMENSIONS)
