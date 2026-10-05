@@ -49,7 +49,7 @@ def _session():
     if not onnx.exists():
         onnx = MODEL_DIR / "model.onnx"
     opts = ort.SessionOptions()
-    opts.intra_op_num_threads = max(1, os.cpu_count() or 1)
+    opts.intra_op_num_threads = int(os.environ.get("SPEECHLENS_THREADS", max(1, os.cpu_count() or 1)))
     opts.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
     sess = ort.InferenceSession(str(onnx), opts, providers=["CPUExecutionProvider"])
     vocab = json.loads((MODEL_DIR / "vocab.json").read_text())
@@ -117,11 +117,11 @@ def ctc_viterbi(lp: np.ndarray, targets: list[int], blank: int = 0) -> np.ndarra
         arg = np.argmax(cand, axis=0)
         alpha = cand[arg, np.arange(S)] + lp[t, ext]
         back[t] = arg
-    s = S - 1 if alpha[S - 1] >= alpha[S - 2] else S - 2
+    s = int(S - 1 if alpha[S - 1] >= alpha[S - 2] else S - 2)
     path = np.empty(T, dtype=np.int64)
     for t in range(T - 1, -1, -1):
         path[t] = s
-        s -= back[t, s]
+        s -= int(back[t, s])
     return np.where(path % 2 == 1, (path - 1) // 2, -1)
 
 

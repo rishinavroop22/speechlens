@@ -18,6 +18,10 @@ class Token:
     punct_after: str | None  # "comma" | "clause" | "sentence" | None
 
 
+_MONTHS = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER",
+           "OCTOBER", "NOVEMBER", "DECEMBER"}
+
+
 def _spell(word: str) -> str:
     w = word.replace("’", "'")
     if re.fullmatch(r"\d+(st|nd|rd|th)", w, re.I):
@@ -32,7 +36,7 @@ def _spell(word: str) -> str:
 
 def tokenize(transcript: str) -> list[Token]:
     out: list[Token] = []
-    for raw in re.findall(r"\S+", transcript.replace("--", " — ")):
+    for raw in re.findall(r"\S+", re.sub(r"\s*(--|—|–)\s*", "— ", transcript)):
         trail = re.search(r"[,;:.!?—–]+[\"'”’)]*$", raw)
         punct = None
         if trail:
@@ -40,7 +44,10 @@ def tokenize(transcript: str) -> list[Token]:
             if marks:
                 kinds = [_PUNCT_PAUSE[c] for c in marks]
                 punct = "sentence" if "sentence" in kinds else ("clause" if "clause" in kinds else "comma")
-        norm = _spell(raw.strip("\"'“”‘’()[]—–,;:.!?"))
+        core = raw.strip("\"'“”‘’()[]—–,;:.!?")
+        if out and out[-1].norm in _MONTHS and re.fullmatch(r"\d{1,2}", core) and 1 <= int(core) <= 31:
+            core = core + "th"  # "December 7" is spoken "December seventh"
+        norm = _spell(core)
         if not norm:
             if out and punct:  # stray dash etc. attaches to previous word
                 out[-1].punct_after = punct

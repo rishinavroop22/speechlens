@@ -1,0 +1,13 @@
+{
+  "title": "Challenger Address",
+  "speaker": "Ronald Reagan",
+  "year": 1986,
+  "source": "https://millercenter.org/the-presidency/presidential-speeches/january-28-1986-address-space-shuttle-challenger",
+  "licence": "Public domain (US federal government work)",
+  "sex": "male",
+  "duration": 77.18,
+  "words": 197,
+  "align_conf": 0.92,
+  "f0_median_hz": 103.8,
+  "align_method": "wav2vec2-ctc"
+}

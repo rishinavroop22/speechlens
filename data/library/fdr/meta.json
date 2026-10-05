@@ -1,0 +1,13 @@
+{
+  "title": "Day of Infamy",
+  "speaker": "Franklin D. Roosevelt",
+  "year": 1941,
+  "source": "https://millercenter.org/the-presidency/presidential-speeches/december-8-1941-address-congress-requesting-declaration-war",
+  "licence": "Public domain (US federal government work)",
+  "sex": "male",
+  "duration": 110.5,
+  "words": 158,
+  "align_conf": 0.906,
+  "f0_median_hz": 191.2,
+  "align_method": "wav2vec2-ctc"
+}

@@ -11,6 +11,7 @@ comes from a seeded generator, so a dataset build is bit-for-bit reproducible.
 """
 from __future__ import annotations
 
+import zlib
 from dataclasses import dataclass, field, asdict
 
 import numpy as np
@@ -81,6 +82,9 @@ def _psola(y, dur_points=None, pitch_fn=None, floor=60, ceil=500):
             for t, v in zip(ts, new):
                 call(pt, "Add point", float(t), float(v))
             call([manip, pt], "Replace pitch tier")
+    # Praat's overlap-add draws random positions when stretching unvoiced
+    # stretches; seeding from the input makes every build bit-identical
+    parselmouth.praat.run(f"random_initializeWithSeedUnsafelyButPredictably ({zlib.crc32(y.tobytes())})")
     out = call(manip, "Get resynthesis (overlap-add)")
     return out.values[0].astype(np.float32)
 
@@ -276,6 +280,7 @@ class Injector:
                 parts, old_pts, new_pts, t_new = [], [], [], 0.0
                 cur = c0
                 n_cut = 0
+                cut_ks = []
                 for k in range(a, b):
                     if not W[k].punct_after:
                         continue
@@ -293,11 +298,14 @@ class Injector:
                     parts.append(np.zeros(0, np.float32))
                     cur = g1
                     n_cut += 1
+                    cut_ks.append(k)
                 parts.append(self.y[int(cur * SR): int(c1 * SR)])
                 t_new += (int(c1 * SR) - int(cur * SR)) / SR
                 old_pts.append(L); new_pts.append(t_new)
                 emit(np.concatenate(parts), old_pts, new_pts)
                 params = {"pause_kept": p, "pauses_shortened": n_cut}
+                if cut_ks:  # the flaw spans the shortened pauses, not the whole candidate window
+                    a, b = cut_ks[0], cut_ks[-1] + 1
             pending.append(Label(ftype, sev, -1, -1, a, b, params))
         keep_until(len(self.y) / SR)
 
@@ -346,35 +354,48 @@ class Injector:
         return ts[::step].tolist() + [L], new[::step].tolist() + [out_len]
 
     def _filler(self, dur):
-        """Speaker-matched "uh"/"um": take the steadiest voiced 90 ms of this
-        speaker's own audio (highest periodicity, lowest F0 movement), stretch it
-        with PSOLA to `dur`, give it a gently falling pitch, and for "um" close it
-        with a nasal (low-passed) tail."""
+        """Speaker-matched "uh"/"um" of exactly `dur` seconds.
+
+        Source: the steadiest 150 ms vowel of this speaker's own audio
+        (all voiced, pitch within 3 semitones of the speaker's median, highest
+        periodicity, least pitch movement). It is lengthened with Praat's
+        pitch-synchronous overlap-add until it reaches `dur`, given a gently
+        falling pitch near the speaker's median (hesitations sit low and flat),
+        set 6 dB below the source vowel, and half the time closed with a nasal
+        (low-passed) tail to make "um"."""
         if not hasattr(self, "_vowel"):
             snd = parselmouth.Sound(self.y.astype(np.float64), sampling_frequency=SR)
             pitch = snd.to_pitch_ac(time_step=0.01, pitch_floor=self.floor, pitch_ceiling=self.ceil)
             hnr = snd.to_harmonicity_cc(time_step=0.01, minimum_pitch=self.floor)
             f = pitch.selected_array["frequency"]
             hv = np.interp(pitch.xs(), hnr.xs(), hnr.values[0])
-            best, best_t = -1e9, None
-            for i in range(len(f) - 9):
-                win = f[i:i + 9]
+            best, best_t, W = -1e9, None, 15
+            for i in range(len(f) - W):
+                win = f[i:i + W]
                 if (win > 0).all():
-                    score = hv[i:i + 9].mean() - 3 * np.std(12 * np.log2(win / win.mean()))
+                    st = 12 * np.log2(win / self.f0_med)
+                    if np.abs(st).max() > 3:
+                        continue
+                    score = hv[i:i + W].mean() - 4 * np.std(st)
                     if score > best:
                         best, best_t = score, pitch.xs()[i]
             t0 = best_t if best_t is not None else self.words[len(self.words) // 2].start
-            self._vowel = self.y[int(t0 * SR): int((t0 + 0.09) * SR)]
+            self._vowel = self.y[int(t0 * SR): int((t0 + 0.15) * SR)].astype(np.float32)
         v = self._vowel
-        factor = dur / (len(v) / SR)
-        L = len(v) / SR
+        target = int(round(dur * SR))
+        snd = parselmouth.Sound(v.astype(np.float64), sampling_frequency=SR)
+        parselmouth.praat.run(f"random_initializeWithSeedUnsafelyButPredictably ({zlib.crc32(v.tobytes())})")
+        while snd.get_number_of_samples() < target:
+            factor = min(3.0, target / snd.get_number_of_samples() + 0.05)
+            snd = call(snd, "Lengthen (overlap-add)", self.floor, self.ceil, factor)
+        out = snd.values[0][:target].astype(np.float32)
 
         def fall(ts, hz):
-            return np.full_like(hz, self.f0_med * 0.97) * (1 - 0.06 * ts / max(ts.max(), 1e-3))
-        out = _psola(v, [(0, factor), (L, factor)], pitch_fn=fall, floor=self.floor, ceil=self.ceil)
+            return self.f0_med * 0.97 * (1 - 0.06 * ts / max(ts.max(), 1e-3)) * np.ones_like(hz)
+        out = _psola(out, pitch_fn=fall, floor=self.floor, ceil=self.ceil)
+        out = out[:target] if len(out) >= target else np.pad(out, (0, target - len(out)))
         if self.rng.random() < 0.5:  # "um"
-            n = len(out)
-            tail = int(n * 0.4)
+            tail = int(target * 0.4)
             sos = butter(4, 450, btype="low", fs=SR, output="sos")
             nasal = sosfiltfilt(sos, out[-tail:]) * 1.4
             xf = np.linspace(0, 1, tail)
@@ -384,7 +405,7 @@ class Injector:
         env[:a] = np.linspace(0, 1, a)
         env[-a * 2:] = np.linspace(1, 0, a * 2)
         rms_ref = np.sqrt(np.mean(v ** 2)) + 1e-9
-        return (out * env * 0.8 * rms_ref / (np.sqrt(np.mean(out ** 2)) + 1e-9)).astype(np.float32)
+        return (out * env * 0.5 * rms_ref / (np.sqrt(np.mean(out ** 2)) + 1e-9)).astype(np.float32)
 
 
 def _crossfade_edges(orig, new, ms=15):

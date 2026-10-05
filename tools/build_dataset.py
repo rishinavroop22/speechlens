@@ -63,58 +63,74 @@ def greedy_words(lp: np.ndarray) -> list[tuple[str, float, float]]:
     return words
 
 
-def choose_excerpt(transcript: str, target_words: int) -> str:
-    """Opening of the speech, cut at the sentence end closest to target length."""
-    toks = transcript.split()
-    best, best_d = None, 1e9
-    for k in range(40, min(len(toks), target_words * 2)):
-        if re.search(r"[.!?][\"'”’)]*$", toks[k - 1]):
-            d = abs(k - target_words)
-            if d < best_d:
-                best, best_d = k, d
-    return " ".join(toks[: best or target_words])
-
-
-def locate(y, excerpt: str):
-    """Find [start, end] of the excerpt inside the full recording."""
-    lp = align.emissions(y)
+def locate(y, transcript: str, seconds: float):
+    """Find where the speech text starts in the recording (skipping oath,
+    applause, introductions) and cut at the sentence end nearest `seconds`
+    later. Uses a greedy CTC transcript only to anchor matched words."""
+    lp = align.emissions(y[: int(10 * 60 * audio.SR)])  # excerpts sit near the start
     hyp = greedy_words(lp)
-    want = [t.norm.replace("|", "") for t in tokenize(excerpt)]
+    toks = transcript.split()[:600]
+    want, keep = [], []  # normalized words + index of the source token
+    for i, tk in enumerate(toks):
+        for t in tokenize(tk):
+            want.append(t.norm.replace("|", ""))
+            keep.append(i)
     got = [w for w, _, _ in hyp]
     sm = difflib.SequenceMatcher(a=want, b=got, autojunk=False)
-    blocks = [b for b in sm.get_matching_blocks() if b.size >= 2]
-    if not blocks:
-        raise RuntimeError("could not find the excerpt in the audio")
-    # first matched block near the start of the excerpt, last near its end
-    first = min(blocks, key=lambda b: b.a)
-    last = max(blocks, key=lambda b: b.a + b.size)
-    s_word = first.b - first.a          # extrapolate to excerpt word 0
-    e_word = last.b + last.size - 1 + (len(want) - (last.a + last.size))
-    s_word = max(0, min(s_word, len(hyp) - 1))
-    e_word = max(0, min(e_word, len(hyp) - 1))
-    start = max(0.0, hyp[s_word][1] - 0.6)
-    end = min(len(y) / audio.SR, hyp[e_word][2] + 0.8)
-    return start, end, len(blocks)
+    t_of = {}
+    blocks = [b for b in sm.get_matching_blocks() if b.size >= 3]
+    # the speech starts at the first run of >= 5 consecutive matching words;
+    # shorter runs before it are introductions / applause noise
+    start_a = min((b.a for b in blocks if b.size >= 5), default=0)
+    for b in blocks:
+        if b.a >= start_a:
+            for k in range(b.size):
+                t_of[b.a + k] = (hyp[b.b + k][1], hyp[b.b + k][2])
+    if len(t_of) < 10:
+        raise RuntimeError("could not find the transcript in the audio")
+    first = min(t_of)
+    t0 = t_of[first][0]
+    # back up to the start of the sentence the first anchor sits in
+    i0 = keep[first]
+    back = 0
+    while i0 - back - 1 >= 0 and back < 30 and not re.search(r"[.!?:][\"'”’)]*$", toks[i0 - back - 1]):
+        back += 1
+    if back < 30:
+        t0 = max(0.0, t0 - 1.0 * back - 1.0)
+        i0 -= back
+    else:
+        back = 0
+    # sentence ends with a matched timestamp
+    ends = [k for k in t_of if k > first + 20 and re.search(r"[.!?][\"'”’)]*$", toks[keep[k]])]
+    # closest sentence end to the target length, never shorter than 70 % of it when possible
+    long_enough = [k for k in ends if t_of[k][1] - t0 >= 0.7 * seconds] or ends
+    best = min(long_enough, key=lambda k: abs((t_of[k][1] - t0) - seconds))
+    text = " ".join(toks[i0: keep[best] + 1])
+    return max(0.0, t0 - 0.5), t_of[best][1] + 0.7, text, len(t_of)
 
 
-def build_gold(seconds: float):
+def build_gold(seconds: float, only=None):
     meta_all = json.loads((RAW / "sources.json").read_text()) if (RAW / "sources.json").exists() else {}
     ex_all = json.loads((RAW / "excerpts.json").read_text()) if (RAW / "excerpts.json").exists() else {}
     golds = []
     for txt in sorted(RAW.glob("*.txt")):
         sid = txt.stem
+        if only and sid not in only:
+            if (LIB / sid / "audio.wav").exists():  # reuse previous build
+                y = audio.load(LIB / sid / "audio.wav")
+                golds.append((sid, y, features.analyze(y, (LIB / sid / "transcript.txt").read_text())))
+            continue
         src = next((p for p in RAW.glob(sid + ".*") if p.suffix.lower() in AUDIO_EXT), None)
         if src is None:
             print(f"  ! {sid}: transcript without audio, skipped")
             continue
         y = audio.peak_normalize(audio.load(src))
         full = re.sub(r"\s+", " ", txt.read_text()).strip()
-        target = int(seconds * 2.3)  # ~2.3 words/s oratory
-        excerpt = ex_all.get(sid) or choose_excerpt(full, target)
+        excerpt = ex_all.get(sid) or full
         if align.model_available() and len(y) / audio.SR > seconds * 1.3:
-            a, b, nb = locate(y, excerpt)
+            a, b, excerpt, nm = locate(y, excerpt, seconds)
             y = audio.crop(y, a, b)
-            print(f"  {sid}: excerpt {a:.1f}-{b:.1f}s ({nb} matching blocks)")
+            print(f"  {sid}: excerpt {a:.1f}-{b:.1f}s ({nm} anchor words)")
         an = features.analyze(y, excerpt)
         conf = float(np.mean([w.conf for w in an.words])) if an.words else 0
         d = LIB / sid
@@ -185,10 +201,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--excerpt-sec", type=float, default=75)
     ap.add_argument("--seeds", type=int, default=1)
+    ap.add_argument("--only", nargs="*", help="rebuild only these speech ids (others are kept)")
     args = ap.parse_args()
     print("aligner:", "wav2vec2-ctc" if align.model_available() else "FALLBACK (model missing)")
     print("gold excerpts:")
-    golds = build_gold(args.excerpt_sec)
+    golds = build_gold(args.excerpt_sec, args.only)
     print("spectrum:")
     clips = build_spectrum(golds, args.seeds)
     human = json.loads((DS / "human.json").read_text()) if (DS / "human.json").exists() else []

@@ -1,0 +1,13 @@
+{
+  "title": "Inaugural Address",
+  "speaker": "John F. Kennedy",
+  "year": 1961,
+  "source": "https://millercenter.org/the-presidency/presidential-speeches/january-20-1961-inaugural-address",
+  "licence": "Public domain (US federal government work)",
+  "sex": "male",
+  "duration": 79.06,
+  "words": 131,
+  "align_conf": 0.939,
+  "f0_median_hz": 203.2,
+  "align_method": "wav2vec2-ctc"
+}

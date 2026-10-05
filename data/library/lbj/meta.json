@@ -1,0 +1,13 @@
+{
+  "title": "We Shall Overcome",
+  "speaker": "Lyndon B. Johnson",
+  "year": 1965,
+  "source": "https://millercenter.org/the-presidency/presidential-speeches/march-15-1965-speech-congress-voting-rights",
+  "licence": "Public domain (US federal government work)",
+  "sex": "male",
+  "duration": 88.92,
+  "words": 120,
+  "align_conf": 0.953,
+  "f0_median_hz": 150.6,
+  "align_method": "wav2vec2-ctc"
+}

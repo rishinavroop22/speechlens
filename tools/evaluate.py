@@ -37,7 +37,7 @@ def run_clip(clip):
     src = LIB / clip["source"]
     rep = evaluate(audio.load(src / "audio.wav"), (src / "transcript.txt").read_text(),
                    audio.load(DS / "clips" / f"{clip['id']}.wav"), None, "declamation")
-    preds = [{k: r[k] for k in ("type", "start", "end", "severity", "scope", "confidence")} for r in rep["regions"]]
+    preds = [{k: r[k] for k in ("type", "start", "end", "severity", "scope", "confidence", "magnitude")} for r in rep["regions"]]
     return {"id": clip["id"], "preds": preds, "score": rep["score"], "align_method": rep["align_method"]}
 
 
@@ -74,6 +74,8 @@ def main():
     args = ap.parse_args()
     man = json.loads((DS / "manifest.json").read_text())
     clips = man["clips"][: args.limit] if args.limit else man["clips"]
+    import os
+    os.environ.setdefault("SPEECHLENS_THREADS", str(max(1, (os.cpu_count() or 1) // args.workers)))
     with ProcessPoolExecutor(args.workers) as ex:
         results = list(ex.map(run_clip, clips, chunksize=2))
     by_id = {r["id"]: r for r in results}

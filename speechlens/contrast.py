@@ -77,6 +77,12 @@ class Region:
     ref_end: float | None = None
     text: str = ""
     explanation: str = ""
+    magnitude: float | None = None
+
+    def __post_init__(self):
+        if isinstance(self.severity, Sev):
+            self.magnitude = round(self.severity.magnitude, 4)
+        self.severity = int(self.severity)
 
     @property
     def dimension(self):
@@ -152,10 +158,23 @@ def _f0_spread(an: Analysis, wi: list[int]) -> float:
     return float(np.percentile(fr, 90) - np.percentile(fr, 10))
 
 
-def _bursts(an: Analysis, a: float, b: float, thr=-16.0):
-    """Short energy bursts inside [a, b] (onset repetitions, fillers)."""
+def _levels(an: Analysis):
+    """(noise floor, speech peak) in the recording's own dB scale: the 10th and
+    90th percentiles of intensity. Thresholds placed between them work for a
+    studio recording and for an outdoor one with crowd noise alike."""
+    if not hasattr(an, "_lv"):
+        x = an.ff.intensity_db
+        an._lv = (float(np.percentile(x, 10)), float(np.percentile(x, 90)))
+    return an._lv
+
+
+def _bursts(an: Analysis, a: float, b: float, frac=0.45):
+    """Energy bursts inside [a, b] (onset repetitions, fillers): runs above a
+    point `frac` of the way from the noise floor to the speech peak."""
     if b - a < 0.06:
         return []
+    lo, hi = _levels(an)
+    thr = lo + frac * (hi - lo)
     sl = an.ff.at(a, b)
     on = an.ff.intensity_db[sl] > thr
     segs, s = [], None
@@ -169,6 +188,46 @@ def _bursts(an: Analysis, a: float, b: float, thr=-16.0):
     return segs
 
 
+def _steady_mask(an: Analysis) -> np.ndarray:
+    """Frames of held, unchanging voicing: voiced, loud enough, pitch within
+    +/-0.5 st over 100 ms, and spectral change in the speaker's calmest 30 %.
+    A filled pause ("uhhh") is exactly this; running speech rarely is for long."""
+    if hasattr(an, "_steady"):
+        return an._steady
+    ff = an.ff
+    lo, hi = _levels(an)
+    voiced = np.isfinite(ff.f0_st) & (ff.intensity_db > lo + 0.4 * (hi - lo))
+    f0 = np.where(np.isfinite(ff.f0_st), ff.f0_st, 0.0)
+    k = 10
+    pad = lambda x: np.pad(x, (k // 2, k - 1 - k // 2), mode="edge")
+    win = np.lib.stride_tricks.sliding_window_view(pad(f0), k)
+    vwin = np.lib.stride_tricks.sliding_window_view(pad(voiced.astype(float)), k)
+    f0_std = win.std(axis=1)
+    dm = np.r_[0, np.linalg.norm(np.diff(ff.mfcc, axis=1), axis=0)]
+    dm_s = np.convolve(dm, np.ones(5) / 5, mode="same")
+    calm = np.percentile(dm_s[voiced], 30) if voiced.any() else 0
+    m = voiced & (vwin.mean(axis=1) > 0.95) & (f0_std < 0.5) & (dm_s <= calm)
+    an._steady = m
+    return m
+
+
+def _longest_run(mask, a, b):
+    """Longest True run inside [a, b] s; returns (length_s, start_s, end_s)."""
+    sl = slice(int(a / HOP), int(b / HOP))
+    x = mask[sl]
+    best = (0, 0, 0)
+    run = 0
+    for i, v in enumerate(np.r_[x, False]):
+        if v:
+            run += 1
+        else:
+            if run > best[0]:
+                best = (run, i - run, i)
+            run = 0
+    off = int(a / HOP)
+    return best[0] * HOP, (off + best[1]) * HOP, (off + best[2]) * HOP
+
+
 def _onset_similarity(an: Analysis, burst, word_start, dur=0.12):
     """Cosine similarity of mean MFCC (c1..c12) of a burst vs the next word's
     first 120 ms. A repeated onset ("c-c-country") scores high; a neutral
@@ -180,7 +239,11 @@ def _onset_similarity(an: Analysis, burst, word_start, dur=0.12):
     return float(a @ b / den) if den > 0 else 0.0
 
 
-MIN_Z = 1.5  # a local span flaw must exceed 1.5x the reference's own variability
+# a local span flaw must exceed this multiple of the reference's own variability
+MIN_Z = {"rushed": 0.8, "dragging": 0.8, "trailing_off": 1.0}
+MIN_Z_DEFAULT = 1.5
+SPAN_TYPES = {"rushed", "dragging", "trailing_off", "monotone", "mumbling"}
+POINT_TYPES = {"filler", "stutter", "awkward_pause"}
 
 
 def _resolve(regions: list[Region]) -> list[Region]:
@@ -190,7 +253,22 @@ def _resolve(regions: list[Region]) -> list[Region]:
     out = []
     for r in regions:
         z = r.metrics[0].z if r.metrics else None
-        if r.scope == "local" and z is not None and abs(z) < MIN_Z:
+        if r.scope == "local" and z is not None and abs(z) < MIN_Z.get(r.type, MIN_Z_DEFAULT):
+            continue
+        overlap = lambda o: min(r.end, o.end) - max(r.start, o.start)
+        inside = lambda kind: any(o.type == kind and o.start - 0.2 <= r.start and r.end <= o.end + 0.2 for o in regions)
+        # rushing eats pauses: missing pauses inside a rushed span are the same flaw
+        if r.type == "pause_omission" and inside("rushed"):
+            continue
+        # a short span deviation around a point disfluency is the disfluency:
+        # the aligner folds an inserted "uh", pause or repeated onset into the
+        # neighbouring words, which then look slow, quiet or flat
+        if r.type in SPAN_TYPES and r.scope == "local" and (r.word_end - r.word_start) <= 5 and any(
+                o.type in POINT_TYPES and overlap(o) > -0.15 for o in regions):
+            continue
+        # a fade-out shrinks energy-refined word boundaries, which reads as rushing
+        if r.type == "rushed" and r.severity <= 3 and any(
+                o.type in ("trailing_off", "mumbling") and overlap(o) > 0.5 * (r.end - r.start) for o in regions):
             continue
         if r.type == "trailing_off" and r.severity <= 2:
             if any(o.type == "mumbling" and min(r.end, o.end) - max(r.start, o.start) > 0.5 * (r.end - r.start)
@@ -198,6 +276,30 @@ def _resolve(regions: list[Region]) -> list[Region]:
                 continue
         out.append(r)
     return out
+
+
+class Sev(int):
+    """A 1..5 severity that remembers the raw magnitude it was derived from
+    (used to fit severity tables from data, see tools/calibrate.py)."""
+    def __new__(cls, level, magnitude):
+        obj = super().__new__(cls, int(np.clip(level, 1, 5)))
+        obj.magnitude = float(magnitude)
+        return obj
+
+
+CALIBRATION = {}
+_cal_path = __import__("pathlib").Path(__file__).with_name("calibration.json")
+if _cal_path.exists():
+    import json as _json
+    CALIBRATION = _json.loads(_cal_path.read_text())
+
+
+def _sevt(ftype, value, table, increasing=True):
+    """Severity for a flaw type: the data-fitted table when one exists, else
+    the injection engine's own parameter table."""
+    if ftype in CALIBRATION:
+        table, increasing = CALIBRATION[ftype]["table"], CALIBRATION[ftype]["increasing"]
+    return Sev(_sev(value, table, increasing), value)
 
 
 def _sev(value, table, increasing=True):
@@ -229,7 +331,7 @@ def compare(ref: Analysis, par: Analysis) -> dict:
 
     def mk(t, j0, j1, sev, conf, metrics, scope="local"):
         a, b = P(j0), P(j1)
-        reg = Region(t, par.words[a].start, par.words[b].end, a, b, int(np.clip(sev, 1, 5)), round(conf, 3),
+        reg = Region(t, par.words[a].start, par.words[b].end, a, b, sev, round(conf, 3),
                      metrics, scope, ref.words[pairs[j0][0]].start, ref.words[pairs[j1][0]].end,
                      " ".join(w.text for w in par.words[a:b + 1]))
         regions.append(reg)
@@ -247,20 +349,26 @@ def compare(ref: Analysis, par: Analysis) -> dict:
     spread = _robust_spread(np.log2(rr / np.nanmedian(rr)), 0.08)
     glob["pace"] = {"log2_ratio": round(g, 3), "reference_sps": round(float(np.nansum(syl) / np.nansum(dr)), 2),
                     "participant_sps": round(float(np.nansum(syl) / np.nansum(dp)), 2)}
+    word_ratio = np.log2(dr / np.maximum(dp, 1e-3)) - g  # per word, + = faster than reference
     for sign, t in ((1, "rushed"), (-1, "dragging")):
         for j0, j1 in _runs(sign * loc > TH["pace_log2"], min_len=3, hole=1):
+            # a real pace change is spread over the words; one word inflated by
+            # an absorbed filler or pause only moves the 3-word windows around it
+            wr = sign * word_ratio[j0:j1 + 1]
+            if np.median(wr) < 0.5 * TH["pace_log2"] or np.mean(wr > 0.1) < 0.6:
+                continue
             m = float(np.nanmean(loc[j0:j1 + 1]))
             ref_r = float(syl[j0:j1 + 1].sum() / dr[j0:j1 + 1].sum())
             par_r = float(syl[j0:j1 + 1].sum() / dp[j0:j1 + 1].sum())
             factor = 2 ** (-m)  # duration factor relative to reference
             tbl = [0.88, 0.80, 0.72, 0.64, 0.55] if t == "rushed" else [1.12, 1.24, 1.36, 1.48, 1.62]
-            sev = _sev(factor, tbl, increasing=(t == "dragging"))
+            sev = _sevt(t, factor, tbl, increasing=(t == "dragging"))
             mk(t, j0, j1, sev, _conf(m / spread), [
                 Metric("articulation_rate", "syll/s", ref_r, par_r, par_r - ref_r, m / spread,
                        f"|log2 ratio| > {TH['pace_log2']} (local, after removing global offset {g:+.2f})")])
     if abs(g) > TH_GLOBAL["pace_log2"]:
         t = "rushed" if g > 0 else "dragging"
-        mk(t, 0, n - 1, _sev(2 ** -g, [0.88, 0.80, 0.72, 0.64, 0.55] if g > 0 else [1.12, 1.24, 1.36, 1.48, 1.62],
+        mk(t, 0, n - 1, _sevt(("rushed" if g > 0 else "dragging"), 2 ** -g, [0.88, 0.80, 0.72, 0.64, 0.55] if g > 0 else [1.12, 1.24, 1.36, 1.48, 1.62],
                              increasing=(g < 0)), _conf(g / spread),
            [Metric("overall_articulation_rate", "syll/s", glob["pace"]["reference_sps"], glob["pace"]["participant_sps"],
                    glob["pace"]["participant_sps"] - glob["pace"]["reference_sps"], g / spread,
@@ -283,11 +391,11 @@ def compare(ref: Analysis, par: Analysis) -> dict:
         keep = 2 ** m
         rng_r = _f0_spread(ref, [pairs[k][0] for k in range(j0, j1 + 1)])
         rng_p = _f0_spread(par, [pairs[k][1] for k in range(j0, j1 + 1)])
-        mk("monotone", j0, j1, _sev(1 - keep, [0.35, 0.55, 0.70, 0.85, 0.97]), _conf(m / spread),
+        mk("monotone", j0, j1, _sevt("monotone", 1 - keep, [0.35, 0.55, 0.70, 0.85, 0.97]), _conf(m / spread),
            [Metric("pitch_range_p10_p90", "semitones", rng_r, rng_p, rng_p - rng_r, m / spread,
                    f"log2(spread ratio) < {TH['pitch_log2']}")])
     if g < TH_GLOBAL["pitch_log2"]:
-        mk("monotone", 0, n - 1, _sev(1 - 2 ** g, [0.35, 0.55, 0.70, 0.85, 0.97]), _conf(g / spread),
+        mk("monotone", 0, n - 1, _sevt("monotone", 1 - 2 ** g, [0.35, 0.55, 0.70, 0.85, 0.97]), _conf(g / spread),
            [Metric("overall_pitch_range", "semitones", glob["pitch"]["reference_range_st"],
                    glob["pitch"]["participant_range_st"], glob["pitch"]["participant_range_st"] - glob["pitch"]["reference_range_st"],
                    g / spread, f"global log2 ratio < {TH_GLOBAL['pitch_log2']}")], scope="global")
@@ -303,7 +411,7 @@ def compare(ref: Analysis, par: Analysis) -> dict:
     for j0, j1 in _runs(loc < TH["vol_db"], min_len=3, hole=1):
         m = float(np.nanmean(loc[j0:j1 + 1]))
         worst = float(np.nanmin(loc[j0:j1 + 1]))
-        mk("trailing_off", j0, j1, _sev(-worst, [4, 7, 10, 14, 18]), _conf(m / spread),
+        mk("trailing_off", j0, j1, _sevt("trailing_off", -worst, [4, 7, 10, 14, 18]), _conf(m / spread),
            [Metric("loudness_vs_reference", "dB", float(np.nanmean(ir[j0:j1 + 1])), float(np.nanmean(ip[j0:j1 + 1])), m, m / spread,
                    f"speaker-relative level drop > {-TH['vol_db']} dB"),
             Metric("deepest_drop", "dB", 0.0, worst, worst)])
@@ -334,73 +442,87 @@ def compare(ref: Analysis, par: Analysis) -> dict:
         if cr.any():
             mets.append(Metric("recognizer_confidence", "", float(cr[j0:j1 + 1].mean()), float(cp[j0:j1 + 1].mean()),
                                float(cp[j0:j1 + 1].mean() - cr[j0:j1 + 1].mean())))
-        mk("mumbling", j0, j1, _sev(-m, [0.8, 1.6, 2.6, 3.6, 5.0]), _conf(m / spread), mets)
+        mk("mumbling", j0, j1, _sevt("mumbling", -m, [0.8, 1.6, 2.6, 3.6, 5.0]), _conf(m / spread), mets)
 
-    # ---------------- pauses & disfluencies (per gap) --------------------
+    # ---------------- pauses & disfluencies (per word boundary) ----------
+    # Each boundary is examined over the zone [end of word j, end of word j+1]
+    # in both readings. Disfluencies always ADD time there, which separates
+    # them from the small boundary shifts two independent alignments produce.
+    st_p, st_r = _steady_mask(par), _steady_mask(ref)
     pause_flags = np.zeros(n, bool)
     pause_info = {}
     for j in range(n - 1):
         if pairs[j + 1][0] != pairs[j][0] + 1 or pairs[j + 1][1] != pairs[j][1] + 1:
             continue
+        a, b = par.words[P(j)], par.words[P(j + 1)]
+        ra, rb = ref.words[pairs[j][0]], ref.words[pairs[j + 1][0]]
         pb, pp = R[j].pause_after, Pw[j].pause_after
-        fb, fp = R[j].filled_after, Pw[j].filled_after
-        nxt_p = par.words[P(j + 1)]
-        # stutter: short bursts right before the next word, or broken-up word onset
-        bursts = _bursts(par, Pw[j].end + 0.02, nxt_p.start - 0.01)
-        short = [b for b in bursts if b[1] - b[0] < 0.22]
-        ref_bursts = _bursts(ref, R[j].end + 0.02, ref.words[pairs[j + 1][0]].start - 0.01)
-        internal = _bursts(par, nxt_p.start, nxt_p.end)
-        internal_ref = _bursts(ref, ref.words[pairs[j + 1][0]].start, ref.words[pairs[j + 1][0]].end)
-        rep, sim = 0, None
-        if short and len(ref_bursts) == 0:
-            sim = _onset_similarity(par, short[0], nxt_p.start)
-            if len(short) >= 2 or sim > 0.85 or fp < 0.25:
-                rep = len(short) if (len(short) >= 2 or sim > 0.85) else 0
-            if rep == 0 and fp < 0.25:
-                rep = len(short)
-        elif len(internal) - len(internal_ref) >= 2 and Pw[j + 1].dur > 1.4 * R[j + 1].dur:
-            rep = len(internal) - len(internal_ref) - 1
-        if rep:
-            reg = Region("stutter", round(short[0][0] if short else nxt_p.start, 3), nxt_p.end, P(j + 1), P(j + 1),
-                         _sev(rep, [1, 1.5, 2, 2.5, 3]), 0.7,
-                         [Metric("onset_repetitions", "count", 0, rep, rep, None, ">= 1 extra onset burst before/inside word")]
-                         + ([Metric("burst_vs_word_onset_similarity", "cosine", 0, sim, sim, None, "MFCC cosine > 0.85 = repeated onset")]
-                            if sim is not None else []),
-                         text=nxt_p.text)
-            regions.append(reg)
-            continue
-        if fp - fb >= TH["filled_s"]:
-            mk_t = Region("filler", round(Pw[j].end, 3), round(nxt_p.start, 3), P(j), P(j + 1),
-                          _sev(fp, [0.28, 0.36, 0.45, 0.55, 0.65]), _conf((fp - fb) / 0.05),
-                          [Metric("voiced_sound_in_pause", "s", fb, fp, fp - fb, None, f">= {TH['filled_s']} s voiced, no word")],
-                          text=f"{par.words[P(j)].text} … {nxt_p.text}")
-            regions.append(mk_t)
-            continue
+        extra = (b.end - a.start) - (rb.end - ra.start)   # seconds added around this boundary
+
+        # filled pause: a held, steady vowel the reference does not have here,
+        # whether it sits in the gap or the aligner folded it into a word
+        if extra >= 0.15:
+            lp_, sp_, ep_ = _longest_run(st_p, a.start + 0.05, b.end)
+            lr_, _, _ = _longest_run(st_r, ra.start + 0.05, rb.end)
+            gap_voiced = Pw[j].filled_after - R[j].filled_after
+            if (lp_ - lr_ >= 0.14) or gap_voiced >= TH["filled_s"]:
+                held = max(lp_ - lr_, gap_voiced)
+                s0, e0 = (sp_, ep_) if lp_ - lr_ >= 0.14 else (a.end, b.start)
+                regions.append(Region("filler", round(s0, 3), round(e0, 3), P(j), P(j + 1),
+                                      _sevt("filler", held + 0.1, [0.28, 0.36, 0.45, 0.55, 0.65]), _conf(held / 0.06),
+                                      [Metric("held_steady_voicing", "s", lr_, lp_, lp_ - lr_, None,
+                                              "steady pitch + unchanging spectrum >= 140 ms longer than reference"),
+                                       Metric("time_added", "s", 0, extra, extra)],
+                                      text=f"{a.text} … {b.text}"))
+                continue
+
+        # repeated onset: short fragments before the completed word, the first
+        # one spectrally matching the word's own onset
+        if extra >= 0.12:
+            fr_p = _bursts(par, a.end + 0.03, b.end)
+            fr_r = _bursts(ref, ra.end + 0.03, rb.end)
+            if len(fr_p) >= 2 and len(fr_p) > len(fr_r) and all(f[1] - f[0] < 0.22 for f in fr_p[:-1]):
+                sim = _onset_similarity(par, fr_p[0], fr_p[-1][0])
+                if sim > 0.80:
+                    rep = len(fr_p) - max(1, len(fr_r))
+                    regions.append(Region("stutter", round(fr_p[0][0], 3), b.end, P(j + 1), P(j + 1),
+                                          _sevt("stutter", rep, [1, 1.5, 2, 2.5, 3]), round(min(0.95, 0.4 + 0.5 * (sim - 0.8) / 0.2 + 0.1 * rep), 3),
+                                          [Metric("onset_repetitions", "count", 0, rep, rep, None,
+                                                  "extra fragment(s) before the word, +time at this boundary"),
+                                           Metric("fragment_vs_word_onset_similarity", "cosine", 0, sim, sim, None,
+                                                  "MFCC cosine > 0.80 = the same onset repeated"),
+                                           Metric("time_added", "s", 0, extra, extra)],
+                                          text=b.text))
+                    continue
+
         if pp - pb >= TH["pause_extra_s"] and pp > 1.8 * pb + 0.15:
-            regions.append(Region("awkward_pause", round(Pw[j].end, 3), round(nxt_p.start, 3), P(j), P(j + 1),
-                                  _sev(pp - pb, [0.35, 0.60, 0.90, 1.30, 1.80]), _conf((pp - pb) / 0.15),
+            regions.append(Region("awkward_pause", round(Pw[j].end, 3), round(b.start, 3), P(j), P(j + 1),
+                                  _sevt("awkward_pause", pp - pb, [0.35, 0.60, 0.90, 1.30, 1.80]), _conf((pp - pb) / 0.15),
                                   [Metric("pause_length", "s", pb, pp, pp - pb, None,
                                           f">= {TH['pause_extra_s']} s longer than reference" +
                                           ("" if R[j].punct_after else ", mid-phrase (no punctuation)"))],
-                                  text=f"{par.words[P(j)].text} ▮ {nxt_p.text}"))
+                                  text=f"{a.text} ▮ {b.text}"))
             continue
-        if pb >= 0.18 and pp < TH["pause_keep"] * pb:
+        if pb >= 0.18 and pp < TH["pause_keep"] * pb and pb - pp >= 0.12:
             pause_flags[j] = True
             pause_info[j] = (pb, pp)
-    # merge omitted pauses that sit within 6 words of each other
+    # merge omitted pauses that sit within 8 words of each other; a lone one
+    # must be a substantial pause to count
     idx = np.nonzero(pause_flags)[0]
     groups = []
     for j in idx:
-        if groups and j - groups[-1][-1] <= 6:
+        if groups and j - groups[-1][-1] <= 8:
             groups[-1].append(j)
         else:
             groups.append([j])
     for grp in groups:
         pbs = np.array([pause_info[j][0] for j in grp])
         pps = np.array([pause_info[j][1] for j in grp])
+        if len(grp) == 1 and pbs[0] < 0.35:
+            continue
         keep = float((pps / pbs).mean())
-        j0, j1 = max(0, grp[0] - 1), min(n - 1, grp[-1] + 2)
-        mk("pause_omission", j0, j1, _sev(keep, [0.60, 0.45, 0.30, 0.15, 0.04], increasing=False),
+        j0, j1 = grp[0], min(n - 1, grp[-1] + 1)
+        mk("pause_omission", j0, j1, _sevt("pause_omission", keep, [0.60, 0.45, 0.30, 0.15, 0.04], increasing=False),
            min(0.95, 0.45 + 0.15 * len(grp)),
            [Metric("mean_pause_at_punctuation", "s", float(pbs.mean()), float(pps.mean()), float(pps.mean() - pbs.mean()), None,
                    f"reference pause >= 0.18 s kept at < {int(TH['pause_keep'] * 100)} %"),

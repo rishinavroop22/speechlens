@@ -1,338 +1,338 @@
 {
- "n_clips": 114,
- "align_method": "fallback-energy",
+ "n_clips": 285,
+ "align_method": "wav2vec2-ctc",
  "reproducible": true,
  "reproducibility_subset": 8,
  "grounding_tiou_0.3": {
   "rushed": {
-   "precision": 0.125,
-   "recall": 0.053,
-   "f1": 0.074,
-   "mean_tiou": 0.591,
-   "boundary_err_ms": 298,
-   "tp": 1,
-   "fp": 7,
-   "fn": 18
+   "precision": 0.95,
+   "recall": 0.864,
+   "f1": 0.905,
+   "mean_tiou": 0.804,
+   "boundary_err_ms": 209,
+   "tp": 38,
+   "fp": 2,
+   "fn": 6
   },
   "dragging": {
-   "precision": 0.0,
-   "recall": 0.0,
-   "f1": 0.0,
-   "mean_tiou": null,
-   "boundary_err_ms": null,
-   "tp": 0,
-   "fp": 36,
-   "fn": 14
+   "precision": 0.6,
+   "recall": 0.643,
+   "f1": 0.621,
+   "mean_tiou": 0.821,
+   "boundary_err_ms": 270,
+   "tp": 27,
+   "fp": 18,
+   "fn": 15
   },
   "monotone": {
-   "precision": 1.0,
-   "recall": 0.667,
-   "f1": 0.8,
-   "mean_tiou": 0.808,
-   "boundary_err_ms": 510,
-   "tp": 10,
-   "fp": 0,
-   "fn": 5
-  },
-  "trailing_off": {
-   "precision": 0.255,
-   "recall": 0.75,
-   "f1": 0.381,
-   "mean_tiou": 0.636,
-   "boundary_err_ms": 845,
-   "tp": 12,
-   "fp": 35,
+   "precision": 0.614,
+   "recall": 0.897,
+   "f1": 0.729,
+   "mean_tiou": 0.726,
+   "boundary_err_ms": 575,
+   "tp": 35,
+   "fp": 22,
    "fn": 4
   },
+  "trailing_off": {
+   "precision": 0.933,
+   "recall": 0.683,
+   "f1": 0.789,
+   "mean_tiou": 0.674,
+   "boundary_err_ms": 435,
+   "tp": 28,
+   "fp": 2,
+   "fn": 13
+  },
   "pause_omission": {
-   "precision": 0.0,
-   "recall": 0.0,
-   "f1": 0.0,
-   "mean_tiou": null,
-   "boundary_err_ms": null,
-   "tp": 0,
-   "fp": 0,
-   "fn": 16
+   "precision": 0.676,
+   "recall": 0.622,
+   "f1": 0.648,
+   "mean_tiou": 0.959,
+   "boundary_err_ms": 4,
+   "tp": 23,
+   "fp": 11,
+   "fn": 14
   },
   "awkward_pause": {
-   "precision": 0.0,
-   "recall": 0.0,
-   "f1": 0.0,
-   "mean_tiou": null,
-   "boundary_err_ms": null,
-   "tp": 0,
-   "fp": 0,
-   "fn": 35
+   "precision": 0.69,
+   "recall": 0.769,
+   "f1": 0.727,
+   "mean_tiou": 0.798,
+   "boundary_err_ms": 117,
+   "tp": 60,
+   "fp": 27,
+   "fn": 18
   },
   "filler": {
-   "precision": 0.0,
-   "recall": 0.0,
-   "f1": 0.0,
-   "mean_tiou": null,
-   "boundary_err_ms": null,
-   "tp": 0,
-   "fp": 0,
-   "fn": 43
+   "precision": 0.302,
+   "recall": 0.33,
+   "f1": 0.315,
+   "mean_tiou": 0.844,
+   "boundary_err_ms": 10,
+   "tp": 38,
+   "fp": 88,
+   "fn": 77
   },
   "mumbling": {
-   "precision": 0.765,
-   "recall": 0.867,
-   "f1": 0.812,
-   "mean_tiou": 0.788,
-   "boundary_err_ms": 231,
-   "tp": 13,
-   "fp": 4,
-   "fn": 2
-  },
-  "stutter": {
-   "precision": 0.429,
-   "recall": 0.13,
-   "f1": 0.2,
-   "mean_tiou": 0.538,
-   "boundary_err_ms": 192,
-   "tp": 3,
-   "fp": 4,
+   "precision": 1.0,
+   "recall": 0.524,
+   "f1": 0.688,
+   "mean_tiou": 0.765,
+   "boundary_err_ms": 370,
+   "tp": 22,
+   "fp": 0,
    "fn": 20
   },
+  "stutter": {
+   "precision": 0.295,
+   "recall": 0.508,
+   "f1": 0.373,
+   "mean_tiou": 0.825,
+   "boundary_err_ms": 21,
+   "tp": 31,
+   "fp": 74,
+   "fn": 30
+  },
   "__all__": {
-   "precision": 0.312,
-   "recall": 0.199,
-   "f1": 0.243,
-   "mean_tiou": 0.722,
-   "boundary_err_ms": 497,
-   "tp": 39,
-   "fp": 86,
-   "fn": 157
+   "precision": 0.553,
+   "recall": 0.605,
+   "f1": 0.578,
+   "mean_tiou": 0.799,
+   "boundary_err_ms": 125,
+   "tp": 302,
+   "fp": 244,
+   "fn": 197
   }
  },
  "grounding_tiou_0.5": {
   "rushed": {
-   "precision": 0.125,
-   "recall": 0.053,
-   "f1": 0.074,
-   "mean_tiou": 0.591,
-   "boundary_err_ms": 298,
-   "tp": 1,
-   "fp": 7,
-   "fn": 18
+   "precision": 0.875,
+   "recall": 0.795,
+   "f1": 0.833,
+   "mean_tiou": 0.838,
+   "boundary_err_ms": 209,
+   "tp": 35,
+   "fp": 5,
+   "fn": 9
   },
   "dragging": {
-   "precision": 0.0,
-   "recall": 0.0,
-   "f1": 0.0,
-   "mean_tiou": null,
-   "boundary_err_ms": null,
-   "tp": 0,
-   "fp": 36,
-   "fn": 14
+   "precision": 0.556,
+   "recall": 0.595,
+   "f1": 0.575,
+   "mean_tiou": 0.856,
+   "boundary_err_ms": 230,
+   "tp": 25,
+   "fp": 20,
+   "fn": 17
   },
   "monotone": {
-   "precision": 1.0,
-   "recall": 0.667,
-   "f1": 0.8,
-   "mean_tiou": 0.808,
-   "boundary_err_ms": 510,
-   "tp": 10,
-   "fp": 0,
-   "fn": 5
+   "precision": 0.526,
+   "recall": 0.769,
+   "f1": 0.625,
+   "mean_tiou": 0.777,
+   "boundary_err_ms": 445,
+   "tp": 30,
+   "fp": 27,
+   "fn": 9
   },
   "trailing_off": {
-   "precision": 0.213,
-   "recall": 0.625,
-   "f1": 0.317,
-   "mean_tiou": 0.689,
-   "boundary_err_ms": 766,
-   "tp": 10,
-   "fp": 37,
-   "fn": 6
+   "precision": 0.733,
+   "recall": 0.537,
+   "f1": 0.62,
+   "mean_tiou": 0.747,
+   "boundary_err_ms": 375,
+   "tp": 22,
+   "fp": 8,
+   "fn": 19
   },
   "pause_omission": {
-   "precision": 0.0,
-   "recall": 0.0,
-   "f1": 0.0,
-   "mean_tiou": null,
-   "boundary_err_ms": null,
-   "tp": 0,
-   "fp": 0,
-   "fn": 16
+   "precision": 0.647,
+   "recall": 0.595,
+   "f1": 0.62,
+   "mean_tiou": 0.986,
+   "boundary_err_ms": 3,
+   "tp": 22,
+   "fp": 12,
+   "fn": 15
   },
   "awkward_pause": {
-   "precision": 0.0,
-   "recall": 0.0,
-   "f1": 0.0,
-   "mean_tiou": null,
-   "boundary_err_ms": null,
-   "tp": 0,
-   "fp": 0,
-   "fn": 35
+   "precision": 0.655,
+   "recall": 0.731,
+   "f1": 0.691,
+   "mean_tiou": 0.816,
+   "boundary_err_ms": 115,
+   "tp": 57,
+   "fp": 30,
+   "fn": 21
   },
   "filler": {
-   "precision": 0.0,
-   "recall": 0.0,
-   "f1": 0.0,
-   "mean_tiou": null,
-   "boundary_err_ms": null,
-   "tp": 0,
-   "fp": 0,
-   "fn": 43
+   "precision": 0.254,
+   "recall": 0.278,
+   "f1": 0.266,
+   "mean_tiou": 0.935,
+   "boundary_err_ms": 10,
+   "tp": 32,
+   "fp": 94,
+   "fn": 83
   },
   "mumbling": {
-   "precision": 0.765,
-   "recall": 0.867,
-   "f1": 0.812,
-   "mean_tiou": 0.788,
-   "boundary_err_ms": 231,
-   "tp": 13,
-   "fp": 4,
-   "fn": 2
+   "precision": 0.955,
+   "recall": 0.5,
+   "f1": 0.656,
+   "mean_tiou": 0.784,
+   "boundary_err_ms": 344,
+   "tp": 21,
+   "fp": 1,
+   "fn": 21
   },
   "stutter": {
    "precision": 0.286,
-   "recall": 0.087,
-   "f1": 0.133,
-   "mean_tiou": 0.625,
-   "boundary_err_ms": 127,
-   "tp": 2,
-   "fp": 5,
-   "fn": 21
+   "recall": 0.492,
+   "f1": 0.361,
+   "mean_tiou": 0.84,
+   "boundary_err_ms": 21,
+   "tp": 30,
+   "fp": 75,
+   "fn": 31
   },
   "__all__": {
-   "precision": 0.288,
-   "recall": 0.184,
-   "f1": 0.224,
-   "mean_tiou": 0.751,
-   "boundary_err_ms": 399,
-   "tp": 36,
-   "fp": 89,
-   "fn": 160
+   "precision": 0.502,
+   "recall": 0.549,
+   "f1": 0.524,
+   "mean_tiou": 0.84,
+   "boundary_err_ms": 111,
+   "tp": 274,
+   "fp": 272,
+   "fn": 225
   }
  },
  "recall_by_severity": {
   "rushed": [
-   0.0,
-   0.0,
-   0.0,
-   0.0,
-   0.0
+   0.2,
+   0.8,
+   1.0,
+   1.0,
+   1.0
   ],
   "dragging": [
    0.0,
-   0.0,
-   0.0,
-   0.0,
-   0.0
+   0.2,
+   1.0,
+   1.0,
+   0.8
   ],
   "monotone": [
-   0.0,
-   0.0,
+   0.4,
+   1.0,
    1.0,
    1.0,
    1.0
   ],
   "trailing_off": [
    0.0,
-   0.5,
-   1.0,
+   0.2,
+   0.6,
    1.0,
    1.0
   ],
   "pause_omission": [
    0.0,
    0.0,
-   0.0,
-   0.0,
-   0.0
+   1.0,
+   1.0,
+   0.8
   ],
   "awkward_pause": [
+   0.2,
    0.0,
-   0.0,
-   0.0,
-   0.0,
-   0.0
+   0.9,
+   0.9,
+   0.933
   ],
   "filler": [
-   0.0,
-   0.0,
-   0.0,
-   0.0,
-   0.0
+   0.6,
+   0.2,
+   0.2,
+   0.267,
+   0.35
   ],
   "mumbling": [
    0.0,
+   0.2,
+   0.6,
    1.0,
-   1.0,
-   1.0,
-   1.0
+   0.8
   ],
   "stutter": [
-   0.0,
-   0.0,
-   0.5,
-   0.25,
-   0.0
+   0.4,
+   0.4,
+   0.4,
+   0.6,
+   0.5
   ]
  },
  "severity": {
-  "mae": 0.795,
-  "within_1": 0.769,
-  "bias": 0.179,
-  "n": 39
+  "mae": 0.801,
+  "within_1": 0.821,
+  "bias": -0.57,
+  "n": 302
  },
  "controls": {
   "identity": {
-   "clips": 2,
+   "clips": 5,
    "false_regions": 0,
-   "minutes": 0.9,
+   "minutes": 7.28,
    "false_per_min": 0.0,
    "mean_score": 100.0
   },
   "pitch_up4": {
-   "clips": 2,
-   "false_regions": 0,
-   "minutes": 0.9,
-   "false_per_min": 0.0,
-   "mean_score": 100.0
+   "clips": 5,
+   "false_regions": 2,
+   "minutes": 7.28,
+   "false_per_min": 0.275,
+   "mean_score": 98.6
   },
   "pitch_down4": {
-   "clips": 2,
-   "false_regions": 0,
-   "minutes": 0.9,
-   "false_per_min": 0.0,
-   "mean_score": 100.0
+   "clips": 5,
+   "false_regions": 4,
+   "minutes": 7.28,
+   "false_per_min": 0.549,
+   "mean_score": 97.6
   },
   "quiet12db": {
-   "clips": 2,
+   "clips": 5,
    "false_regions": 0,
-   "minutes": 0.9,
+   "minutes": 7.28,
    "false_per_min": 0.0,
    "mean_score": 100.0
   }
  },
  "score_validity": {
-  "spearman_load_vs_score": -0.618,
-  "p": 2.2655687480341188e-13,
-  "spearman_mix_level_vs_score": -0.599,
-  "p_mix": 0.014306968452360909,
+  "spearman_load_vs_score": -0.735,
+  "p": 1.206263085825847e-49,
+  "spearman_mix_level_vs_score": -0.959,
+  "p_mix": 1.7264294310878147e-22,
   "spearman_severity_vs_score_by_type": {
-   "rushed": -0.515,
-   "dragging": -0.485,
-   "monotone": -0.94,
-   "trailing_off": -0.947,
-   "pause_omission": NaN,
-   "awkward_pause": -0.985,
-   "filler": -0.545,
-   "mumbling": -0.644,
-   "stutter": -0.502
+   "rushed": -0.812,
+   "dragging": -0.792,
+   "monotone": -0.926,
+   "trailing_off": -0.929,
+   "pause_omission": -0.892,
+   "awkward_pause": -0.898,
+   "filler": -0.701,
+   "mumbling": -0.645,
+   "stutter": -0.659
   },
   "mean_score_by_mix_level": {
-   "1": 97.0,
-   "2": 95.6,
-   "3": 75.8,
-   "4": 89.1,
-   "5": 68.8,
-   "6": 87.9,
-   "7": 70.2,
-   "8": 73.4
+   "1": 98.8,
+   "2": 97.7,
+   "3": 92.7,
+   "4": 87.7,
+   "5": 82.6,
+   "6": 79.5,
+   "7": 66.6,
+   "8": 56.5
   }
  }
 }
