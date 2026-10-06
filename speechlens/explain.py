@@ -30,6 +30,10 @@ WHY = {
     "filler": "A held, unchanging vowel that maps to no word in the transcript is a filled pause; "
               "listeners hear it as hesitation, and judges penalise it under fluency.",
     "stutter": "Repeated onsets before the word is completed fragment it and interrupt the speech rhythm.",
+    "skipped_word": "Leaving out words changes the text the audience hears; in a prepared reading it is scored "
+                    "as an accuracy error, and a missing function word can change the meaning of the sentence.",
+    "restart": "Going back to repeat words already said signals a lost place or a self-correction; it breaks "
+               "the flow of the phrase and costs time without adding meaning.",
 }
 
 ADVICE = {
@@ -42,6 +46,8 @@ ADVICE = {
     "awkward_pause": "Keep this phrase in one breath; pause at the punctuation instead.",
     "filler": "Replace the filler with silence - a clean pause sounds deliberate.",
     "stutter": "Begin the word once, deliberately; a short breath before it helps.",
+    "skipped_word": "Slow down slightly through this line and keep your eyes a phrase ahead of your voice.",
+    "restart": "If you stumble, carry on from where you are; rehearse this phrase until it runs in one go.",
 }
 
 
@@ -86,6 +92,12 @@ def explain(r: Region) -> str:
                    + (f", adding {_fmt(r.metrics[1].participant, 's')} at this word boundary" if len(r.metrics) > 1 else "") + "."),
         "stutter": f"At {r.start:.2f}s, the onset of “{r.text}” is repeated {par} time(s) before the word is completed"
                    + (f" (fragment-to-onset spectral similarity {r.metrics[1].participant:.2f})" if len(r.metrics) > 1 else "") + ".",
+        "skipped_word": f"{where}, {par} word(s) of the text were not said ({getattr(r, 'evidence', '') or 'missing'}): "
+                        f"the recogniser's confidence in them fell to {r.metrics[1].participant:.2f} against "
+                        f"{r.metrics[1].reference:.2f} in the reference." if len(r.metrics) > 1 else f"{where}, words were skipped.",
+        "restart": f"At {r.start:.2f}s, {LQ}{r.text}{RQ} ({par} word(s)) is said twice in a row "
+                   f"({getattr(r, 'evidence', '')})"
+                   + (f", adding {_fmt(r.metrics[1].participant, 's')}" if len(r.metrics) > 1 and r.metrics[1].participant > 0 else "") + ".",
     }[r.type]
     return f"{head} {WHY[r.type]} Fix: {ADVICE[r.type]}"
 
@@ -118,7 +130,7 @@ def score(regions: list[Region], n_words: int, duration: float, rubric: dict) ->
     for r in regions:
         if r.scope == "global":
             pen[r.dimension] += r.severity * 2.4
-        elif r.type in ("awkward_pause", "filler", "stutter"):
+        elif r.type in ("awkward_pause", "filler", "stutter", "skipped_word", "restart"):
             pen[r.dimension] += r.severity * 0.7
         else:
             cover = (r.word_end - r.word_start + 1) / max(1, n_words)

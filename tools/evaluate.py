@@ -26,7 +26,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from speechlens import audio  # noqa: E402
 from speechlens.contrast import DIMENSION  # noqa: E402
-from speechlens.inject import FLAW_TYPES  # noqa: E402
+from speechlens.inject import ALL_TYPES as FLAW_TYPES  # noqa: E402  (all 11 types)
 
 ROOT = Path(__file__).resolve().parent.parent
 DS, LIB, OUT = ROOT / "data/dataset", ROOT / "data/library", ROOT / "results"

@@ -24,6 +24,10 @@ from .audio import SR
 
 FLAW_TYPES = ["rushed", "dragging", "monotone", "trailing_off", "pause_omission",
               "awkward_pause", "filler", "mumbling", "stutter"]
+# reading errors: the participant departs from the text itself. Kept separate
+# so the original nine-type dataset (and its mixed clips) build unchanged.
+LEXICAL_TYPES = ["skipped_word", "restart"]
+ALL_TYPES = FLAW_TYPES + LEXICAL_TYPES
 
 # severity 1..5 -> parameter
 P = {
@@ -36,12 +40,15 @@ P = {
     "filler":         [0.28, 0.36, 0.45, 0.55, 0.65],    # filler length (s)
     "mumbling":       [5000, 3500, 2500, 1800, 1200],    # low-pass cutoff (Hz)
     "stutter":        [1, 1, 2, 2, 3],                   # repetitions
+    "skipped_word":   [1, 1, 2, 2, 3],                   # words left out per instance
+    "restart":        [1, 2, 2, 3, 4],                   # words said twice per instance
 }
-COUNT = {"awkward_pause": [1, 1, 2, 2, 3], "filler": [1, 2, 2, 3, 4], "stutter": [1, 1, 1, 2, 2]}
+COUNT = {"awkward_pause": [1, 1, 2, 2, 3], "filler": [1, 2, 2, 3, 4], "stutter": [1, 1, 1, 2, 2],
+         "skipped_word": [1, 1, 1, 2, 2], "restart": [1, 1, 2, 2, 3]}
 SPAN = {"rushed": (6, 12), "dragging": (5, 10), "monotone": (8, 16), "trailing_off": (6, 12),
         "pause_omission": (10, 18), "mumbling": (5, 10)}
 
-GAP_OPS = {"awkward_pause", "filler", "stutter"}
+GAP_OPS = {"awkward_pause", "filler", "stutter", "skipped_word", "restart"}
 
 
 @dataclass
@@ -150,7 +157,36 @@ class Injector:
                 return a, b
         return None
 
-    def pick_gaps(self, ftype, count, taken):
+    def pick_gaps(self, ftype, count, taken, n=1):
+        W = self.words
+        if ftype == "skipped_word":
+            # leave out words k+1..k+n inside a phrase (no punctuation crossed)
+            cands = [k for k in range(1, len(W) - n - 2)
+                     if not any(W[i].punct_after for i in range(k + 1, k + n + 1))
+                     and all(k + n + 1 < s - 1 or k > e + 1 for s, e in taken)]
+            if len(cands) < count:
+                return []
+            picks = []
+            for k in self.rng.permutation(cands).tolist():
+                if all(abs(k - q) > n + 3 for q in picks):
+                    picks.append(k)
+                if len(picks) == count:
+                    break
+            return sorted(picks)
+        if ftype == "restart":
+            # repeat words k-n+1..k after word k, mid-phrase
+            cands = [k for k in range(n, len(W) - 2)
+                     if not W[k].punct_after and not any(W[i].punct_after for i in range(k - n + 1, k))
+                     and all(k < s - 1 or k - n + 1 > e + 1 for s, e in taken)]
+            if len(cands) < count:
+                return []
+            picks = []
+            for k in self.rng.permutation(cands).tolist():
+                if all(abs(k - q) > n + 3 for q in picks):
+                    picks.append(k)
+                if len(picks) == count:
+                    break
+            return sorted(picks)
         cands = [k for k in range(1, len(self.words) - 2)
                  if (ftype == "stutter" or not self.words[k].punct_after)
                  and all(k < s - 1 or k > e + 1 for s, e in taken)]
@@ -168,10 +204,16 @@ class Injector:
         ops = []
         for ftype, sev in specs:
             if ftype in GAP_OPS:
-                ks = self.pick_gaps(ftype, COUNT[ftype][sev - 1], taken)
+                n = P[ftype][sev - 1] if ftype in LEXICAL_TYPES else 1
+                ks = self.pick_gaps(ftype, COUNT[ftype][sev - 1], taken, n)
                 for k in ks:
                     ops.append((ftype, sev, k, k))
-                    taken.append((k, k + 1))
+                    if ftype == "skipped_word":
+                        taken.append((k, k + n + 1))
+                    elif ftype == "restart":
+                        taken.append((k - n + 1, k + 1))
+                    else:
+                        taken.append((k, k + 1))
             else:
                 span = self.pick_span(ftype, taken)
                 if span:
@@ -208,6 +250,32 @@ class Injector:
             p = P[ftype][sev - 1]
             if ftype in GAP_OPS:
                 k = a
+                if ftype == "skipped_word":
+                    # cut words k+1..k+p from mid-gap to mid-gap: the reader's
+                    # eye jumped, the audio simply goes on with the next word
+                    keep_until(self.cut[k + 1])
+                    pos_old = self.cut[k + 1 + p]
+                    tmap_old.append(pos_old)
+                    tmap_new.append(pos_new)
+                    pending.append(Label(ftype, sev, -1, -1, k, k + p + 1,
+                                         {"skipped": " ".join(W[i].text for i in range(k + 1, k + p + 1)), "words": p}))
+                    continue
+                if ftype == "restart":
+                    # after word k, the reader goes back and says words
+                    # k-p+1..k again: "we choose to - we choose to go"
+                    keep_until(self.cut[k + 1])
+                    rep_seg = self.y[int(self.cut[k - p + 1] * SR): int(self.cut[k + 1] * SR)]
+                    gap = _silence(0.12 + 0.12 * self.rng.random(), self.noise, self.rng)
+                    chunk = np.concatenate([gap, _fade(rep_seg, 6)])
+                    t0 = pos_new
+                    pieces.append(chunk)
+                    pos_new += len(chunk) / SR
+                    tmap_old.append(pos_old)
+                    tmap_new.append(pos_new)
+                    pending.append(Label(ftype, sev, -1, -1, k - p + 1, k,
+                                         {"repeated": " ".join(W[i].text for i in range(k - p + 1, k + 1)), "words": p,
+                                          "_t": (t0, pos_new)}))
+                    continue
                 if ftype == "stutter":
                     w = W[k + 1]
                     keep_until(w.start)
@@ -332,6 +400,13 @@ class Injector:
             elif lb.type == "stutter":
                 lb.start = round(lb.params.pop("_t")[0], 3)
                 lb.end = new_words[lb.word_start].end
+            elif lb.type == "restart":
+                # the repeated words as heard the second time (pause + copy)
+                lb.start, lb.end = lb.params.pop("_t")
+            elif lb.type == "skipped_word":
+                # where the omission is heard: from the word before to the word after
+                lb.start = new_words[lb.word_start].start
+                lb.end = new_words[lb.word_end].end
             else:
                 lb.start = new_words[lb.word_start].start
                 lb.end = new_words[lb.word_end].end

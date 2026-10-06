@@ -17,6 +17,7 @@
     <a href="#analyze" role="tab" data-view="analyze">Analyze</a>
     <a href="#dataset" role="tab" data-view="dataset">Dataset</a>
     <a href="#evaluation" role="tab" data-view="evaluation">Evaluation</a>
+    <a href="#method" role="tab" data-view="method">Method</a>
   </nav>
   <label class="rubric-pick">
     <span>Rubric</span>
@@ -127,6 +128,7 @@
           </div>
           <article class="fdetail" id="fdetail" aria-live="polite"></article>
         </div>
+        <section class="coach" id="coach"></section>
       </div>
     </div>
   </section>
@@ -153,6 +155,46 @@
   <!-- =========================== EVALUATION ============================ -->
   <section id="view-evaluation" class="view" hidden>
     <div class="page" id="eval"></div>
+  </section>
+
+  <!-- ============================== METHOD ============================= -->
+  <section id="view-method" class="view" hidden>
+    <div class="page method">
+      <h1>How SpeechLens works</h1>
+      <p class="lede">Judging a delivery means comparing it with how the same words should sound. SpeechLens makes that comparison explicit: both readings are aligned word by word, measured on the same acoustic signals, and every difference beyond the reference speaker's own natural variation becomes a finding with a time span, the numbers behind it and a fix.</p>
+      <svg class="pipe" viewBox="0 0 980 230" role="img" aria-label="Pipeline diagram">
+        <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+        <g class="node"><rect x="10" y="30" width="150" height="56" rx="10"/><text x="85" y="54">Reference reading</text><text x="85" y="72" class="s">audio + transcript</text></g>
+        <g class="node"><rect x="10" y="140" width="150" height="56" rx="10"/><text x="85" y="164">Participant reading</text><text x="85" y="182" class="s">upload or microphone</text></g>
+        <g class="node acc"><rect x="210" y="85" width="150" height="56" rx="10"/><text x="285" y="109">Forced alignment</text><text x="285" y="127" class="s">wav2vec2 CTC, Viterbi</text></g>
+        <g class="node acc"><rect x="400" y="85" width="150" height="56" rx="10"/><text x="475" y="109">Features, 10 ms</text><text x="475" y="127" class="s">pitch, loudness, spectrum</text></g>
+        <g class="node acc"><rect x="590" y="85" width="160" height="56" rx="10"/><text x="670" y="109">Word-paired contrast</text><text x="670" y="127" class="s">habit vs local, robust z</text></g>
+        <g class="node"><rect x="800" y="10" width="170" height="44" rx="10"/><text x="885" y="37">Findings in time</text></g>
+        <g class="node"><rect x="800" y="66" width="170" height="44" rx="10"/><text x="885" y="93">Causal explanations</text></g>
+        <g class="node"><rect x="800" y="122" width="170" height="44" rx="10"/><text x="885" y="149">Counterfactual repair</text></g>
+        <g class="node"><rect x="800" y="178" width="170" height="44" rx="10"/><text x="885" y="205">Rubric score + coach</text></g>
+        <path d="M160 58 C185 58 185 105 208 108" marker-end="url(#ar)"/><path d="M160 168 C185 168 185 120 208 118" marker-end="url(#ar)"/>
+        <path d="M360 113 H398" marker-end="url(#ar)"/><path d="M550 113 H588" marker-end="url(#ar)"/>
+        <path d="M750 105 C775 100 775 34 798 32" marker-end="url(#ar)"/><path d="M750 110 C775 108 780 88 798 88" marker-end="url(#ar)"/>
+        <path d="M750 116 C775 118 780 142 798 144" marker-end="url(#ar)"/><path d="M750 121 C775 126 775 198 798 200" marker-end="url(#ar)"/>
+      </svg>
+      <div class="msteps">
+        <div><b>1 · Align</b><p>An exact CTC Viterbi pass over wav2vec2 character probabilities finds where every word of the transcript starts and ends, in both readings. Boundaries are refined on the energy envelope.</p></div>
+        <div><b>2 · Measure</b><p>Pitch in semitones relative to each speaker's own median, loudness relative to their own level, energy above 2 and 4 kHz, pauses, held voicing, recogniser confidence. A deep and a high voice reading identically look identical.</p></div>
+        <div><b>3 · Contrast</b><p>Each signal is split into the speaker's overall habit and the local deviation, scored against the reference speaker's word-to-word variation. Data-fitted gates drop anything within natural reread variation.</p></div>
+        <div><b>4 · Explain</b><p>Every finding names one measured cause, how far it moved and why it matters to a listener, with a fix. No language model: the same audio always gives the same words.</p></div>
+        <div><b>5 · Prove it</b><p><i>Hear it fixed</i> moves only that cause back to the reference value in the participant's own voice. Re-analysed, the finding disappears in 90 % of cases: the explanation is causal, not a guess.</p></div>
+        <div><b>6 · Practise</b><p>Record a retake of one passage and see it compared with the original against the same reference. Track progress across takes.</p></div>
+      </div>
+      <h2>What makes it different</h2>
+      <ul class="mlist">
+        <li><b>Contrastive by design.</b> Remove the reference and the same detector falls from F1 0.68 to 0.08; normal expressive variation looks like a flaw without it.</li>
+        <li><b>Exact ground truth.</b> A flaw injection engine edits real speeches with PSOLA in the speaker's own voice, so every label is exact to the sample: 350 synthetic clips, 11 flaw types, 5 severities.</li>
+        <li><b>Tested on people and under stress.</b> Team recordings with a manipulation check and a blind listening audit; MP3, telephone, echo, tempo and noise conditions; byte-identical reruns.</li>
+        <li><b>Honest about limits.</b> Background noise the reference lacks breaks the comparison; the app measures it and warns.</li>
+      </ul>
+      <p class="note">Code, dataset, the 6-page technical document and every experiment: see the GitHub repository linked in the README.</p>
+    </div>
   </section>
 </main>
 

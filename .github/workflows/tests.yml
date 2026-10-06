@@ -1,0 +1,27 @@
+name: tests
+on:
+  push:
+  pull_request:
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: pip install -r requirements.txt pytest httpx
+      - run: python -m pytest -q tests
+      - name: API smoke test (no model needed)
+        run: |
+          python - <<'PY'
+          from fastapi.testclient import TestClient
+          from speechlens.app import app
+          c = TestClient(app)
+          assert c.get("/api/status").status_code == 200
+          assert c.get("/api/rubrics").json()
+          assert c.get("/").status_code == 200
+          print("ok")
+          PY

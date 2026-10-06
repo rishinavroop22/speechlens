@@ -70,7 +70,8 @@ def _shelf(seg, gain_db, f0=1500.0, f1=2500.0):
     return out.astype(np.float32)
 
 
-def repair(y: np.ndarray, ref: Analysis, par: Analysis, region: dict, glob: dict) -> tuple[np.ndarray, dict]:
+def repair(y: np.ndarray, ref: Analysis, par: Analysis, region: dict, glob: dict,
+           ref_y: np.ndarray | None = None) -> tuple[np.ndarray, dict]:
     """Return (repaired audio, info). info has the edit applied in words and
     the snippet bounds in both timelines: orig=(s, e), fixed=(s, e)."""
     t = region["type"]
@@ -169,6 +170,34 @@ def repair(y: np.ndarray, ref: Analysis, par: Analysis, region: dict, glob: dict
             k = int(at * SR)
             out = _splice(out, k, k, _noise(y, d * SR, k))
         what = f"{len(inserts)} pause(s) reinserted ({sum(d for _, d in inserts):.2f} s)"
+    elif t == "restart":
+        # cut the second saying, keep a natural 60 ms joint
+        keep = 0.06
+        if e - s <= keep + 0.05:
+            raise ValueError("repeated span too short")
+        out = _splice(y, int((s + keep / 2) * SR), int((e - keep / 2) * SR), np.zeros(0, np.float32))
+        what = f"the repeated “{region.get('text', '')}” removed ({e - s:.2f} s)"
+    elif t == "skipped_word":
+        # put the missing words back, taken from the reference reading
+        if ref_y is None:
+            raise ValueError("the reference audio is needed to restore skipped words")
+        p2r = {j: i for i, j in pair_words(ref, par)}
+        a_, b_ = region["word_start"], region["word_end"]
+        miss = [j for j in range(a_ + 1, b_) if j in p2r]
+        if not miss or a_ not in p2r or b_ not in p2r:
+            raise ValueError("cannot place the missing words")
+        r0, r1 = ref.words[p2r[miss[0]]].start, ref.words[p2r[miss[-1]]].end
+        seg = ref_y[int(max(0, r0 - 0.02) * SR): int((r1 + 0.02) * SR)].astype(np.float32)
+        # match the participant's level around the gap
+        ctx = y[int(par.words[a_].start * SR): int(par.words[b_].end * SR)]
+        g = (np.sqrt(np.mean(ctx ** 2)) + 1e-9) / (np.sqrt(np.mean(seg ** 2)) + 1e-9)
+        gap = _noise(y, int(0.06 * SR), a)
+        c0, c1 = par.words[a_].end, par.words[b_].start
+        if c1 < c0:
+            c0 = c1 = 0.5 * (c0 + c1)
+        out = _splice(y, int(c0 * SR), int(c1 * SR), np.concatenate([gap, seg * float(np.clip(g, 0.25, 4)), gap]))
+        words = " ".join(par.words[j].text for j in miss)
+        what = f"the missing “{words}” restored from the reference reading"
     else:
         raise ValueError(f"no repair for {t}")
     shift = (len(out) - len(y)) / SR

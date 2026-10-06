@@ -42,7 +42,9 @@ def add_fixes(sample_id, rep):
     from speechlens.pipeline import prepare_reference
     ref_y, _ = prepare_reference(ref_y, par_y)
     ref, par = analyze_cached(ref_y, ref_t), analyze_cached(par_y, par_t or ref_t)
-    res = compare(ref, par)
+    res = compare(ref, par, par_y)
+    from speechlens.voice import compare_profiles, profile
+    rep["voice"] = compare_profiles(profile(ref_y, ref.ff.f0_median_hz), profile(par_y, par.ff.f0_median_hz))
     (OUT / "media/fix").mkdir(parents=True, exist_ok=True)
     for i, r in enumerate(rep["regions"]):
         if r["scope"] != "local":
@@ -51,7 +53,7 @@ def add_fixes(sample_id, rep):
         if not cand:
             continue
         try:
-            fixed, info = repair(par_y, ref, par, cand[0].to_dict(), res["global"])
+            fixed, info = repair(par_y, ref, par, cand[0].to_dict(), res["global"], ref_y)
         except ValueError:
             continue
         wav = OUT / "media/fix" / f"{sample_id}__{i}.wav"

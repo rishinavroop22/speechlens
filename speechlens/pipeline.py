@@ -86,7 +86,8 @@ def _series(x, step):
     return [None if not np.isfinite(v) else round(float(v), 2) for v in np.asarray(x)[::step]]
 
 
-def evaluate(ref_y, ref_text, par_y, par_text=None, rubric: str = "declamation", step: int = 2) -> dict:
+def evaluate(ref_y, ref_text, par_y, par_text=None, rubric: str = "declamation", step: int = 2,
+             voice: bool = False) -> dict:
     par_text = par_text or ref_text
     ref_y, check = prepare_reference(ref_y, par_y)
     ref = analyze_cached(ref_y, ref_text)
@@ -94,12 +95,17 @@ def evaluate(ref_y, ref_text, par_y, par_text=None, rubric: str = "declamation",
     from .contrast import pair_words
 
     pairs = pair_words(ref, par)
-    res = compare(ref, par)
+    res = compare(ref, par, par_y)
     for r in res["regions"]:
         r.explanation = explain(r)
     sc = score(res["regions"], len(par.words), par.duration, load_rubric(rubric))
     warped = warp_reference(ref, par, pairs)
+    vq = None
+    if voice:  # descriptive voice-quality profile (speechlens/voice.py), a few seconds
+        from .voice import compare_profiles, profile
+        vq = compare_profiles(profile(ref_y, ref.ff.f0_median_hz), profile(par_y, par.ff.f0_median_hz))
     return {
+        "voice": vq,
         "recording_check": check,
         "duration": round(par.duration, 3),
         "reference_duration": round(ref.duration, 3),

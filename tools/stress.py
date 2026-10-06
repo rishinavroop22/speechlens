@@ -156,7 +156,7 @@ def run(job):
         ref_y, _ = match_reference(ref_y, y)
     ref = analyze_cached(ref_y, text)
     par = analyze_cached(y, text)
-    res = compare(ref, par)
+    res = compare(ref, par, y)
     sc = score(res["regions"], len(par.words), par.duration, load_rubric("declamation"))
     # aligner robustness: word onsets vs. the clean recording's own alignment
     f = CONDITIONS[cond.replace("+match", "")].get("tempo", 1.0)

@@ -9,7 +9,9 @@
   "awkward_pause",
   "filler",
   "mumbling",
-  "stutter"
+  "stutter",
+  "skipped_word",
+  "restart"
  ],
  "severity_scale": "1 = near-perfect ... 5 = egregious",
  "sources": [
@@ -10211,6 +10213,2310 @@
    "align_conf": 0.863,
    "reference_clip": "human__prasad_reagan_A",
    "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+  },
+  {
+   "id": "fdr__skipped_word_s1",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 109.8,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 1,
+     "start": 53.98,
+     "end": 54.57,
+     "word_start": 76,
+     "word_end": 78,
+     "params": {
+      "skipped": "American",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "fdr__skipped_word_s2",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 109.57,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 2,
+     "start": 17.05,
+     "end": 17.73,
+     "word_start": 24,
+     "word_end": 26,
+     "params": {
+      "skipped": "forces",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "fdr__skipped_word_s3",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 109.26,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 3,
+     "start": 17.05,
+     "end": 17.65,
+     "word_start": 24,
+     "word_end": 27,
+     "params": {
+      "skipped": "forces of",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "fdr__skipped_word_s4",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 106.96,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 33.56,
+     "end": 34.84,
+     "word_start": 47,
+     "word_end": 50,
+     "params": {
+      "skipped": "in conversation",
+      "words": 2
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 73.49,
+     "end": 74.635,
+     "word_start": 107,
+     "word_end": 110,
+     "params": {
+      "skipped": "reply stated",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "fdr__skipped_word_s5",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 107.9,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 94.94,
+     "end": 96.44,
+     "word_start": 135,
+     "word_end": 139,
+     "params": {
+      "skipped": "that the distance",
+      "words": 3
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 100.88,
+     "end": 101.98,
+     "word_start": 146,
+     "word_end": 150,
+     "params": {
+      "skipped": "the attack was",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "fdr__restart_s1",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 111.15,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 1,
+     "start": 99.54,
+     "end": 100.186,
+     "word_start": 141,
+     "word_end": 141,
+     "params": {
+      "repeated": "from",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "fdr__restart_s2",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 111.81,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 2,
+     "start": 19.765,
+     "end": 21.07,
+     "word_start": 27,
+     "word_end": 28,
+     "params": {
+      "repeated": "the Empire",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "fdr__restart_s3",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 113.97,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 50.96,
+     "end": 53.053,
+     "word_start": 69,
+     "word_end": 70,
+     "params": {
+      "repeated": "Japanese air",
+      "words": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 57.403,
+     "end": 58.776,
+     "word_start": 77,
+     "word_end": 78,
+     "params": {
+      "repeated": "American Island",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "fdr__restart_s4",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 115.17,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 90.58,
+     "end": 93.23,
+     "word_start": 125,
+     "word_end": 127,
+     "params": {
+      "repeated": "hint of war",
+      "words": 3
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 97.59,
+     "end": 99.611,
+     "word_start": 132,
+     "word_end": 134,
+     "params": {
+      "repeated": "It will be",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "fdr__restart_s5",
+   "source": "fdr",
+   "kind": "single",
+   "duration": 120.33,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 50.96,
+     "end": 55.001,
+     "word_start": 67,
+     "word_end": 70,
+     "params": {
+      "repeated": "hour after Japanese air",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 70.901,
+     "end": 72.98,
+     "word_start": 92,
+     "word_end": 95,
+     "params": {
+      "repeated": "to our Secretary of",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 94.26,
+     "end": 97.966,
+     "word_start": 121,
+     "word_end": 124,
+     "params": {
+      "repeated": "contained no threat or",
+      "words": 4
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "fdr__lexmix1",
+   "source": "fdr",
+   "kind": "lexmix",
+   "duration": 114.43,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 2,
+     "start": 27.66,
+     "end": 29.471,
+     "word_start": 38,
+     "word_end": 39,
+     "params": {
+      "repeated": "that Nation",
+      "words": 2
+     }
+    },
+    {
+     "type": "dragging",
+     "severity": 2,
+     "start": 38.241,
+     "end": 45.987,
+     "word_start": 51,
+     "word_end": 59,
+     "params": {
+      "duration_factor": 1.24
+     }
+    },
+    {
+     "type": "monotone",
+     "severity": 2,
+     "start": 94.637,
+     "end": 105.687,
+     "word_start": 128,
+     "word_end": 143,
+     "params": {
+      "excursion_removed": 0.55
+     }
+    }
+   ],
+   "max_severity": 2,
+   "lexical_mix": 1
+  },
+  {
+   "id": "fdr__lexmix2",
+   "source": "fdr",
+   "kind": "lexmix",
+   "duration": 111.83,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 10.32,
+     "end": 11.803,
+     "word_start": 11,
+     "word_end": 12,
+     "params": {
+      "repeated": "the United",
+      "words": 2
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 3,
+     "start": 21.503,
+     "end": 29.157,
+     "word_start": 30,
+     "word_end": 41,
+     "params": {
+      "pause_kept": 0.3,
+      "pauses_shortened": 2
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 3,
+     "start": 54.337,
+     "end": 60.337,
+     "word_start": 78,
+     "word_end": 87,
+     "params": {
+      "lowpass_hz": 2500
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 86.757,
+     "end": 88.566,
+     "word_start": 122,
+     "word_end": 123,
+     "params": {
+      "repeated": "no threat",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3,
+   "lexical_mix": 2
+  },
+  {
+   "id": "fdr__lexmix3",
+   "source": "fdr",
+   "kind": "lexmix",
+   "duration": 105.78,
+   "labels": [
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 10.88,
+     "end": 11.999,
+     "word_start": 14,
+     "word_end": 15,
+     "params": {
+      "inserted_s": 1.119
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 58.619,
+     "end": 58.944,
+     "word_start": 81,
+     "word_end": 84,
+     "params": {
+      "skipped": "Japanese Ambassador",
+      "words": 2
+     }
+    },
+    {
+     "type": "rushed",
+     "severity": 4,
+     "start": 69.876,
+     "end": 73.719,
+     "word_start": 100,
+     "word_end": 110,
+     "params": {
+      "duration_factor": 0.64
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 4,
+     "start": 76.079,
+     "end": 77.335,
+     "word_start": 116,
+     "word_end": 117,
+     "params": {
+      "inserted_s": 1.256
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 88.175,
+     "end": 90.215,
+     "word_start": 131,
+     "word_end": 134,
+     "params": {
+      "skipped": "It will",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 4,
+   "lexical_mix": 3
+  },
+  {
+   "id": "jfk__skipped_word_s1",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 78.91,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 1,
+     "start": 63.84,
+     "end": 64.36,
+     "word_start": 98,
+     "word_end": 100,
+     "params": {
+      "skipped": "the",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "jfk__skipped_word_s2",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 78.56,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 2,
+     "start": 24.62,
+     "end": 25.54,
+     "word_start": 33,
+     "word_end": 35,
+     "params": {
+      "skipped": "Almighty",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "jfk__skipped_word_s3",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 77.69,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 3,
+     "start": 25.46,
+     "end": 27.01,
+     "word_start": 35,
+     "word_end": 38,
+     "params": {
+      "skipped": "the same",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "jfk__skipped_word_s4",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 76.35,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 41.18,
+     "end": 42.155,
+     "word_start": 60,
+     "word_end": 63,
+     "params": {
+      "skipped": "mortal hands",
+      "words": 2
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 62.635,
+     "end": 63.85,
+     "word_start": 100,
+     "word_end": 103,
+     "params": {
+      "skipped": "of man",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "jfk__skipped_word_s5",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 77.33,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 66.92,
+     "end": 67.23,
+     "word_start": 105,
+     "word_end": 109,
+     "params": {
+      "skipped": "the generosity of",
+      "words": 3
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 75.02,
+     "end": 75.47,
+     "word_start": 124,
+     "word_end": 128,
+     "params": {
+      "skipped": "the heirs of",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "jfk__restart_s1",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 79.59,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 1,
+     "start": 61.52,
+     "end": 62.049,
+     "word_start": 93,
+     "word_end": 93,
+     "params": {
+      "repeated": "around",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "jfk__restart_s2",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 79.73,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 2,
+     "start": 61.15,
+     "end": 61.822,
+     "word_start": 91,
+     "word_end": 92,
+     "params": {
+      "repeated": "at issue",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "jfk__restart_s3",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 80.56,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 23.02,
+     "end": 23.924,
+     "word_start": 29,
+     "word_end": 30,
+     "params": {
+      "repeated": "have sworn",
+      "words": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 51.664,
+     "end": 52.259,
+     "word_start": 75,
+     "word_end": 76,
+     "params": {
+      "repeated": "of human",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "jfk__restart_s4",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 81.09,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 50.76,
+     "end": 51.873,
+     "word_start": 74,
+     "word_end": 76,
+     "params": {
+      "repeated": "forms of human",
+      "words": 3
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 65.263,
+     "end": 66.179,
+     "word_start": 97,
+     "word_end": 99,
+     "params": {
+      "repeated": "belief that the",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "jfk__restart_s5",
+   "source": "jfk",
+   "kind": "single",
+   "duration": 88.5,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 33.02,
+     "end": 36.946,
+     "word_start": 40,
+     "word_end": 43,
+     "params": {
+      "repeated": "our forebears prescribed nearly",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 47.601,
+     "end": 50.294,
+     "word_start": 60,
+     "word_end": 63,
+     "params": {
+      "repeated": "his mortal hands the",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 66.939,
+     "end": 69.765,
+     "word_start": 86,
+     "word_end": 89,
+     "params": {
+      "repeated": "our forebears fought are",
+      "words": 4
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "jfk__lexmix1",
+   "source": "jfk",
+   "kind": "lexmix",
+   "duration": 78.48,
+   "labels": [
+    {
+     "type": "mumbling",
+     "severity": 2,
+     "start": 19.82,
+     "end": 24.01,
+     "word_start": 24,
+     "word_end": 32,
+     "params": {
+      "lowpass_hz": 3500
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 2,
+     "start": 34.74,
+     "end": 38.69,
+     "word_start": 49,
+     "word_end": 56,
+     "params": {
+      "pause_kept": 0.45,
+      "pauses_shortened": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 2,
+     "start": 40.38,
+     "end": 41.178,
+     "word_start": 60,
+     "word_end": 61,
+     "params": {
+      "repeated": "his mortal",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 2,
+   "lexical_mix": 1
+  },
+  {
+   "id": "jfk__lexmix2",
+   "source": "jfk",
+   "kind": "lexmix",
+   "duration": 80.39,
+   "labels": [
+    {
+     "type": "monotone",
+     "severity": 3,
+     "start": 15.24,
+     "end": 22.52,
+     "word_start": 18,
+     "word_end": 29,
+     "params": {
+      "excursion_removed": 0.7
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 3,
+     "start": 64.62,
+     "end": 65.875,
+     "word_start": 102,
+     "word_end": 105,
+     "params": {
+      "skipped": "come not",
+      "words": 2
+     }
+    },
+    {
+     "type": "dragging",
+     "severity": 3,
+     "start": 68.656,
+     "end": 74.773,
+     "word_start": 111,
+     "word_end": 119,
+     "params": {
+      "duration_factor": 1.36
+     }
+    }
+   ],
+   "max_severity": 3,
+   "lexical_mix": 2
+  },
+  {
+   "id": "jfk__lexmix3",
+   "source": "jfk",
+   "kind": "lexmix",
+   "duration": 76.14,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 10.62,
+     "end": 12.01,
+     "word_start": 12,
+     "word_end": 15,
+     "params": {
+      "skipped": "symbolizing an",
+      "words": 2
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 26.65,
+     "end": 27.36,
+     "word_start": 38,
+     "word_end": 39,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 4,
+     "start": 33.72,
+     "end": 36.917,
+     "word_start": 49,
+     "word_end": 56,
+     "params": {
+      "pause_kept": 0.15,
+      "pauses_shortened": 2
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 54.687,
+     "end": 55.397,
+     "word_start": 86,
+     "word_end": 87,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 59.177,
+     "end": 60.367,
+     "word_start": 95,
+     "word_end": 98,
+     "params": {
+      "skipped": "the belief",
+      "words": 2
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 64.347,
+     "end": 65.057,
+     "word_start": 107,
+     "word_end": 108,
+     "params": {
+      "filler_s": 0.55
+     }
+    }
+   ],
+   "max_severity": 4,
+   "lexical_mix": 3
+  },
+  {
+   "id": "lbj__skipped_word_s1",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 88.14,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 1,
+     "start": 83.38,
+     "end": 84.865,
+     "word_start": 113,
+     "word_end": 115,
+     "params": {
+      "skipped": "a",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "lbj__skipped_word_s2",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 88.31,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 2,
+     "start": 6.66,
+     "end": 7.37,
+     "word_start": 6,
+     "word_end": 8,
+     "params": {
+      "skipped": "tonight",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "lbj__skipped_word_s3",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 87.75,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 3,
+     "start": 74.37,
+     "end": 75.09,
+     "word_start": 102,
+     "word_end": 105,
+     "params": {
+      "skipped": "their rights",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "lbj__skipped_word_s4",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 86.92,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 6.43,
+     "end": 7.02,
+     "word_start": 5,
+     "word_end": 8,
+     "params": {
+      "skipped": "speak tonight",
+      "words": 2
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 52.12,
+     "end": 52.705,
+     "word_start": 72,
+     "word_end": 75,
+     "params": {
+      "skipped": "at Lexington",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "lbj__skipped_word_s5",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 86.91,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 15.6,
+     "end": 16.43,
+     "word_start": 19,
+     "word_end": 23,
+     "params": {
+      "skipped": "every member of",
+      "words": 3
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 30.37,
+     "end": 31.49,
+     "word_start": 40,
+     "word_end": 44,
+     "params": {
+      "skipped": "me in that",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "lbj__restart_s1",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 90.59,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 1,
+     "start": 79.31,
+     "end": 80.977,
+     "word_start": 107,
+     "word_end": 107,
+     "params": {
+      "repeated": "Many",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "lbj__restart_s2",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 90.29,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 2,
+     "start": 24.46,
+     "end": 25.835,
+     "word_start": 29,
+     "word_end": 30,
+     "params": {
+      "repeated": "and of",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "lbj__restart_s3",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 91.59,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 16.12,
+     "end": 18.102,
+     "word_start": 18,
+     "word_end": 19,
+     "params": {
+      "repeated": "I urge",
+      "words": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 55.582,
+     "end": 56.273,
+     "word_start": 72,
+     "word_end": 73,
+     "params": {
+      "repeated": "was at",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "lbj__restart_s4",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 93.2,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 45.44,
+     "end": 48.117,
+     "word_start": 58,
+     "word_end": 60,
+     "params": {
+      "repeated": "place to shape",
+      "words": 3
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 56.157,
+     "end": 57.758,
+     "word_start": 70,
+     "word_end": 72,
+     "params": {
+      "repeated": "So it was",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "lbj__restart_s5",
+   "source": "lbj",
+   "kind": "single",
+   "duration": 95.73,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 17.05,
+     "end": 18.679,
+     "word_start": 19,
+     "word_end": 22,
+     "params": {
+      "repeated": "urge every member of",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 60.429,
+     "end": 62.073,
+     "word_start": 80,
+     "word_end": 83,
+     "params": {
+      "repeated": "a century ago at",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 76.753,
+     "end": 80.287,
+     "word_start": 97,
+     "word_end": 100,
+     "params": {
+      "repeated": "women peacefully protested the",
+      "words": 4
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "lbj__lexmix1",
+   "source": "lbj",
+   "kind": "lexmix",
+   "duration": 89.72,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 2,
+     "start": 12.34,
+     "end": 12.86,
+     "word_start": 16,
+     "word_end": 17,
+     "params": {
+      "filler_s": 0.36
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 2,
+     "start": 24.78,
+     "end": 25.65,
+     "word_start": 30,
+     "word_end": 32,
+     "params": {
+      "skipped": "all",
+      "words": 1
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 2,
+     "start": 39.27,
+     "end": 45.2,
+     "word_start": 50,
+     "word_end": 59,
+     "params": {
+      "lowpass_hz": 3500
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 2,
+     "start": 75.14,
+     "end": 75.66,
+     "word_start": 103,
+     "word_end": 104,
+     "params": {
+      "filler_s": 0.36
+     }
+    }
+   ],
+   "max_severity": 2,
+   "lexical_mix": 1
+  },
+  {
+   "id": "lbj__lexmix2",
+   "source": "lbj",
+   "kind": "lexmix",
+   "duration": 92.47,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 3,
+     "start": 27.56,
+     "end": 28.345,
+     "word_start": 34,
+     "word_end": 34,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 41.955,
+     "end": 43.811,
+     "word_start": 53,
+     "word_end": 54,
+     "params": {
+      "repeated": "single time",
+      "words": 2
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 3,
+     "start": 46.841,
+     "end": 52.671,
+     "word_start": 59,
+     "word_end": 67,
+     "params": {
+      "lowpass_hz": 2500
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 63.541,
+     "end": 64.793,
+     "word_start": 85,
+     "word_end": 86,
+     "params": {
+      "repeated": "So it",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3,
+   "lexical_mix": 2
+  },
+  {
+   "id": "lbj__lexmix3",
+   "source": "lbj",
+   "kind": "lexmix",
+   "duration": 92.25,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 27.12,
+     "end": 28.038,
+     "word_start": 33,
+     "word_end": 33,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 39.388,
+     "end": 41.662,
+     "word_start": 47,
+     "word_end": 49,
+     "params": {
+      "repeated": "history and fate",
+      "words": 3
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 53.442,
+     "end": 54.059,
+     "word_start": 68,
+     "word_end": 68,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 4,
+     "start": 67.349,
+     "end": 70.571,
+     "word_start": 92,
+     "word_end": 94,
+     "params": {
+      "pause_kept": 0.15,
+      "pauses_shortened": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 74.321,
+     "end": 76.812,
+     "word_start": 98,
+     "word_end": 100,
+     "params": {
+      "repeated": "peacefully protested the",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 4,
+   "lexical_mix": 3
+  },
+  {
+   "id": "obama__skipped_word_s1",
+   "source": "obama",
+   "kind": "single",
+   "duration": 81.31,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 1,
+     "start": 17.02,
+     "end": 17.41,
+     "word_start": 13,
+     "word_end": 15,
+     "params": {
+      "skipped": "you",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "obama__skipped_word_s2",
+   "source": "obama",
+   "kind": "single",
+   "duration": 81.3,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 2,
+     "start": 47.52,
+     "end": 47.9,
+     "word_start": 57,
+     "word_end": 59,
+     "params": {
+      "skipped": "have",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "obama__skipped_word_s3",
+   "source": "obama",
+   "kind": "single",
+   "duration": 80.81,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 3,
+     "start": 42.14,
+     "end": 43.805,
+     "word_start": 49,
+     "word_end": 52,
+     "params": {
+      "skipped": "have now",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "obama__skipped_word_s4",
+   "source": "obama",
+   "kind": "single",
+   "duration": 80.88,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 17.02,
+     "end": 18.15,
+     "word_start": 13,
+     "word_end": 16,
+     "params": {
+      "skipped": "you have",
+      "words": 2
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 78.95,
+     "end": 79.71,
+     "word_start": 121,
+     "word_end": 124,
+     "params": {
+      "skipped": "to our",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "obama__skipped_word_s5",
+   "source": "obama",
+   "kind": "single",
+   "duration": 79.22,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 36.15,
+     "end": 36.45,
+     "word_start": 42,
+     "word_end": 46,
+     "params": {
+      "skipped": "has shown throughout",
+      "words": 3
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 67.31,
+     "end": 68.13,
+     "word_start": 98,
+     "word_end": 102,
+     "params": {
+      "skipped": "or vision of",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "obama__restart_s1",
+   "source": "obama",
+   "kind": "single",
+   "duration": 81.99,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 1,
+     "start": 49.56,
+     "end": 50.149,
+     "word_start": 63,
+     "word_end": 63,
+     "params": {
+      "repeated": "tides",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "obama__restart_s2",
+   "source": "obama",
+   "kind": "single",
+   "duration": 82.0,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 2,
+     "start": 17.39,
+     "end": 17.985,
+     "word_start": 13,
+     "word_end": 14,
+     "params": {
+      "repeated": "trust you",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "obama__restart_s3",
+   "source": "obama",
+   "kind": "single",
+   "duration": 82.72,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 36.4,
+     "end": 36.801,
+     "word_start": 42,
+     "word_end": 43,
+     "params": {
+      "repeated": "he has",
+      "words": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 52.181,
+     "end": 53.104,
+     "word_start": 66,
+     "word_end": 67,
+     "params": {
+      "repeated": "and the",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "obama__restart_s4",
+   "source": "obama",
+   "kind": "single",
+   "duration": 85.53,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 57.455,
+     "end": 59.395,
+     "word_start": 73,
+     "word_end": 75,
+     "params": {
+      "repeated": "every so often",
+      "words": 3
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 77.38,
+     "end": 79.568,
+     "word_start": 109,
+     "word_end": 111,
+     "params": {
+      "repeated": "the People have",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "obama__restart_s5",
+   "source": "obama",
+   "kind": "single",
+   "duration": 86.66,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 27.46,
+     "end": 29.139,
+     "word_start": 26,
+     "word_end": 29,
+     "params": {
+      "repeated": "thank President Bush for",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 38.079,
+     "end": 39.269,
+     "word_start": 40,
+     "word_end": 43,
+     "params": {
+      "repeated": "and cooperation he has",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 53.944,
+     "end": 56.34,
+     "word_start": 62,
+     "word_end": 65,
+     "params": {
+      "repeated": "rising tides of prosperity",
+      "words": 4
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "obama__lexmix1",
+   "source": "obama",
+   "kind": "lexmix",
+   "duration": 81.25,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 2,
+     "start": 12.86,
+     "end": 13.486,
+     "word_start": 8,
+     "word_end": 8,
+     "params": {
+      "repetitions": 1
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 2,
+     "start": 58.966,
+     "end": 62.576,
+     "word_start": 80,
+     "word_end": 85,
+     "params": {
+      "lowpass_hz": 3500
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 2,
+     "start": 76.766,
+     "end": 77.046,
+     "word_start": 115,
+     "word_end": 117,
+     "params": {
+      "skipped": "ideals",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 2,
+   "lexical_mix": 1
+  },
+  {
+   "id": "obama__lexmix2",
+   "source": "obama",
+   "kind": "lexmix",
+   "duration": 82.04,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 26.62,
+     "end": 27.436,
+     "word_start": 26,
+     "word_end": 27,
+     "params": {
+      "repeated": "thank President",
+      "words": 2
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 53.236,
+     "end": 53.846,
+     "word_start": 69,
+     "word_end": 70,
+     "params": {
+      "filler_s": 0.45
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 3,
+     "start": 57.666,
+     "end": 58.276,
+     "word_start": 73,
+     "word_end": 74,
+     "params": {
+      "filler_s": 0.45
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 70.626,
+     "end": 71.372,
+     "word_start": 95,
+     "word_end": 96,
+     "params": {
+      "repeated": "because of",
+      "words": 2
+     }
+    },
+    {
+     "type": "rushed",
+     "severity": 3,
+     "start": 73.462,
+     "end": 77.041,
+     "word_start": 105,
+     "word_end": 113,
+     "params": {
+      "duration_factor": 0.72
+     }
+    }
+   ],
+   "max_severity": 3,
+   "lexical_mix": 2
+  },
+  {
+   "id": "obama__lexmix3",
+   "source": "obama",
+   "kind": "lexmix",
+   "duration": 84.54,
+   "labels": [
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 17.02,
+     "end": 17.703,
+     "word_start": 13,
+     "word_end": 13,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 49.203,
+     "end": 50.086,
+     "word_start": 62,
+     "word_end": 62,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 52.926,
+     "end": 54.034,
+     "word_start": 66,
+     "word_end": 68,
+     "params": {
+      "repeated": "and the still",
+      "words": 3
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 60.374,
+     "end": 61.522,
+     "word_start": 76,
+     "word_end": 78,
+     "params": {
+      "repeated": "the oath is",
+      "words": 3
+     }
+    },
+    {
+     "type": "mumbling",
+     "severity": 4,
+     "start": 67.562,
+     "end": 70.142,
+     "word_start": 87,
+     "word_end": 92,
+     "params": {
+      "lowpass_hz": 1800
+     }
+    }
+   ],
+   "max_severity": 4,
+   "lexical_mix": 3
+  },
+  {
+   "id": "reagan__skipped_word_s1",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 77.12,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 1,
+     "start": 4.13,
+     "end": 4.56,
+     "word_start": 14,
+     "word_end": 16,
+     "params": {
+      "skipped": "of",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "reagan__skipped_word_s2",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 76.96,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 2,
+     "start": 11.24,
+     "end": 11.5,
+     "word_start": 33,
+     "word_end": 35,
+     "params": {
+      "skipped": "day",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "reagan__skipped_word_s3",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 75.94,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 3,
+     "start": 8.9,
+     "end": 10.06,
+     "word_start": 30,
+     "word_end": 33,
+     "params": {
+      "skipped": "Today is",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "reagan__skipped_word_s4",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 76.44,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 20.56,
+     "end": 21.54,
+     "word_start": 64,
+     "word_end": 67,
+     "params": {
+      "skipped": "of our",
+      "words": 2
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 4,
+     "start": 64.04,
+     "end": 64.9,
+     "word_start": 162,
+     "word_end": 165,
+     "params": {
+      "skipped": "a nation",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "reagan__skipped_word_s5",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 75.2,
+   "labels": [
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 28.18,
+     "end": 28.6,
+     "word_start": 81,
+     "word_end": 85,
+     "params": {
+      "skipped": "lost three astronauts",
+      "words": 3
+     }
+    },
+    {
+     "type": "skipped_word",
+     "severity": 5,
+     "start": 45.64,
+     "end": 46.79,
+     "word_start": 134,
+     "word_end": 138,
+     "params": {
+      "skipped": "did their jobs",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "reagan__restart_s1",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 77.71,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 1,
+     "start": 29.16,
+     "end": 29.691,
+     "word_start": 83,
+     "word_end": 83,
+     "params": {
+      "repeated": "three",
+      "words": 1
+     }
+    }
+   ],
+   "max_severity": 1
+  },
+  {
+   "id": "reagan__restart_s2",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 77.95,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 2,
+     "start": 40.64,
+     "end": 41.409,
+     "word_start": 115,
+     "word_end": 116,
+     "params": {
+      "repeated": "for the",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 2
+  },
+  {
+   "id": "reagan__restart_s3",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 78.46,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 8.64,
+     "end": 9.298,
+     "word_start": 27,
+     "word_end": 28,
+     "params": {
+      "repeated": "to change",
+      "words": 2
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 65.578,
+     "end": 66.201,
+     "word_start": 163,
+     "word_end": 164,
+     "params": {
+      "repeated": "a nation",
+      "words": 2
+     }
+    }
+   ],
+   "max_severity": 3
+  },
+  {
+   "id": "reagan__restart_s4",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 79.17,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 16.55,
+     "end": 17.413,
+     "word_start": 47,
+     "word_end": 49,
+     "params": {
+      "repeated": "by the tragedy",
+      "words": 3
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 40.103,
+     "end": 41.232,
+     "word_start": 108,
+     "word_end": 110,
+     "params": {
+      "repeated": "perhaps we've forgotten",
+      "words": 3
+     }
+    }
+   ],
+   "max_severity": 4
+  },
+  {
+   "id": "reagan__restart_s5",
+   "source": "reagan",
+   "kind": "single",
+   "duration": 81.09,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 8.64,
+     "end": 9.771,
+     "word_start": 25,
+     "word_end": 28,
+     "params": {
+      "repeated": "led me to change",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 30.931,
+     "end": 32.38,
+     "word_start": 82,
+     "word_end": 85,
+     "params": {
+      "repeated": "lost three astronauts in",
+      "words": 4
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 5,
+     "start": 42.5,
+     "end": 43.833,
+     "word_start": 110,
+     "word_end": 113,
+     "params": {
+      "repeated": "forgotten the courage it",
+      "words": 4
+     }
+    }
+   ],
+   "max_severity": 5
+  },
+  {
+   "id": "reagan__lexmix1",
+   "source": "reagan",
+   "kind": "lexmix",
+   "duration": 77.17,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 2,
+     "start": 8.3,
+     "end": 8.652,
+     "word_start": 26,
+     "word_end": 27,
+     "params": {
+      "repeated": "me to",
+      "words": 2
+     }
+    },
+    {
+     "type": "pause_omission",
+     "severity": 2,
+     "start": 41.432,
+     "end": 46.209,
+     "word_start": 120,
+     "word_end": 131,
+     "params": {
+      "pause_kept": 0.45,
+      "pauses_shortened": 2
+     }
+    },
+    {
+     "type": "trailing_off",
+     "severity": 2,
+     "start": 49.589,
+     "end": 54.769,
+     "word_start": 140,
+     "word_end": 147,
+     "params": {
+      "drop_db": 7
+     }
+    }
+   ],
+   "max_severity": 2,
+   "lexical_mix": 1
+  },
+  {
+   "id": "reagan__lexmix2",
+   "source": "reagan",
+   "kind": "lexmix",
+   "duration": 80.38,
+   "labels": [
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 2.74,
+     "end": 3.328,
+     "word_start": 6,
+     "word_end": 7,
+     "params": {
+      "repeated": "speak to",
+      "words": 2
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 17.638,
+     "end": 18.575,
+     "word_start": 52,
+     "word_end": 53,
+     "params": {
+      "inserted_s": 0.937
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 3,
+     "start": 29.025,
+     "end": 29.74,
+     "word_start": 77,
+     "word_end": 78,
+     "params": {
+      "repeated": "almost to",
+      "words": 2
+     }
+    },
+    {
+     "type": "awkward_pause",
+     "severity": 3,
+     "start": 42.16,
+     "end": 43.124,
+     "word_start": 113,
+     "word_end": 114,
+     "params": {
+      "inserted_s": 0.964
+     }
+    },
+    {
+     "type": "trailing_off",
+     "severity": 3,
+     "start": 76.214,
+     "end": 79.484,
+     "word_start": 184,
+     "word_end": 195,
+     "params": {
+      "drop_db": 10
+     }
+    }
+   ],
+   "max_severity": 3,
+   "lexical_mix": 2
+  },
+  {
+   "id": "reagan__lexmix3",
+   "source": "reagan",
+   "kind": "lexmix",
+   "duration": 82.5,
+   "labels": [
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 2.31,
+     "end": 3.02,
+     "word_start": 5,
+     "word_end": 6,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 4.67,
+     "end": 5.871,
+     "word_start": 9,
+     "word_end": 11,
+     "params": {
+      "repeated": "tonight to report",
+      "words": 3
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 6.351,
+     "end": 7.061,
+     "word_start": 15,
+     "word_end": 16,
+     "params": {
+      "filler_s": 0.55
+     }
+    },
+    {
+     "type": "restart",
+     "severity": 4,
+     "start": 9.041,
+     "end": 10.166,
+     "word_start": 18,
+     "word_end": 20,
+     "params": {
+      "repeated": "but the events",
+      "words": 3
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 35.836,
+     "end": 36.501,
+     "word_start": 92,
+     "word_end": 92,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "stutter",
+     "severity": 4,
+     "start": 58.461,
+     "end": 59.388,
+     "word_start": 147,
+     "word_end": 147,
+     "params": {
+      "repetitions": 2
+     }
+    },
+    {
+     "type": "filler",
+     "severity": 4,
+     "start": 71.108,
+     "end": 71.818,
+     "word_start": 166,
+     "word_end": 167,
+     "params": {
+      "filler_s": 0.55
+     }
+    }
+   ],
+   "max_severity": 4,
+   "lexical_mix": 3
   }
  ]
 }

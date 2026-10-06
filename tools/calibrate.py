@@ -28,6 +28,7 @@ DEFAULT = {  # (table, increasing) - the injection parameter tables
     "pause_omission": ([0.60, 0.45, 0.30, 0.15, 0.04], False), "awkward_pause": ([0.35, 0.60, 0.90, 1.30, 1.80], True),
     "filler": ([0.28, 0.36, 0.45, 0.55, 0.65], True), "mumbling": ([0.8, 1.6, 2.6, 3.6, 5.0], True),
     "stutter": ([1, 1.5, 2, 2.5, 3], True),
+    "skipped_word": ([1, 1, 2, 2, 3], True), "restart": ([1, 2, 2, 3, 4], True),
 }
 
 
@@ -36,7 +37,7 @@ def collect():
     preds = {r["id"]: r for r in json.loads((ROOT / "results/predictions.json").read_text())}
     rows = []  # (speech, type, magnitude, true severity)
     for cid, c in man.items():
-        if c["kind"] not in ("single", "mixed") or cid not in preds:
+        if c["kind"] not in ("single", "mixed", "lexmix") or cid not in preds:
             continue
         local = [p for p in preds[cid]["preds"] if p["scope"] == "local"]
         for i, j, _ in match(c["labels"], local, 0.3):

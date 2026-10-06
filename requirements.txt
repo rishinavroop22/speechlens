@@ -9,3 +9,4 @@ num2words>=0.5.13
 fastapi>=0.110
 uvicorn[standard]>=0.29
 python-multipart>=0.0.9
+matplotlib>=3.8

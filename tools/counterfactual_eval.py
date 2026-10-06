@@ -37,11 +37,12 @@ def run(clip):
     from speechlens.pipeline import analyze_cached
     src = LIB / clip["source"]
     text = (src / "transcript.txt").read_text()
-    ref = analyze_cached(audio.load(src / "audio.wav"), text)
+    ref_y = audio.load(src / "audio.wav")
+    ref = analyze_cached(ref_y, text)
     y = audio.load(audio.clip_path(DS / "clips", clip["id"]))
     par = analyze_cached(y, text)
     rub = load_rubric("declamation")
-    before = compare(ref, par)
+    before = compare(ref, par, y)
     sc0 = score(before["regions"], len(par.words), par.duration, rub)["overall"]
     loc = [r for r in before["regions"] if r.scope == "local"]
     m = match(clip["labels"], [{"type": r.type, "start": r.start, "end": r.end} for r in loc], 0.3)
@@ -49,11 +50,11 @@ def run(clip):
         return {"id": clip["id"], "type": clip["labels"][0]["type"], "found": False}
     reg = loc[m[0][1]]
     try:
-        fixed, info = repair(y, ref, par, reg.to_dict(), before["global"])
+        fixed, info = repair(y, ref, par, reg.to_dict(), before["global"], ref_y)
     except ValueError as e:
         return {"id": clip["id"], "type": reg.type, "found": True, "repaired": False, "error": str(e)}
     par2 = analyze_cached(fixed, text)
-    after = compare(ref, par2)
+    after = compare(ref, par2, fixed)
     sc1 = score(after["regions"], len(par2.words), par2.duration, rub)["overall"]
     # the same finding after the repair: same type, overlapping the edited span
     s, e = reg.start, reg.end + info["shift"]
@@ -62,8 +63,9 @@ def run(clip):
     near_new = [r.type for r in after["regions"] if r.scope == "local" and r.type != reg.type
                 and min(e + 1, r.end) - max(s - 1, r.start) > 0
                 and not any(o.type == r.type and min(o.end, r.end) - max(o.start, r.start) > 0 for o in before["regions"])]
-    gold = analyze_cached(audio.load(src / "audio.wav"), text)
-    sc_gold = score(compare(ref, gold)["regions"], len(gold.words), gold.duration, rub)["overall"]
+    gold_y = audio.load(src / "audio.wav")
+    gold = analyze_cached(gold_y, text)
+    sc_gold = score(compare(ref, gold, gold_y)["regions"], len(gold.words), gold.duration, rub)["overall"]
     return {"id": clip["id"], "type": reg.type, "severity": clip["labels"][0]["severity"], "found": True,
             "repaired": True, "edit": info["edit"], "gone": not same,
             "residual_severity": max((r.severity for r in same), default=0), "before_severity": reg.severity,

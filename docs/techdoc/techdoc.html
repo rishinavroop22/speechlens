@@ -41,11 +41,11 @@ code,.mono{font-family:"DejaVu Sans Mono",monospace;font-size:7.6pt}
 <p>SpeechLens compares a participant's delivery of a text with a well-delivered reference reading of the <em>same</em> text. It force-aligns both readings word by word, measures how pace, pausing, pitch, loudness, articulation and fluency differ, marks each delivery flaw with start and end times, and explains it with the measured numbers and a fix. A rubric turns the findings into a reproducible 0–100 score. It runs on a CPU with no language model and gives byte-identical output on every run. We built the contrastive dataset it is trained and tested on, and every reported number is cross-validated.</p>
 
 <div class="kpis">
- <div class="kpi"><b>0.71</b><span>F1 locating synthetic flaws, precision 0.89 (leave-one-speech-out)</span></div>
- <div class="kpi"><b>156 ms</b><span>median boundary error of located flaws; mean tIoU 0.75</span></div>
+ <div class="kpi"><b>0.66</b><span>F1 locating 11 flaw types (95 % CI 0.62–0.70), precision 0.82, leave-one-speech-out</span></div>
+ <div class="kpi"><b>150 ms</b><span>median boundary error of located flaws; mean tIoU 0.76</span></div>
  <div class="kpi"><b>0.03 /min</b><span>false findings on unflawed controls, incl. voice ±4 semitones</span></div>
  <div class="kpi"><b>ρ = −0.95</b><span>score vs. flaw level across the mixed-flaw gradient</span></div>
- <div class="kpi"><b>0.55</b><span>recall of performed flaws in team recordings (leave-one-speaker-out)</span></div>
+ <div class="kpi"><b>90 %</b><span>of findings vanish when only the named cause is repaired (counterfactual test)</span></div>
 </div>
 
 <div class="cols">
@@ -63,7 +63,7 @@ code,.mono{font-family:"DejaVu Sans Mono",monospace;font-size:7.6pt}
 <p class="note">Align conf. = mean CTC posterior of the transcript's characters over each word.</p>
 
 <h3>The bad spectrum: Flaw Injection Engine</h3>
-<p>Each gold recording is cut at the midpoints of inter-word gaps and one span is edited with Praat PSOLA resynthesis, which changes timing and pitch while keeping the speaker's own voice. Because we make every edit, each label is exact to the sample: new word times are computed by integrating the same piecewise-linear duration tier Praat applies, and inserted material shifts later times exactly. Nine flaw types at five severities, from near-perfect (1) to egregious (5):</p>
+<p>Each gold recording is cut at the midpoints of inter-word gaps and one span is edited with Praat PSOLA resynthesis, which changes timing and pitch while keeping the speaker's own voice. Because we make every edit, each label is exact to the sample: new word times are computed by integrating the same piecewise-linear duration tier Praat applies, and inserted material shifts later times exactly. Eleven flaw types at five severities, from near-perfect (1) to egregious (5); the last two are reading errors, where the participant departs from the text itself:</p>
 <table><thead><tr><th>Flaw</th><th>Edit</th><th>Severity 1 → 5</th></tr></thead><tbody>
 <tr><td>Rushed / dragging</td><td>duration tier; words ×f, pauses ×f<sup>1.6</sup></td><td>f 0.88→0.55 / 1.12→1.62</td></tr>
 <tr><td>Monotone</td><td>pitch excursion around span median ×(1−a)</td><td>a 35 %→97 %</td></tr>
@@ -73,8 +73,10 @@ code,.mono{font-family:"DejaVu Sans Mono",monospace;font-size:7.6pt}
 <tr><td>Filler (uh/um)</td><td>speaker's steadiest vowel lengthened by overlap-add, falling pitch, nasal tail for "um"</td><td>0.28→0.65 s, 1–4×</td></tr>
 <tr><td>Muffled articulation</td><td>6th-order low-pass</td><td>5 → 1.2 kHz</td></tr>
 <tr><td>Repeated onset</td><td>word's first 150 ms repeated</td><td>1→3×</td></tr>
+<tr><td>Skipped words</td><td>words cut from mid-gap to mid-gap</td><td>1→3 words, 1–2×</td></tr>
+<tr><td>Restarted phrase</td><td>words said again after a short pause</td><td>1→4 words, 1–3×</td></tr>
 </tbody></table>
-<p>Per speech: 45 single-flaw clips, 8 mixed clips forming a gradient from two mild to six severe flaws, and 4 <strong>controls</strong> with no flaw (untouched, voice shifted +4 and −4 semitones, 12 dB quieter). All random choices are seeded from a CRC32 of the clip id, and Praat's own random generator is seeded per call, so a rebuild is bit-identical on any machine. Total: 285 synthetic clips.</p>
+<p>Per speech: 55 single-flaw clips, 8 mixed clips forming a gradient from two mild to six severe flaws, 3 clips combining a reading error with two prosodic flaws, and 4 <strong>controls</strong> with no flaw (untouched, voice shifted +4 and −4 semitones, 12 dB quieter). All random choices are seeded from a CRC32 of the clip id, and Praat's own random generator is seeded per call, so a rebuild is bit-identical on any machine. Total: 350 synthetic clips. A datasheet (<span class="mono">docs/DATASHEET.md</span>) documents composition, collection and known gaps.</p>
 
 <h3>Human recordings and manipulation check</h3>
 <p>Three team members each read three excerpts four times: a clean take A and three takes with flaws performed at positions fixed by a recording script (B pace, C voice, D fluency): 36 recordings, 90 scripted flaws. Labels come from force-aligning each take and mapping the scripted words to times. Each flawed take is compared with the <em>same person's</em> clean take, since a student's reading against President Kennedy's differs everywhere.</p>
@@ -119,6 +121,7 @@ code,.mono{font-family:"DejaVu Sans Mono",monospace;font-size:7.6pt}
 <li><b>Spectrum</b>: 512-point FFT (STFT, 10 ms hop): share of energy above 2 kHz and 4 kHz (consonant articulation), spectral flux, centroid, 13 MFCCs from 40 mel bands.</li>
 <li><b>Intensity, HNR</b> (Praat); per word: articulation rate (syllables / word duration, pauses excluded), pause after, voiced sound inside the pause, pitch p10–p90 range, loudness, recognizer confidence.</li>
 </ul>
+<p><b>Voice quality</b> (descriptive, not scored): jitter and shimmer (local, Praat point process), HNR and smoothed cepstral peak prominence for both readings, shown side by side.</p>
 <p><b>Speaker-agnostic normalization.</b> Pitch is in semitones relative to each speaker's own median, and loudness in dB relative to the speaker's median speech level:</p>
 <div class="eq">st(t) = 12·log<sub>2</sub>(F0(t) / median F0) &nbsp;&nbsp;&nbsp; I<sub>rel</sub>(t) = I(t) − median<sub>speech</sub> I</div>
 <p>A deep and a high voice reading identically give the same contours; recording gain cancels. The controls test this directly: shifting the voice ±4 semitones or lowering it 12 dB produced 1 finding in 29 minutes.</p>
@@ -129,6 +132,7 @@ code,.mono{font-family:"DejaVu Sans Mono",monospace;font-size:7.6pt}
 <div class="eq">g = median<sub>j</sub> s<sub>j</sub>, &nbsp; l<sub>j</sub> = smooth<sub>3</sub>(s<sub>j</sub> − g), &nbsp; z<sub>j</sub> = l<sub>j</sub> / (1.4826 · MAD(reference))</div>
 <p>Runs of words past a threshold (one-word holes closed) become regions: rushed/dragging (|log<sub>2</sub> rate ratio| &gt; 0.20, ≥3 words, change spread across the words), monotone (pitch-range ratio &lt; 0.68 over 5-word windows, octave errors removed), trailing off (&gt; 3.5 dB below reference), muffled (mean log<sub>2</sub> ratio of &gt;2 kHz and &gt;4 kHz energy &lt; −0.75).</p>
 <p><b>Disfluencies at word boundaries.</b> A disfluency adds time at one spot; a slow passage adds it everywhere. Each boundary's added time is measured beyond the 75th percentile of the six neighbouring boundaries. A <i>repeated onset</i> is ≥2 short fragments before a word whose first fragment matches the word's own onset (MFCC cosine &gt; 0.88 for one repetition). A <i>filler</i> is a held vowel (steady pitch ±0.5 st, calmest 30 % of spectral change) ≥140 ms longer than the reference holds there. An <i>awkward pause</i> is ≥0.3 s extra mid-phrase; at punctuation only ≥1.2 s counts, since a longer pause there is usually deliberate. <i>Missing pauses</i> means ≥2 reference pauses within 8 words cut below 40 %.</p>
+<p><b>Reading errors.</b> Forced alignment must place every transcript word somewhere: a word never said is squeezed into a few frames with a near-zero posterior (&lt; 0.10, the reference ≥ 0.50, duration &lt; 55 % of the reference's) and becomes a <i>skipped-word</i> candidate. A restart ("we choose to — we choose to go") is extra time at one boundary that holds speech. For both, a greedy CTC recognition pass over the 2–5 s neighbourhood with the same acoustic model confirms the event: the skipped words must be absent, and a restart is a word sequence recognised twice in a row that the transcript does not repeat (so "we shall fight, we shall fight" in the text itself is never flagged). The recognised text becomes the finding's evidence ("recognised here: to our secretary to our secretary of state").</p>
 <p><b>Conflict resolution.</b> A short span deviation around a point disfluency is folded into it (the aligner absorbs an "uh" into the next word, which then looks slow); missing pauses inside a rushed span, and stretched pauses inside a dragging span, belong to that span.</p>
 <p><b>Significance gates.</b> Natural rereading drifts by about ±20 % in pace and hundreds of milliseconds in pauses. A per-type magnitude gate, fitted to maximise F1 on synthetic and human data (each weighted half), drops findings within that variation, e.g. rushed only below a duration factor of 0.73, filler only above 0.38 s.</p>
 <p><b>Causal explanation.</b> Each region fills a fixed template with its measurements: location and words, primary metric for reference vs participant with the relative change, z-score, the acoustic or perceptual rationale, and a fix. No language model is involved, so the same audio always gives the same sentence.</p>
@@ -136,29 +140,31 @@ code,.mono{font-family:"DejaVu Sans Mono",monospace;font-size:7.6pt}
 
 <h2>4. Rubric and scoring</h2>
 <p>Six dimensions (pace, pausing, fluency, pitch variety, volume control, clarity) start at 10. A span flaw costs severity × (0.8 + 6 × share of words covered), a point flaw 0.7 × severity, a whole-reading habit 2.4 × severity. The overall score is 10 × the weighted mean of the dimensions; presets weight them for Declamation (pitch variety, pausing), Interpretive Reading (pitch variety ×1.5), Extemporaneous (fluency ×1.5) and Persuasive Oratory (volume ×1.4), with bands Championship ≥ 90, Strong ≥ 75, Developing ≥ 60.</p>
-<p><b>Severity</b> is read from each region's raw magnitude through a table fitted from data (median magnitude per true severity, monotone). On speeches held out of the fit, the estimate is off by 0.45 levels on average and within one level 94 % of the time (0.54 levels with the injection parameters as the table).</p>
+<p><b>Severity</b> is read from each region's raw magnitude through a table fitted from data (median magnitude per true severity, monotone). On speeches held out of the fit, the estimate is off by 0.49 levels on average and within one level 93 % of the time (0.60 levels with the injection parameters as the table).</p>
 
 <h2>5. Evaluation</h2>
 <p>Every number runs the full pipeline on raw audio, alignment of the flawed recording included. A finding matches a label of the same type at temporal IoU ≥ 0.3, one to one. Thresholds and severity tables are fitted from data, so results are cross-validated: synthetic clips are scored with gates fitted without that speech (and without human takes of it); human takes with gates fitted without that recorder.</p>
 <table><thead><tr><th>Flaw</th><th class="n">P</th><th class="n">R</th><th class="n">F1</th><th class="n">Human R</th></tr></thead><tbody>
-<tr><td>Rushed</td><td class="n">0.97</td><td class="n">0.73</td><td class="n">0.83</td><td class="n">4/8</td></tr>
-<tr><td>Dragging</td><td class="n">0.88</td><td class="n">0.52</td><td class="n">0.66</td><td class="n">5/5</td></tr>
-<tr><td>Monotone</td><td class="n">1.00</td><td class="n">0.64</td><td class="n">0.78</td><td class="n">2/4</td></tr>
-<tr><td>Trailing off</td><td class="n">0.96</td><td class="n">0.63</td><td class="n">0.77</td><td class="n">2/2</td></tr>
-<tr><td>Missing pauses</td><td class="n">1.00</td><td class="n">0.51</td><td class="n">0.68</td><td class="n">4/8</td></tr>
-<tr><td>Awkward pause</td><td class="n">0.94</td><td class="n">0.60</td><td class="n">0.73</td><td class="n">5/7</td></tr>
-<tr><td>Filler</td><td class="n">0.80</td><td class="n">0.62</td><td class="n">0.70</td><td class="n">8/15</td></tr>
-<tr><td>Muffled</td><td class="n">1.00</td><td class="n">0.52</td><td class="n">0.69</td><td class="n">0/2</td></tr>
-<tr><td>Repeated onset</td><td class="n">0.75</td><td class="n">0.44</td><td class="n">0.56</td><td class="n">2/7</td></tr>
-<tr class="tot"><td>All</td><td class="n">0.89</td><td class="n">0.58</td><td class="n">0.71</td><td class="n">32/58</td></tr>
+<tr><td>Rushed</td><td class="n">0.78</td><td class="n">0.70</td><td class="n">0.74</td><td class="n">4/8</td></tr>
+<tr><td>Dragging</td><td class="n">0.82</td><td class="n">0.52</td><td class="n">0.64</td><td class="n">5/5</td></tr>
+<tr><td>Monotone</td><td class="n">1.00</td><td class="n">0.61</td><td class="n">0.76</td><td class="n">2/4</td></tr>
+<tr><td>Trailing off</td><td class="n">0.93</td><td class="n">0.63</td><td class="n">0.75</td><td class="n">2/2</td></tr>
+<tr><td>Missing pauses</td><td class="n">0.96</td><td class="n">0.50</td><td class="n">0.66</td><td class="n">4/8</td></tr>
+<tr><td>Awkward pause</td><td class="n">0.87</td><td class="n">0.59</td><td class="n">0.70</td><td class="n">5/7</td></tr>
+<tr><td>Filler</td><td class="n">0.72</td><td class="n">0.62</td><td class="n">0.66</td><td class="n">8/15</td></tr>
+<tr><td>Muffled</td><td class="n">1.00</td><td class="n">0.50</td><td class="n">0.67</td><td class="n">0/2</td></tr>
+<tr><td>Repeated onset</td><td class="n">0.63</td><td class="n">0.39</td><td class="n">0.48</td><td class="n">1/7</td></tr>
+<tr><td>Skipped words</td><td class="n">0.77</td><td class="n">0.55</td><td class="n">0.64</td><td class="n">–</td></tr>
+<tr><td>Restarted phrase</td><td class="n">0.89</td><td class="n">0.52</td><td class="n">0.65</td><td class="n">–</td></tr>
+<tr class="tot"><td>All</td><td class="n">0.82</td><td class="n">0.56</td><td class="n">0.66</td><td class="n">31/58</td></tr>
 </tbody></table>
-<p class="note">P/R/F1: synthetic, leave-one-speech-out, 499 labels. Human R: performed flaws found, leave-one-speaker-out. At tIoU ≥ 0.5 synthetic F1 is 0.64. Matched flaws: mean tIoU 0.75, median boundary error 156 ms.</p>
+<p class="note">P/R/F1: synthetic, leave-one-speech-out, 644 labels; 95 % bootstrap CI of F1 0.62–0.70. The original nine prosodic types on their own clips: F1 0.70, P 0.88. Human R: performed flaws found, leave-one-speaker-out (reading errors were not scripted). F1 is 0.59 at tIoU ≥ 0.5 and 0.41 at 0.7. Matched flaws: mean tIoU 0.76, median boundary error 150 ms. Estimated severity is exact 61 % of the time.</p>
 
 <figure><img src="../figures/recall_by_severity.svg"><figcaption>Figure 2. Detection rate rises with severity. Severity 1 sits inside natural take-to-take variation, so the gates deliberately leave most of it unreported.</figcaption></figure>
 <figure><img src="../figures/score_by_level.svg"><figcaption>Figure 3. Mean score across the mixed-flaw gradient (Spearman ρ = −0.95; ρ = −0.79 between total injected severity and score over all synthetic clips). Unflawed controls score 98.4–100.</figcaption></figure>
 
 <h3>Human recordings and the listening audit</h3>
-<p>On team recordings, 55 % of performed flaws are found (by recorder: F1 0.48, 0.26, 0.12, tracking how strongly each person acted the flaws). Measured precision is only 0.22, because any finding outside a scripted flaw counts as false, and people reading flaws on cue also slip unscripted. A blind listening audit tested this: a listener rated 30 snippets against the same words in the speaker's clean take, without knowing why each was picked. Unscripted findings were heard as worse delivery in 12 of 16 cases (95 % CI 50–90 %), scripted flaws in 6 of 7, and random spans with no finding in 0 of 7. Counting those as real puts precision near 0.80 (95 % range 0.61–0.92). The listener named the same problem as the detector in only 17 % of those cases: SpeechLens locates unscripted problems more reliably than it labels them. One listener from the team is an estimate, not a measurement.</p>
+<p>On team recordings, 53 % of performed flaws are found (95 % CI 39–68 %; by recorder F1 0.48, 0.23, 0.12, tracking how strongly each person acted the flaws). Measured precision is only 0.21, because any finding outside a scripted flaw counts as false, and people reading flaws on cue also slip unscripted. A blind listening audit tested this: a listener rated 30 snippets against the same words in the speaker's clean take, without knowing why each was picked. Unscripted findings were heard as worse delivery in 12 of 16 cases (95 % CI 50–90 %), scripted flaws in 6 of 7, and random spans with no finding in 0 of 7. Counting those as real puts precision near 0.80 (95 % range 0.61–0.92). The listener named the same problem as the detector in only 17 % of those cases: SpeechLens locates unscripted problems more reliably than it labels them. One listener from the team is an estimate, not a measurement.</p>
 
 <h3>Why the reference matters: ablations</h3>
 <p>Each component is switched off in turn on the same cached alignments and features (in-sample thresholds). The <i>reference-free baseline</i> keeps the whole detector but compares every passage with the speaker's own running median (±7 words) instead of a reference reading, the usual approach when no reference exists.</p>

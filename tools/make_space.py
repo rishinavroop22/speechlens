@@ -19,7 +19,8 @@ from speechlens.app import app  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "build/space"
 PER_SPEECH = ["gold", "mix2", "mix4", "mix6", "mix8", "rushed_s4", "dragging_s4", "monotone_s4", "trailing_off_s4",
-              "filler_s4", "mumbling_s4", "awkward_pause_s4", "stutter_s4", "pause_omission_s4", "ctrl_pitch_down4"]
+              "filler_s4", "mumbling_s4", "awkward_pause_s4", "stutter_s4", "pause_omission_s4", "ctrl_pitch_down4",
+              "skipped_word_s4", "restart_s4", "lexmix2"]
 
 DOCKERFILE = """FROM python:3.11-slim
 RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg && rm -rf /var/lib/apt/lists/*

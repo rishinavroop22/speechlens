@@ -4,7 +4,7 @@
    0.88,
    0.7252,
    0.6978,
-   0.6209,
+   0.6161,
    0.5643
   ],
   "increasing": false
@@ -33,7 +33,7 @@
   "table": [
    4.0,
    7.0,
-   9.0007,
+   9.0678,
    12.4164,
    14.6858
   ],
@@ -44,7 +44,7 @@
    0.6,
    0.45,
    0.3233,
-   0.1748,
+   0.1692,
    0.0898
   ],
   "increasing": false
@@ -54,7 +54,7 @@
    0.35,
    0.6,
    0.87,
-   1.03,
+   1.02,
    1.49
   ],
   "increasing": true
@@ -63,8 +63,8 @@
   "table": [
    0.28,
    0.42,
-   0.44,
-   0.475,
+   0.42,
+   0.485,
    0.6
   ],
   "increasing": true
@@ -73,8 +73,8 @@
   "table": [
    0.8,
    1.6,
-   4.6846,
-   6.3193,
+   4.6037,
+   6.3979,
    6.7789
   ],
   "increasing": true
@@ -89,13 +89,33 @@
   ],
   "increasing": true
  },
+ "skipped_word": {
+  "table": [
+   1.0,
+   1.0,
+   1.0,
+   2.0,
+   2.0
+  ],
+  "increasing": true
+ },
+ "restart": {
+  "table": [
+   1.0,
+   2.0,
+   2.0,
+   3.0,
+   4.0
+  ],
+  "increasing": true
+ },
  "_gates": {
   "rushed": {
    "min": 0.7293,
    "worse": "lower"
   },
   "dragging": {
-   "min": 1.3302,
+   "min": 1.348,
    "worse": "higher"
   },
   "monotone": {
@@ -103,7 +123,7 @@
    "worse": "higher"
   },
   "trailing_off": {
-   "min": 8.7563,
+   "min": 8.912,
    "worse": "higher"
   },
   "awkward_pause": {
@@ -111,7 +131,7 @@
    "worse": "higher"
   },
   "filler": {
-   "min": 0.38,
+   "min": 0.4,
    "worse": "higher"
   },
   "stutter": {

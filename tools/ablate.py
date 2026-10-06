@@ -63,8 +63,9 @@ def run(job):
     else:
         ref_y, ref_t = audio.load(src / "audio.wav"), (src / "transcript.txt").read_text()
     ref = analyze_cached(ref_y, ref_t)
-    par = analyze_cached(audio.load(audio.clip_path(DS / "clips", clip["id"])), clip.get("transcript") or ref_t)
-    res = compare(ref, par)
+    par_y = audio.load(audio.clip_path(DS / "clips", clip["id"]))
+    par = analyze_cached(par_y, clip.get("transcript") or ref_t)
+    res = compare(ref, par, par_y)
     sc = score(res["regions"], len(par.words), par.duration, load_rubric("declamation"))
     return {"id": clip["id"], "var": var, "score": sc["overall"],
             "preds": [{"type": r.type, "start": r.start, "end": r.end, "severity": r.severity, "scope": r.scope,
@@ -73,7 +74,7 @@ def run(job):
 
 def summarize(clips, rows):
     by = {r["id"]: r for r in rows}
-    fl = [c for c in clips if c["kind"] in ("single", "mixed")]
+    fl = [c for c in clips if c["kind"] in ("single", "mixed", "lexmix")]
     tp = fp = fn = 0
     for c in fl:
         loc = [p for p in by[c["id"]]["preds"] if p["scope"] == "local"]
@@ -103,9 +104,9 @@ def oracle_tuned(clips, rows):
     maximises F1 *on the evaluation labels themselves* (an upper bound - no
     real system gets to tune on its test set)."""
     from speechlens.contrast import GATES
-    from speechlens.inject import FLAW_TYPES
+    from speechlens.inject import ALL_TYPES as FLAW_TYPES
     by = {r["id"]: r for r in rows}
-    fl = [c for c in clips if c["kind"] in ("single", "mixed")]
+    fl = [c for c in clips if c["kind"] in ("single", "mixed", "lexmix")]
     ctrl = [c for c in clips if c["kind"] == "control"]
     worse = {t: GATES.get(t, {}).get("worse", "higher") for t in FLAW_TYPES}
     keep_fn = lambda p, cut: p["magnitude"] is None or cut is None or (
@@ -139,7 +140,7 @@ def main():
     ap.add_argument("--only", nargs="*")
     args = ap.parse_args()
     man = json.loads((DS / "manifest.json").read_text())
-    clips = [c for c in man["clips"] if c["kind"] in ("single", "mixed", "control", "human")]
+    clips = [c for c in man["clips"] if c["kind"] in ("single", "mixed", "lexmix", "control", "human")]
     vars_ = args.only or list(VARIANTS)
     prev = json.loads((OUT / "ablation.json").read_text()) if (OUT / "ablation.json").exists() else {"variants": {}}
     os.environ.setdefault("SPEECHLENS_THREADS", "1")

@@ -6,11 +6,12 @@ const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<
 const NAMES = {
   rushed: "Rushed pace", dragging: "Dragging pace", monotone: "Monotone pitch", trailing_off: "Trailing off",
   pause_omission: "Missing pauses", awkward_pause: "Awkward pause", filler: "Filler sound",
-  mumbling: "Muffled articulation", stutter: "Repeated onset",
+  mumbling: "Muffled articulation", stutter: "Repeated onset", skipped_word: "Skipped words", restart: "Restarted phrase",
 };
 const DIM_OF = {
   rushed: "pace", dragging: "pace", pause_omission: "pausing", awkward_pause: "pausing", filler: "fluency",
   stutter: "fluency", monotone: "pitch_variety", trailing_off: "volume", mumbling: "clarity",
+  skipped_word: "fluency", restart: "fluency",
 };
 const METRIC_NAMES = {
   articulation_rate: "Articulation rate", overall_articulation_rate: "Overall articulation rate",
@@ -21,7 +22,7 @@ const METRIC_NAMES = {
   voiced_sound_in_pause: "Voiced sound in pause", onset_repetitions: "Onset repetitions",
   burst_vs_word_onset_similarity: "Burst vs onset similarity",
   fragment_vs_word_onset_similarity: "Fragment vs word-onset similarity", held_steady_voicing: "Held steady vowel",
-  time_added: "Time added at this boundary",
+  time_added: "Time added at this boundary", words_missing: "Words not said", words_repeated: "Words said twice",
 };
 const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const col = (t) => css(`--${DIM_OF[t] || t}`);
@@ -57,7 +58,7 @@ function scoreRegions(regions, nWords, rubric) {  // mirrors speechlens/explain.
   for (const r of regions) {
     const d = DIM_OF[r.type];
     if (r.scope === "global") pen[d] += r.severity * 2.4;
-    else if (["awkward_pause", "filler", "stutter"].includes(r.type)) pen[d] += r.severity * 0.7;
+    else if (["awkward_pause", "filler", "stutter", "skipped_word", "restart"].includes(r.type)) pen[d] += r.severity * 0.7;
     else pen[d] += r.severity * (0.8 + 6.0 * (r.word_end - r.word_start + 1) / Math.max(1, nWords));
   }
   const dims = Object.fromEntries(DIMS.map((d) => [d, Math.round(Math.max(0, 10 - pen[d]) * 100) / 100]));
@@ -140,6 +141,7 @@ function clipCaption(c) {
   if (c.kind === "human") return { b: `Team recording: ${c.speaker[0].toUpperCase() + c.speaker.slice(1)}, take ${c.take}`, s: c.labels.map((l) => NAMES[l.type]).join(", ") + " (vs own clean take)" };
   if (c.kind === "human_reference") return { b: `Clean take: ${c.speaker}`, s: "reference for the takes above" };
   if (c.kind === "mixed") return { b: `Mixed flaws, level ${c.mix_level} of 8`, s: c.labels.map((l) => NAMES[l.type]).join(", ") };
+  if (c.kind === "lexmix") return { b: "Reading error in context", s: c.labels.map((l) => NAMES[l.type]).join(", ") };
   const l = c.labels[0];
   return { b: `${NAMES[l.type]}, severity ${l.severity}`, s: `${l.start.toFixed(1)}–${l.end.toFixed(1)} s` };
 }
@@ -151,8 +153,8 @@ function renderSamples() {
   for (const [src, cs] of Object.entries(bySrc)) {
     const want = cs.filter((c) => c.kind === "human" && c.speaker === "manya" && c.labels.some((l) => l.performed))
       .concat(cs.filter((c) => c.kind === "mixed" && [4, 6, 8].includes(c.mix_level) && !/_r\d/.test(c.id)))
-      .concat(cs.filter((c) => c.kind === "single" && c.labels[0].severity === 4 && ["rushed", "monotone", "filler", "trailing_off"].includes(c.labels[0].type)));
-    pick.push([src, want.slice(0, 8)]);
+      .concat(cs.filter((c) => c.kind === "single" && c.labels[0].severity === 4 && ["restart", "skipped_word", "rushed", "monotone", "filler", "trailing_off"].includes(c.labels[0].type)));
+    pick.push([src, want.slice(0, 9)]);
   }
   $("#sample-list").innerHTML = pick.map(([src, cs]) => `<div class="sample-group">${esc(titleOf(src))}</div>` +
     cs.map((c) => {
@@ -262,6 +264,8 @@ async function run(fd, msg) {
     S.rep = rep;
     S.sel = -1;
     showReport();
+    recordTake(rep);
+    renderCoach(rep);
     const clip = S.sample && S.manifest.clips.find((c) => c.id === S.sample);
     const vs = clip && clip.reference_clip ? ` Compared with ${clip.speaker[0].toUpperCase() + clip.speaker.slice(1)}'s own clean take.` : "";
     const auto = rep.auto_transcript ? ` Reference transcript recognised automatically: “${rep.auto_transcript.slice(0, 80)}${rep.auto_transcript.length > 80 ? "…" : ""}”` : "";
@@ -506,9 +510,11 @@ function select(i, scroll) {
       ${g.scope === "local" ? `<button data-play="par">Play this part</button>` : ""}
       ${g.scope === "local" && S.rep.reference_url ? `<button data-play="ref">Play the reference here</button>` : ""}
       ${g.scope === "local" && (g.fix || ((!STATIC || S.rep.live) && S.rep.report_id)) ? `<button data-fix class="cf">Hear it fixed</button>` : ""}
+      ${g.scope === "local" && (!STATIC || S.rep.live) && S.rep.report_id ? `<button data-practice>Practice this part</button>` : ""}
     </div>
     <p class="cfnote" hidden></p>
     <p>${esc(lead)}</p><p>${esc(why)}</p>${fix ? `<p class="fix">${esc(fix)}</p>` : ""}
+    ${g.evidence ? `<p class="evid"><b>Evidence:</b> ${esc(g.evidence)}</p>` : ""}
     <table class="mt"><thead><tr><th>Measure</th><th>Reference</th><th>Participant</th><th>Change</th><th>z</th></tr></thead><tbody>
     ${g.metrics.map((m) => `<tr><td>${esc(METRIC_NAMES[m.name] || m.name)}</td><td>${fmtV(m.reference, m.unit)}</td><td>${fmtV(m.participant, m.unit)}</td>
       <td>${m.delta > 0 ? "+" : ""}${fmtV(m.delta, m.unit)}</td><td>${m.z === null ? "–" : m.z.toFixed(1)}</td></tr>
@@ -519,6 +525,8 @@ function select(i, scroll) {
     : playSpan(refAudio, g.ref_start - 0.35, g.ref_end + 0.35)));
   const fb = $("#fdetail [data-fix]");
   if (fb) fb.onclick = () => hearFixed(i, fb);
+  const pb = $("#fdetail [data-practice]");
+  if (pb) pb.onclick = () => practice(i, pb);
   if (scroll && g.scope === "local") {
     const lanes = $("#lanes");
     const x = g.start * S.pps;
@@ -556,6 +564,192 @@ async function hearFixed(i, btn) {
     btn.textContent = "Hear it fixed";
     note.hidden = false;
     note.textContent = `No repair available here: ${e.message}`;
+  }
+}
+
+// ------------------------------------------------------------ practice --
+// Re-read just this passage; the server compares the original passage and the
+// retake with the same crop of the reference (POST /api/practice).
+let prRec = null;
+async function practice(i, btn) {
+  const g = S.rep.regions[i];
+  const note = $("#fdetail .cfnote");
+  if (prRec) { prRec.stop(); return; }
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
+  catch { note.hidden = false; note.textContent = "Microphone access was blocked."; return; }
+  const chunks = [];
+  prRec = new MediaRecorder(stream);
+  prRec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+  prRec.onstop = async () => {
+    stream.getTracks().forEach((t) => t.stop());
+    const type = prRec.mimeType || "audio/webm";
+    prRec = null;
+    btn.textContent = "Checking…"; btn.disabled = true;
+    const fd = new FormData();
+    fd.append("report_id", S.rep.report_id);
+    fd.append("index", i);
+    fd.append("retake", new File([new Blob(chunks, { type })], `retake.${type.includes("ogg") ? "ogg" : "webm"}`, { type }));
+    try {
+      const base = S.rep.live ? API : "";
+      const r = await fetch(`${base}/api/practice`, { method: "POST", body: fd });
+      const out = await r.json();
+      if (!r.ok) throw new Error(out.detail || r.status);
+      note.hidden = false;
+      note.innerHTML = practiceHtml(out);
+    } catch (e) { note.hidden = false; note.textContent = `Practice check failed: ${e.message}`; }
+    btn.disabled = false; btn.textContent = "Practice again";
+  };
+  note.hidden = false;
+  note.innerHTML = `<b>Practice:</b> read this passage aloud now, then press stop. Passage: “${esc(passageText(g))}…”`;
+  prRec.start();
+  btn.textContent = "Stop and check";
+}
+
+function passageText(g) {
+  return S.rep.words.slice(Math.max(0, g.word_start - 2), g.word_end + 4).map((w) => w.text).join(" ");
+}
+
+function practiceHtml(o) {
+  const V = { fixed: ["Fixed", "the flaw is gone in your retake"], improved: ["Improved", "milder than before"],
+    still_there: ["Still there", "try again, following the fix"], clean: ["Clean", "no issue of this kind in either reading"] }[o.verdict];
+  const v = (x, u) => (x === null || x === undefined ? "–" : `${x} ${u}`);
+  const row = (k, lab, u) => `<tr><td>${lab}</td><td>${v(o.before[k], u)}</td><td>${v(o.after[k], u)}</td><td>${v(o.after["ref_" + k], u)}</td></tr>`;
+  const list = (f) => f.length ? f.map((x) => `${NAMES[x.type]} (${x.severity})`).join(", ") : "none";
+  return `<b>${V[0]}:</b> ${V[1]}.
+    <table class="mt"><thead><tr><th></th><th>Before</th><th>Retake</th><th>Reference</th></tr></thead><tbody>
+    ${row("pace_sps", "Articulation rate", "syll/s")}${row("pitch_range_st", "Pitch range", "st")}
+    <tr><td>Findings</td><td>${list(o.before.findings)}</td><td>${list(o.after.findings)}</td><td>–</td></tr></tbody></table>
+    <button class="linkish" onclick="(new Audio('${(S.rep.live ? API : "") + o.retake_url}')).play()">Play my retake</button>`;
+}
+
+// --------------------------------------------------------------- coach --
+const DRILL = {
+  rushed: "Mark every comma and full stop with a slash, then read the passage at the reference pace, holding each slash for a beat.",
+  dragging: "Read the phrase once quickly and once at the reference pace, stretching only the one word that carries the meaning.",
+  monotone: "Underline one focus word per clause and lift your pitch on it; record and exaggerate until it feels too much, then pull back halfway.",
+  trailing_off: "Take a breath before each phrase and aim the last word at the back of the room.",
+  mumbling: "Whisper the passage over-articulating every final t, k and s, then read it aloud keeping that crispness.",
+  pause_omission: "Count one silently at each full stop and half a count at each comma.",
+  awkward_pause: "Read the phrase as one breath group; rehearse the join between the two words slowly until it is smooth.",
+  filler: "Record a minute of speaking and replace every \u201cuh\u201d with a silent breath.",
+  stutter: "Start the word with a soft onset, a little air before the sound, and slightly slower.",
+  skipped_word: "Read the line slowly while pointing at each word, then at normal speed with your eyes a phrase ahead.",
+  restart: "Rehearse the phrase until it runs in one go; if you slip, carry on instead of going back.",
+};
+
+function coachModel(r) {
+  const dims = r.score.dimensions;
+  const byDim = {};
+  r.regions.forEach((g, i) => (byDim[g.dimension] = byDim[g.dimension] || []).push([g, i]));
+  const order = Object.keys(dims).sort((a, b) => dims[a] - dims[b]);
+  const weak = order.filter((d) => dims[d] < 10).slice(0, 3).map((d) => {
+    const list = (byDim[d] || []).sort((a, b) => b[0].severity - a[0].severity);
+    return { dim: d, value: dims[d], worst: list[0], n: list.length };
+  });
+  const strong = order.filter((d) => dims[d] >= 10);
+  const types = [...new Set(weak.filter((w) => w.worst).map((w) => w.worst[0].type))];
+  return { weak, strong, types };
+}
+
+function renderCoach(r) {
+  const el = $("#coach");
+  if (!el) return;
+  const m = coachModel(r);
+  const L = r.dimension_labels;
+  const at = (g) => (g.scope === "global" ? "throughout" : `at ${g.start.toFixed(1)} s`);
+  const summary = r.regions.length === 0
+    ? "No delivery flaws were found against the reference: pace, pauses, pitch, loudness, clarity and fluency all stay within the reference speaker's natural variation."
+    : `${Math.round(r.score.overall)}/100, ${r.score.band.toLowerCase()} on the ${r.score.rubric} rubric. ` +
+      (m.strong.length ? `Strong: ${m.strong.map((d) => L[d].toLowerCase()).join(", ")}. ` : "") +
+      `Work first on ${m.weak.map((w) => L[w.dim].toLowerCase()).join(", then ")}.`;
+  el.innerHTML = `
+    <div class="coach-head"><h2>Coach's summary</h2>
+      <div class="coach-btns"><button id="rep-print">Print / save as PDF</button><button id="rep-dl">Download report</button></div></div>
+    <p class="coach-sum">${esc(summary)}</p>
+    ${m.weak.length ? `<div class="prio">${m.weak.map((w, k) => `<div class="pcard" style="--c:var(--${w.dim})">
+      <span class="pk">${k + 1}</span><b>${esc(L[w.dim])}</b> <span class="pv">${w.value.toFixed(1)}/10</span>
+      ${w.worst ? `<p>${esc(NAMES[w.worst[0].type])} ${at(w.worst[0])}${w.n > 1 ? `, and ${w.n - 1} more` : ""}.</p>
+      <p class="drill"><b>Drill:</b> ${esc(DRILL[w.worst[0].type])}</p>
+      ${w.worst[0].scope === "local" ? `<button class="linkish" data-goto="${w.worst[1]}">Show it</button>` : ""}` : ""}</div>`).join("")}</div>` : ""}
+    ${voiceHtml(r.voice)}
+    <div id="takes"></div>`;
+  $$("#coach [data-goto]").forEach((b) => (b.onclick = () => { select(+b.dataset.goto, true); $("#fdetail").scrollIntoView({ behavior: "smooth", block: "center" }); }));
+  $("#rep-print").onclick = () => openReport(true);
+  $("#rep-dl").onclick = () => openReport(false);
+  renderTakes(r);
+}
+
+function voiceHtml(v) {
+  if (!v || !v.length) return "";
+  const f = (x, u) => (x === null || x === undefined ? "–" : `${u === "" ? x.toFixed(2) : x}${u && u !== "Hz" ? " " + u : u === "Hz" ? " Hz" : ""}`);
+  return `<h3 class="vq-h">Voice quality</h3>
+    <p class="note">Descriptive measures of the voice itself (Praat), the participant beside the reference. They do not enter the score; a phone microphone or a noisy room shifts them too, so compare with the reference rather than with clinical norms.</p>
+    <table class="mt vq"><thead><tr><th>Measure</th><th>Reference</th><th>Participant</th><th>Reading</th></tr></thead><tbody>
+    ${v.map((r) => `<tr><td>${esc(r.label)}</td><td>${f(r.reference, r.unit)}</td><td>${f(r.participant, r.unit)}</td><td class="muted">${esc(r.note)}</td></tr>`).join("")}</tbody></table>`;
+}
+
+// take history (this browser only): progress across retakes of one reference
+const TAKES_KEY = "speechlens_takes_v1";
+function loadTakes() { try { return JSON.parse(localStorage.getItem(TAKES_KEY) || "[]"); } catch { return []; } }
+function recordTake(r) {
+  const ref = S.sample ? (S.manifest.clips.find((c) => c.id === S.sample) || {}).source : $("#ref-select").value;
+  const label = S.sample || ($("#par-name").textContent || "upload");
+  r._ref = ref;
+  const list = loadTakes().filter((t) => !(t.label === label && t.ref === ref));
+  list.push({ t: Date.now(), ref, label, score: r.score.overall, dims: r.score.dimensions, n: r.regions.length });
+  try { localStorage.setItem(TAKES_KEY, JSON.stringify(list.slice(-40))); } catch {}
+}
+function renderTakes(r) {
+  const el = $("#takes");
+  const list = loadTakes().filter((t) => t.ref === r._ref && !String(t.label).includes("__"));
+  if (list.length < 2) { el.innerHTML = ""; return; }
+  const w = 520, h = 120, n = list.length;
+  const x = (k) => 30 + (k * (w - 50)) / Math.max(1, n - 1), y = (v) => h - 20 - (v / 100) * (h - 34);
+  const pts = list.map((t, k) => `${x(k)},${y(t.score)}`).join(" ");
+  el.innerHTML = `<h3>Your takes of this text</h3>
+    <svg viewBox="0 0 ${w} ${h}" width="100%" style="max-width:${w}px" role="img" aria-label="Score per take">
+      <polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      ${list.map((t, k) => `<circle cx="${x(k)}" cy="${y(t.score)}" r="4" fill="var(--accent)"/><text x="${x(k)}" y="${y(t.score) - 8}" text-anchor="middle" font-size="11" fill="var(--ink)">${Math.round(t.score)}</text>
+      <text x="${x(k)}" y="${h - 4}" text-anchor="middle" font-size="10" fill="var(--muted)">take ${k + 1}</text>`).join("")}
+    </svg>`;
+}
+
+// printable / downloadable report
+function reportHtml(r) {
+  const L = r.dimension_labels, m = coachModel(r);
+  const dur = r.duration;
+  const tl = r.regions.filter((g) => g.scope === "local").map((g) =>
+    `<rect x="${(g.start / dur) * 700}" y="6" width="${Math.max(3, ((g.end - g.start) / dur) * 700)}" height="22" fill="${DIM_COLOR[g.dimension] || "#888"}" opacity=".85"/>`).join("");
+  const rows = r.regions.map((g) => `<tr><td>${g.scope === "global" ? "whole" : `${g.start.toFixed(2)}–${g.end.toFixed(2)} s`}</td><td>${esc(NAMES[g.type])}</td><td>${g.severity}/5</td><td>${esc(g.explanation)}</td></tr>`).join("");
+  return `<!doctype html><html><head><meta charset="utf-8"><title>SpeechLens report</title><style>
+    body{font:13px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;color:#1f2430;max-width:780px;margin:24px auto;padding:0 16px}
+    h1{font-size:22px;margin:0}h2{font-size:15px;margin:22px 0 6px}.sc{font-size:44px;font-weight:800}
+    table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #dde2ea;padding:5px 6px;text-align:left;vertical-align:top}
+    .dims{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 18px}.bar{height:6px;background:#e4e8ef;border-radius:3px}.bar i{display:block;height:6px;border-radius:3px;background:#2f6fdf}
+    .muted{color:#5b6577}@media print{body{margin:0}}</style></head><body>
+    <h1>SpeechLens delivery report</h1><p class="muted">${new Date().toLocaleString()} · ${esc(r.score.rubric)} rubric · ${dur.toFixed(1)} s of speech</p>
+    <div><span class="sc">${Math.round(r.score.overall)}</span>/100 <b>${esc(r.score.band)}</b></div>
+    <div class="dims">${Object.entries(r.score.dimensions).map(([d, v]) => `<div>${esc(L[d])} ${v.toFixed(1)}<div class="bar"><i style="width:${v * 10}%"></i></div></div>`).join("")}</div>
+    <h2>Where the flaws are</h2><svg viewBox="0 0 700 40" width="100%"><rect x="0" y="16" width="700" height="2" fill="#c8cfda"/>${tl}
+      <text x="0" y="39" font-size="9" fill="#5b6577">0 s</text><text x="700" y="39" font-size="9" text-anchor="end" fill="#5b6577">${dur.toFixed(0)} s</text></svg>
+    <h2>Priorities and drills</h2><ol>${m.weak.map((w) => `<li><b>${esc(L[w.dim])}</b> (${w.value.toFixed(1)}/10)${w.worst ? `: ${esc(NAMES[w.worst[0].type])}. ${esc(DRILL[w.worst[0].type])}` : ""}</li>`).join("") || "<li>No priorities: the delivery matches the reference.</li>"}</ol>
+    <h2>All findings</h2><table><thead><tr><th>When</th><th>Flaw</th><th>Severity</th><th>Why, with the measurements</th></tr></thead><tbody>${rows || "<tr><td colspan=4>None</td></tr>"}</tbody></table>
+    <p class="muted">Generated by SpeechLens: contrastive analysis against a reference reading of the same text. Every number is measured from the audio; no language model is involved.</p>
+    </body></html>`;
+}
+const DIM_COLOR = { pace: "#c96a0e", pausing: "#7a4fd6", fluency: "#d0344f", pitch_variety: "#2f6fdf", volume: "#1d8a52", clarity: "#9a5b1e" };
+function openReport(print) {
+  const html = reportHtml(S.rep);
+  if (print) {
+    const w = window.open("", "_blank");
+    if (!w) return setStatus("Allow pop-ups to print the report.", true);
+    w.document.write(html); w.document.close(); w.focus(); setTimeout(() => w.print(), 300);
+  } else {
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
+    a.download = "speechlens-report.html";
+    document.body.appendChild(a); a.click(); a.remove();
   }
 }
 
@@ -628,6 +822,7 @@ async function renderEval() {
     ${mc ? `<h2>Manipulation check</h2><p class="note">How many scripted flaws each type's recordings actually contained, measured against the speaker's clean take with fixed criteria independent of the detector.</p>
     <table class="et"><thead><tr><th>Flaw</th><th>Performed</th><th>Criterion</th></tr></thead><tbody>${Object.entries(mc.performed).map(([t, v]) => `<tr><td>${NAMES[t]}</td><td>${v.performed}/${v.scripted}</td><td>${esc(mc.criteria[t].measure)} ${esc(mc.criteria[t].criterion)}</td></tr>`).join("")}</tbody></table>` : ""}
     ${e.audit ? `<h2>Blind listening audit</h2><p class="note">${esc(e.audit.summary)}</p>` : ""}
+    ${statsHtml(e.stats, pct)}
     ${ablationHtml(e.ablation, pct)}
     ${stressHtml(e.stress, pct)}
     ${counterfactualHtml(e.counterfactual, pct)}
@@ -648,6 +843,33 @@ async function renderEval() {
 
 const bar = (v, max = 1, c = "var(--accent)") => v === null || v === undefined ? "" :
   `<span class="ebar"><i style="width:${Math.max(0, Math.min(100, (v / max) * 100))}%;background:${c}"></i></span>`;
+
+function statsHtml(st, pct) {
+  if (!st) return "";
+  const ci = (v) => `${pct(v[0])} <span class="muted">(${pct(v[1])}–${pct(v[2])})</span>`;
+  const sw = st.tiou_sweep || {};
+  const conf = st.severity_confusion || [];
+  const fe = st.feature_evidence || {};
+  const sigs = Object.keys(Object.values(fe).find((v) => Object.keys(v).length) || {});
+  const cell = (d) => d === undefined ? "<td></td>" : `<td class="h" style="background:${d >= 0 ? `rgba(47,111,223,${Math.min(1, Math.abs(d) / 3).toFixed(2)})` : `rgba(184,52,74,${Math.min(1, Math.abs(d) / 3).toFixed(2)})`};${Math.abs(d) > 1.6 ? "color:#fff" : ""}">${d.toFixed(1)}</td>`;
+  return `<h2>Uncertainty and sensitivity</h2>
+    <p class="note">95 % bootstrap confidence intervals, resampling whole clips 2,000 times, on the cross-validated predictions.</p>
+    <table class="et"><thead><tr><th></th><th>Precision</th><th>Recall</th><th>F1</th><th>Clips</th></tr></thead><tbody>
+      <tr><td>Synthetic flaws (11 types)</td><td>${ci(st.ci_synthetic_cv.precision)}</td><td>${ci(st.ci_synthetic_cv.recall)}</td><td>${ci(st.ci_synthetic_cv.f1)}</td><td>${st.ci_synthetic_cv.n_clips}</td></tr>
+      <tr><td>Team recordings, verified flaws</td><td>${ci(st.ci_human_cv.precision)}</td><td>${ci(st.ci_human_cv.recall)}</td><td>${ci(st.ci_human_cv.f1)}</td><td>${st.ci_human_cv.n_clips}</td></tr>
+      <tr><td>Controls, false findings / min</td><td colspan="4">${st.ci_controls_false_per_min[0]} <span class="muted">(${st.ci_controls_false_per_min[1]}–${st.ci_controls_false_per_min[2]})</span></td></tr></tbody></table>
+    <h3 class="eh3">F1 as the required temporal overlap tightens</h3>
+    <div class="sweep">${Object.entries(sw).map(([t, v]) => `<div><span style="height:${v * 100}px"></span><b>${v.toFixed(2)}</b><i>${t}</i></div>`).join("")}</div>
+    <p class="note">tIoU = overlap of predicted and true span divided by their union. Most located flaws overlap the truth by well over half.</p>
+    <h3 class="eh3">Severity: true level (rows) vs estimated level (columns)</h3>
+    <table class="et heat conf"><thead><tr><th></th>${[1, 2, 3, 4, 5].map((k) => `<th>${k}</th>`).join("")}</tr></thead><tbody>
+      ${conf.map((row, i) => `<tr><td>${i + 1}</td>${row.map((v, j) => `<td class="h" style="${v ? `background:rgba(47,111,223,${Math.min(1, v / Math.max(...conf.flat())).toFixed(2)})` : ""};${i === j ? "font-weight:700" : ""}">${v || ""}</td>`).join("")}</tr>`).join("")}</tbody></table>
+    <p class="note">Exactly right ${pct(st.severity_exact)}, within one level ${pct(st.severity_within_1)} (in-sample tables).</p>
+    <h3 class="eh3">Which measurements carry which flaw</h3>
+    <p class="note">Cohen's d between the labelled words and the rest of the reading, per word-level contrast signal (severity 3–5 single-flaw clips). Blue: higher than the reference inside the flaw; red: lower. Each flaw lights up the signal its explanation names.</p>
+    <table class="et heat fe"><thead><tr><th>Flaw</th>${sigs.map((g) => `<th>${esc(g.split(" (")[0])}</th>`).join("")}</tr></thead><tbody>
+      ${Object.entries(fe).filter(([, v]) => Object.keys(v).length).map(([t, v]) => `<tr><td>${NAMES[t]}</td>${sigs.map((g) => cell(v[g])).join("")}</tr>`).join("")}</tbody></table>`;
+}
 
 function ablationHtml(a, pct) {
   if (!a || !a.variants) return "";

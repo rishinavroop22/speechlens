@@ -88,7 +88,8 @@ def evaluation():
         return JSONResponse({"available": False})
     rep = json.loads(p.read_text()) | {"available": True}
     # later experiments, each written by its own tool
-    for key, name in (("stress", "stress.json"), ("ablation", "ablation.json"), ("counterfactual", "counterfactual.json")):
+    for key, name in (("stress", "stress.json"), ("ablation", "ablation.json"), ("counterfactual", "counterfactual.json"),
+                      ("stats", "stats.json")):
         f = EVAL / name
         if f.exists():
             d = json.loads(f.read_text())
@@ -174,7 +175,7 @@ async def analyze(
         audio.save(wav, par_y)
         par_url = f"/media/uploads/{wav.name}"
     try:
-        rep = evaluate(ref_y, ref_text, par_y, participant_text or None, rubric)
+        rep = evaluate(ref_y, ref_text, par_y, participant_text or None, rubric, voice=True)
     except ValueError as e:
         raise HTTPException(422, str(e))
     rid = hashlib.sha1(par_y.tobytes() + ref_y.tobytes() + (participant_text or "").encode()).hexdigest()[:16]
@@ -215,17 +216,96 @@ def fix(report_id: str, index: int):
     from .pipeline import prepare_reference
     ref_y, _ = prepare_reference(ref_y, par_y)
     ref, par = analyze_cached(ref_y, ref_t), analyze_cached(par_y, par_t or ref_t)
-    res = compare(ref, par)
+    res = compare(ref, par, par_y)
     if not 0 <= index < len(res["regions"]):
         raise HTTPException(404, "No such finding.")
     try:
-        fixed, info = repair(par_y, ref, par, res["regions"][index].to_dict(), res["global"])
+        fixed, info = repair(par_y, ref, par, res["regions"][index].to_dict(), res["global"], ref_y)
     except ValueError as e:
         raise HTTPException(422, str(e))
     UPLOADS.mkdir(parents=True, exist_ok=True)
     name = f"fix_{report_id}_{index}.wav"
     audio.save(UPLOADS / name, snippet(fixed, info["fixed"]))
     return {"edit": info["edit"], "url": f"/media/uploads/{name}", "span": info["fixed"]}
+
+
+@app.post("/api/practice")
+async def practice(report_id: str = Form(...), index: int = Form(...), retake: UploadFile = File(...)):
+    """Practice loop: the participant re-reads just the passage of one finding.
+    The original passage and the retake are each compared with the same crop
+    of the reference, with identical processing, so before and after are
+    directly comparable."""
+    from .contrast import compare, pair_words
+    from .pipeline import analyze_cached, prepare_reference
+    ctx = _sample_ctx(report_id[2:]) if report_id.startswith("s-") else CTX.get(report_id)
+    if ctx is None:
+        raise HTTPException(404, "Analysis expired - analyse the recording again.")
+    ref_y, ref_t, par_y, par_t = ctx
+    ref_y, _ = prepare_reference(ref_y, par_y)
+    ref, par = analyze_cached(ref_y, ref_t), analyze_cached(par_y, par_t or ref_t)
+    res = compare(ref, par, par_y)
+    if not 0 <= index < len(res["regions"]) or res["regions"][index].scope != "local":
+        raise HTTPException(404, "No such passage.")
+    g = res["regions"][index]
+    pairs = pair_words(ref, par)
+    p2r = {j: i for i, j in pairs}
+    js = [j for j in range(g.word_start, g.word_end + 1) if j in p2r] or [min(p2r, key=lambda j: abs(j - g.word_start))]
+    i0, i1 = p2r[js[0]], p2r[js[-1]]
+    # widen to a speakable passage: at least 8 words, ending at punctuation when close
+    while i1 - i0 + 1 < 8 and (i0 > 0 or i1 < len(ref.words) - 1):
+        if i0 > 0:
+            i0 -= 1
+        if i1 - i0 + 1 < 8 and i1 < len(ref.words) - 1:
+            i1 += 1
+    for _ in range(4):
+        if ref.words[i1].punct_after or i1 >= len(ref.words) - 1:
+            break
+        i1 += 1
+    text = " ".join(w.text for w in ref.words[i0:i1 + 1])
+    r2p = {i: j for i, j in pairs}
+
+    def crop(y, a, b):
+        return y[max(0, int((a - 0.3) * audio.SR)): int((b + 0.3) * audio.SR)]
+    ref_c = crop(ref_y, ref.words[i0].start, ref.words[i1].end)
+    j0, j1 = r2p.get(i0, js[0]), r2p.get(i1, js[-1])
+    par_c = crop(par_y, par.words[j0].start, par.words[j1].end)
+    UPLOADS.mkdir(parents=True, exist_ok=True)
+    new_y = audio.load(await _save(retake))
+    if len(new_y) < audio.SR:
+        raise HTTPException(422, "The retake is too short.")
+    rc = analyze_cached(ref_c, text)
+
+    def side(y):
+        an = analyze_cached(y, text)
+        try:
+            out = compare(rc, an, y)
+        except ValueError as e:
+            raise HTTPException(422, f"Could not match the retake to the passage: {e}")
+        locs = [r for r in out["regions"] if r.scope == "local"]
+        same = [r for r in out["regions"] if r.type == g.type]
+        fin = lambda v: None if v is None or not np.isfinite(v) else round(float(v), 2)  # noqa: E731
+        gp, gt = out["global"]["pace"], out["global"]["pitch"]
+        return {"findings": [{"type": r.type, "severity": r.severity, "start": round(r.start, 2), "end": round(r.end, 2)}
+                             for r in locs],
+                "target_severity": max((r.severity for r in same), default=0),
+                "pace_sps": fin(gp["participant_sps"]), "ref_pace_sps": fin(gp["reference_sps"]),
+                "pitch_range_st": fin(gt["participant_range_st"]),
+                "ref_pitch_range_st": fin(gt["reference_range_st"]),
+                "duration": round(len(y) / audio.SR, 2)}
+    before, after = side(par_c), side(new_y)
+    tb, ta = before["target_severity"], after["target_severity"]
+    if ta == 0 and tb > 0:
+        verdict = "fixed"
+    elif ta == 0:
+        verdict = "clean"
+    elif ta < tb:
+        verdict = "improved"
+    else:
+        verdict = "still_there"
+    name = f"practice_{report_id}_{index}.wav"
+    audio.save(UPLOADS / name, new_y)
+    return {"passage": text, "type": g.type, "verdict": verdict, "before": before, "after": after,
+            "retake_url": f"/media/uploads/{name}"}
 
 
 _PRECOMP_CACHE: dict | None = None

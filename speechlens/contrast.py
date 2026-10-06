@@ -28,7 +28,8 @@ from .features import Analysis, HOP
 
 DIMENSION = {"rushed": "pace", "dragging": "pace", "pause_omission": "pausing", "awkward_pause": "pausing",
              "filler": "fluency", "stutter": "fluency", "monotone": "pitch_variety",
-             "trailing_off": "volume", "mumbling": "clarity"}
+             "trailing_off": "volume", "mumbling": "clarity",
+             "skipped_word": "fluency", "restart": "fluency"}
 
 # local thresholds (in natural units) - see docs/methodology.md
 TH = {
@@ -79,6 +80,7 @@ class Region:
     text: str = ""
     explanation: str = ""
     magnitude: float | None = None
+    evidence: str = ""          # e.g. what the recogniser heard (reading errors)
 
     def __post_init__(self):
         if isinstance(self.severity, Sev):
@@ -267,7 +269,7 @@ def _onset_similarity(an: Analysis, burst, word_start, dur=0.12):
 MIN_Z = {"rushed": 0.8, "dragging": 0.8, "trailing_off": 1.0}
 MIN_Z_DEFAULT = 1.5
 SPAN_TYPES = {"rushed", "dragging", "trailing_off", "monotone", "mumbling"}
-POINT_TYPES = {"filler", "stutter", "awkward_pause"}
+POINT_TYPES = {"filler", "stutter", "awkward_pause", "skipped_word", "restart"}
 
 
 def _resolve(regions: list[Region], rules: bool = True) -> list[Region]:
@@ -290,6 +292,17 @@ def _resolve(regions: list[Region], rules: bool = True) -> list[Region]:
             out.append(r)
             continue
         overlap = lambda o: min(r.end, o.end) - max(r.start, o.start)
+        # rushing squeezes words and blurs them for the recogniser: a "skipped"
+        # word inside a long rushed span is the rushing
+        if r.type == "skipped_word" and r.metrics[0].participant < 2 and any(
+                o.type == "rushed" and o.word_end - o.word_start > 5
+                                            and overlap(o) > 0.5 * (r.end - r.start) for o in regions):
+            continue
+        # a restart is extra words: the aligner turns them into a long pause, a
+        # held "filler", a repeated onset or slow words - all the same event
+        if r.type in ("awkward_pause", "filler", "stutter", "dragging", "pause_omission") and any(
+                o.type == "restart" and overlap(o) > -0.1 for o in regions):
+            continue
         inside = lambda kind: any(o.type == kind and o.start - 0.2 <= r.start and r.end <= o.end + 0.2 for o in regions)
         # rushing eats pauses: missing pauses inside a rushed span are the same flaw
         if r.type == "pause_omission" and inside("rushed"):
@@ -384,7 +397,7 @@ def _ablations() -> set:
     return {a for a in os.environ.get("SPEECHLENS_ABLATE", "").split(",") if a}
 
 
-def compare(ref: Analysis, par: Analysis) -> dict:
+def compare(ref: Analysis, par: Analysis, par_y=None) -> dict:
     ABL = _ablations()
     SELF = "self_ref" in ABL
     G = (lambda v: 0.0) if "no_global" in ABL else (lambda v: v)
@@ -645,6 +658,12 @@ def compare(ref: Analysis, par: Analysis) -> dict:
            [Metric("mean_pause_at_punctuation", "s", float(pbs.mean()), float(pps.mean()), float(pps.mean() - pbs.mean()), None,
                    f"reference pause >= 0.18 s kept at < {int(TH['pause_keep'] * 100)} %"),
             Metric("pauses_lost", "count", len(grp), 0, -len(grp))])
+
+    # ---------------- reading errors (speechlens/lexical.py) --------------
+    if not SELF:
+        from . import lexical
+        regions += lexical.detect(ref, par, par_y, pairs, raw_extra, Region, Metric, _sevt)
+        regions = lexical.vet_fillers(regions, ref, par, par_y, pairs)
 
     regions = _resolve(regions, rules="no_rules" not in ABL)
     regions.sort(key=lambda r: (r.scope != "global", r.start))

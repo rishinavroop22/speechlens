@@ -25,11 +25,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from evaluate import human_view, match  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-TYPES = ["rushed", "dragging", "monotone", "trailing_off", "pause_omission", "awkward_pause", "filler", "mumbling", "stutter"]
+TYPES = ["rushed", "dragging", "monotone", "trailing_off", "pause_omission", "awkward_pause", "filler", "mumbling", "stutter",
+         "skipped_word", "restart"]
 WORSE = {"rushed": "lower", "pause_omission": "lower"}  # all others: higher magnitude = worse
 # never gate above the severity-3 injection parameter: a moderate flaw must stay detectable
 CAP = {"rushed": 0.72, "dragging": 1.36, "monotone": 0.70, "trailing_off": 10.0, "pause_omission": 0.30,
-       "awkward_pause": 0.90, "filler": 0.45, "mumbling": 2.6, "stutter": 2.0}
+       "awkward_pause": 0.90, "filler": 0.45, "mumbling": 2.6, "stutter": 2.0,
+       "skipped_word": 2.0, "restart": 2.0}
 
 
 def keep(p, gates):
@@ -109,7 +111,7 @@ def fp_per_min(data, gates):
 def main():
     man = json.loads((ROOT / "data/dataset/manifest.json").read_text())["clips"]
     preds = {r["id"]: r for r in json.loads((ROOT / "results/predictions.json").read_text())}
-    syn = items([c for c in man if c["kind"] in ("single", "mixed")], preds)
+    syn = items([c for c in man if c["kind"] in ("single", "mixed", "lexmix")], preds)
     ctrl = items([c for c in man if c["kind"] == "control"], preds)
     hum_all = items([c for c in man if c["kind"] == "human"], preds)
     hum = []  # verified view: only labels that passed the manipulation check
@@ -131,6 +133,9 @@ def main():
         cv_s += [(c, [p for p in L if keep(p, g)]) for c, L in syn if c["source"] == sp]
         cv_c += [(c, [p for p in L if keep(p, g)]) for c, L in ctrl if c["source"] == sp]
 
+    # per-clip cross-validated predictions, for confidence intervals (tools/stats.py)
+    cv_dump = [{"id": c["id"], "kind": c["kind"], "preds": L} for c, L in cv_s + cv_c + cv_h]
+    (ROOT / "results/predictions_cv.json").write_text(json.dumps(cv_dump))
     final = fit(syn, hum)
     report = {
         "method": "per-type magnitude gates maximising F1 (synthetic and human weighted equally); "

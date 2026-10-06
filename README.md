@@ -12,8 +12,8 @@ It is trained and tested on a **contrastive dataset we built**: five public-doma
 | | |
 |---|---|
 | Dashboard | upload or record audio, see flaw regions on a time-aligned overlay, A/B-listen participant vs reference, hear each flaw repaired |
-| Dataset | 5 gold speeches, 285 synthetic clips (incl. 20 controls), 36 team recordings with scripted flaws |
-| Flaw types | rushed, dragging, monotone, trailing off, missing pauses, awkward pause, filler, muffled articulation, repeated onset |
+| Dataset | 5 gold speeches, 350 synthetic clips (incl. 20 controls), 36 team recordings with scripted flaws ([datasheet](docs/DATASHEET.md)) |
+| Flaw types | rushed, dragging, monotone, trailing off, missing pauses, awkward pause, filler, muffled articulation, repeated onset, skipped words, restarted phrase |
 | Runs on | CPU only, no GPU, no cloud API, no language model; identical output on every run |
 
 ---
@@ -64,9 +64,13 @@ participant audio (+ text) ───┘   (wav2vec2 CTC)   (10 ms grid)         
 3. **Speaker normalization.** Pitch is in semitones relative to each speaker's own median F0 and loudness in dB relative to each speaker's median speech level, so a deep and a high voice reading identically produce the same contours, and recording gain is irrelevant.
 4. **Word-paired contrast.** Words of the two readings are paired by transcript position. Each contrast signal is split into a *global* offset (the speaker's overall habit, reported separately) and a *local* deviation, scored as a robust z-score against the reference speaker's own word-to-word variability, smoothed, thresholded and merged into regions.
 5. **Causal explanation.** Each region becomes a sentence filled from measured values: what changed, by how much, how unusual that is, why it hurts delivery, and how to fix it. No language model is involved.
-6. **Rubric scoring.** Six dimensions (pace, pausing, fluency, pitch variety, volume control, clarity) start at 10 and lose points per region by severity and coverage. Presets weight them for Declamation, Interpretive Reading, Extemporaneous and Persuasive Oratory.
+6. **Reading errors.** Words the aligner can only squeeze into a few frames with near-zero confidence are skipped-word candidates; extra time at a boundary that holds speech is a restart candidate. A short recognition pass with the same model over that neighbourhood confirms each one, and its transcript becomes the evidence shown to the user.
+7. **Recording check.** Both noise floors are measured relative to each speaker's level; a much noisier participant recording triggers a warning and channel matching.
+8. **Rubric scoring.** Six dimensions (pace, pausing, fluency, pitch variety, volume control, clarity) start at 10 and lose points per region by severity and coverage. Presets weight them for Declamation, Interpretive Reading, Extemporaneous and Persuasive Oratory.
 
-Full detail, formulas and thresholds: [`docs/methodology.md`](docs/methodology.md).
+**In the dashboard**, beyond the timeline and findings: *Hear it fixed* plays the participant's own audio with only the named cause repaired; *Practice this part* records a retake of one passage and compares it with the original passage against the same reference crop; a coach's summary gives the top priorities with drills, a voice-quality table (jitter, shimmer, HNR, CPPS) and a printable report; retakes of the same text are tracked as a progress chart.
+
+Full detail, formulas and thresholds: [`docs/methodology.md`](docs/methodology.md). Model card: [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).
 
 ---
 
@@ -85,8 +89,8 @@ Opening excerpts (73-110 s) of five speeches, all US federal government works in
 
 ### The bad spectrum
 **Synthetic (exact labels).** The Flaw Injection Engine (`speechlens/inject.py`) edits the gold recording with Praat PSOLA resynthesis, which changes timing and pitch while keeping the speaker's own voice. Because we make every edit ourselves, each label is exact to the sample. Per speech:
-- 45 single-flaw clips: 9 flaw types x 5 severities (1 = near-perfect, 5 = egregious);
-- 8 mixed clips forming a gradient from two mild flaws to six severe ones;
+- 55 single-flaw clips: 11 flaw types x 5 severities (1 = near-perfect, 5 = egregious), including two reading errors (skipped words, restarted phrases);
+- 8 mixed clips forming a gradient from two mild flaws to six severe ones, and 3 clips combining a reading error with two prosodic flaws;
 - 4 controls with no flaw: the untouched gold, the voice shifted +4 and -4 semitones, and 12 dB quieter.
 
 **Human (scripted labels).** Team members read three of the excerpts four times each: one clean take and three takes with flaws performed at positions fixed by a recording script ([`docs/recording_sheet.md`](docs/recording_sheet.md)). Labels come from aligning each take and mapping the scripted words to times.
@@ -108,27 +112,36 @@ All numbers run the full pipeline on raw audio. Detection thresholds and severit
 
 | | |
 |---|---|
-| Locating synthetic flaws (tIoU >= 0.3, leave-one-speech-out) | **F1 0.70**, precision 0.89, recall 0.58 |
-| Temporal accuracy of located flaws | mean tIoU 0.75, median boundary error **156 ms** |
-| False findings on unflawed controls (incl. voice ±4 semitones, -12 dB) | **0.034 per minute** |
+| Locating synthetic flaws, all 11 types (tIoU >= 0.3, leave-one-speech-out) | **F1 0.66** (95 % CI 0.62-0.70), precision 0.82, recall 0.56 |
+| ... the original nine prosodic types on their own clips | F1 0.70, precision 0.88 |
+| Temporal accuracy of located flaws | mean tIoU 0.76, median boundary error **150 ms** |
+| False findings on unflawed controls (incl. voice ±4 semitones, -12 dB) | **0.034 per minute** (95 % CI 0-0.11) |
 | Score vs mixed-flaw level | Spearman **ρ = -0.95** |
-| Severity estimate, held-out speeches | 0.453 levels mean error, 94 % within one level |
-| Team recordings: performed flaws found (leave-one-speaker-out) | **55 %** (32/58) |
-| Team recordings: precision | 0.22 against scripted flaws only; about **0.80** (95 % range 0.61-0.92) after a blind listening audit |
+| Severity estimate, held-out speeches | 0.49 levels mean error, 93 % within one level |
+| Team recordings: performed flaws found (leave-one-speaker-out) | **53 %** (31/58, 95 % CI 39-68 %) |
+| Team recordings: precision | 0.21 against scripted flaws only; about **0.80** (95 % range 0.61-0.92) after a blind listening audit |
+| Without a reference (same detector) | F1 0.08; 0.16 even with thresholds tuned on the test labels |
+| Fixing the named cause (counterfactual) | finding removed in **COUNTERFACTUAL_REMOVED** of repaired flaws |
 | Re-run in a fresh process | byte-identical |
 
 | Flaw | Synthetic P | Synthetic R | Synthetic F1 | Team recordings found |
 |---|---|---|---|---|
-| Rushed | 0.97 | 0.73 | 0.83 | 4/8 |
-| Dragging | 0.88 | 0.52 | 0.66 | 5/5 |
-| Monotone | 1.00 | 0.64 | 0.78 | 2/4 |
-| Trailing off | 0.96 | 0.63 | 0.77 | 2/2 |
-| Missing pauses | 1.00 | 0.51 | 0.68 | 4/8 |
-| Awkward pause | 0.94 | 0.60 | 0.73 | 5/7 |
-| Filler | 0.80 | 0.62 | 0.70 | 8/15 |
-| Muffled articulation | 1.00 | 0.52 | 0.69 | 0/2 |
-| Repeated onset | 0.75 | 0.44 | 0.56 | 2/7 |
-| **All flaws** | 0.89 | 0.58 | 0.70 | 32/58 |
+| Rushed | 0.78 | 0.70 | 0.74 | 4/8 |
+| Dragging | 0.82 | 0.52 | 0.64 | 5/5 |
+| Monotone | 1.00 | 0.61 | 0.76 | 2/4 |
+| Trailing off | 0.93 | 0.63 | 0.75 | 2/2 |
+| Missing pauses | 0.96 | 0.50 | 0.66 | 4/8 |
+| Awkward pause | 0.87 | 0.59 | 0.70 | 5/7 |
+| Filler | 0.72 | 0.62 | 0.66 | 8/15 |
+| Muffled articulation | 1.00 | 0.50 | 0.67 | 0/2 |
+| Repeated onset | 0.63 | 0.39 | 0.48 | 1/7 |
+| Skipped words | 0.77 | 0.55 | 0.64 | (not scripted) |
+| Restarted phrase | 0.89 | 0.52 | 0.65 | (not scripted) |
+| **All flaws** | 0.82 | 0.56 | 0.66 | 31/58 |
+
+**Uncertainty and sensitivity** (`tools/stats.py`). Bootstrap intervals above resample whole clips. F1 stays at 0.59 at tIoU >= 0.5 and falls only at very strict overlap (0.41 at 0.7). Estimated severity is exactly right 61 % of the time and within one level 93 %. A per-signal effect-size analysis shows each flaw is carried by the measurement its explanation names: muffled speech by high-frequency energy (Cohen's d = -5.1), monotone by pitch range (-3.7), trailing off by loudness (-3.9), rushed/dragging by duration (-5.3 / +5.5), skipped words by recogniser confidence (-3.2), fillers by voicing inside the pause (+3.8).
+
+![Feature evidence](docs/figures/feature_evidence.svg)
 
 **Team recordings.** Each flawed take is compared with the same person's clean take. A manipulation check, with fixed criteria independent of the detector, found that 58 of 90 scripted flaws were actually performed (phone gain control erased most fades, and "mumbles" were usually whispered); only those are scored. Findings outside a scripted flaw count as false, yet in a blind listening audit 12 of 16 of them were heard as genuinely worse delivery, against 0 of 7 random spans. The listener named the same problem as the detector in only 17 % of those cases: SpeechLens locates unscripted problems more reliably than it labels them.
 
