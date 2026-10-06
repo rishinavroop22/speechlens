@@ -3,13 +3,15 @@
 **Contrastive speech analytics with temporal flaw grounding.**
 Multimodal AI Hackathon 2026, Track C.
 
+**Live demo: https://rishinavroop22.github.io/speechlens/** (every dataset clip with its full report, the counterfactual "Hear it fixed" audio, and the complete evaluation; analysing your own recordings needs the full app below)
+
 SpeechLens compares a participant's spoken delivery against a well-delivered reference reading of the *same transcript*. It aligns both readings word by word, measures how pace, pausing, pitch, loudness, articulation and fluency differ, marks every delivery flaw with exact start and end times, and explains each one with the numbers behind it and a concrete fix. A rubric turns the findings into a reproducible score.
 
 It is trained and tested on a **contrastive dataset we built**: five public-domain presidential speeches, each mirrored by a graded spectrum of flawed recordings of the same words, from near-perfect to egregious, with sample-exact labels.
 
 | | |
 |---|---|
-| Dashboard | upload audio + transcript, see flaw regions on a time-aligned overlay, A/B-listen participant vs reference |
+| Dashboard | upload or record audio, see flaw regions on a time-aligned overlay, A/B-listen participant vs reference, hear each flaw repaired |
 | Dataset | 5 gold speeches, 285 synthetic clips (incl. 20 controls), 36 team recordings with scripted flaws |
 | Flaw types | rushed, dragging, monotone, trailing off, missing pauses, awkward pause, filler, muffled articulation, repeated onset |
 | Runs on | CPU only, no GPU, no cloud API, no language model; identical output on every run |
@@ -102,8 +104,6 @@ Audio download: see the link in [`data/README.md`](data/README.md).
 
 ## Evaluation
 
-All numbers come from running the full pipeline on raw audio, including forced alignment of the flawed recording (no oracle timings). Reproduce with `python tools/evaluate.py`; the dashboard's Evaluation tab renders `results/evaluation.json`.
-
 All numbers run the full pipeline on raw audio. Detection thresholds and severity tables are fitted from data, so results are **cross-validated**: synthetic clips with thresholds fitted without that speech, team recordings with thresholds fitted without that recorder.
 
 | | |
@@ -114,7 +114,7 @@ All numbers run the full pipeline on raw audio. Detection thresholds and severit
 | Score vs mixed-flaw level | Spearman **ρ = -0.95** |
 | Severity estimate, held-out speeches | 0.453 levels mean error, 94 % within one level |
 | Team recordings: performed flaws found (leave-one-speaker-out) | **55 %** (32/58) |
-| Team recordings: precision | 0.22 against scripted flaws only; about **0.81** (95 % range 0.61-0.92) after a blind listening audit |
+| Team recordings: precision | 0.22 against scripted flaws only; about **0.80** (95 % range 0.61-0.92) after a blind listening audit |
 | Re-run in a fresh process | byte-identical |
 
 | Flaw | Synthetic P | Synthetic R | Synthetic F1 | Team recordings found |
@@ -132,11 +132,50 @@ All numbers run the full pipeline on raw audio. Detection thresholds and severit
 
 **Team recordings.** Each flawed take is compared with the same person's clean take. A manipulation check, with fixed criteria independent of the detector, found that 58 of 90 scripted flaws were actually performed (phone gain control erased most fades, and "mumbles" were usually whispered); only those are scored. Findings outside a scripted flaw count as false, yet in a blind listening audit 12 of 16 of them were heard as genuinely worse delivery, against 0 of 7 random spans. The listener named the same problem as the detector in only 17 % of those cases: SpeechLens locates unscripted problems more reliably than it labels them.
 
+### Why the reference matters (ablations, `tools/ablate.py`)
+
+The same detector on the same alignments and features with one component removed. The **reference-free baseline** keeps the whole detector but compares each passage with the speaker's own running median instead of a reference reading, which is how delivery tools work when there is no reference.
+
+| Variant (in-sample thresholds) | P | R | F1 | Controls, false/min | Human P | Human R |
+|---|---|---|---|---|---|---|
+| **SpeechLens (full)** | 0.91 | 0.59 | **0.72** | **0.03** | 0.24 | 0.57 |
+| Without data-fitted gates | 0.78 | 0.70 | 0.74 | 0.03 | 0.11 | 0.64 |
+| Without conflict rules | 0.83 | 0.60 | 0.69 | 0.03 | 0.20 | 0.59 |
+| Without habit / local split | 0.92 | 0.59 | 0.71 | 0.03 | 0.20 | 0.48 |
+| Without speaker-relative scale | 0.90 | 0.51 | 0.65 | 0.03 | 0.18 | 0.48 |
+| Reference-free baseline | 0.05 | 0.33 | 0.08 | 9.58 | 0.10 | 0.36 |
+| Reference-free, thresholds tuned on the test labels | 0.12 | 0.27 | 0.16 | 2.68 | 0.19 | 0.21 |
+
+Without a reference, ordinary expressive variation (a rhetorical pause, an emphatic slow phrase) looks like a flaw; even an upper-bound tuning on the evaluation labels reaches F1 0.16.
+
+### Counterfactual check (`tools/counterfactual_eval.py`)
+
+Each explanation names one cause. We change exactly that variable in the participant's own recording (PSOLA time-scaling or pitch widening, a per-word gain curve, a high shelf, cutting or reinserting audio), moving it to the reference value, and run the full pipeline again. Over 73 severity-3/4 flaws that were found, the **finding disappeared in 90 %** and was reduced or removed in 93 %; a new finding appeared nearby in 1.4 %. Mean score rose from 93.0 to 98.4. Muffled speech is the exception (1 of 8): a low-pass filter destroys the high band, so it cannot be restored. The dashboard offers the same repair as **Hear it fixed**.
+
+### Stress test (`tools/stress.py`)
+
+The reference stays the clean speech; only the participant recording is degraded, as with a phone in a noisy room. 55 clips per condition: every severity-4 single flaw, the level-6 mixed clips, and each clean speech as a null (any finding on it is false). Babble is the other four speeches mixed together.
+
+![Stress test](docs/figures/stress.png)
+
+| Condition | P | R | F1 | False/min on clean speech | Word onset shift |
+|---|---|---|---|---|---|
+| Clean | 0.90 | 0.79 | **0.84** | 0.00 | 0 ms |
+| MP3 32 kbit/s | 0.92 | 0.80 | 0.85 | 0.00 | 0 ms |
+| Tempo -10 % / +10 % (whole reading) | 0.89 / 0.91 | 0.76 / 0.75 | 0.82 / 0.82 | 0.00 | 9 / 7 ms |
+| Telephone band (8 kHz, 300-3400 Hz) | 0.82 | 0.74 | 0.78 | 0.00 | 0 ms |
+| Reverb RT60 0.4 s / 0.8 s | 0.75 / 0.48 | 0.73 / 0.58 | 0.74 / 0.53 | 0.14 / 0.69 | 20 / 30 ms |
+| White noise, SNR 10 dB | 0.24 | 0.47 | 0.32 | 1.51 | 20 ms |
+| Babble, SNR 20 / 10 / 5 dB | 0.30 / 0.05 / 0.04 | 0.56 / 0.27 / 0.24 | 0.39 / 0.08 / 0.06 | 1.5 / 6.7 / 9.6 | 0 / 20 / 60 ms |
+
+Compression, a phone channel, a uniformly faster or slower reading and moderate echo barely matter: the alignment stays within tens of milliseconds and the habit/local split absorbs a uniform tempo change. **Background noise is the weakness.** Noise fills the pauses and the quiet ends of words, so the contrast with a clean reference reports shorter pauses, longer words and held sounds that are really the room. Putting the reference through the participant's estimated noise channel (`speechlens/channel.py`) recovers only part of it (babble 20 dB: F1 0.39 → 0.44; white noise: 0.32 → 0.38, false findings 1.5 → 1.0 per minute). The app therefore measures both noise floors and, when the participant is more than 6 dB noisier (no recording in our dataset is), applies that matching and **warns that the result is unreliable**.
+
 Reproduce everything with `./reproduce.sh`. Full write-up: [`docs/SpeechLens_Technical_Documentation.pdf`](docs/SpeechLens_Technical_Documentation.pdf).
 
 ## Limitations
 
-- The reference must read the same text. Without a reference, SpeechLens falls back to corpus norms, which are coarser.
+- The reference must read the same text; without one, detection collapses (see the reference-free baseline above).
+- Background noise in the participant's recording that the reference does not have breaks the comparison (stress test above). The dashboard measures both noise floors and warns when the participant is more than 6 dB noisier.
 - Synthetic flaws are cleaner than human ones; human-recording results are reported separately for that reason.
 - Muffled articulation is measured through high-frequency energy, so a low-pass microphone or heavy compression can mimic it. The global/local split absorbs a constant channel difference but not one that changes mid-recording.
 - Fillers and repeated onsets are found inside pauses; a filler fused into a word with no gap can be missed.

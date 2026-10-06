@@ -281,6 +281,9 @@ function showReport() {
   const rel = (u) => (STATIC && !/^https?:/.test(u) ? u.replace(/^\//, "") : u);
   audioEl.src = rel(r.audio_url);
   refAudio.src = r.reference_url ? rel(r.reference_url) : "";
+  const wb = $("#warnbar"), warn = r.recording_check && r.recording_check.warning;
+  wb.hidden = !warn;
+  wb.textContent = warn || "";
   $("#score-num").textContent = Math.round(r.score.overall);
   $("#score-band").textContent = r.score.band;
   $("#score-rubric").textContent = `${r.score.rubric} rubric`;
@@ -654,7 +657,7 @@ function ablationHtml(a, pct) {
     <td>${pct(r.human_precision)}</td><td>${pct(r.human_recall)}</td></tr>`).join("");
   const full = v.full, ref = v.self_ref_oracle || v.self_ref;
   return `<h2>Why the reference matters: ablations</h2>
-    <p class="note">The same detector on the same alignments and features, with one part removed at a time (in-sample thresholds, so the full system's numbers here are slightly higher than the cross-validated ones above). The reference-free baseline keeps the whole detector but compares each passage with the speaker's own running median instead of a reference reading, which is how delivery tools work without one. ${full && ref ? `Even with thresholds tuned on the test labels, it reaches F1 ${pct(ref.f1)} against ${pct(full.f1)}, and reports ${ref.controls_false_per_min} false findings per minute on unflawed recordings against ${full.controls_false_per_min}.` : ""}</p>
+    <p class="note">The same detector on the same alignments and features, with one part removed at a time (in-sample thresholds, so the full system's numbers here are slightly higher than the cross-validated ones above). The reference-free baseline keeps the whole detector but compares each passage with the speaker's own running median instead of a reference reading, which is how delivery tools work without one. ${full && ref ? `Even with thresholds tuned on the test labels, it reaches F1 ${pct(ref.f1)} against ${pct(full.f1)}, and reports ${ref.controls_false_per_min.toFixed(1)} false findings per minute on unflawed recordings against ${full.controls_false_per_min.toFixed(2)}.` : ""}</p>
     <table class="et"><thead><tr><th>Variant</th><th>Precision</th><th>Recall</th><th>F1</th><th>Controls, false/min</th><th>Human precision</th><th>Human recall</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
@@ -662,9 +665,9 @@ function stressHtml(st, pct) {
   if (!st || !st.conditions) return "";
   const c = st.conditions;
   const rows = Object.values(c).map((r) => `<tr><td>${esc(r.label)}</td><td>${pct(r.precision)}</td><td>${pct(r.recall)}</td>
-    <td>${pct(r.f1)} ${bar(r.f1)}</td><td>${r.mean_tiou ?? "–"}</td><td>${r.null_false_per_min}</td><td>${r.align_err_ms} ms</td></tr>`).join("");
+    <td>${pct(r.f1)} ${bar(r.f1)}</td><td>${r.mean_tiou === null ? "–" : r.mean_tiou.toFixed(2)}</td><td>${r.null_false_per_min.toFixed(2)}</td><td>${Math.round(r.align_err_ms)} ms</td></tr>`).join("");
   return `<h2>Stress test: degraded recordings</h2>
-    <p class="note">The reference stays the clean speech; only the participant's recording is degraded, as with a phone in a noisy room. ${st.n_clips} clips per condition: every severity-4 single flaw, the level-6 mixed clips, and each clean speech as a null (any finding on it is false). Babble noise is the other four speeches mixed together. Tempo changes the whole reading by 10 %, a habit that must not be reported as a local flaw. The last column is how far word onsets move against the clean recording's own alignment.</p>
+    <p class="note">The reference stays the clean speech; only the participant's recording is degraded, as with a phone in a noisy room. ${st.n_clips} clips per condition: every severity-4 single flaw, the level-6 mixed clips, and each clean speech as a null (any finding on it is false). Babble noise is the other four speeches mixed together. Tempo changes the whole reading by 10 %, a habit that must not be reported as a local flaw. The last column is how far word onsets move against the clean recording's own alignment. Compression, a phone channel, a uniform tempo change and moderate echo barely matter; background noise does, because it fills the pauses and quiet word endings that the contrast with a clean reference measures. Putting the reference through the participant's estimated noise channel (the “channel-matched” rows) recovers part of it, so the app does that and warns when a recording is more than 6 dB noisier than its reference.</p>
     <table class="et"><thead><tr><th>Condition</th><th>Precision</th><th>Recall</th><th>F1</th><th>tIoU</th><th>False/min on clean speech</th><th>Word onset shift</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 

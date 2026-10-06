@@ -58,10 +58,16 @@ CONDITIONS = {
     "tempo_0.9x": {"tempo": 1 / 0.9},   # duration factor: 10 % slower
     "tempo_1.1x": {"tempo": 1 / 1.1},   # 10 % faster
 }
+# mitigation: the same noisy conditions with the reference put through the
+# participant's estimated noise channel (speechlens/channel.py)
+MATCHED = ["babble_20db", "babble_10db", "white_10db"]
 LABEL = {"clean": "Clean", "babble_20db": "Babble 20 dB", "babble_10db": "Babble 10 dB", "babble_5db": "Babble 5 dB",
          "white_10db": "White noise 10 dB", "reverb_0.4s": "Reverb 0.4 s", "reverb_0.8s": "Reverb 0.8 s",
          "telephone": "Telephone band", "mp3_32k": "MP3 32 kbit/s", "tempo_0.9x": "Tempo -10 %",
          "tempo_1.1x": "Tempo +10 %"}
+for _c in MATCHED:
+    CONDITIONS[_c + "+match"] = CONDITIONS[_c]
+    LABEL[_c + "+match"] = LABEL[_c] + ", channel-matched"
 
 
 def _rng(*keys):
@@ -95,6 +101,7 @@ def babble(source, n, rng):
 
 
 def degrade(y, source, cond, key):
+    cond = cond.replace("+match", "")  # same degraded audio as the unmatched condition
     p = CONDITIONS[cond]
     y = y.astype(np.float64)
     rng = _rng(key, cond)
@@ -141,14 +148,18 @@ def run(job):
     from speechlens.pipeline import analyze_cached
     src = LIB / clip["source"]
     text = (src / "transcript.txt").read_text()
-    ref = analyze_cached(audio.load(src / "audio.wav"), text)
+    ref_y = audio.load(src / "audio.wav")
     clean_y = audio.load(audio.clip_path(DS / "clips", clip["id"]))
     y = clean_y if cond == "clean" else degrade(clean_y, clip["source"], cond, clip["id"])
+    if cond.endswith("+match"):
+        from speechlens.channel import match_reference
+        ref_y, _ = match_reference(ref_y, y)
+    ref = analyze_cached(ref_y, text)
     par = analyze_cached(y, text)
     res = compare(ref, par)
     sc = score(res["regions"], len(par.words), par.duration, load_rubric("declamation"))
     # aligner robustness: word onsets vs. the clean recording's own alignment
-    f = CONDITIONS[cond].get("tempo", 1.0)
+    f = CONDITIONS[cond.replace("+match", "")].get("tempo", 1.0)
     clean = analyze_cached(clean_y, text)
     errs = [abs(a.start - b.start * f) for a, b in zip(par.words, clean.words) if a.text == b.text]
     return {"id": clip["id"], "cond": cond, "kind": clip["kind"], "duration": par.duration,
@@ -197,28 +208,33 @@ def summarize(rows):
 
 
 def figure(summary, path):
+    """F1 and false findings per condition; channel-matched variants drawn as a
+    second, lighter bar next to their condition."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    conds = list(summary)
-    fig, axes = plt.subplots(1, 2, figsize=(10, 3.6), gridspec_kw={"width_ratios": [3, 2]})
-    ax = axes[0]
-    x = np.arange(len(conds))
-    for k, (key, col) in enumerate((("precision", "#2f6fdf"), ("recall", "#e0782b"), ("f1", "#1f2430"))):
-        ax.bar(x + (k - 1) * 0.26, [summary[c][key] for c in conds], 0.26, label=key.upper() if key == "f1" else
-               key.capitalize(), color=col)
-    ax.set_xticks(x, [summary[c]["label"] for c in conds], rotation=40, ha="right", fontsize=8)
-    ax.set_ylim(0, 1)
-    ax.set_title("Grounding (tIoU >= 0.3) under degraded participant audio", fontsize=10)
-    ax.legend(fontsize=8, ncol=3, loc="upper right", frameon=False)
-    ax.spines[["top", "right"]].set_visible(False)
-    ax = axes[1]
-    ax.bar(x, [summary[c]["null_false_per_min"] for c in conds], color="#b8344a")
-    ax.set_xticks(x, [summary[c]["label"] for c in conds], rotation=40, ha="right", fontsize=8)
-    ax.set_title("False findings / min on the clean reading, degraded", fontsize=10)
-    ax.spines[["top", "right"]].set_visible(False)
+    base = [c for c in summary if not c.endswith("+match")]
+    y = np.arange(len(base))[::-1]
+    fig, axes = plt.subplots(1, 2, figsize=(9, 4.2), sharey=True, gridspec_kw={"width_ratios": [3, 2]})
+    for ax, key, col, title, xmax in ((axes[0], "f1", "#2f6fdf", "F1 locating flaws (tIoU >= 0.3)", 1.0),
+                                      (axes[1], "null_false_per_min", "#b8344a", "False findings / min, clean speech", None)):
+        vals = [summary[c][key] or 0 for c in base]
+        ax.barh(y + 0.18, vals, 0.36, color=col, label="as recorded")
+        mv = [summary.get(c + "+match", {}).get(key) for c in base]
+        ax.barh([yy - 0.18 for yy, v in zip(y, mv) if v is not None], [v for v in mv if v is not None], 0.36,
+                color=col, alpha=0.4, label="reference channel-matched")
+        for yy, v in zip(y, vals):
+            ax.text(v + (xmax or max(vals)) * 0.01, yy + 0.18, f"{v:.2f}", va="center", fontsize=7)
+        ax.set_title(title, fontsize=10)
+        ax.spines[["top", "right"]].set_visible(False)
+        ax.tick_params(axis="x", labelsize=8)
+        if xmax:
+            ax.set_xlim(0, xmax)
+    axes[0].set_yticks(y, [summary[c]["label"] for c in base], fontsize=8)
+    axes[1].legend(fontsize=7, frameon=False, loc="lower right")
     fig.tight_layout()
     fig.savefig(path, dpi=160)
+    fig.savefig(str(path).replace(".png", ".svg"))
 
 
 def main():

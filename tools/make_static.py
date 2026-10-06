@@ -39,6 +39,8 @@ def add_fixes(sample_id, rep):
     from speechlens.counterfactual import repair, snippet
     from speechlens.pipeline import analyze_cached
     ref_y, ref_t, par_y, par_t = _sample_ctx(sample_id)
+    from speechlens.pipeline import prepare_reference
+    ref_y, _ = prepare_reference(ref_y, par_y)
     ref, par = analyze_cached(ref_y, ref_t), analyze_cached(par_y, par_t or ref_t)
     res = compare(ref, par)
     (OUT / "media/fix").mkdir(parents=True, exist_ok=True)

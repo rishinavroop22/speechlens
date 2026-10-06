@@ -99,3 +99,50 @@ def test_rushed_shortens_and_dragging_lengthens():
     r, _, _ = Injector(y, words, 140.0, seed=1).apply([("rushed", 5)])
     d, _, _ = Injector(y, words, 140.0, seed=1).apply([("dragging", 5)])
     assert len(r) < len(y) < len(d)
+
+
+# ------------------------------------------------- counterfactual & channel --
+def _voice(sec=3.0, f0=140.0, seed=0):
+    t = np.arange(int(sec * SR)) / SR
+    on = (t % 0.6) < 0.4                       # 0.4 s "words", 0.2 s pauses
+    y = 0.3 * np.sin(2 * np.pi * f0 * t) * on
+    return (y + 0.002 * np.random.default_rng(seed).standard_normal(len(t))).astype(np.float32)
+
+
+def test_splice_cut_and_insert_lengths():
+    from speechlens.counterfactual import _splice
+    y = _voice()
+    assert len(_splice(y, SR, 2 * SR, np.zeros(0, np.float32))) == len(y) - SR
+    assert len(_splice(y, SR, SR, np.zeros(SR // 2, np.float32))) == len(y) + SR // 2
+
+
+def test_channel_matching_is_a_no_op_for_equal_noise():
+    from speechlens.channel import match_reference
+    y = _voice()
+    out, info = match_reference(y, y.copy())
+    assert not info["matched"] and out is y
+
+
+def test_channel_matching_adds_the_missing_noise():
+    from speechlens.channel import match_reference, noise_psd
+    ref = _voice(seed=1)
+    noisy = ref + 0.03 * np.random.default_rng(2).standard_normal(len(ref)).astype(np.float32)
+    out, info = match_reference(ref, noisy)
+    assert info["matched"]
+    assert abs(noise_psd(out)[1] - noise_psd(noisy)[1]) < 3.0   # floors now within 3 dB
+
+
+def test_recording_check_warns_only_when_noisier():
+    from speechlens.pipeline import recording_check
+    ref = _voice(seed=3)
+    assert recording_check(ref, ref)["warning"] is None
+    noisy = ref + 0.05 * np.random.default_rng(4).standard_normal(len(ref)).astype(np.float32)
+    assert recording_check(ref, noisy)["warning"]
+
+
+def test_ablation_switches_default_off(monkeypatch):
+    from speechlens.contrast import _ablations
+    monkeypatch.delenv("SPEECHLENS_ABLATE", raising=False)
+    assert _ablations() == set()
+    monkeypatch.setenv("SPEECHLENS_ABLATE", "self_ref,no_rules")
+    assert _ablations() == {"self_ref", "no_rules"}

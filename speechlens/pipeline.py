@@ -50,12 +50,45 @@ def warp_reference(ref: features.Analysis, par: features.Analysis, pairs) -> dic
             "hiband": ref.ff.hiband[idx], "ref_time": rt}
 
 
+def recording_check(ref_y, par_y) -> dict:
+    """Is the comparison fair? Contrast assumes both readings were heard through
+    similar channels. Background noise in the participant's pauses, measured
+    relative to their own speech level, beyond the reference's makes timing and
+    clarity findings unreliable (tools/stress.py: at babble SNR 20 dB, about
+    9 dB of excess noise, precision falls from 0.90 to 0.30)."""
+    from .channel import noise_psd
+    _, p_db = noise_psd(par_y)
+    _, r_db = noise_psd(ref_y)
+    excess = p_db - r_db
+    warn = None
+    if excess > 6:
+        warn = (f"The participant recording is {excess:.0f} dB noisier than the reference. Background noise fills "
+                "pauses and word edges, so timing and clarity findings may reflect the room rather than the "
+                "delivery. The reference was given matching background noise to compensate, which helps only "
+                "partly; re-record somewhere quieter for a reliable result.")
+    return {"participant_noise_db": round(p_db, 1), "reference_noise_db": round(r_db, 1),
+            "excess_db": round(excess, 1), "warning": warn}
+
+
+def prepare_reference(ref_y, par_y):
+    """The reference as it is compared: when the participant recording is much
+    noisier, the reference is put through the participant's noise channel so
+    the noise cancels in the contrast (a partial mitigation, tools/stress.py)."""
+    check = recording_check(ref_y, par_y)
+    if check["warning"]:
+        from .channel import match_reference
+        ref_y, info = match_reference(ref_y, par_y)
+        check["channel_matched"] = info["matched"]
+    return ref_y, check
+
+
 def _series(x, step):
     return [None if not np.isfinite(v) else round(float(v), 2) for v in np.asarray(x)[::step]]
 
 
 def evaluate(ref_y, ref_text, par_y, par_text=None, rubric: str = "declamation", step: int = 2) -> dict:
     par_text = par_text or ref_text
+    ref_y, check = prepare_reference(ref_y, par_y)
     ref = analyze_cached(ref_y, ref_text)
     par = analyze_cached(par_y, par_text)
     from .contrast import pair_words
@@ -67,6 +100,7 @@ def evaluate(ref_y, ref_text, par_y, par_text=None, rubric: str = "declamation",
     sc = score(res["regions"], len(par.words), par.duration, load_rubric(rubric))
     warped = warp_reference(ref, par, pairs)
     return {
+        "recording_check": check,
         "duration": round(par.duration, 3),
         "reference_duration": round(ref.duration, 3),
         "align_method": par.align_method,

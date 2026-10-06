@@ -212,6 +212,8 @@ def fix(report_id: str, index: int):
     if ctx is None:
         raise HTTPException(404, "Analysis expired - analyse the recording again.")
     ref_y, ref_t, par_y, par_t = ctx
+    from .pipeline import prepare_reference
+    ref_y, _ = prepare_reference(ref_y, par_y)
     ref, par = analyze_cached(ref_y, ref_t), analyze_cached(par_y, par_t or ref_t)
     res = compare(ref, par)
     if not 0 <= index < len(res["regions"]):

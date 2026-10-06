@@ -32,22 +32,21 @@ FADE = int(0.008 * SR)
 
 
 def _splice(y, a, b, new):
-    """y[:a] + new + y[b:] with short crossfades at both joins (samples)."""
+    """y[:a] + new + y[b:], length exact. The first and last few ms of `new`
+    are crossfaded with the original audio just inside the replaced span, so
+    the joins are continuous for cuts, insertions and replacements alike."""
     a, b = int(a), int(b)
-    new = np.asarray(new, np.float32)
-    left, right = y[:a].astype(np.float32), y[b:].astype(np.float32)
-    n1 = min(FADE, len(left), len(new) // 2)
-    n2 = min(FADE, len(right), len(new) // 2)
-    new = new.copy()
-    if n1:
+    new = np.asarray(new, np.float32).copy()
+    y = y.astype(np.float32)
+    n1 = min(FADE, len(new) // 2, len(y) - a)
+    n2 = min(FADE, len(new) // 2, b)
+    if n1 > 0:
         r = np.linspace(0, 1, n1, dtype=np.float32)
-        new[:n1] = new[:n1] * r + left[-n1:] * (1 - r)
-        left = left[:-n1]
-    if n2:
+        new[:n1] = new[:n1] * r + y[a:a + n1] * (1 - r)
+    if n2 > 0:
         r = np.linspace(1, 0, n2, dtype=np.float32)
-        new[-n2:] = new[-n2:] * r + right[:n2] * (1 - r)
-        right = right[n2:]
-    return np.concatenate([left, new, right])
+        new[-n2:] = new[-n2:] * r + y[b - n2:b] * (1 - r)
+    return np.concatenate([y[:a], new, y[b:]])
 
 
 def _noise(y, n, seed):
