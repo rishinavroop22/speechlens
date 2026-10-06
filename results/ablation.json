@@ -1,0 +1,94 @@
+{
+ "variants": {
+  "full": {
+   "precision": 0.914,
+   "recall": 0.593,
+   "f1": 0.719,
+   "controls_false_per_min": 0.034,
+   "spearman_mix_vs_score": -0.95,
+   "human_precision": 0.243,
+   "human_recall": 0.569,
+   "label": "SpeechLens (full)"
+  },
+  "no_gate": {
+   "precision": 0.779,
+   "recall": 0.699,
+   "f1": 0.737,
+   "controls_false_per_min": 0.034,
+   "spearman_mix_vs_score": -0.953,
+   "human_precision": 0.105,
+   "human_recall": 0.638,
+   "label": "Without data-fitted gates"
+  },
+  "no_rules": {
+   "precision": 0.828,
+   "recall": 0.597,
+   "f1": 0.694,
+   "controls_false_per_min": 0.034,
+   "spearman_mix_vs_score": -0.959,
+   "human_precision": 0.202,
+   "human_recall": 0.586,
+   "label": "Without conflict rules"
+  },
+  "no_trend": {
+   "precision": 0.88,
+   "recall": 0.589,
+   "f1": 0.706,
+   "controls_false_per_min": 0.034,
+   "spearman_mix_vs_score": -0.948,
+   "human_precision": 0.234,
+   "human_recall": 0.569,
+   "label": "Without local boundary trend"
+  },
+  "no_global": {
+   "precision": 0.915,
+   "recall": 0.585,
+   "f1": 0.714,
+   "controls_false_per_min": 0.034,
+   "spearman_mix_vs_score": -0.95,
+   "human_precision": 0.204,
+   "human_recall": 0.483,
+   "label": "Without habit / local split"
+  },
+  "no_spread": {
+   "precision": 0.903,
+   "recall": 0.505,
+   "f1": 0.648,
+   "controls_false_per_min": 0.034,
+   "spearman_mix_vs_score": -0.919,
+   "human_precision": 0.184,
+   "human_recall": 0.483,
+   "label": "Without speaker-relative scale"
+  },
+  "self_ref": {
+   "precision": 0.045,
+   "recall": 0.331,
+   "f1": 0.079,
+   "controls_false_per_min": 9.575,
+   "spearman_mix_vs_score": -0.257,
+   "human_precision": 0.095,
+   "human_recall": 0.362,
+   "label": "Reference-free baseline"
+  },
+  "self_ref_nogate": {
+   "precision": 0.027,
+   "recall": 0.393,
+   "f1": 0.051,
+   "controls_false_per_min": 18.602,
+   "spearman_mix_vs_score": -0.022,
+   "human_precision": 0.045,
+   "human_recall": 0.414,
+   "label": "Reference-free, no gates"
+  },
+  "self_ref_oracle": {
+   "precision": 0.115,
+   "recall": 0.267,
+   "f1": 0.161,
+   "controls_false_per_min": 2.677,
+   "spearman_mix_vs_score": null,
+   "human_precision": 0.188,
+   "human_recall": 0.207,
+   "label": "Reference-free, thresholds tuned on test labels"
+  }
+ }
+}

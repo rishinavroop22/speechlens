@@ -27,6 +27,12 @@ EVAL = ROOT / "results"
 WEB = ROOT / "web"
 
 app = FastAPI(title="SpeechLens", version="1.0")
+# the hosted static page (GitHub Pages) may call this server for live analysis
+from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
+
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
+# analysis inputs by report id, so a finding can be repaired afterwards
+CTX: dict[str, tuple] = {}
 
 
 def _library():
@@ -80,7 +86,14 @@ def evaluation():
     p = EVAL / "evaluation.json"
     if not p.exists():
         return JSONResponse({"available": False})
-    return json.loads(p.read_text()) | {"available": True}
+    rep = json.loads(p.read_text()) | {"available": True}
+    # later experiments, each written by its own tool
+    for key, name in (("stress", "stress.json"), ("ablation", "ablation.json"), ("counterfactual", "counterfactual.json")):
+        f = EVAL / name
+        if f.exists():
+            d = json.loads(f.read_text())
+            rep[key] = d.get("summary", d) if key == "counterfactual" else d
+    return rep
 
 
 @app.get("/media/{kind}/{name:path}")
@@ -106,8 +119,9 @@ async def analyze(
 ):
     UPLOADS.mkdir(parents=True, exist_ok=True)
     truth = None
+    auto_text = None
     if sample_id and sample_id in _precomp():
-        return _precomputed(sample_id, rubric)
+        return _precomputed(sample_id, rubric) | {"report_id": f"s-{sample_id}"}
     # ---- reference
     if sample_id:
         clip = next((c for c in _manifest()["clips"] if c["id"] == sample_id), None)
@@ -125,8 +139,14 @@ async def analyze(
     if reference_file is not None and reference_file.filename:
         ref_y = audio.load(await _save(reference_file))
         ref_text = reference_text
+        auto_text = None
         if not ref_text:
-            raise HTTPException(400, "Add the transcript for the reference recording.")
+            if not model_available():
+                raise HTTPException(400, "Add the transcript for the reference recording.")
+            from .align import transcribe
+            ref_text = auto_text = transcribe(ref_y)  # no transcript given: recognise it
+            if len(ref_text.split()) < 5:
+                raise HTTPException(422, "Could not recognise enough words in the reference recording.")
         ref_url = None
     elif sample_id and reference_id is None:
         pass  # human take: reference is the same person's clean take, set above
@@ -157,11 +177,53 @@ async def analyze(
         rep = evaluate(ref_y, ref_text, par_y, participant_text or None, rubric)
     except ValueError as e:
         raise HTTPException(422, str(e))
+    rid = hashlib.sha1(par_y.tobytes() + ref_y.tobytes() + (participant_text or "").encode()).hexdigest()[:16]
+    CTX[rid] = (ref_y, ref_text, par_y, participant_text or None)
+    while len(CTX) > 32:
+        CTX.pop(next(iter(CTX)))
+    rep["report_id"] = rid
     rep["audio_url"] = par_url
     rep["reference_url"] = ref_url
     rep["peaks"] = peaks(par_y)
     rep["truth"] = truth
+    rep["auto_transcript"] = auto_text
     return rep
+
+
+def _sample_ctx(sample_id: str):
+    clip = next((c for c in _manifest()["clips"] if c["id"] == sample_id), None)
+    if clip is None:
+        raise HTTPException(404, "Unknown sample.")
+    if clip.get("reference_clip"):
+        ref_y, ref_t = audio.load(audio.clip_path(DATASET / "clips", clip["reference_clip"])), clip["transcript"]
+    else:
+        ref_y, ref_t = audio.load(LIB / clip["source"] / "audio.wav"), (LIB / clip["source"] / "transcript.txt").read_text()
+    return ref_y, ref_t, audio.load(audio.clip_path(DATASET / "clips", sample_id)), clip.get("transcript")
+
+
+@app.get("/api/fix/{report_id}/{index}")
+def fix(report_id: str, index: int):
+    """Counterfactual repair of one finding: the participant's audio with only
+    the stated cause moved to the reference value (speechlens/counterfactual.py)."""
+    from .contrast import compare
+    from .counterfactual import repair, snippet
+    from .pipeline import analyze_cached
+    ctx = _sample_ctx(report_id[2:]) if report_id.startswith("s-") else CTX.get(report_id)
+    if ctx is None:
+        raise HTTPException(404, "Analysis expired - analyse the recording again.")
+    ref_y, ref_t, par_y, par_t = ctx
+    ref, par = analyze_cached(ref_y, ref_t), analyze_cached(par_y, par_t or ref_t)
+    res = compare(ref, par)
+    if not 0 <= index < len(res["regions"]):
+        raise HTTPException(404, "No such finding.")
+    try:
+        fixed, info = repair(par_y, ref, par, res["regions"][index].to_dict(), res["global"])
+    except ValueError as e:
+        raise HTTPException(422, str(e))
+    UPLOADS.mkdir(parents=True, exist_ok=True)
+    name = f"fix_{report_id}_{index}.wav"
+    audio.save(UPLOADS / name, snippet(fixed, info["fixed"]))
+    return {"edit": info["edit"], "url": f"/media/uploads/{name}", "span": info["fixed"]}
 
 
 _PRECOMP_CACHE: dict | None = None

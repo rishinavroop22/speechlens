@@ -12,9 +12,12 @@ import subprocess
 import sys
 from pathlib import Path
 
+import soundfile as sf
+
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from fastapi.testclient import TestClient  # noqa: E402
 
+from speechlens import audio  # noqa: E402
 from speechlens.app import app  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -26,6 +29,34 @@ def mp3(src, dst):
     # the static host serves MP3 but not FLAC; 96 kbps mono keeps speech clean
     subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(src), "-ac", "1", "-b:a", "96k", str(dst)],
                    check=True)
+
+
+def add_fixes(sample_id, rep):
+    """Counterfactual repairs for every local finding, pre-rendered as short
+    MP3 snippets (the hosted page cannot run the pipeline)."""
+    from speechlens.app import _sample_ctx
+    from speechlens.contrast import compare
+    from speechlens.counterfactual import repair, snippet
+    from speechlens.pipeline import analyze_cached
+    ref_y, ref_t, par_y, par_t = _sample_ctx(sample_id)
+    ref, par = analyze_cached(ref_y, ref_t), analyze_cached(par_y, par_t or ref_t)
+    res = compare(ref, par)
+    (OUT / "media/fix").mkdir(parents=True, exist_ok=True)
+    for i, r in enumerate(rep["regions"]):
+        if r["scope"] != "local":
+            continue
+        cand = [g for g in res["regions"] if g.type == r["type"] and abs(g.start - r["start"]) < 0.02]
+        if not cand:
+            continue
+        try:
+            fixed, info = repair(par_y, ref, par, cand[0].to_dict(), res["global"])
+        except ValueError:
+            continue
+        wav = OUT / "media/fix" / f"{sample_id}__{i}.wav"
+        sf.write(wav, snippet(fixed, info["fixed"]), audio.SR, subtype="PCM_16")
+        mp3(wav, wav.with_suffix(".mp3"))
+        wav.unlink()
+        r["fix"] = {"edit": info["edit"], "url": f"media/fix/{sample_id}__{i}.mp3"}
 
 
 def main():
@@ -58,6 +89,7 @@ def main():
             rep["audio_url"] = rep["audio_url"].lstrip("/").replace(".flac", ".mp3")
             if rep.get("reference_url"):
                 rep["reference_url"] = rep["reference_url"].lstrip("/").replace(".flac", ".mp3")
+            add_fixes(k, rep)
             (OUT / "reports" / f"{k}.json").write_text(json.dumps(rep, separators=(",", ":")))
             n += 1
     shutil.copy(ROOT / "web/vendor/archivo.woff2", OUT / "vendor/archivo.woff2")

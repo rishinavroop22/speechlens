@@ -36,7 +36,7 @@
           <details id="ref-upload">
             <summary>Use my own reference</summary>
             <input type="file" id="ref-file" accept="audio/*">
-            <textarea id="ref-text" rows="4" placeholder="Paste the transcript of the reference recording"></textarea>
+            <textarea id="ref-text" rows="4" placeholder="Transcript of the reference (optional: recognised automatically if left empty)"></textarea>
           </details>
         </fieldset>
         <fieldset>
@@ -46,6 +46,7 @@
             <span class="drop-main">Drop a recording or choose a file</span>
             <span class="drop-sub" id="par-name">WAV, MP3, M4A, OGG</span>
           </label>
+          <button type="button" id="rec" class="rec">Record with microphone</button>
           <details>
             <summary>Transcript differs from the reference</summary>
             <textarea id="par-text" rows="4" placeholder="Leave empty if the participant read the reference transcript"></textarea>

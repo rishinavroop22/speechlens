@@ -32,7 +32,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #141922;
     --surface: #1b2230;
     --ink: #e8ecf3;
@@ -50,6 +50,24 @@
     --truth: #e8ecf3;
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+    --paper: #141922;
+    --surface: #1b2230;
+    --ink: #e8ecf3;
+    --muted: #9aa5b8;
+    --line: #2d3647;
+    --soft: #232b3a;
+    --ref: #6c7689;
+    --accent: #6ea3f2;
+    --pace: #f0a040;
+    --pausing: #a58cf2;
+    --fluency: #f2678a;
+    --pitch_variety: #6ea3f2;
+    --volume: #58c487;
+    --clarity: #d4a25e;
+    --truth: #e8ecf3;
+    color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -201,6 +219,9 @@ button.primary:disabled { opacity: .5; cursor: progress; }
 .abtn { display: flex; gap: 8px; margin: 4px 0 14px; flex-wrap: wrap; }
 .abtn button { border: 1px solid var(--line); background: var(--surface); padding: 6px 12px; border-radius: 999px; cursor: pointer; font-weight: 600; font-size: 13px; }
 .abtn button:hover { border-color: var(--c); }
+.abtn button.cf { background: var(--c); border-color: var(--c); color: #fff; }
+.abtn button.cf:disabled { opacity: .6; cursor: wait; }
+.cfnote { font-size: 13px; color: var(--muted); border-left: 3px solid var(--c); padding: 4px 0 4px 10px; margin: -4px 0 12px; }
 .mt { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
 .mt th { text-align: left; font-weight: 600; color: var(--muted); padding: 4px 6px; border-bottom: 1px solid var(--line); }
 .mt td { padding: 5px 6px; border-bottom: 1px solid var(--soft); }
@@ -240,3 +261,14 @@ button.primary:disabled { opacity: .5; cursor: progress; }
   .top { gap: 12px; flex-wrap: wrap; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+.rec { width: 100%; margin: 8px 0 4px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); font: inherit; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.rec::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #d23b4e; }
+.rec.on { border-color: #d23b4e; color: #d23b4e; }
+.rec.on::before { animation: recblink 1s infinite; }
+@keyframes recblink { 50% { opacity: .2; } }
+
+.ebar { display: inline-block; width: 70px; height: 6px; border-radius: 3px; background: var(--line); vertical-align: middle; margin-left: 6px; overflow: hidden; }
+.ebar i { display: block; height: 100%; border-radius: 3px; }
+.et tr.best td { font-weight: 700; }

@@ -270,7 +270,7 @@ SPAN_TYPES = {"rushed", "dragging", "trailing_off", "monotone", "mumbling"}
 POINT_TYPES = {"filler", "stutter", "awkward_pause"}
 
 
-def _resolve(regions: list[Region]) -> list[Region]:
+def _resolve(regions: list[Region], rules: bool = True) -> list[Region]:
     """Remove secondary detections explained by a stronger co-located flaw:
     muffled articulation (low-pass) also lowers measured loudness, so a mild
     volume drop inside a mumbling region is not reported twice."""
@@ -285,6 +285,9 @@ def _resolve(regions: list[Region]) -> list[Region]:
                 continue
         z = r.metrics[0].z if r.metrics else None
         if r.scope == "local" and z is not None and abs(z) < MIN_Z.get(r.type, MIN_Z_DEFAULT):
+            continue
+        if not rules:
+            out.append(r)
             continue
         overlap = lambda o: min(r.end, o.end) - max(r.start, o.start)
         inside = lambda kind: any(o.type == kind and o.start - 0.2 <= r.start and r.end <= o.end + 0.2 for o in regions)
@@ -356,7 +359,38 @@ def _conf(z, z0=2.0):
 
 
 # ------------------------------------------------------------------- main ---
+def _runmed(x, h=7):
+    """Running median over +/-h entries: the speaker's own local baseline."""
+    x = np.asarray(x, float)
+    out = np.empty_like(x)
+    for i in range(len(x)):
+        w = x[max(0, i - h): i + h + 1]
+        w = w[np.isfinite(w)]
+        out[i] = np.median(w) if len(w) else np.nan
+    return out
+
+
+def _ablations() -> set:
+    """Ablation switches for tools/ablate.py (comma list in SPEECHLENS_ABLATE):
+    self_ref    - no reference: every reference quantity is replaced by the
+                  participant's own running median (within-reading anomaly
+                  detection, the usual reference-free approach)
+    no_global   - no habit/local split (global offset g forced to 0)
+    no_spread   - no speaker-relative scaling of z (spread fixed at 1)
+    no_trend    - boundary disfluencies judged on raw added time, without
+                  subtracting the time added at neighbouring boundaries
+    no_rules    - no conflict-resolution rules (gates and min-z still apply)
+    Default: none (the production configuration)."""
+    return {a for a in os.environ.get("SPEECHLENS_ABLATE", "").split(",") if a}
+
+
 def compare(ref: Analysis, par: Analysis) -> dict:
+    ABL = _ablations()
+    SELF = "self_ref" in ABL
+    G = (lambda v: 0.0) if "no_global" in ABL else (lambda v: v)
+    SPR = (lambda v: 1.0) if "no_spread" in ABL else (lambda v: v)
+    if SELF:
+        ref = par
     pairs = pair_words(ref, par)
     if len(pairs) < 5:
         raise ValueError("fewer than 5 words could be matched between the two readings")
@@ -381,12 +415,14 @@ def compare(ref: Analysis, par: Analysis) -> dict:
     syl = np.array([w.syllables for w in R], float)
     dr = np.array([w.dur for w in R])
     dp = np.array([w.dur for w in Pw])
-    rr = np.array([_window(syl, dr, j, 1) for j in range(n)])
     rp = np.array([_window(syl, dp, j, 1) for j in range(n)])
+    if SELF:
+        dr = syl / _runmed(syl / np.maximum(dp, 1e-3))
+    rr = np.array([_window(syl, dr, j, 1) for j in range(n)])
     s = np.log2(rp / rr)
-    g = float(np.nanmedian(s))
+    g = G(float(np.nanmedian(s)))
     loc = _smooth(s - g, 3)
-    spread = _robust_spread(np.log2(rr / np.nanmedian(rr)), 0.08)
+    spread = SPR(_robust_spread(np.log2(rr / np.nanmedian(rr)), 0.08))
     glob["pace"] = {"log2_ratio": round(g, 3), "reference_sps": round(float(np.nansum(syl) / np.nansum(dr)), 2),
                     "participant_sps": round(float(np.nansum(syl) / np.nansum(dp)), 2)}
     word_ratio = np.log2(dr / np.maximum(dp, 1e-3)) - g  # per word, + = faster than reference
@@ -417,10 +453,12 @@ def compare(ref: Analysis, par: Analysis) -> dict:
     # ---------------- pitch variety (F0 spread over 5-word windows) ------
     sr_ = np.array([_f0_spread(ref, [pairs[k][0] for k in range(max(0, j - 2), min(n, j + 3))]) for j in range(n)])
     sp_ = np.array([_f0_spread(par, [pairs[k][1] for k in range(max(0, j - 2), min(n, j + 3))]) for j in range(n)])
+    if SELF:
+        sr_ = _runmed(sp_)
     s = np.log2(np.maximum(sp_, 0.2) / np.maximum(sr_, 0.2))
-    g = float(np.nanmedian(s))
+    g = G(float(np.nanmedian(s)))
     loc = s - g
-    spread = _robust_spread(np.log2(np.maximum(sr_, 0.2) / np.nanmedian(sr_)), 0.12)
+    spread = SPR(_robust_spread(np.log2(np.maximum(sr_, 0.2) / np.nanmedian(sr_)), 0.12))
     glob["pitch"] = {"log2_ratio": round(g, 3), "reference_range_st": round(_f0_spread(ref, [i for i, _ in pairs]), 2),
                      "participant_range_st": round(_f0_spread(par, [j for _, j in pairs]), 2)}
     for j0, j1 in _runs(loc < TH["pitch_log2"], min_len=4, hole=1):
@@ -443,10 +481,12 @@ def compare(ref: Analysis, par: Analysis) -> dict:
     # ---------------- loudness (speaker-relative dB) ---------------------
     ir = np.array([w.int_mean_db for w in R])
     ip = np.array([w.int_mean_db for w in Pw])
+    if SELF:
+        ir = _runmed(ip)
     s = ip - ir
-    g = float(np.nanmedian(s))
+    g = G(float(np.nanmedian(s)))
     loc = _smooth(s - g, 3)
-    spread = _robust_spread(ir - np.nanmedian(ir), 1.5)
+    spread = SPR(_robust_spread(ir - np.nanmedian(ir), 1.5))
     glob["volume"] = {"offset_db": round(g, 2)}
     for j0, j1 in _runs(loc < TH["vol_db"], min_len=3, hole=1):
         m = float(np.nanmean(loc[j0:j1 + 1]))
@@ -461,14 +501,16 @@ def compare(ref: Analysis, par: Analysis) -> dict:
     hp = np.array([w.hiband for w in Pw])
     hr4 = np.array([w.hiband4 for w in R])
     hp4 = np.array([w.hiband4 for w in Pw])
+    if SELF:
+        hr, hr4 = _runmed(hp), _runmed(hp4)
     # mean of the >2 kHz and >4 kHz log ratios: the 4 kHz band catches mild
     # muffling that leaves 2-4 kHz intact
     s = 0.5 * (np.log2(np.maximum(hp, 1e-4) / np.maximum(hr, 1e-4)) +
                np.log2(np.maximum(hp4, 1e-5) / np.maximum(hr4, 1e-5)))
-    g = float(np.nanmedian(s))
+    g = G(float(np.nanmedian(s)))
     loc = _smooth(s - g, 3)
-    spread = _robust_spread(0.5 * (np.log2(np.maximum(hr, 1e-4) / np.nanmedian(hr)) +
-                                   np.log2(np.maximum(hr4, 1e-5) / np.nanmedian(hr4))), 0.25)
+    spread = SPR(_robust_spread(0.5 * (np.log2(np.maximum(hr, 1e-4) / np.nanmedian(hr)) +
+                                       np.log2(np.maximum(hr4, 1e-5) / np.nanmedian(hr4))), 0.25))
     cr = np.array([w.conf for w in R])
     cp = np.array([w.conf for w in Pw])
     glob["clarity"] = {"log2_ratio": round(g, 3)}
@@ -500,6 +542,20 @@ def compare(ref: Analysis, par: Analysis) -> dict:
             raw_extra[j] = ((par.words[P(j + 1)].end - par.words[P(j)].start)
                             - (ref.words[pairs[j + 1][0]].end - ref.words[pairs[j][0]].start))
             pause_extra[j] = Pw[j].pause_after - R[j].pause_after
+    if SELF:
+        # reference-free: the expected boundary zone is the speaker's typical
+        # time per syllable; the expected pause is their median pause at that
+        # kind of boundary (punctuation or not)
+        zone = np.array([par.words[P(j + 1)].end - par.words[P(j)].start if j < n - 1 else np.nan for j in range(n)])
+        zsyl = np.array([R[j].syllables + R[j + 1].syllables if j < n - 1 else np.nan for j in range(n)], float)
+        raw_extra = zone - zsyl * _runmed(zone / zsyl)
+        pa_ = np.array([w.pause_after for w in Pw])
+        pu_ = np.array([bool(w.punct_after) for w in Pw])
+        typ = {k: float(np.median(pa_[pu_ == k])) if (pu_ == k).any() else 0.0 for k in (True, False)}
+        self_pb = np.array([typ[bool(k)] for k in pu_])
+        pause_extra = pa_ - self_pb
+        steady_typ = float(np.median([_longest_run(st_p, par.words[P(j)].start + 0.05, par.words[P(j + 1)].end)[0]
+                                      for j in range(n - 1)])) if n > 1 else 0.0
 
     def local_base(x, j, h=3):
         w = np.r_[x[max(0, j - h):j], x[j + 1:j + 1 + h]]
@@ -512,14 +568,14 @@ def compare(ref: Analysis, par: Analysis) -> dict:
             continue
         a, b = par.words[P(j)], par.words[P(j + 1)]
         ra, rb = ref.words[pairs[j][0]], ref.words[pairs[j + 1][0]]
-        pb, pp = R[j].pause_after, Pw[j].pause_after
-        extra = raw_extra[j] - max(0.0, local_base(raw_extra, j))   # added here beyond the local trend
+        pb, pp = (self_pb[j] if SELF else R[j].pause_after), Pw[j].pause_after
+        extra = raw_extra[j] - (0.0 if "no_trend" in ABL else max(0.0, local_base(raw_extra, j)))
 
         # repeated onset: short fragments before the completed word, the first
         # one spectrally matching the word's own onset
         if extra >= 0.12:
             fr_p = _bursts(par, a.end + 0.03, b.end)
-            fr_r = _bursts(ref, ra.end + 0.03, rb.end)
+            fr_r = [None] if SELF else _bursts(ref, ra.end + 0.03, rb.end)
             if len(fr_p) >= 2 and len(fr_p) > len(fr_r) and all(f[1] - f[0] < 0.22 for f in fr_p[:-1]):
                 sim = _onset_similarity(par, fr_p[0], fr_p[-1][0])
                 rep = len(fr_p) - max(1, len(fr_r))
@@ -537,9 +593,9 @@ def compare(ref: Analysis, par: Analysis) -> dict:
         # filled pause: a held, steady vowel the reference does not have here,
         # whether it sits in the gap or the aligner folded it into a word
         if extra >= 0.15:
-            lr_, _, _ = _longest_run(st_r, ra.start + 0.05, rb.end)
+            lr_ = steady_typ if SELF else _longest_run(st_r, ra.start + 0.05, rb.end)[0]
             lp_, sp_, ep_ = _run_near(st_p, a.start + 0.05, b.end, 0.5 * (a.end + b.start), lr_ + 0.14)
-            gap_voiced = Pw[j].filled_after - R[j].filled_after
+            gap_voiced = Pw[j].filled_after - (0.0 if SELF else R[j].filled_after)
             if ((lp_ - lr_ >= 0.14) or gap_voiced >= TH["filled_s"]) and \
                     (sp_ if lp_ - lr_ >= 0.14 else a.end) >= last_filler_end - 0.05:
                 held = max(lp_ - lr_, gap_voiced)
@@ -553,7 +609,7 @@ def compare(ref: Analysis, par: Analysis) -> dict:
                                       text=f"{a.text} … {b.text}"))
                 continue
 
-        pe = pause_extra[j] - max(0.0, local_base(pause_extra, j))
+        pe = pause_extra[j] - (0.0 if "no_trend" in ABL else max(0.0, local_base(pause_extra, j)))
         # at punctuation a longer pause is usually a deliberate, dramatic one;
         # only an extreme one counts there. Mid-phrase, the normal threshold.
         need = TH["pause_extra_s"] if not R[j].punct_after else TH["pause_extra_punct_s"]
@@ -590,7 +646,7 @@ def compare(ref: Analysis, par: Analysis) -> dict:
                    f"reference pause >= 0.18 s kept at < {int(TH['pause_keep'] * 100)} %"),
             Metric("pauses_lost", "count", len(grp), 0, -len(grp))])
 
-    regions = _resolve(regions)
+    regions = _resolve(regions, rules="no_rules" not in ABL)
     regions.sort(key=lambda r: (r.scope != "global", r.start))
     return {"pairs": len(pairs), "regions": regions, "global": glob,
             "coverage": round(len(pairs) / max(1, len(par.words)), 3)}

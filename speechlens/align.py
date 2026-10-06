@@ -92,6 +92,23 @@ def emissions(y: np.ndarray, win: float = 20.0, ctx: float = 1.0) -> np.ndarray:
 
 
 # -------------------------------------------------------------- viterbi ---
+def transcribe(y: np.ndarray) -> str:
+    """Greedy CTC decoding with the same acoustic model: a transcript for a
+    recording that came without one (wav2vec2-base-960h, ~3-6 % WER on clean
+    read English). Returned lower-case, without punctuation."""
+    _, vocab = _session()
+    inv = {v: k for k, v in vocab.items()}
+    blank = vocab.get("<pad>", 0)
+    ids = emissions(y).argmax(axis=1)
+    out, prev = [], None
+    for i in ids:
+        if i != prev and i != blank:
+            out.append(inv.get(int(i), ""))
+        prev = i
+    text = "".join(out).replace("|", " ")
+    return " ".join(w for w in text.lower().split() if w not in ("<unk>", "<s>", "</s>"))
+
+
 def ctc_viterbi(lp: np.ndarray, targets: list[int], blank: int = 0) -> np.ndarray:
     """Return, for each frame, the index into `targets` it is assigned to
     (-1 for blank). Exact CTC forced alignment (no beam, deterministic)."""
