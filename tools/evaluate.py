@@ -241,6 +241,12 @@ def main():
                                                                                     for c in mix if c["mix_level"] == lvl])), 1)
                                                             for lvl in sorted({c["mix_level"] for c in mix})}}
     OUT.mkdir(exist_ok=True)
+    prev = json.loads((OUT / "evaluation.json").read_text()) if (OUT / "evaluation.json").exists() else {}
+    for k in ("cross_validated", "severity_calibration", "audit"):  # written by later steps
+        if k in prev:
+            report[k] = prev[k]
+    if (OUT / "manipulation_check.json").exists():
+        report["manipulation_check"] = json.loads((OUT / "manipulation_check.json").read_text())
     (OUT / "evaluation.json").write_text(json.dumps(report, indent=1))
     (OUT / "predictions.json").write_text(json.dumps(results, indent=1))
     print(json.dumps({k: report[k] for k in ("n_clips", "reproducible", "severity", "controls", "score_validity")}, indent=1))

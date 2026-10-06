@@ -10,7 +10,7 @@ It is trained and tested on a **contrastive dataset we built**: five public-doma
 | | |
 |---|---|
 | Dashboard | upload audio + transcript, see flaw regions on a time-aligned overlay, A/B-listen participant vs reference |
-| Dataset | 5 gold speeches, 285 synthetic spectrum clips, 20 controls, scripted human recordings |
+| Dataset | 5 gold speeches, 285 synthetic clips (incl. 20 controls), 36 team recordings with scripted flaws |
 | Flaw types | rushed, dragging, monotone, trailing off, missing pauses, awkward pause, filler, muffled articulation, repeated onset |
 | Runs on | CPU only, no GPU, no cloud API, no language model; identical output on every run |
 
@@ -104,35 +104,35 @@ Audio download: see the link in [`data/README.md`](data/README.md).
 
 All numbers come from running the full pipeline on raw audio, including forced alignment of the flawed recording (no oracle timings). Reproduce with `python tools/evaluate.py`; the dashboard's Evaluation tab renders `results/evaluation.json`.
 
-Headline (285 clips, 5 speeches, all on raw audio):
+All numbers run the full pipeline on raw audio. Detection thresholds and severity tables are fitted from data, so results are **cross-validated**: synthetic clips with thresholds fitted without that speech, team recordings with thresholds fitted without that recorder.
 
 | | |
 |---|---|
-| Flaw localization F1 (tIoU >= 0.3) | **0.73** (precision 0.75, recall 0.71) |
-| Median boundary error of matched flaws | **150 ms** |
-| False findings on unflawed controls (incl. voice shifted ±4 semitones, -12 dB) | **2 in 29 min** |
-| Score vs mixed-flaw level, Spearman ρ | **-0.954** |
-| Severity error, leave-one-speech-out | **0.493 levels**, 91% within one level |
-| Re-run on a fresh process | byte-identical |
+| Locating synthetic flaws (tIoU >= 0.3, leave-one-speech-out) | **F1 0.70**, precision 0.89, recall 0.58 |
+| Temporal accuracy of located flaws | mean tIoU 0.75, median boundary error **156 ms** |
+| False findings on unflawed controls (incl. voice ±4 semitones, -12 dB) | **0.034 per minute** |
+| Score vs mixed-flaw level | Spearman **ρ = -0.95** |
+| Severity estimate, held-out speeches | 0.453 levels mean error, 94 % within one level |
+| Team recordings: performed flaws found (leave-one-speaker-out) | **55 %** (32/58) |
+| Team recordings: precision | 0.22 against scripted flaws only; about **0.81** (95 % range 0.61-0.92) after a blind listening audit |
+| Re-run in a fresh process | byte-identical |
 
-Per flaw type (tIoU >= 0.3):
+| Flaw | Synthetic P | Synthetic R | Synthetic F1 | Team recordings found |
+|---|---|---|---|---|
+| Rushed | 0.97 | 0.73 | 0.83 | 4/8 |
+| Dragging | 0.88 | 0.52 | 0.66 | 5/5 |
+| Monotone | 1.00 | 0.64 | 0.78 | 2/4 |
+| Trailing off | 0.96 | 0.63 | 0.77 | 2/2 |
+| Missing pauses | 1.00 | 0.51 | 0.68 | 4/8 |
+| Awkward pause | 0.94 | 0.60 | 0.73 | 5/7 |
+| Filler | 0.80 | 0.62 | 0.70 | 8/15 |
+| Muffled articulation | 1.00 | 0.52 | 0.69 | 0/2 |
+| Repeated onset | 0.75 | 0.44 | 0.56 | 2/7 |
+| **All flaws** | 0.89 | 0.58 | 0.70 | 32/58 |
 
-| Flaw | Precision | Recall | F1 | Mean tIoU | Boundary err (ms) |
-|---|---|---|---|---|---|
-| Rushed | 0.95 | 0.86 | 0.91 | 0.80 | 213 |
-| Dragging | 0.78 | 0.69 | 0.73 | 0.82 | 248 |
-| Monotone | 1.00 | 0.85 | 0.92 | 0.73 | 495 |
-| Trailing off | 0.88 | 0.68 | 0.77 | 0.67 | 475 |
-| Missing pauses | 0.66 | 0.62 | 0.64 | 0.99 | 3 |
-| Awkward pause | 0.78 | 0.77 | 0.77 | 0.80 | 117 |
-| Filler | 0.70 | 0.72 | 0.71 | 0.56 | 151 |
-| Muffled articulation | 1.00 | 0.52 | 0.69 | 0.77 | 370 |
-| Repeated onset | 0.51 | 0.61 | 0.55 | 0.84 | 21 |
-| **All flaws** | 0.75 | 0.71 | 0.73 | 0.74 | 150 |
+**Team recordings.** Each flawed take is compared with the same person's clean take. A manipulation check, with fixed criteria independent of the detector, found that 58 of 90 scripted flaws were actually performed (phone gain control erased most fades, and "mumbles" were usually whispered); only those are scored. Findings outside a scripted flaw count as false, yet in a blind listening audit 12 of 16 of them were heard as genuinely worse delivery, against 0 of 7 random spans. The listener named the same problem as the detector in only 17 % of those cases: SpeechLens locates unscripted problems more reliably than it labels them.
 
-Detection rises with severity as designed: severity 1 is near-perfect by construction and mostly passes; from severity 3 up, pace, monotone, pause and fluency flaws are found 60-100 % of the time (full table in the dashboard's Evaluation tab).
-
----
+Reproduce everything with `./reproduce.sh`. Full write-up: [`docs/SpeechLens_Technical_Documentation.pdf`](docs/SpeechLens_Technical_Documentation.pdf).
 
 ## Limitations
 

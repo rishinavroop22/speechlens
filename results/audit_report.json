@@ -1,0 +1,81 @@
+{
+ "raters": 1,
+ "items": 30,
+ "per_rater": {
+  "rater1": {
+   "extra": {
+    "n": 16,
+    "worse": 12,
+    "clear": 4,
+    "worse_rate": [
+     0.75,
+     0.505,
+     0.898
+    ]
+   },
+   "scripted": {
+    "n": 7,
+    "worse": 6,
+    "clear": 2,
+    "worse_rate": [
+     0.857,
+     0.487,
+     0.974
+    ]
+   },
+   "null": {
+    "n": 7,
+    "worse": 0,
+    "clear": 0,
+    "worse_rate": [
+     0.0,
+     0,
+     0.354
+    ]
+   }
+  }
+ },
+ "pooled": {
+  "extra": {
+   "worse": 12,
+   "n": 16,
+   "worse_rate": [
+    0.75,
+    0.505,
+    0.898
+   ]
+  },
+  "scripted": {
+   "worse": 6,
+   "n": 7,
+   "worse_rate": [
+    0.857,
+    0.487,
+    0.974
+   ]
+  },
+  "null": {
+   "worse": 0,
+   "n": 7,
+   "worse_rate": [
+    0.0,
+    0,
+    0.354
+   ]
+  }
+ },
+ "extra_real_corrected": 0.875,
+ "extra_type_agreement": [
+  0.167,
+  0.047,
+  0.448
+ ],
+ "human_precision_scripted_only": 0.221,
+ "human_precision_adjusted": 0.903,
+ "human_precision_adjusted_raw": 0.805,
+ "human_precision_range": [
+  0.614,
+  0.921
+ ],
+ "summary": "1 listener(s) from the team rated 30 snippets blind, each against the same words in the speaker's clean take. Findings outside any scripted flaw were heard as worse delivery 12/16 times (75 %, 95 % CI 50-90 %); scripted flaws 6/7; random spans with no finding 0/7, so listeners were not simply calling everything worse. Counting those as real, precision on the team recordings rises from 22 % (scripted flaws only) to an estimated 80 % (95 % range 61-92 %). The listener named the same problem as the detector in 17 % of those cases: SpeechLens locates unscripted problems more reliably than it labels them. With a single listener who knows the project, treat this as an estimate, not a measurement."
+}
