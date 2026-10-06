@@ -1,0 +1,82 @@
+{
+ "criteria": {
+  "rushed": {
+   "measure": "duration factor over the scripted sentence",
+   "criterion": "<= 0.88"
+  },
+  "dragging": {
+   "measure": "duration factor over the scripted sentence",
+   "criterion": ">= 1.12"
+  },
+  "monotone": {
+   "measure": "pitch range (p10-p90) ratio",
+   "criterion": "<= 0.65"
+  },
+  "trailing_off": {
+   "measure": "loudness change over the second half, dB",
+   "criterion": "<= -4.0"
+  },
+  "mumbling": {
+   "measure": "energy above 4 kHz ratio",
+   "criterion": "<= 0.7"
+  },
+  "pause_omission": {
+   "measure": "reference pauses >= 180 ms cut below 40 %",
+   "criterion": ">= 2"
+  },
+  "awkward_pause": {
+   "measure": "extra pause at the marked word, s",
+   "criterion": ">= 0.35"
+  },
+  "filler": {
+   "measure": "time added at the marked boundary, s",
+   "criterion": ">= 0.28"
+  },
+  "stutter": {
+   "measure": "time added before/in the marked word, s",
+   "criterion": ">= 0.15"
+  }
+ },
+ "performed": {
+  "rushed": {
+   "performed": 8,
+   "scripted": 9
+  },
+  "awkward_pause": {
+   "performed": 7,
+   "scripted": 9
+  },
+  "dragging": {
+   "performed": 5,
+   "scripted": 9
+  },
+  "monotone": {
+   "performed": 4,
+   "scripted": 9
+  },
+  "trailing_off": {
+   "performed": 2,
+   "scripted": 9
+  },
+  "mumbling": {
+   "performed": 2,
+   "scripted": 9
+  },
+  "filler": {
+   "performed": 15,
+   "scripted": 18
+  },
+  "stutter": {
+   "performed": 7,
+   "scripted": 9
+  },
+  "pause_omission": {
+   "performed": 8,
+   "scripted": 9
+  }
+ },
+ "total": {
+  "performed": 58,
+  "scripted": 90
+ }
+}

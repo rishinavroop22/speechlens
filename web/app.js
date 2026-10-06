@@ -78,7 +78,8 @@ function titleOf(id) { return (S.library.find((l) => l.id === id) || {}).title |
 
 function clipCaption(c) {
   if (c.kind === "control") return { b: "Unflawed control", s: c.control.replace(/_/g, " ") };
-  if (c.kind === "human") return { b: c.title || "Human recording", s: c.speaker ? `Recorded by ${c.speaker}` : "Team recording" };
+  if (c.kind === "human") return { b: `Team recording: ${c.speaker[0].toUpperCase() + c.speaker.slice(1)}, take ${c.take}`, s: c.labels.map((l) => NAMES[l.type]).join(", ") + " (vs own clean take)" };
+  if (c.kind === "human_reference") return { b: `Clean take: ${c.speaker}`, s: "reference for the takes above" };
   if (c.kind === "mixed") return { b: `Mixed flaws, level ${c.mix_level} of 8`, s: c.labels.map((l) => NAMES[l.type]).join(", ") };
   const l = c.labels[0];
   return { b: `${NAMES[l.type]}, severity ${l.severity}`, s: `${l.start.toFixed(1)}–${l.end.toFixed(1)} s` };
@@ -89,8 +90,8 @@ function renderSamples() {
   const bySrc = {};
   for (const c of S.manifest.clips) (bySrc[c.source] ||= []).push(c);
   for (const [src, cs] of Object.entries(bySrc)) {
-    const want = cs.filter((c) => c.kind === "human")
-      .concat(cs.filter((c) => c.kind === "mixed" && [2, 5, 8].includes(c.mix_level) && !/_r\d/.test(c.id)))
+    const want = cs.filter((c) => c.kind === "human" && c.speaker === "manya" && c.labels.some((l) => l.performed))
+      .concat(cs.filter((c) => c.kind === "mixed" && [4, 6, 8].includes(c.mix_level) && !/_r\d/.test(c.id)))
       .concat(cs.filter((c) => c.kind === "single" && c.labels[0].severity === 4 && ["rushed", "monotone", "filler", "trailing_off"].includes(c.labels[0].type)));
     pick.push([src, want.slice(0, 8)]);
   }
@@ -112,6 +113,8 @@ document.addEventListener("click", (e) => {
 
 async function analyzeSample(id) {
   S.sample = id;
+  const clip = S.manifest.clips.find((c) => c.id === id);
+  if (clip && !clip.reference_clip) $("#ref-select").value = clip.source;
   $$(".sample").forEach((b) => b.classList.toggle("active", b.dataset.id === id));
   const fd = new FormData();
   fd.append("sample_id", id);
@@ -163,7 +166,9 @@ async function run(fd, msg) {
     S.rep = rep;
     S.sel = -1;
     showReport();
-    setStatus(`Done. ${rep.regions.length} finding${rep.regions.length === 1 ? "" : "s"} in ${rep.duration.toFixed(1)} s of speech.`);
+    const clip = S.sample && S.manifest.clips.find((c) => c.id === S.sample);
+    const vs = clip && clip.reference_clip ? ` Compared with ${clip.speaker[0].toUpperCase() + clip.speaker.slice(1)}'s own clean take.` : "";
+    setStatus(`Done. ${rep.regions.length} finding${rep.regions.length === 1 ? "" : "s"} in ${rep.duration.toFixed(1)} s of speech.${vs}`);
   } catch (err) {
     setStatus(err.message, true);
   } finally {
@@ -268,7 +273,7 @@ function drawTape() {
     for (const l of r.truth) {
       const x0 = l.start * pps, x1 = Math.max(x0 + 3, l.end * pps);
       g.fillStyle = col(l.type);
-      g.globalAlpha = 0.9;
+      g.globalAlpha = l.performed === false ? 0.25 : 0.9;  // scripted but not performed: faint
       g.fillRect(x0, 4, x1 - x0, h - 8);
       g.globalAlpha = 1;
     }
@@ -461,30 +466,38 @@ async function renderEval() {
   const fpm = ctrlRows.reduce((a, [, c]) => a + c.false_regions, 0) / Math.max(1e-9, ctrlRows.reduce((a, [, c]) => a + c.minutes, 0));
   const rowsTbl = (g) => Object.entries(g).map(([t, r]) => `<tr><td>${t === "__all__" ? "<b>All flaws</b>" : NAMES[t]}</td><td>${pct(r.precision)}</td><td>${pct(r.recall)}</td><td>${pct(r.f1)}</td><td>${r.mean_tiou ?? "–"}</td><td>${r.boundary_err_ms ?? "–"}</td><td>${r.tp}/${r.tp + r.fn}</td></tr>`).join("");
   const heat = (v) => v === null ? "" : `background:color-mix(in srgb, var(--accent) ${Math.round(v * 70)}%, transparent)`;
+  const cv = e.cross_validated || null;
+  const syn = cv ? cv.cv_synthetic : g3;
+  const hum = cv ? cv.cv_human : null;
+  const mc = e.manipulation_check;
+  const simple = (g) => Object.entries(g).map(([t, r]) => `<tr><td>${t === "__all__" ? "<b>All flaws</b>" : NAMES[t]}</td><td>${pct(r.precision)}</td><td>${pct(r.recall)}</td><td>${pct(r.f1)}</td><td>${r.tp}/${r.tp + r.fn}</td></tr>`).join("");
   el.innerHTML = `
     <h1>How well it works</h1>
-    <p class="lede">Every number below comes from running the full pipeline on raw audio, including forced alignment of the flawed recording, across ${e.n_clips} dataset clips. Ground truth comes from the injection engine and the scripted human recordings.</p>
+    <p class="lede">Every number comes from the full pipeline on raw audio, including forced alignment of the flawed recording. Detection thresholds are fitted from data, so each result below is cross-validated: synthetic clips are scored with thresholds fitted without that speech, and human recordings with thresholds fitted without that recorder.</p>
     <div class="kpis">
-      <div class="kpi"><b>${pct(g3.__all__.f1)}</b><span>F1 for locating flaws, tIoU ≥ 0.3</span></div>
-      <div class="kpi"><b>${g3.__all__.boundary_err_ms ?? "–"} ms</b><span>median boundary error of matched flaws</span></div>
-      <div class="kpi"><b>${sv.spearman_load_vs_score ?? "–"}</b><span>Spearman ρ, flaw load vs score (lower score for worse delivery = negative)</span></div>
-      <div class="kpi"><b>${fpm.toFixed(2)}</b><span>false findings per minute on unflawed controls</span></div>
-      <div class="kpi"><b>${e.reproducible ? "Identical" : "Differs"}</b><span>output on re-run (${e.reproducibility_subset} clips, fresh process)</span></div>
+      <div class="kpi"><b>${pct(syn.__all__.f1)}</b><span>F1 locating synthetic flaws (precision ${pct(syn.__all__.precision)}), leave-one-speech-out</span></div>
+      ${hum ? `<div class="kpi"><b>${pct(hum.__all__.recall)}</b><span>of verified human flaws found (precision ${pct(hum.__all__.precision)} against scripted labels only), leave-one-speaker-out</span></div>` : ""}
+      <div class="kpi"><b>${cv ? cv.cv_controls_false_per_min : fpm.toFixed(2)}</b><span>false findings per minute on unflawed controls, including the voice shifted ±4 semitones</span></div>
+      <div class="kpi"><b>${sv.spearman_mix_level_vs_score ?? "–"}</b><span>Spearman ρ between flaw level and score (scores fall as delivery worsens)</span></div>
+      <div class="kpi"><b>${e.reproducible ? "Identical" : "Differs"}</b><span>output on a re-run in a fresh process</span></div>
     </div>
-    <h2>Temporal grounding, tIoU ≥ 0.3</h2>
-    <table class="et"><thead><tr><th>Flaw</th><th>Precision</th><th>Recall</th><th>F1</th><th>Mean tIoU</th><th>Boundary err (ms)</th><th>Found</th></tr></thead><tbody>${rowsTbl(g3)}</tbody></table>
-    <h2>Temporal grounding, tIoU ≥ 0.5</h2>
-    <table class="et"><thead><tr><th>Flaw</th><th>Precision</th><th>Recall</th><th>F1</th><th>Mean tIoU</th><th>Boundary err (ms)</th><th>Found</th></tr></thead><tbody>${rowsTbl(g5)}</tbody></table>
-    ${e["human_grounding_tiou_0.3"] ? `<h2>Human recordings, tIoU ≥ 0.3</h2><table class="et"><thead><tr><th>Flaw</th><th>Precision</th><th>Recall</th><th>F1</th><th>Mean tIoU</th><th>Boundary err (ms)</th><th>Found</th></tr></thead><tbody>${rowsTbl(e["human_grounding_tiou_0.3"])}</tbody></table>` : ""}
+    <h2>Synthetic flaws: cross-validated, tIoU ≥ 0.3</h2>
+    <table class="et"><thead><tr><th>Flaw</th><th>Precision</th><th>Recall</th><th>F1</th><th>Found</th></tr></thead><tbody>${simple(syn)}</tbody></table>
+    <p class="note">Temporal accuracy of matched flaws: mean tIoU ${g3.__all__.mean_tiou}, median boundary error ${g3.__all__.boundary_err_ms} ms.</p>
+    ${hum ? `<h2>Team recordings: cross-validated, tIoU ≥ 0.3</h2>
+    <p class="note">Three team members read three passages four times each: one clean take and three takes with scripted flaws. Each flawed take is compared with the same person's clean take. A manipulation check kept only flaws actually performed to at least severity-1 strength: ${mc ? `${mc.total.performed} of ${mc.total.scripted}` : "–"} were. Precision here counts any finding outside a scripted flaw as false, so unscripted slips the recorders made also count against it; a blind listening audit estimates the real rate.</p>
+    <table class="et"><thead><tr><th>Flaw</th><th>Precision</th><th>Recall</th><th>F1</th><th>Found</th></tr></thead><tbody>${simple(hum)}</tbody></table>` : ""}
+    ${mc ? `<h2>Manipulation check</h2><p class="note">How many scripted flaws each type's recordings actually contained, measured against the speaker's clean take with fixed criteria independent of the detector.</p>
+    <table class="et"><thead><tr><th>Flaw</th><th>Performed</th><th>Criterion</th></tr></thead><tbody>${Object.entries(mc.performed).map(([t, v]) => `<tr><td>${NAMES[t]}</td><td>${v.performed}/${v.scripted}</td><td>${esc(mc.criteria[t].measure)} ${esc(mc.criteria[t].criterion)}</td></tr>`).join("")}</tbody></table>` : ""}
+    ${e.audit ? `<h2>Blind listening audit</h2><p class="note">${esc(e.audit.summary)}</p>` : ""}
     <h2>Detection rate by severity</h2>
-    <p class="note">Severity 1 is designed to be near-perfect, so a low rate there is expected; the rate should climb toward severity 5.</p>
+    <p class="note">Severity 1 is designed to be near-perfect and sits inside the natural variation of a person rereading a text, so it is mostly not reported; the rate should climb toward severity 5.</p>
     <table class="et heat"><thead><tr><th>Flaw</th>${[1, 2, 3, 4, 5].map((s) => `<th>Severity ${s}</th>`).join("")}</tr></thead><tbody>
       ${Object.entries(e.recall_by_severity).map(([t, row]) => `<tr><td>${NAMES[t]}</td>${row.map((v) => `<td class="h" style="${heat(v)}">${pct(v)}</td>`).join("")}</tr>`).join("")}</tbody></table>
     <h2>Severity estimate</h2>
-    ${e.severity_calibration ? `<p class="note">Severity tables are fitted from data. Measured on speeches held out of the fit (leave-one-speech-out): mean absolute error ${e.severity_calibration.calibrated_leave_one_speech_out.mae} levels, ${pct(e.severity_calibration.calibrated_leave_one_speech_out.within_1)} within one level (n = ${e.severity_calibration.calibrated_leave_one_speech_out.n}). With the injection engine's own parameter tables instead: ${e.severity_calibration.default_tables.mae} levels, ${pct(e.severity_calibration.default_tables.within_1)} within one.</p>`
-      : `<p class="note">Mean absolute error ${e.severity.mae ?? "–"} levels; ${pct(e.severity.within_1)} within one level; bias ${e.severity.bias ?? "–"} (n = ${e.severity.n}).</p>`}
+    ${e.severity_calibration ? `<p class="note">Severity tables are fitted from data. On speeches held out of the fit: mean absolute error ${e.severity_calibration.calibrated_leave_one_speech_out.mae} levels, ${pct(e.severity_calibration.calibrated_leave_one_speech_out.within_1)} within one level (n = ${e.severity_calibration.calibrated_leave_one_speech_out.n}). With the injection engine's own parameter tables: ${e.severity_calibration.default_tables.mae} levels.</p>` : ""}
     <h2>Unflawed controls</h2>
-    <p class="note">The same reference delivery, unchanged or with the voice shifted 4 semitones up or down, or 12 dB quieter. A speaker-agnostic system should report nothing here.</p>
+    <p class="note">The same reference delivery, unchanged, with the voice shifted 4 semitones up or down, or 12 dB quieter. A speaker-agnostic system should report nothing here.</p>
     <table class="et"><thead><tr><th>Control</th><th>Clips</th><th>False findings</th><th>Per minute</th><th>Mean score</th></tr></thead><tbody>
       ${ctrlRows.map(([k, c]) => `<tr><td>${esc(k.replace(/_/g, " "))}</td><td>${c.clips}</td><td>${c.false_regions}</td><td>${c.false_per_min}</td><td>${c.mean_score}</td></tr>`).join("")}</tbody></table>
     <h2>Score follows delivery quality</h2>

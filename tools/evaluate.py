@@ -32,13 +32,32 @@ ROOT = Path(__file__).resolve().parent.parent
 DS, LIB, OUT = ROOT / "data/dataset", ROOT / "data/library", ROOT / "results"
 
 
-def run_clip(clip):
+def run_clip(clip, cross_speaker=False):
+    """Analyse one clip against its reference: the person's own clean take for
+    human recordings (unless cross_speaker), else the gold speech."""
     from speechlens.pipeline import evaluate
     src = LIB / clip["source"]
-    rep = evaluate(audio.load(src / "audio.wav"), (src / "transcript.txt").read_text(),
-                   audio.load(DS / "clips" / f"{clip['id']}.wav"), None, "declamation")
+    if clip.get("reference_clip") and not cross_speaker:
+        ref_y, ref_t = audio.load(DS / "clips" / f"{clip['reference_clip']}.wav"), clip["transcript"]
+    else:
+        ref_y, ref_t = audio.load(src / "audio.wav"), (src / "transcript.txt").read_text()
+    rep = evaluate(ref_y, ref_t, audio.load(DS / "clips" / f"{clip['id']}.wav"), clip.get("transcript"), "declamation")
     preds = [{k: r[k] for k in ("type", "start", "end", "severity", "scope", "confidence", "magnitude")} for r in rep["regions"]]
     return {"id": clip["id"], "preds": preds, "score": rep["score"], "align_method": rep["align_method"]}
+
+
+def run_clip_cross(clip):
+    return run_clip(clip, cross_speaker=True)
+
+
+def human_view(c, local):
+    """Verified view of a human take: only labels that passed the manipulation
+    check (tools/verify_human.py) count; a prediction matching an unperformed
+    label is neither rewarded nor penalised (we don't know what was said)."""
+    perf = [l for l in c["labels"] if l.get("performed", True)]
+    unperf = [l for l in c["labels"] if not l.get("performed", True)]
+    drop = {j for _, j, _ in match(unperf, local, 0.3)}
+    return perf, [p for j, p in enumerate(local) if j not in drop]
 
 
 def tiou(a, b):
@@ -77,11 +96,13 @@ def main():
     import os
     os.environ.setdefault("SPEECHLENS_THREADS", str(max(1, (os.cpu_count() or 1) // args.workers)))
     with ProcessPoolExecutor(args.workers) as ex:
-        results = list(ex.map(run_clip, clips, chunksize=2))
+        results = list(ex.map(run_clip, [c for c in clips if c["kind"] != "human_reference"], chunksize=2))
+        human_cross = list(ex.map(run_clip_cross, [c for c in clips if c["kind"] == "human"], chunksize=2))
     by_id = {r["id"]: r for r in results}
 
     # reproducibility: rerun a subset in a fresh process pool, compare bytes
-    subset = clips[:: max(1, len(clips) // 8)][:8]
+    runnable = [c for c in clips if c["kind"] != "human_reference"]
+    subset = runnable[:: max(1, len(runnable) // 8)][:8]
     with ProcessPoolExecutor(1) as ex:
         again = list(ex.map(run_clip, subset))
     h = lambda r: hashlib.sha1(json.dumps(r, sort_keys=True).encode()).hexdigest()
@@ -92,14 +113,17 @@ def main():
     flawed = [c for c in clips if c["labels"] and c["kind"] != "human"]
     human = [c for c in clips if c["kind"] == "human"]
 
-    def grounding(cs, thr):
+    def grounding(cs, thr, verified=False):
         rows = {}
         for ft in FLAW_TYPES + ["__all__"]:
             tp = fp = fn = 0
             ious, berr = [], []
             for c in cs:
                 local = [p for p in by_id[c["id"]]["preds"] if p["scope"] == "local"]
-                T = [l for l in c["labels"] if ft in ("__all__", l["type"])]
+                labels = c["labels"]
+                if verified:
+                    labels, local = human_view(c, local)
+                T = [l for l in labels if ft in ("__all__", l["type"])]
                 Pp = [p for p in local if ft in ("__all__", p["type"])]
                 m = match(T, Pp, thr)
                 tp += len(m)
@@ -120,7 +144,40 @@ def main():
     report["grounding_tiou_0.3"] = grounding(flawed, 0.3)
     report["grounding_tiou_0.5"] = grounding(flawed, 0.5)
     if human:
-        report["human_grounding_tiou_0.3"] = grounding(human, 0.3)
+        report["human_grounding_tiou_0.3"] = grounding(human, 0.3, verified=True)
+        report["human_grounding_tiou_0.5"] = grounding(human, 0.5, verified=True)
+        report["human_grounding_all_scripted_tiou_0.3"] = grounding(human, 0.3)
+        # cross-speaker: the same human takes scored against the original
+        # president's recording; scripted flaws found = recall (other findings
+        # there are real differences from the orator, not labelled)
+        cross = {r["id"]: r for r in human_cross}
+        hit = tot = 0
+        per = {}
+        for c in human:
+            local = [p for p in cross[c["id"]]["preds"] if p["scope"] == "local"]
+            m = match(c["labels"], local, 0.3)
+            hit += len(m)
+            tot += len(c["labels"])
+            for l_i, l in enumerate(c["labels"]):
+                e = per.setdefault(l["type"], [0, 0])
+                e[1] += 1
+                e[0] += any(i == l_i for i, _, _ in m)
+        report["human_cross_speaker"] = {"recall": round(hit / tot, 3) if tot else None, "found": hit, "total": tot,
+                                         "recall_by_type": {k: round(v[0] / v[1], 3) for k, v in per.items()},
+                                         "findings_per_min": round(sum(len([p for p in cross[c["id"]]["preds"]]) for c in human)
+                                                                   / max(1e-9, sum(c["duration"] for c in human) / 60), 2)}
+        # per-recorder breakdown, own-reference mode
+        spk = {}
+        for c in human:
+            local = [p for p in by_id[c["id"]]["preds"] if p["scope"] == "local"]
+            m = match(c["labels"], local, 0.3)
+            e = spk.setdefault(c["speaker"], {"tp": 0, "labels": 0, "preds": 0})
+            e["tp"] += len(m)
+            e["labels"] += len(c["labels"])
+            e["preds"] += len(local)
+        report["human_by_speaker"] = {k: {"recall": round(v["tp"] / v["labels"], 3),
+                                          "precision": round(v["tp"] / v["preds"], 3) if v["preds"] else None}
+                                      for k, v in spk.items()}
 
     # sensitivity by severity (single-flaw clips, tIoU >= 0.3)
     sens = {}
@@ -167,8 +224,9 @@ def main():
     report["controls"] = ctrl
 
     # score validity
-    load = [sum(l["severity"] for l in c["labels"]) for c in clips if c["kind"] != "human"]
-    sc = [by_id[c["id"]]["score"]["overall"] for c in clips if c["kind"] != "human"]
+    syn = [c for c in clips if c["kind"] in ("single", "mixed", "control")]
+    load = [sum(l["severity"] for l in c["labels"]) for c in syn]
+    sc = [by_id[c["id"]]["score"]["overall"] for c in syn]
     rho, p = spearman(load, sc) if len(set(load)) > 1 else (None, None)
     mix = [c for c in clips if c["kind"] == "mixed"]
     mrho, mp = spearman([c["mix_level"] for c in mix], [by_id[c["id"]]["score"]["overall"] for c in mix]) if mix else (None, None)

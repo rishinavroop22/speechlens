@@ -1,0 +1,1790 @@
+{
+ "id": "human__manya_reagan_A",
+ "source": "reagan",
+ "kind": "human_reference",
+ "control": "human_clean",
+ "speaker": "manya",
+ "take": "A",
+ "title": "Manya, take A",
+ "duration": 72.49,
+ "labels": [],
+ "max_severity": 0,
+ "align_conf": 0.9,
+ "words": [
+  {
+   "i": 0,
+   "text": "Ladies",
+   "norm": "LADIES",
+   "start": 0.93,
+   "end": 1.38,
+   "conf": 0.9801,
+   "punct_after": null
+  },
+  {
+   "i": 1,
+   "text": "and",
+   "norm": "AND",
+   "start": 1.38,
+   "end": 1.5,
+   "conf": 0.899,
+   "punct_after": null
+  },
+  {
+   "i": 2,
+   "text": "gentlemen,",
+   "norm": "GENTLEMEN",
+   "start": 1.5,
+   "end": 2.05,
+   "conf": 0.9484,
+   "punct_after": "comma"
+  },
+  {
+   "i": 3,
+   "text": "I'd",
+   "norm": "I'D",
+   "start": 2.4,
+   "end": 2.63,
+   "conf": 0.6567,
+   "punct_after": null
+  },
+  {
+   "i": 4,
+   "text": "planned",
+   "norm": "PLANNED",
+   "start": 2.68,
+   "end": 2.96,
+   "conf": 0.9717,
+   "punct_after": null
+  },
+  {
+   "i": 5,
+   "text": "to",
+   "norm": "TO",
+   "start": 2.96,
+   "end": 3.08,
+   "conf": 0.98,
+   "punct_after": null
+  },
+  {
+   "i": 6,
+   "text": "speak",
+   "norm": "SPEAK",
+   "start": 3.08,
+   "end": 3.33,
+   "conf": 0.9932,
+   "punct_after": null
+  },
+  {
+   "i": 7,
+   "text": "to",
+   "norm": "TO",
+   "start": 3.4,
+   "end": 3.5,
+   "conf": 0.9983,
+   "punct_after": null
+  },
+  {
+   "i": 8,
+   "text": "you",
+   "norm": "YOU",
+   "start": 3.5,
+   "end": 3.7,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 9,
+   "text": "tonight",
+   "norm": "TONIGHT",
+   "start": 3.7,
+   "end": 4.12,
+   "conf": 0.9977,
+   "punct_after": null
+  },
+  {
+   "i": 10,
+   "text": "to",
+   "norm": "TO",
+   "start": 4.16,
+   "end": 4.32,
+   "conf": 0.9989,
+   "punct_after": null
+  },
+  {
+   "i": 11,
+   "text": "report",
+   "norm": "REPORT",
+   "start": 4.32,
+   "end": 4.69,
+   "conf": 0.6857,
+   "punct_after": null
+  },
+  {
+   "i": 12,
+   "text": "on",
+   "norm": "ON",
+   "start": 4.71,
+   "end": 4.88,
+   "conf": 0.9473,
+   "punct_after": null
+  },
+  {
+   "i": 13,
+   "text": "the",
+   "norm": "THE",
+   "start": 4.88,
+   "end": 5.0,
+   "conf": 0.9988,
+   "punct_after": null
+  },
+  {
+   "i": 14,
+   "text": "state",
+   "norm": "STATE",
+   "start": 5.0,
+   "end": 5.3,
+   "conf": 0.991,
+   "punct_after": null
+  },
+  {
+   "i": 15,
+   "text": "of",
+   "norm": "OF",
+   "start": 5.3,
+   "end": 5.38,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 16,
+   "text": "the",
+   "norm": "THE",
+   "start": 5.4,
+   "end": 5.66,
+   "conf": 0.9849,
+   "punct_after": null
+  },
+  {
+   "i": 17,
+   "text": "Union,",
+   "norm": "UNION",
+   "start": 5.66,
+   "end": 5.97,
+   "conf": 0.9599,
+   "punct_after": "comma"
+  },
+  {
+   "i": 18,
+   "text": "but",
+   "norm": "BUT",
+   "start": 6.39,
+   "end": 6.71,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 19,
+   "text": "the",
+   "norm": "THE",
+   "start": 6.79,
+   "end": 7.02,
+   "conf": 0.8755,
+   "punct_after": null
+  },
+  {
+   "i": 20,
+   "text": "events",
+   "norm": "EVENTS",
+   "start": 7.05,
+   "end": 7.5,
+   "conf": 0.8762,
+   "punct_after": null
+  },
+  {
+   "i": 21,
+   "text": "of",
+   "norm": "OF",
+   "start": 7.5,
+   "end": 7.68,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 22,
+   "text": "earlier",
+   "norm": "EARLIER",
+   "start": 7.68,
+   "end": 8.01,
+   "conf": 0.949,
+   "punct_after": null
+  },
+  {
+   "i": 23,
+   "text": "today",
+   "norm": "TODAY",
+   "start": 8.01,
+   "end": 8.34,
+   "conf": 0.9966,
+   "punct_after": null
+  },
+  {
+   "i": 24,
+   "text": "have",
+   "norm": "HAVE",
+   "start": 8.34,
+   "end": 8.53,
+   "conf": 0.998,
+   "punct_after": null
+  },
+  {
+   "i": 25,
+   "text": "led",
+   "norm": "LED",
+   "start": 8.53,
+   "end": 8.77,
+   "conf": 0.9435,
+   "punct_after": null
+  },
+  {
+   "i": 26,
+   "text": "me",
+   "norm": "ME",
+   "start": 8.77,
+   "end": 8.93,
+   "conf": 1.0,
+   "punct_after": null
+  },
+  {
+   "i": 27,
+   "text": "to",
+   "norm": "TO",
+   "start": 8.93,
+   "end": 9.08,
+   "conf": 0.9984,
+   "punct_after": null
+  },
+  {
+   "i": 28,
+   "text": "change",
+   "norm": "CHANGE",
+   "start": 9.08,
+   "end": 9.4,
+   "conf": 0.9657,
+   "punct_after": null
+  },
+  {
+   "i": 29,
+   "text": "those",
+   "norm": "THOSE",
+   "start": 9.43,
+   "end": 9.64,
+   "conf": 0.9119,
+   "punct_after": null
+  },
+  {
+   "i": 30,
+   "text": "plans.",
+   "norm": "PLANS",
+   "start": 9.69,
+   "end": 10.06,
+   "conf": 0.9375,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 31,
+   "text": "Today",
+   "norm": "TODAY",
+   "start": 10.66,
+   "end": 11.14,
+   "conf": 0.9767,
+   "punct_after": null
+  },
+  {
+   "i": 32,
+   "text": "is",
+   "norm": "IS",
+   "start": 11.14,
+   "end": 11.3,
+   "conf": 0.9998,
+   "punct_after": null
+  },
+  {
+   "i": 33,
+   "text": "a",
+   "norm": "A",
+   "start": 11.3,
+   "end": 11.38,
+   "conf": 0.991,
+   "punct_after": null
+  },
+  {
+   "i": 34,
+   "text": "day",
+   "norm": "DAY",
+   "start": 11.38,
+   "end": 11.6,
+   "conf": 0.9552,
+   "punct_after": null
+  },
+  {
+   "i": 35,
+   "text": "for",
+   "norm": "FOR",
+   "start": 11.6,
+   "end": 11.78,
+   "conf": 0.9951,
+   "punct_after": null
+  },
+  {
+   "i": 36,
+   "text": "mourning",
+   "norm": "MOURNING",
+   "start": 11.78,
+   "end": 12.3,
+   "conf": 0.9039,
+   "punct_after": null
+  },
+  {
+   "i": 37,
+   "text": "and",
+   "norm": "AND",
+   "start": 12.3,
+   "end": 12.44,
+   "conf": 0.8621,
+   "punct_after": null
+  },
+  {
+   "i": 38,
+   "text": "remembering.",
+   "norm": "REMEMBERING",
+   "start": 12.44,
+   "end": 12.98,
+   "conf": 0.9061,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 39,
+   "text": "Nancy",
+   "norm": "NANCY",
+   "start": 13.62,
+   "end": 14.02,
+   "conf": 0.928,
+   "punct_after": null
+  },
+  {
+   "i": 40,
+   "text": "and",
+   "norm": "AND",
+   "start": 14.02,
+   "end": 14.22,
+   "conf": 0.9108,
+   "punct_after": null
+  },
+  {
+   "i": 41,
+   "text": "I",
+   "norm": "I",
+   "start": 14.22,
+   "end": 14.36,
+   "conf": 0.9994,
+   "punct_after": null
+  },
+  {
+   "i": 42,
+   "text": "are",
+   "norm": "ARE",
+   "start": 14.36,
+   "end": 14.45,
+   "conf": 0.5052,
+   "punct_after": null
+  },
+  {
+   "i": 43,
+   "text": "pained",
+   "norm": "PAINED",
+   "start": 14.5,
+   "end": 14.78,
+   "conf": 0.8082,
+   "punct_after": null
+  },
+  {
+   "i": 44,
+   "text": "to",
+   "norm": "TO",
+   "start": 14.78,
+   "end": 14.92,
+   "conf": 0.9989,
+   "punct_after": null
+  },
+  {
+   "i": 45,
+   "text": "the",
+   "norm": "THE",
+   "start": 14.92,
+   "end": 15.06,
+   "conf": 0.9958,
+   "punct_after": null
+  },
+  {
+   "i": 46,
+   "text": "core",
+   "norm": "CORE",
+   "start": 15.06,
+   "end": 15.4,
+   "conf": 0.481,
+   "punct_after": null
+  },
+  {
+   "i": 47,
+   "text": "by",
+   "norm": "BY",
+   "start": 15.4,
+   "end": 15.6,
+   "conf": 0.9991,
+   "punct_after": null
+  },
+  {
+   "i": 48,
+   "text": "the",
+   "norm": "THE",
+   "start": 15.6,
+   "end": 15.74,
+   "conf": 0.9994,
+   "punct_after": null
+  },
+  {
+   "i": 49,
+   "text": "tragedy",
+   "norm": "TRAGEDY",
+   "start": 15.74,
+   "end": 16.26,
+   "conf": 0.9994,
+   "punct_after": null
+  },
+  {
+   "i": 50,
+   "text": "of",
+   "norm": "OF",
+   "start": 16.26,
+   "end": 16.39,
+   "conf": 0.9977,
+   "punct_after": null
+  },
+  {
+   "i": 51,
+   "text": "the",
+   "norm": "THE",
+   "start": 16.39,
+   "end": 16.53,
+   "conf": 0.9959,
+   "punct_after": null
+  },
+  {
+   "i": 52,
+   "text": "shuttle",
+   "norm": "SHUTTLE",
+   "start": 16.53,
+   "end": 16.89,
+   "conf": 0.9213,
+   "punct_after": null
+  },
+  {
+   "i": 53,
+   "text": "Challenger.",
+   "norm": "CHALLENGER",
+   "start": 16.89,
+   "end": 17.42,
+   "conf": 0.9621,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 54,
+   "text": "We",
+   "norm": "WE",
+   "start": 18.1,
+   "end": 18.28,
+   "conf": 0.9557,
+   "punct_after": null
+  },
+  {
+   "i": 55,
+   "text": "know",
+   "norm": "KNOW",
+   "start": 18.28,
+   "end": 18.5,
+   "conf": 0.9388,
+   "punct_after": null
+  },
+  {
+   "i": 56,
+   "text": "we",
+   "norm": "WE",
+   "start": 18.5,
+   "end": 18.7,
+   "conf": 0.9995,
+   "punct_after": null
+  },
+  {
+   "i": 57,
+   "text": "share",
+   "norm": "SHARE",
+   "start": 18.7,
+   "end": 19.0,
+   "conf": 0.9577,
+   "punct_after": null
+  },
+  {
+   "i": 58,
+   "text": "this",
+   "norm": "THIS",
+   "start": 19.0,
+   "end": 19.16,
+   "conf": 0.5024,
+   "punct_after": null
+  },
+  {
+   "i": 59,
+   "text": "pain",
+   "norm": "PAIN",
+   "start": 19.21,
+   "end": 19.48,
+   "conf": 0.9938,
+   "punct_after": null
+  },
+  {
+   "i": 60,
+   "text": "with",
+   "norm": "WITH",
+   "start": 19.48,
+   "end": 19.67,
+   "conf": 0.9477,
+   "punct_after": null
+  },
+  {
+   "i": 61,
+   "text": "all",
+   "norm": "ALL",
+   "start": 19.81,
+   "end": 20.1,
+   "conf": 0.9998,
+   "punct_after": null
+  },
+  {
+   "i": 62,
+   "text": "of",
+   "norm": "OF",
+   "start": 20.1,
+   "end": 20.21,
+   "conf": 0.7779,
+   "punct_after": null
+  },
+  {
+   "i": 63,
+   "text": "the",
+   "norm": "THE",
+   "start": 20.21,
+   "end": 20.34,
+   "conf": 0.995,
+   "punct_after": null
+  },
+  {
+   "i": 64,
+   "text": "people",
+   "norm": "PEOPLE",
+   "start": 20.34,
+   "end": 20.72,
+   "conf": 0.999,
+   "punct_after": null
+  },
+  {
+   "i": 65,
+   "text": "of",
+   "norm": "OF",
+   "start": 20.72,
+   "end": 20.88,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 66,
+   "text": "our",
+   "norm": "OUR",
+   "start": 20.88,
+   "end": 21.0,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 67,
+   "text": "country.",
+   "norm": "COUNTRY",
+   "start": 21.01,
+   "end": 21.42,
+   "conf": 0.9789,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 68,
+   "text": "This",
+   "norm": "THIS",
+   "start": 21.94,
+   "end": 22.29,
+   "conf": 0.9982,
+   "punct_after": null
+  },
+  {
+   "i": 69,
+   "text": "is",
+   "norm": "IS",
+   "start": 22.36,
+   "end": 22.56,
+   "conf": 0.9889,
+   "punct_after": null
+  },
+  {
+   "i": 70,
+   "text": "truly",
+   "norm": "TRULY",
+   "start": 22.56,
+   "end": 23.03,
+   "conf": 0.8918,
+   "punct_after": null
+  },
+  {
+   "i": 71,
+   "text": "a",
+   "norm": "A",
+   "start": 23.06,
+   "end": 23.2,
+   "conf": 0.9992,
+   "punct_after": null
+  },
+  {
+   "i": 72,
+   "text": "national",
+   "norm": "NATIONAL",
+   "start": 23.2,
+   "end": 23.66,
+   "conf": 0.9758,
+   "punct_after": null
+  },
+  {
+   "i": 73,
+   "text": "loss.",
+   "norm": "LOSS",
+   "start": 23.66,
+   "end": 23.94,
+   "conf": 0.9568,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 74,
+   "text": "Nineteen",
+   "norm": "NINETEEN",
+   "start": 24.47,
+   "end": 24.88,
+   "conf": 0.9501,
+   "punct_after": null
+  },
+  {
+   "i": 75,
+   "text": "years",
+   "norm": "YEARS",
+   "start": 24.88,
+   "end": 25.2,
+   "conf": 0.9994,
+   "punct_after": null
+  },
+  {
+   "i": 76,
+   "text": "ago,",
+   "norm": "AGO",
+   "start": 25.2,
+   "end": 25.49,
+   "conf": 0.9926,
+   "punct_after": "comma"
+  },
+  {
+   "i": 77,
+   "text": "almost",
+   "norm": "ALMOST",
+   "start": 25.65,
+   "end": 26.1,
+   "conf": 0.9428,
+   "punct_after": null
+  },
+  {
+   "i": 78,
+   "text": "to",
+   "norm": "TO",
+   "start": 26.1,
+   "end": 26.24,
+   "conf": 0.8919,
+   "punct_after": null
+  },
+  {
+   "i": 79,
+   "text": "the",
+   "norm": "THE",
+   "start": 26.24,
+   "end": 26.36,
+   "conf": 0.9053,
+   "punct_after": null
+  },
+  {
+   "i": 80,
+   "text": "day,",
+   "norm": "DAY",
+   "start": 26.36,
+   "end": 26.53,
+   "conf": 0.9688,
+   "punct_after": "comma"
+  },
+  {
+   "i": 81,
+   "text": "we",
+   "norm": "WE",
+   "start": 26.78,
+   "end": 26.94,
+   "conf": 0.9718,
+   "punct_after": null
+  },
+  {
+   "i": 82,
+   "text": "lost",
+   "norm": "LOST",
+   "start": 26.94,
+   "end": 27.2,
+   "conf": 0.9735,
+   "punct_after": null
+  },
+  {
+   "i": 83,
+   "text": "three",
+   "norm": "THREE",
+   "start": 27.24,
+   "end": 27.6,
+   "conf": 0.9932,
+   "punct_after": null
+  },
+  {
+   "i": 84,
+   "text": "astronauts",
+   "norm": "ASTRONAUTS",
+   "start": 27.6,
+   "end": 28.08,
+   "conf": 0.6364,
+   "punct_after": null
+  },
+  {
+   "i": 85,
+   "text": "in",
+   "norm": "IN",
+   "start": 28.17,
+   "end": 28.34,
+   "conf": 0.9985,
+   "punct_after": null
+  },
+  {
+   "i": 86,
+   "text": "a",
+   "norm": "A",
+   "start": 28.34,
+   "end": 28.44,
+   "conf": 0.9824,
+   "punct_after": null
+  },
+  {
+   "i": 87,
+   "text": "terrible",
+   "norm": "TERRIBLE",
+   "start": 28.44,
+   "end": 28.94,
+   "conf": 0.6602,
+   "punct_after": null
+  },
+  {
+   "i": 88,
+   "text": "accident",
+   "norm": "ACCIDENT",
+   "start": 28.94,
+   "end": 29.41,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 89,
+   "text": "on",
+   "norm": "ON",
+   "start": 29.43,
+   "end": 29.6,
+   "conf": 0.9983,
+   "punct_after": null
+  },
+  {
+   "i": 90,
+   "text": "the",
+   "norm": "THE",
+   "start": 29.6,
+   "end": 29.72,
+   "conf": 0.9986,
+   "punct_after": null
+  },
+  {
+   "i": 91,
+   "text": "ground.",
+   "norm": "GROUND",
+   "start": 29.72,
+   "end": 30.04,
+   "conf": 0.9549,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 92,
+   "text": "But",
+   "norm": "BUT",
+   "start": 30.64,
+   "end": 30.82,
+   "conf": 0.9212,
+   "punct_after": null
+  },
+  {
+   "i": 93,
+   "text": "we've",
+   "norm": "WE'VE",
+   "start": 30.82,
+   "end": 31.07,
+   "conf": 0.8324,
+   "punct_after": null
+  },
+  {
+   "i": 94,
+   "text": "never",
+   "norm": "NEVER",
+   "start": 31.07,
+   "end": 31.32,
+   "conf": 0.9939,
+   "punct_after": null
+  },
+  {
+   "i": 95,
+   "text": "lost",
+   "norm": "LOST",
+   "start": 31.32,
+   "end": 31.6,
+   "conf": 0.4589,
+   "punct_after": null
+  },
+  {
+   "i": 96,
+   "text": "an",
+   "norm": "AN",
+   "start": 31.6,
+   "end": 31.74,
+   "conf": 0.6381,
+   "punct_after": null
+  },
+  {
+   "i": 97,
+   "text": "astronaut",
+   "norm": "ASTRONAUT",
+   "start": 31.74,
+   "end": 32.23,
+   "conf": 0.52,
+   "punct_after": null
+  },
+  {
+   "i": 98,
+   "text": "in",
+   "norm": "IN",
+   "start": 32.28,
+   "end": 32.47,
+   "conf": 0.9398,
+   "punct_after": null
+  },
+  {
+   "i": 99,
+   "text": "flight;",
+   "norm": "FLIGHT",
+   "start": 32.47,
+   "end": 32.78,
+   "conf": 0.9904,
+   "punct_after": "clause"
+  },
+  {
+   "i": 100,
+   "text": "we've",
+   "norm": "WE'VE",
+   "start": 32.97,
+   "end": 33.2,
+   "conf": 0.8393,
+   "punct_after": null
+  },
+  {
+   "i": 101,
+   "text": "never",
+   "norm": "NEVER",
+   "start": 33.2,
+   "end": 33.47,
+   "conf": 0.992,
+   "punct_after": null
+  },
+  {
+   "i": 102,
+   "text": "had",
+   "norm": "HAD",
+   "start": 33.47,
+   "end": 33.74,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 103,
+   "text": "a",
+   "norm": "A",
+   "start": 33.74,
+   "end": 33.82,
+   "conf": 0.9683,
+   "punct_after": null
+  },
+  {
+   "i": 104,
+   "text": "tragedy",
+   "norm": "TRAGEDY",
+   "start": 33.82,
+   "end": 34.38,
+   "conf": 0.8632,
+   "punct_after": null
+  },
+  {
+   "i": 105,
+   "text": "like",
+   "norm": "LIKE",
+   "start": 34.38,
+   "end": 34.59,
+   "conf": 0.9966,
+   "punct_after": null
+  },
+  {
+   "i": 106,
+   "text": "this.",
+   "norm": "THIS",
+   "start": 34.65,
+   "end": 34.95,
+   "conf": 0.961,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 107,
+   "text": "And",
+   "norm": "AND",
+   "start": 35.59,
+   "end": 35.8,
+   "conf": 0.8787,
+   "punct_after": null
+  },
+  {
+   "i": 108,
+   "text": "perhaps",
+   "norm": "PERHAPS",
+   "start": 35.81,
+   "end": 36.44,
+   "conf": 0.9954,
+   "punct_after": null
+  },
+  {
+   "i": 109,
+   "text": "we've",
+   "norm": "WE'VE",
+   "start": 36.47,
+   "end": 36.7,
+   "conf": 0.4568,
+   "punct_after": null
+  },
+  {
+   "i": 110,
+   "text": "forgotten",
+   "norm": "FORGOTTEN",
+   "start": 36.7,
+   "end": 37.36,
+   "conf": 0.9264,
+   "punct_after": null
+  },
+  {
+   "i": 111,
+   "text": "the",
+   "norm": "THE",
+   "start": 37.36,
+   "end": 37.5,
+   "conf": 0.9978,
+   "punct_after": null
+  },
+  {
+   "i": 112,
+   "text": "courage",
+   "norm": "COURAGE",
+   "start": 37.5,
+   "end": 37.86,
+   "conf": 0.7243,
+   "punct_after": null
+  },
+  {
+   "i": 113,
+   "text": "it",
+   "norm": "IT",
+   "start": 37.86,
+   "end": 37.93,
+   "conf": 0.9837,
+   "punct_after": null
+  },
+  {
+   "i": 114,
+   "text": "took",
+   "norm": "TOOK",
+   "start": 37.97,
+   "end": 38.16,
+   "conf": 0.9995,
+   "punct_after": null
+  },
+  {
+   "i": 115,
+   "text": "for",
+   "norm": "FOR",
+   "start": 38.18,
+   "end": 38.34,
+   "conf": 0.9993,
+   "punct_after": null
+  },
+  {
+   "i": 116,
+   "text": "the",
+   "norm": "THE",
+   "start": 38.34,
+   "end": 38.45,
+   "conf": 0.9978,
+   "punct_after": null
+  },
+  {
+   "i": 117,
+   "text": "crew",
+   "norm": "CREW",
+   "start": 38.47,
+   "end": 38.82,
+   "conf": 0.4855,
+   "punct_after": null
+  },
+  {
+   "i": 118,
+   "text": "of",
+   "norm": "OF",
+   "start": 38.82,
+   "end": 38.93,
+   "conf": 0.9995,
+   "punct_after": null
+  },
+  {
+   "i": 119,
+   "text": "the",
+   "norm": "THE",
+   "start": 38.93,
+   "end": 39.06,
+   "conf": 0.9905,
+   "punct_after": null
+  },
+  {
+   "i": 120,
+   "text": "shuttle.",
+   "norm": "SHUTTLE",
+   "start": 39.06,
+   "end": 39.42,
+   "conf": 0.6798,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 121,
+   "text": "But",
+   "norm": "BUT",
+   "start": 40.07,
+   "end": 40.28,
+   "conf": 0.9925,
+   "punct_after": null
+  },
+  {
+   "i": 122,
+   "text": "they,",
+   "norm": "THEY",
+   "start": 40.29,
+   "end": 40.61,
+   "conf": 0.9096,
+   "punct_after": "comma"
+  },
+  {
+   "i": 123,
+   "text": "the",
+   "norm": "THE",
+   "start": 40.9,
+   "end": 41.04,
+   "conf": 0.9993,
+   "punct_after": null
+  },
+  {
+   "i": 124,
+   "text": "Challenger",
+   "norm": "CHALLENGER",
+   "start": 41.04,
+   "end": 41.58,
+   "conf": 0.885,
+   "punct_after": null
+  },
+  {
+   "i": 125,
+   "text": "Seven,",
+   "norm": "SEVEN",
+   "start": 41.58,
+   "end": 41.97,
+   "conf": 0.9997,
+   "punct_after": "comma"
+  },
+  {
+   "i": 126,
+   "text": "were",
+   "norm": "WERE",
+   "start": 42.16,
+   "end": 42.42,
+   "conf": 0.2657,
+   "punct_after": null
+  },
+  {
+   "i": 127,
+   "text": "aware",
+   "norm": "AWARE",
+   "start": 42.42,
+   "end": 42.84,
+   "conf": 0.2971,
+   "punct_after": null
+  },
+  {
+   "i": 128,
+   "text": "of",
+   "norm": "OF",
+   "start": 42.84,
+   "end": 42.92,
+   "conf": 0.9993,
+   "punct_after": null
+  },
+  {
+   "i": 129,
+   "text": "the",
+   "norm": "THE",
+   "start": 42.95,
+   "end": 43.1,
+   "conf": 0.9734,
+   "punct_after": null
+  },
+  {
+   "i": 130,
+   "text": "dangers,",
+   "norm": "DANGERS",
+   "start": 43.1,
+   "end": 43.57,
+   "conf": 0.9575,
+   "punct_after": "comma"
+  },
+  {
+   "i": 131,
+   "text": "but",
+   "norm": "BUT",
+   "start": 43.81,
+   "end": 44.12,
+   "conf": 0.9765,
+   "punct_after": null
+  },
+  {
+   "i": 132,
+   "text": "overcame",
+   "norm": "OVERCAME",
+   "start": 44.12,
+   "end": 44.6,
+   "conf": 0.9904,
+   "punct_after": null
+  },
+  {
+   "i": 133,
+   "text": "them",
+   "norm": "THEM",
+   "start": 44.6,
+   "end": 44.92,
+   "conf": 0.9566,
+   "punct_after": null
+  },
+  {
+   "i": 134,
+   "text": "and",
+   "norm": "AND",
+   "start": 44.92,
+   "end": 45.02,
+   "conf": 0.8514,
+   "punct_after": null
+  },
+  {
+   "i": 135,
+   "text": "did",
+   "norm": "DID",
+   "start": 45.02,
+   "end": 45.2,
+   "conf": 0.868,
+   "punct_after": null
+  },
+  {
+   "i": 136,
+   "text": "their",
+   "norm": "THEIR",
+   "start": 45.2,
+   "end": 45.38,
+   "conf": 0.8908,
+   "punct_after": null
+  },
+  {
+   "i": 137,
+   "text": "jobs",
+   "norm": "JOBS",
+   "start": 45.38,
+   "end": 45.71,
+   "conf": 0.9251,
+   "punct_after": null
+  },
+  {
+   "i": 138,
+   "text": "brilliantly.",
+   "norm": "BRILLIANTLY",
+   "start": 45.73,
+   "end": 46.42,
+   "conf": 0.9738,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 139,
+   "text": "We",
+   "norm": "WE",
+   "start": 47.14,
+   "end": 47.34,
+   "conf": 0.9925,
+   "punct_after": null
+  },
+  {
+   "i": 140,
+   "text": "mourn",
+   "norm": "MOURN",
+   "start": 47.34,
+   "end": 47.68,
+   "conf": 0.9931,
+   "punct_after": null
+  },
+  {
+   "i": 141,
+   "text": "seven",
+   "norm": "SEVEN",
+   "start": 47.68,
+   "end": 48.04,
+   "conf": 0.9279,
+   "punct_after": null
+  },
+  {
+   "i": 142,
+   "text": "heroes:",
+   "norm": "HEROES",
+   "start": 48.04,
+   "end": 48.43,
+   "conf": 0.7803,
+   "punct_after": "clause"
+  },
+  {
+   "i": 143,
+   "text": "Michael",
+   "norm": "MICHAEL",
+   "start": 48.87,
+   "end": 49.26,
+   "conf": 0.9839,
+   "punct_after": null
+  },
+  {
+   "i": 144,
+   "text": "Smith,",
+   "norm": "SMITH",
+   "start": 49.26,
+   "end": 49.55,
+   "conf": 0.9413,
+   "punct_after": "comma"
+  },
+  {
+   "i": 145,
+   "text": "Dick",
+   "norm": "DICK",
+   "start": 49.87,
+   "end": 50.12,
+   "conf": 0.4786,
+   "punct_after": null
+  },
+  {
+   "i": 146,
+   "text": "Scobee,",
+   "norm": "SCOBEE",
+   "start": 50.12,
+   "end": 50.62,
+   "conf": 0.5172,
+   "punct_after": "comma"
+  },
+  {
+   "i": 147,
+   "text": "Judith",
+   "norm": "JUDITH",
+   "start": 51.05,
+   "end": 51.5,
+   "conf": 0.8923,
+   "punct_after": null
+  },
+  {
+   "i": 148,
+   "text": "Resnik,",
+   "norm": "RESNIK",
+   "start": 51.5,
+   "end": 51.97,
+   "conf": 0.51,
+   "punct_after": "comma"
+  },
+  {
+   "i": 149,
+   "text": "Ronald",
+   "norm": "RONALD",
+   "start": 52.21,
+   "end": 52.64,
+   "conf": 0.3841,
+   "punct_after": null
+  },
+  {
+   "i": 150,
+   "text": "McNair,",
+   "norm": "MCNAIR",
+   "start": 52.64,
+   "end": 53.16,
+   "conf": 0.516,
+   "punct_after": "comma"
+  },
+  {
+   "i": 151,
+   "text": "Ellison",
+   "norm": "ELLISON",
+   "start": 53.37,
+   "end": 53.92,
+   "conf": 0.7926,
+   "punct_after": null
+  },
+  {
+   "i": 152,
+   "text": "Onizuka,",
+   "norm": "ONIZUKA",
+   "start": 53.92,
+   "end": 54.59,
+   "conf": 0.7612,
+   "punct_after": "comma"
+  },
+  {
+   "i": 153,
+   "text": "Gregory",
+   "norm": "GREGORY",
+   "start": 54.93,
+   "end": 55.42,
+   "conf": 0.8989,
+   "punct_after": null
+  },
+  {
+   "i": 154,
+   "text": "Jarvis,",
+   "norm": "JARVIS",
+   "start": 55.42,
+   "end": 55.95,
+   "conf": 0.7195,
+   "punct_after": "comma"
+  },
+  {
+   "i": 155,
+   "text": "and",
+   "norm": "AND",
+   "start": 56.08,
+   "end": 56.28,
+   "conf": 0.9984,
+   "punct_after": null
+  },
+  {
+   "i": 156,
+   "text": "Christa",
+   "norm": "CHRISTA",
+   "start": 56.28,
+   "end": 56.68,
+   "conf": 0.6524,
+   "punct_after": null
+  },
+  {
+   "i": 157,
+   "text": "McAuliffe.",
+   "norm": "MCAULIFFE",
+   "start": 56.68,
+   "end": 57.3,
+   "conf": 0.6527,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 158,
+   "text": "We",
+   "norm": "WE",
+   "start": 58.12,
+   "end": 58.46,
+   "conf": 0.9986,
+   "punct_after": null
+  },
+  {
+   "i": 159,
+   "text": "mourn",
+   "norm": "MOURN",
+   "start": 58.46,
+   "end": 58.78,
+   "conf": 0.986,
+   "punct_after": null
+  },
+  {
+   "i": 160,
+   "text": "their",
+   "norm": "THEIR",
+   "start": 58.78,
+   "end": 58.94,
+   "conf": 0.61,
+   "punct_after": null
+  },
+  {
+   "i": 161,
+   "text": "loss",
+   "norm": "LOSS",
+   "start": 58.94,
+   "end": 59.31,
+   "conf": 0.5448,
+   "punct_after": null
+  },
+  {
+   "i": 162,
+   "text": "as",
+   "norm": "AS",
+   "start": 59.33,
+   "end": 59.58,
+   "conf": 0.9995,
+   "punct_after": null
+  },
+  {
+   "i": 163,
+   "text": "a",
+   "norm": "A",
+   "start": 59.58,
+   "end": 59.7,
+   "conf": 0.9932,
+   "punct_after": null
+  },
+  {
+   "i": 164,
+   "text": "nation",
+   "norm": "NATION",
+   "start": 59.7,
+   "end": 60.23,
+   "conf": 0.9998,
+   "punct_after": null
+  },
+  {
+   "i": 165,
+   "text": "together.",
+   "norm": "TOGETHER",
+   "start": 60.26,
+   "end": 60.72,
+   "conf": 0.9876,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 166,
+   "text": "For",
+   "norm": "FOR",
+   "start": 61.49,
+   "end": 61.68,
+   "conf": 0.9994,
+   "punct_after": null
+  },
+  {
+   "i": 167,
+   "text": "the",
+   "norm": "THE",
+   "start": 61.68,
+   "end": 61.82,
+   "conf": 0.994,
+   "punct_after": null
+  },
+  {
+   "i": 168,
+   "text": "families",
+   "norm": "FAMILIES",
+   "start": 61.82,
+   "end": 62.3,
+   "conf": 0.9972,
+   "punct_after": null
+  },
+  {
+   "i": 169,
+   "text": "of",
+   "norm": "OF",
+   "start": 62.3,
+   "end": 62.37,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 170,
+   "text": "the",
+   "norm": "THE",
+   "start": 62.41,
+   "end": 62.56,
+   "conf": 0.9971,
+   "punct_after": null
+  },
+  {
+   "i": 171,
+   "text": "seven,",
+   "norm": "SEVEN",
+   "start": 62.56,
+   "end": 63.01,
+   "conf": 0.9827,
+   "punct_after": "comma"
+  },
+  {
+   "i": 172,
+   "text": "we",
+   "norm": "WE",
+   "start": 63.19,
+   "end": 63.43,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 173,
+   "text": "cannot",
+   "norm": "CANNOT",
+   "start": 63.45,
+   "end": 63.96,
+   "conf": 0.7791,
+   "punct_after": null
+  },
+  {
+   "i": 174,
+   "text": "bear,",
+   "norm": "BEAR",
+   "start": 63.96,
+   "end": 64.23,
+   "conf": 0.4856,
+   "punct_after": "comma"
+  },
+  {
+   "i": 175,
+   "text": "as",
+   "norm": "AS",
+   "start": 64.48,
+   "end": 64.72,
+   "conf": 1.0,
+   "punct_after": null
+  },
+  {
+   "i": 176,
+   "text": "you",
+   "norm": "YOU",
+   "start": 64.72,
+   "end": 64.9,
+   "conf": 0.9998,
+   "punct_after": null
+  },
+  {
+   "i": 177,
+   "text": "do,",
+   "norm": "DO",
+   "start": 64.9,
+   "end": 65.28,
+   "conf": 0.9999,
+   "punct_after": "comma"
+  },
+  {
+   "i": 178,
+   "text": "the",
+   "norm": "THE",
+   "start": 65.41,
+   "end": 65.56,
+   "conf": 0.9981,
+   "punct_after": null
+  },
+  {
+   "i": 179,
+   "text": "full",
+   "norm": "FULL",
+   "start": 65.56,
+   "end": 65.81,
+   "conf": 0.9519,
+   "punct_after": null
+  },
+  {
+   "i": 180,
+   "text": "impact",
+   "norm": "IMPACT",
+   "start": 65.81,
+   "end": 66.2,
+   "conf": 0.8649,
+   "punct_after": null
+  },
+  {
+   "i": 181,
+   "text": "of",
+   "norm": "OF",
+   "start": 66.35,
+   "end": 66.52,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 182,
+   "text": "this",
+   "norm": "THIS",
+   "start": 66.54,
+   "end": 66.73,
+   "conf": 0.5063,
+   "punct_after": null
+  },
+  {
+   "i": 183,
+   "text": "tragedy.",
+   "norm": "TRAGEDY",
+   "start": 66.73,
+   "end": 67.21,
+   "conf": 0.981,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 184,
+   "text": "But",
+   "norm": "BUT",
+   "start": 67.78,
+   "end": 68.0,
+   "conf": 0.9998,
+   "punct_after": null
+  },
+  {
+   "i": 185,
+   "text": "we",
+   "norm": "WE",
+   "start": 68.0,
+   "end": 68.22,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 186,
+   "text": "feel",
+   "norm": "FEEL",
+   "start": 68.22,
+   "end": 68.54,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 187,
+   "text": "the",
+   "norm": "THE",
+   "start": 68.54,
+   "end": 68.65,
+   "conf": 0.9994,
+   "punct_after": null
+  },
+  {
+   "i": 188,
+   "text": "loss,",
+   "norm": "LOSS",
+   "start": 68.65,
+   "end": 69.0,
+   "conf": 0.9635,
+   "punct_after": "comma"
+  },
+  {
+   "i": 189,
+   "text": "and",
+   "norm": "AND",
+   "start": 69.28,
+   "end": 69.45,
+   "conf": 0.9239,
+   "punct_after": null
+  },
+  {
+   "i": 190,
+   "text": "we're",
+   "norm": "WE'RE",
+   "start": 69.45,
+   "end": 69.72,
+   "conf": 0.5236,
+   "punct_after": null
+  },
+  {
+   "i": 191,
+   "text": "thinking",
+   "norm": "THINKING",
+   "start": 69.72,
+   "end": 70.2,
+   "conf": 0.9971,
+   "punct_after": null
+  },
+  {
+   "i": 192,
+   "text": "about",
+   "norm": "ABOUT",
+   "start": 70.28,
+   "end": 70.64,
+   "conf": 0.9904,
+   "punct_after": null
+  },
+  {
+   "i": 193,
+   "text": "you",
+   "norm": "YOU",
+   "start": 70.64,
+   "end": 70.86,
+   "conf": 0.9558,
+   "punct_after": null
+  },
+  {
+   "i": 194,
+   "text": "so",
+   "norm": "SO",
+   "start": 71.06,
+   "end": 71.28,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 195,
+   "text": "very",
+   "norm": "VERY",
+   "start": 71.28,
+   "end": 71.58,
+   "conf": 0.9543,
+   "punct_after": null
+  },
+  {
+   "i": 196,
+   "text": "much.",
+   "norm": "MUCH",
+   "start": 71.58,
+   "end": 71.92,
+   "conf": 0.9997,
+   "punct_after": "sentence"
+  }
+ ],
+ "reference_clip": null,
+ "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+}

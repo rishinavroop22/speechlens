@@ -1,0 +1,1523 @@
+[
+ {
+  "id": "human__aashrith_jfk_A",
+  "source": "jfk",
+  "kind": "human_reference",
+  "speaker": "aashrith",
+  "take": "A",
+  "title": "Aashrith, take A",
+  "duration": 44.99,
+  "labels": [],
+  "max_severity": 0,
+  "align_conf": 0.886,
+  "reference_clip": null,
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__aashrith_jfk_B",
+  "source": "jfk",
+  "kind": "human",
+  "speaker": "aashrith",
+  "take": "B",
+  "title": "Aashrith, take B",
+  "duration": 45.63,
+  "labels": [
+   {
+    "type": "rushed",
+    "severity": 3,
+    "start": 0.75,
+    "end": 7.94,
+    "word_start": 0,
+    "word_end": 26,
+    "params": {
+     "scripted": "Read this sentence about twice as fast as normal, no pauses."
+    }
+   },
+   {
+    "type": "awkward_pause",
+    "severity": 3,
+    "start": 17.78,
+    "end": 18.57,
+    "word_start": 53,
+    "word_end": 54,
+    "params": {
+     "scripted": "Stop for about two seconds after \u201cvery\u201d, then carry on."
+    }
+   },
+   {
+    "type": "dragging",
+    "severity": 3,
+    "start": 26.71,
+    "end": 41.41,
+    "word_start": 78,
+    "word_end": 116,
+    "params": {
+     "scripted": "Read this sentence very slowly, stretching every word."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.898,
+  "reference_clip": "human__aashrith_jfk_A",
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__aashrith_jfk_C",
+  "source": "jfk",
+  "kind": "human",
+  "speaker": "aashrith",
+  "take": "C",
+  "title": "Aashrith, take C",
+  "duration": 37.44,
+  "labels": [
+   {
+    "type": "monotone",
+    "severity": 3,
+    "start": 0.93,
+    "end": 7.0,
+    "word_start": 0,
+    "word_end": 26,
+    "params": {
+     "scripted": "Read this sentence on one flat note, like a robot."
+    }
+   },
+   {
+    "type": "trailing_off",
+    "severity": 3,
+    "start": 14.26,
+    "end": 15.55,
+    "word_start": 52,
+    "word_end": 55,
+    "params": {
+     "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+    }
+   },
+   {
+    "type": "mumbling",
+    "severity": 3,
+    "start": 23.08,
+    "end": 32.99,
+    "word_start": 78,
+    "word_end": 116,
+    "params": {
+     "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.821,
+  "reference_clip": "human__aashrith_jfk_A",
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__aashrith_jfk_D",
+  "source": "jfk",
+  "kind": "human",
+  "speaker": "aashrith",
+  "take": "D",
+  "title": "Aashrith, take D",
+  "duration": 44.16,
+  "labels": [
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 11.63,
+    "end": 12.3,
+    "word_start": 38,
+    "word_end": 39,
+    "params": {
+     "scripted": "Say a long \u201cummm\u201d after \u201csolemn\u201d."
+    }
+   },
+   {
+    "type": "stutter",
+    "severity": 3,
+    "start": 22.82,
+    "end": 24.37,
+    "word_start": 64,
+    "word_end": 64,
+    "params": {
+     "scripted": "Stutter the start of \u201cpower\u201d two or three times (\u201cpo-po-power\u201d)."
+    }
+   },
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 35.09,
+    "end": 35.84,
+    "word_start": 97,
+    "word_end": 98,
+    "params": {
+     "scripted": "Say \u201cuhh\u201d after \u201cbelief\u201d."
+    }
+   },
+   {
+    "type": "pause_omission",
+    "severity": 3,
+    "start": 1.54,
+    "end": 8.44,
+    "word_start": 0,
+    "word_end": 26,
+    "params": {
+     "scripted": "Run straight through every comma in this sentence without pausing."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.868,
+  "reference_clip": "human__aashrith_jfk_A",
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__aashrith_obama_A",
+  "source": "obama",
+  "kind": "human_reference",
+  "speaker": "aashrith",
+  "take": "A",
+  "title": "Aashrith, take A",
+  "duration": 47.62,
+  "labels": [],
+  "max_severity": 0,
+  "align_conf": 0.894,
+  "reference_clip": null,
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__aashrith_obama_B",
+  "source": "obama",
+  "kind": "human",
+  "speaker": "aashrith",
+  "take": "B",
+  "title": "Aashrith, take B",
+  "duration": 45.57,
+  "labels": [
+   {
+    "type": "rushed",
+    "severity": 3,
+    "start": 1.04,
+    "end": 8.22,
+    "word_start": 0,
+    "word_end": 24,
+    "params": {
+     "scripted": "Read this sentence about twice as fast as normal, no pauses."
+    }
+   },
+   {
+    "type": "awkward_pause",
+    "severity": 3,
+    "start": 18.07,
+    "end": 18.78,
+    "word_start": 52,
+    "word_end": 53,
+    "params": {
+     "scripted": "Stop for about two seconds after \u201ctaken\u201d, then carry on."
+    }
+   },
+   {
+    "type": "dragging",
+    "severity": 3,
+    "start": 25.44,
+    "end": 30.9,
+    "word_start": 72,
+    "word_end": 85,
+    "params": {
+     "scripted": "Read this sentence very slowly, stretching every word."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.878,
+  "reference_clip": "human__aashrith_obama_A",
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__aashrith_obama_C",
+  "source": "obama",
+  "kind": "human",
+  "speaker": "aashrith",
+  "take": "C",
+  "title": "Aashrith, take C",
+  "duration": 48.32,
+  "labels": [
+   {
+    "type": "monotone",
+    "severity": 3,
+    "start": 1.1,
+    "end": 9.42,
+    "word_start": 0,
+    "word_end": 24,
+    "params": {
+     "scripted": "Read this sentence on one flat note, like a robot."
+    }
+   },
+   {
+    "type": "trailing_off",
+    "severity": 3,
+    "start": 20.06,
+    "end": 21.5,
+    "word_start": 50,
+    "word_end": 55,
+    "params": {
+     "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+    }
+   },
+   {
+    "type": "mumbling",
+    "severity": 3,
+    "start": 28.56,
+    "end": 33.44,
+    "word_start": 72,
+    "word_end": 85,
+    "params": {
+     "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.83,
+  "reference_clip": "human__aashrith_obama_A",
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__aashrith_obama_D",
+  "source": "obama",
+  "kind": "human",
+  "speaker": "aashrith",
+  "take": "D",
+  "title": "Aashrith, take D",
+  "duration": 49.92,
+  "labels": [
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 14.47,
+    "end": 15.38,
+    "word_start": 36,
+    "word_end": 37,
+    "params": {
+     "scripted": "Say a long \u201cummm\u201d after \u201cwell\u201d."
+    }
+   },
+   {
+    "type": "stutter",
+    "severity": 3,
+    "start": 24.31,
+    "end": 26.62,
+    "word_start": 59,
+    "word_end": 59,
+    "params": {
+     "scripted": "Stutter the start of \u201cbeen\u201d two or three times (\u201cbe-be-been\u201d)."
+    }
+   },
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 35.11,
+    "end": 35.45,
+    "word_start": 79,
+    "word_end": 80,
+    "params": {
+     "scripted": "Say \u201cuhh\u201d after \u201ctaken\u201d."
+    }
+   },
+   {
+    "type": "pause_omission",
+    "severity": 3,
+    "start": 38.07,
+    "end": 49.49,
+    "word_start": 86,
+    "word_end": 125,
+    "params": {
+     "scripted": "Run straight through every comma in this sentence without pausing."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.876,
+  "reference_clip": "human__aashrith_obama_A",
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__aashrith_reagan_A",
+  "source": "reagan",
+  "kind": "human_reference",
+  "speaker": "aashrith",
+  "take": "A",
+  "title": "Aashrith, take A",
+  "duration": 72.77,
+  "labels": [],
+  "max_severity": 0,
+  "align_conf": 0.885,
+  "reference_clip": null,
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__aashrith_reagan_B",
+  "source": "reagan",
+  "kind": "human",
+  "speaker": "aashrith",
+  "take": "B",
+  "title": "Aashrith, take B",
+  "duration": 66.88,
+  "labels": [
+   {
+    "type": "rushed",
+    "severity": 3,
+    "start": 9.9,
+    "end": 11.63,
+    "word_start": 31,
+    "word_end": 38,
+    "params": {
+     "scripted": "Read this sentence about twice as fast as normal, no pauses."
+    }
+   },
+   {
+    "type": "awkward_pause",
+    "severity": 3,
+    "start": 24.04,
+    "end": 24.04,
+    "word_start": 83,
+    "word_end": 84,
+    "params": {
+     "scripted": "Stop for about two seconds after \u201cthree\u201d, then carry on."
+    }
+   },
+   {
+    "type": "dragging",
+    "severity": 3,
+    "start": 43.18,
+    "end": 54.37,
+    "word_start": 139,
+    "word_end": 157,
+    "params": {
+     "scripted": "Read this sentence very slowly, stretching every word."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.865,
+  "reference_clip": "human__aashrith_reagan_A",
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__aashrith_reagan_C",
+  "source": "reagan",
+  "kind": "human",
+  "speaker": "aashrith",
+  "take": "C",
+  "title": "Aashrith, take C",
+  "duration": 65.79,
+  "labels": [
+   {
+    "type": "monotone",
+    "severity": 3,
+    "start": 1.04,
+    "end": 8.39,
+    "word_start": 0,
+    "word_end": 30,
+    "params": {
+     "scripted": "Read this sentence on one flat note, like a robot."
+    }
+   },
+   {
+    "type": "trailing_off",
+    "severity": 3,
+    "start": 23.2,
+    "end": 26.95,
+    "word_start": 80,
+    "word_end": 91,
+    "params": {
+     "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+    }
+   },
+   {
+    "type": "mumbling",
+    "severity": 3,
+    "start": 44.98,
+    "end": 54.41,
+    "word_start": 139,
+    "word_end": 157,
+    "params": {
+     "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.832,
+  "reference_clip": "human__aashrith_reagan_A",
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__aashrith_reagan_D",
+  "source": "reagan",
+  "kind": "human",
+  "speaker": "aashrith",
+  "take": "D",
+  "title": "Aashrith, take D",
+  "duration": 63.04,
+  "labels": [
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 10.58,
+    "end": 12.82,
+    "word_start": 46,
+    "word_end": 47,
+    "params": {
+     "scripted": "Say a long \u201cummm\u201d after \u201ccore\u201d."
+    }
+   },
+   {
+    "type": "stutter",
+    "severity": 3,
+    "start": 31.22,
+    "end": 31.57,
+    "word_start": 104,
+    "word_end": 104,
+    "params": {
+     "scripted": "Stutter the start of \u201ctragedy\u201d two or three times (\u201ctr-tr-tragedy\u201d)."
+    }
+   },
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 54.94,
+    "end": 54.94,
+    "word_start": 162,
+    "word_end": 163,
+    "params": {
+     "scripted": "Say \u201cuhh\u201d after \u201cas\u201d."
+    }
+   },
+   {
+    "type": "pause_omission",
+    "severity": 3,
+    "start": 43.9,
+    "end": 53.79,
+    "word_start": 139,
+    "word_end": 157,
+    "params": {
+     "scripted": "Run straight through every comma in this sentence without pausing."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.748,
+  "reference_clip": "human__aashrith_reagan_A",
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__manya_jfk_A",
+  "source": "jfk",
+  "kind": "human_reference",
+  "speaker": "manya",
+  "take": "A",
+  "title": "Manya, take A",
+  "duration": 48.83,
+  "labels": [],
+  "max_severity": 0,
+  "align_conf": 0.914,
+  "reference_clip": null,
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__manya_jfk_B",
+  "source": "jfk",
+  "kind": "human",
+  "speaker": "manya",
+  "take": "B",
+  "title": "Manya, take B",
+  "duration": 77.67,
+  "labels": [
+   {
+    "type": "rushed",
+    "severity": 3,
+    "start": 0.78,
+    "end": 7.73,
+    "word_start": 0,
+    "word_end": 26,
+    "params": {
+     "scripted": "Read this sentence about twice as fast as normal, no pauses."
+    }
+   },
+   {
+    "type": "awkward_pause",
+    "severity": 3,
+    "start": 17.58,
+    "end": 18.74,
+    "word_start": 53,
+    "word_end": 54,
+    "params": {
+     "scripted": "Stop for about two seconds after \u201cvery\u201d, then carry on."
+    }
+   },
+   {
+    "type": "dragging",
+    "severity": 3,
+    "start": 28.05,
+    "end": 70.42,
+    "word_start": 78,
+    "word_end": 116,
+    "params": {
+     "scripted": "Read this sentence very slowly, stretching every word."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.873,
+  "reference_clip": "human__manya_jfk_A",
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__manya_jfk_C",
+  "source": "jfk",
+  "kind": "human",
+  "speaker": "manya",
+  "take": "C",
+  "title": "Manya, take C",
+  "duration": 49.97,
+  "labels": [
+   {
+    "type": "monotone",
+    "severity": 3,
+    "start": 0.87,
+    "end": 10.05,
+    "word_start": 0,
+    "word_end": 26,
+    "params": {
+     "scripted": "Read this sentence on one flat note, like a robot."
+    }
+   },
+   {
+    "type": "trailing_off",
+    "severity": 3,
+    "start": 20.21,
+    "end": 21.54,
+    "word_start": 52,
+    "word_end": 55,
+    "params": {
+     "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+    }
+   },
+   {
+    "type": "mumbling",
+    "severity": 3,
+    "start": 29.84,
+    "end": 43.62,
+    "word_start": 78,
+    "word_end": 116,
+    "params": {
+     "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.822,
+  "reference_clip": "human__manya_jfk_A",
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__manya_jfk_D",
+  "source": "jfk",
+  "kind": "human",
+  "speaker": "manya",
+  "take": "D",
+  "title": "Manya, take D",
+  "duration": 45.29,
+  "labels": [
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 12.13,
+    "end": 12.76,
+    "word_start": 38,
+    "word_end": 39,
+    "params": {
+     "scripted": "Say a long \u201cummm\u201d after \u201csolemn\u201d."
+    }
+   },
+   {
+    "type": "stutter",
+    "severity": 3,
+    "start": 21.3,
+    "end": 22.32,
+    "word_start": 64,
+    "word_end": 64,
+    "params": {
+     "scripted": "Stutter the start of \u201cpower\u201d two or three times (\u201cpo-po-power\u201d)."
+    }
+   },
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 33.14,
+    "end": 34.38,
+    "word_start": 97,
+    "word_end": 98,
+    "params": {
+     "scripted": "Say \u201cuhh\u201d after \u201cbelief\u201d."
+    }
+   },
+   {
+    "type": "pause_omission",
+    "severity": 3,
+    "start": 1.1,
+    "end": 7.93,
+    "word_start": 0,
+    "word_end": 26,
+    "params": {
+     "scripted": "Run straight through every comma in this sentence without pausing."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.862,
+  "reference_clip": "human__manya_jfk_A",
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__manya_obama_A",
+  "source": "obama",
+  "kind": "human_reference",
+  "speaker": "manya",
+  "take": "A",
+  "title": "Manya, take A",
+  "duration": 47.74,
+  "labels": [],
+  "max_severity": 0,
+  "align_conf": 0.925,
+  "reference_clip": null,
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__manya_obama_B",
+  "source": "obama",
+  "kind": "human",
+  "speaker": "manya",
+  "take": "B",
+  "title": "Manya, take B",
+  "duration": 60.33,
+  "labels": [
+   {
+    "type": "rushed",
+    "severity": 3,
+    "start": 0.79,
+    "end": 6.66,
+    "word_start": 0,
+    "word_end": 24,
+    "params": {
+     "scripted": "Read this sentence about twice as fast as normal, no pauses."
+    }
+   },
+   {
+    "type": "awkward_pause",
+    "severity": 3,
+    "start": 17.62,
+    "end": 19.14,
+    "word_start": 52,
+    "word_end": 53,
+    "params": {
+     "scripted": "Stop for about two seconds after \u201ctaken\u201d, then carry on."
+    }
+   },
+   {
+    "type": "dragging",
+    "severity": 3,
+    "start": 26.65,
+    "end": 43.36,
+    "word_start": 72,
+    "word_end": 85,
+    "params": {
+     "scripted": "Read this sentence very slowly, stretching every word."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.87,
+  "reference_clip": "human__manya_obama_A",
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__manya_obama_C",
+  "source": "obama",
+  "kind": "human",
+  "speaker": "manya",
+  "take": "C",
+  "title": "Manya, take C",
+  "duration": 51.05,
+  "labels": [
+   {
+    "type": "monotone",
+    "severity": 3,
+    "start": 0.8,
+    "end": 9.88,
+    "word_start": 0,
+    "word_end": 24,
+    "params": {
+     "scripted": "Read this sentence on one flat note, like a robot."
+    }
+   },
+   {
+    "type": "trailing_off",
+    "severity": 3,
+    "start": 20.27,
+    "end": 22.4,
+    "word_start": 50,
+    "word_end": 55,
+    "params": {
+     "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+    }
+   },
+   {
+    "type": "mumbling",
+    "severity": 3,
+    "start": 29.4,
+    "end": 35.07,
+    "word_start": 72,
+    "word_end": 85,
+    "params": {
+     "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.863,
+  "reference_clip": "human__manya_obama_A",
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__manya_obama_D",
+  "source": "obama",
+  "kind": "human",
+  "speaker": "manya",
+  "take": "D",
+  "title": "Manya, take D",
+  "duration": 50.92,
+  "labels": [
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 14.37,
+    "end": 15.28,
+    "word_start": 36,
+    "word_end": 37,
+    "params": {
+     "scripted": "Say a long \u201cummm\u201d after \u201cwell\u201d."
+    }
+   },
+   {
+    "type": "stutter",
+    "severity": 3,
+    "start": 25.09,
+    "end": 25.86,
+    "word_start": 59,
+    "word_end": 59,
+    "params": {
+     "scripted": "Stutter the start of \u201cbeen\u201d two or three times (\u201cbe-be-been\u201d)."
+    }
+   },
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 34.21,
+    "end": 35.29,
+    "word_start": 79,
+    "word_end": 80,
+    "params": {
+     "scripted": "Say \u201cuhh\u201d after \u201ctaken\u201d."
+    }
+   },
+   {
+    "type": "pause_omission",
+    "severity": 3,
+    "start": 39.07,
+    "end": 50.44,
+    "word_start": 86,
+    "word_end": 125,
+    "params": {
+     "scripted": "Run straight through every comma in this sentence without pausing."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.924,
+  "reference_clip": "human__manya_obama_A",
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__manya_reagan_A",
+  "source": "reagan",
+  "kind": "human_reference",
+  "speaker": "manya",
+  "take": "A",
+  "title": "Manya, take A",
+  "duration": 72.49,
+  "labels": [],
+  "max_severity": 0,
+  "align_conf": 0.9,
+  "reference_clip": null,
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__manya_reagan_B",
+  "source": "reagan",
+  "kind": "human",
+  "speaker": "manya",
+  "take": "B",
+  "title": "Manya, take B",
+  "duration": 84.2,
+  "labels": [
+   {
+    "type": "rushed",
+    "severity": 3,
+    "start": 10.61,
+    "end": 12.39,
+    "word_start": 31,
+    "word_end": 38,
+    "params": {
+     "scripted": "Read this sentence about twice as fast as normal, no pauses."
+    }
+   },
+   {
+    "type": "awkward_pause",
+    "severity": 3,
+    "start": 27.27,
+    "end": 29.6,
+    "word_start": 83,
+    "word_end": 84,
+    "params": {
+     "scripted": "Stop for about two seconds after \u201cthree\u201d, then carry on."
+    }
+   },
+   {
+    "type": "dragging",
+    "severity": 3,
+    "start": 48.14,
+    "end": 68.48,
+    "word_start": 139,
+    "word_end": 157,
+    "params": {
+     "scripted": "Read this sentence very slowly, stretching every word."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.887,
+  "reference_clip": "human__manya_reagan_A",
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__manya_reagan_C",
+  "source": "reagan",
+  "kind": "human",
+  "speaker": "manya",
+  "take": "C",
+  "title": "Manya, take C",
+  "duration": 76.74,
+  "labels": [
+   {
+    "type": "monotone",
+    "severity": 3,
+    "start": 0.43,
+    "end": 9.08,
+    "word_start": 0,
+    "word_end": 30,
+    "params": {
+     "scripted": "Read this sentence on one flat note, like a robot."
+    }
+   },
+   {
+    "type": "trailing_off",
+    "severity": 3,
+    "start": 26.82,
+    "end": 31.06,
+    "word_start": 80,
+    "word_end": 91,
+    "params": {
+     "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+    }
+   },
+   {
+    "type": "mumbling",
+    "severity": 3,
+    "start": 48.84,
+    "end": 60.4,
+    "word_start": 139,
+    "word_end": 157,
+    "params": {
+     "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.858,
+  "reference_clip": "human__manya_reagan_A",
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__manya_reagan_D",
+  "source": "reagan",
+  "kind": "human",
+  "speaker": "manya",
+  "take": "D",
+  "title": "Manya, take D",
+  "duration": 69.73,
+  "labels": [
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 15.98,
+    "end": 16.83,
+    "word_start": 46,
+    "word_end": 47,
+    "params": {
+     "scripted": "Say a long \u201cummm\u201d after \u201ccore\u201d."
+    }
+   },
+   {
+    "type": "stutter",
+    "severity": 3,
+    "start": 36.72,
+    "end": 37.38,
+    "word_start": 104,
+    "word_end": 104,
+    "params": {
+     "scripted": "Stutter the start of \u201ctragedy\u201d two or three times (\u201ctr-tr-tragedy\u201d)."
+    }
+   },
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 58.27,
+    "end": 58.64,
+    "word_start": 162,
+    "word_end": 163,
+    "params": {
+     "scripted": "Say \u201cuhh\u201d after \u201cas\u201d."
+    }
+   },
+   {
+    "type": "pause_omission",
+    "severity": 3,
+    "start": 49.66,
+    "end": 55.98,
+    "word_start": 139,
+    "word_end": 157,
+    "params": {
+     "scripted": "Run straight through every comma in this sentence without pausing."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.868,
+  "reference_clip": "human__manya_reagan_A",
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__prasad_jfk_A",
+  "source": "jfk",
+  "kind": "human_reference",
+  "speaker": "prasad",
+  "take": "A",
+  "title": "Prasad, take A",
+  "duration": 53.62,
+  "labels": [],
+  "max_severity": 0,
+  "align_conf": 0.928,
+  "reference_clip": null,
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__prasad_jfk_B",
+  "source": "jfk",
+  "kind": "human",
+  "speaker": "prasad",
+  "take": "B",
+  "title": "Prasad, take B",
+  "duration": 49.94,
+  "labels": [
+   {
+    "type": "rushed",
+    "severity": 3,
+    "start": 0.42,
+    "end": 7.39,
+    "word_start": 0,
+    "word_end": 26,
+    "params": {
+     "scripted": "Read this sentence about twice as fast as normal, no pauses."
+    }
+   },
+   {
+    "type": "awkward_pause",
+    "severity": 3,
+    "start": 16.51,
+    "end": 16.83,
+    "word_start": 53,
+    "word_end": 54,
+    "params": {
+     "scripted": "Stop for about two seconds after \u201cvery\u201d, then carry on."
+    }
+   },
+   {
+    "type": "dragging",
+    "severity": 3,
+    "start": 24.65,
+    "end": 42.73,
+    "word_start": 78,
+    "word_end": 116,
+    "params": {
+     "scripted": "Read this sentence very slowly, stretching every word."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.892,
+  "reference_clip": "human__prasad_jfk_A",
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__prasad_jfk_C",
+  "source": "jfk",
+  "kind": "human",
+  "speaker": "prasad",
+  "take": "C",
+  "title": "Prasad, take C",
+  "duration": 49.99,
+  "labels": [
+   {
+    "type": "monotone",
+    "severity": 3,
+    "start": 0.77,
+    "end": 11.19,
+    "word_start": 0,
+    "word_end": 26,
+    "params": {
+     "scripted": "Read this sentence on one flat note, like a robot."
+    }
+   },
+   {
+    "type": "trailing_off",
+    "severity": 3,
+    "start": 21.74,
+    "end": 22.71,
+    "word_start": 52,
+    "word_end": 55,
+    "params": {
+     "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+    }
+   },
+   {
+    "type": "mumbling",
+    "severity": 3,
+    "start": 31.26,
+    "end": 43.69,
+    "word_start": 78,
+    "word_end": 116,
+    "params": {
+     "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.828,
+  "reference_clip": "human__prasad_jfk_A",
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__prasad_jfk_D",
+  "source": "jfk",
+  "kind": "human",
+  "speaker": "prasad",
+  "take": "D",
+  "title": "Prasad, take D",
+  "duration": 49.99,
+  "labels": [
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 14.6,
+    "end": 14.86,
+    "word_start": 38,
+    "word_end": 39,
+    "params": {
+     "scripted": "Say a long \u201cummm\u201d after \u201csolemn\u201d."
+    }
+   },
+   {
+    "type": "stutter",
+    "severity": 3,
+    "start": 24.7,
+    "end": 27.0,
+    "word_start": 64,
+    "word_end": 64,
+    "params": {
+     "scripted": "Stutter the start of \u201cpower\u201d two or three times (\u201cpo-po-power\u201d)."
+    }
+   },
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 39.09,
+    "end": 39.78,
+    "word_start": 97,
+    "word_end": 98,
+    "params": {
+     "scripted": "Say \u201cuhh\u201d after \u201cbelief\u201d."
+    }
+   },
+   {
+    "type": "pause_omission",
+    "severity": 3,
+    "start": 0.82,
+    "end": 8.82,
+    "word_start": 0,
+    "word_end": 26,
+    "params": {
+     "scripted": "Run straight through every comma in this sentence without pausing."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.918,
+  "reference_clip": "human__prasad_jfk_A",
+  "transcript": "We observe today not a victory of party but a celebration of freedom\u2014symbolizing an end as well as a beginning\u2014signifying renewal as well as change. For I have sworn before you and Almighty God the same solemn oath our forebears prescribed nearly a century and three quarters ago. The world is very different now. For man holds in his mortal hands the power to abolish all forms of human poverty and all forms of human life. And yet the same revolutionary beliefs for which our forebears fought are still at issue around the globe\u2014the belief that the rights of man come not from the generosity of the state but from the hand of God. We dare not forget today that we are the heirs of that first revolution."
+ },
+ {
+  "id": "human__prasad_obama_A",
+  "source": "obama",
+  "kind": "human_reference",
+  "speaker": "prasad",
+  "take": "A",
+  "title": "Prasad, take A",
+  "duration": 47.47,
+  "labels": [],
+  "max_severity": 0,
+  "align_conf": 0.926,
+  "reference_clip": null,
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__prasad_obama_B",
+  "source": "obama",
+  "kind": "human",
+  "speaker": "prasad",
+  "take": "B",
+  "title": "Prasad, take B",
+  "duration": 48.82,
+  "labels": [
+   {
+    "type": "rushed",
+    "severity": 3,
+    "start": 0.53,
+    "end": 7.14,
+    "word_start": 0,
+    "word_end": 24,
+    "params": {
+     "scripted": "Read this sentence about twice as fast as normal, no pauses."
+    }
+   },
+   {
+    "type": "awkward_pause",
+    "severity": 3,
+    "start": 16.71,
+    "end": 17.54,
+    "word_start": 52,
+    "word_end": 53,
+    "params": {
+     "scripted": "Stop for about two seconds after \u201ctaken\u201d, then carry on."
+    }
+   },
+   {
+    "type": "dragging",
+    "severity": 3,
+    "start": 25.87,
+    "end": 32.71,
+    "word_start": 72,
+    "word_end": 85,
+    "params": {
+     "scripted": "Read this sentence very slowly, stretching every word."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.888,
+  "reference_clip": "human__prasad_obama_A",
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__prasad_obama_C",
+  "source": "obama",
+  "kind": "human",
+  "speaker": "prasad",
+  "take": "C",
+  "title": "Prasad, take C",
+  "duration": 47.38,
+  "labels": [
+   {
+    "type": "monotone",
+    "severity": 3,
+    "start": 0.64,
+    "end": 8.63,
+    "word_start": 0,
+    "word_end": 24,
+    "params": {
+     "scripted": "Read this sentence on one flat note, like a robot."
+    }
+   },
+   {
+    "type": "trailing_off",
+    "severity": 3,
+    "start": 18.2,
+    "end": 19.69,
+    "word_start": 50,
+    "word_end": 55,
+    "params": {
+     "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+    }
+   },
+   {
+    "type": "mumbling",
+    "severity": 3,
+    "start": 27.44,
+    "end": 30.82,
+    "word_start": 72,
+    "word_end": 85,
+    "params": {
+     "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.833,
+  "reference_clip": "human__prasad_obama_A",
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__prasad_obama_D",
+  "source": "obama",
+  "kind": "human",
+  "speaker": "prasad",
+  "take": "D",
+  "title": "Prasad, take D",
+  "duration": 51.5,
+  "labels": [
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 12.96,
+    "end": 12.96,
+    "word_start": 36,
+    "word_end": 37,
+    "params": {
+     "scripted": "Say a long \u201cummm\u201d after \u201cwell\u201d."
+    }
+   },
+   {
+    "type": "stutter",
+    "severity": 3,
+    "start": 26.62,
+    "end": 28.0,
+    "word_start": 59,
+    "word_end": 59,
+    "params": {
+     "scripted": "Stutter the start of \u201cbeen\u201d two or three times (\u201cbe-be-been\u201d)."
+    }
+   },
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 36.11,
+    "end": 37.06,
+    "word_start": 79,
+    "word_end": 80,
+    "params": {
+     "scripted": "Say \u201cuhh\u201d after \u201ctaken\u201d."
+    }
+   },
+   {
+    "type": "pause_omission",
+    "severity": 3,
+    "start": 39.81,
+    "end": 51.51,
+    "word_start": 86,
+    "word_end": 125,
+    "params": {
+     "scripted": "Run straight through every comma in this sentence without pausing."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.846,
+  "reference_clip": "human__prasad_obama_A",
+  "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+ },
+ {
+  "id": "human__prasad_reagan_A",
+  "source": "reagan",
+  "kind": "human_reference",
+  "speaker": "prasad",
+  "take": "A",
+  "title": "Prasad, take A",
+  "duration": 77.5,
+  "labels": [],
+  "max_severity": 0,
+  "align_conf": 0.894,
+  "reference_clip": null,
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__prasad_reagan_B",
+  "source": "reagan",
+  "kind": "human",
+  "speaker": "prasad",
+  "take": "B",
+  "title": "Prasad, take B",
+  "duration": 82.46,
+  "labels": [
+   {
+    "type": "rushed",
+    "severity": 3,
+    "start": 11.18,
+    "end": 12.74,
+    "word_start": 31,
+    "word_end": 38,
+    "params": {
+     "scripted": "Read this sentence about twice as fast as normal, no pauses."
+    }
+   },
+   {
+    "type": "awkward_pause",
+    "severity": 3,
+    "start": 29.43,
+    "end": 30.23,
+    "word_start": 83,
+    "word_end": 84,
+    "params": {
+     "scripted": "Stop for about two seconds after \u201cthree\u201d, then carry on."
+    }
+   },
+   {
+    "type": "dragging",
+    "severity": 3,
+    "start": 53.47,
+    "end": 65.35,
+    "word_start": 139,
+    "word_end": 157,
+    "params": {
+     "scripted": "Read this sentence very slowly, stretching every word."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.864,
+  "reference_clip": "human__prasad_reagan_A",
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__prasad_reagan_C",
+  "source": "reagan",
+  "kind": "human",
+  "speaker": "prasad",
+  "take": "C",
+  "title": "Prasad, take C",
+  "duration": 74.59,
+  "labels": [
+   {
+    "type": "monotone",
+    "severity": 3,
+    "start": 0.69,
+    "end": 12.62,
+    "word_start": 0,
+    "word_end": 30,
+    "params": {
+     "scripted": "Read this sentence on one flat note, like a robot."
+    }
+   },
+   {
+    "type": "trailing_off",
+    "severity": 3,
+    "start": 28.38,
+    "end": 31.3,
+    "word_start": 80,
+    "word_end": 91,
+    "params": {
+     "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+    }
+   },
+   {
+    "type": "mumbling",
+    "severity": 3,
+    "start": 49.8,
+    "end": 58.65,
+    "word_start": 139,
+    "word_end": 157,
+    "params": {
+     "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.857,
+  "reference_clip": "human__prasad_reagan_A",
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ },
+ {
+  "id": "human__prasad_reagan_D",
+  "source": "reagan",
+  "kind": "human",
+  "speaker": "prasad",
+  "take": "D",
+  "title": "Prasad, take D",
+  "duration": 74.66,
+  "labels": [
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 14.33,
+    "end": 14.87,
+    "word_start": 46,
+    "word_end": 47,
+    "params": {
+     "scripted": "Say a long \u201cummm\u201d after \u201ccore\u201d."
+    }
+   },
+   {
+    "type": "stutter",
+    "severity": 3,
+    "start": 35.86,
+    "end": 37.9,
+    "word_start": 104,
+    "word_end": 104,
+    "params": {
+     "scripted": "Stutter the start of \u201ctragedy\u201d two or three times (\u201ctr-tr-tragedy\u201d)."
+    }
+   },
+   {
+    "type": "filler",
+    "severity": 3,
+    "start": 61.26,
+    "end": 61.26,
+    "word_start": 162,
+    "word_end": 163,
+    "params": {
+     "scripted": "Say \u201cuhh\u201d after \u201cas\u201d."
+    }
+   },
+   {
+    "type": "pause_omission",
+    "severity": 3,
+    "start": 50.44,
+    "end": 58.7,
+    "word_start": 139,
+    "word_end": 157,
+    "params": {
+     "scripted": "Run straight through every comma in this sentence without pausing."
+    }
+   }
+  ],
+  "max_severity": 3,
+  "align_conf": 0.863,
+  "reference_clip": "human__prasad_reagan_A",
+  "transcript": "Ladies and gentlemen, I'd planned to speak to you tonight to report on the state of the Union, but the events of earlier today have led me to change those plans. Today is a day for mourning and remembering. Nancy and I are pained to the core by the tragedy of the shuttle Challenger. We know we share this pain with all of the people of our country. This is truly a national loss. Nineteen years ago, almost to the day, we lost three astronauts in a terrible accident on the ground. But we've never lost an astronaut in flight; we've never had a tragedy like this. And perhaps we've forgotten the courage it took for the crew of the shuttle. But they, the Challenger Seven, were aware of the dangers, but overcame them and did their jobs brilliantly. We mourn seven heroes: Michael Smith, Dick Scobee, Judith Resnik, Ronald McNair, Ellison Onizuka, Gregory Jarvis, and Christa McAuliffe. We mourn their loss as a nation together. For the families of the seven, we cannot bear, as you do, the full impact of this tragedy. But we feel the loss, and we're thinking about you so very much."
+ }
+]

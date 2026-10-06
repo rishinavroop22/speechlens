@@ -58,8 +58,9 @@ def main():
         cid = f"human__{who}_{sid}_{take}"
         audio.save(DS / "clips" / f"{cid}.wav", y)
         conf = sum(w.conf for w in W) / max(1, len(W))
-        rec = {"id": cid, "source": sid, "kind": "human" if labels else "control",
-               "control": None if labels else "human_clean", "speaker": who, "take": take,
+        rec = {"id": cid, "source": sid, "kind": "human" if labels else "human_reference",
+               "reference_clip": f"human__{who}_{sid}_A" if labels else None,
+               "transcript": sc["text"], "speaker": who, "take": take,
                "title": f"{who.title()}, take {take}", "duration": round(len(y) / audio.SR, 2),
                "labels": labels, "max_severity": 3 if labels else 0, "align_conf": round(conf, 3)}
         (DS / "labels" / f"{cid}.json").write_text(json.dumps(rec | {"words": [w.to_dict() for w in W]}, indent=1))

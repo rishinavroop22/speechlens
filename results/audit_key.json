@@ -1,0 +1,272 @@
+{
+ "q01": {
+  "group": "scripted",
+  "claimed": "trailing_off",
+  "clip": "human__manya_obama_C",
+  "words": [
+   50,
+   55
+  ]
+ },
+ "q02": {
+  "group": "extra",
+  "claimed": "trailing_off",
+  "clip": "human__prasad_obama_C",
+  "words": [
+   81,
+   85
+  ]
+ },
+ "q03": {
+  "group": "extra",
+  "claimed": "stutter",
+  "clip": "human__aashrith_reagan_D",
+  "words": [
+   52,
+   52
+  ]
+ },
+ "q04": {
+  "group": "null",
+  "claimed": null,
+  "clip": "human__manya_reagan_D",
+  "words": [
+   129,
+   134
+  ]
+ },
+ "q05": {
+  "group": "extra",
+  "claimed": "filler",
+  "clip": "human__aashrith_obama_D",
+  "words": [
+   58,
+   58
+  ]
+ },
+ "q06": {
+  "group": "extra",
+  "claimed": "pause_omission",
+  "clip": "human__prasad_reagan_B",
+  "words": [
+   164,
+   172
+  ]
+ },
+ "q07": {
+  "group": "scripted",
+  "claimed": "stutter",
+  "clip": "human__aashrith_jfk_D",
+  "words": [
+   64,
+   64
+  ]
+ },
+ "q08": {
+  "group": "extra",
+  "claimed": "pause_omission",
+  "clip": "human__aashrith_obama_D",
+  "words": [
+   65,
+   74
+  ]
+ },
+ "q09": {
+  "group": "null",
+  "claimed": null,
+  "clip": "human__aashrith_obama_D",
+  "words": [
+   1,
+   6
+  ]
+ },
+ "q10": {
+  "group": "null",
+  "claimed": null,
+  "clip": "human__aashrith_reagan_D",
+  "words": [
+   13,
+   16
+  ]
+ },
+ "q11": {
+  "group": "scripted",
+  "claimed": "rushed",
+  "clip": "human__manya_reagan_B",
+  "words": [
+   31,
+   37
+  ]
+ },
+ "q12": {
+  "group": "null",
+  "claimed": null,
+  "clip": "human__manya_obama_C",
+  "words": [
+   65,
+   69
+  ]
+ },
+ "q13": {
+  "group": "null",
+  "claimed": null,
+  "clip": "human__prasad_jfk_C",
+  "words": [
+   57,
+   62
+  ]
+ },
+ "q14": {
+  "group": "extra",
+  "claimed": "pause_omission",
+  "clip": "human__prasad_jfk_B",
+  "words": [
+   71,
+   80
+  ]
+ },
+ "q15": {
+  "group": "scripted",
+  "claimed": "dragging",
+  "clip": "human__aashrith_jfk_B",
+  "words": [
+   77,
+   87
+  ]
+ },
+ "q16": {
+  "group": "scripted",
+  "claimed": "dragging",
+  "clip": "human__manya_reagan_B",
+  "words": [
+   137,
+   158
+  ]
+ },
+ "q17": {
+  "group": "extra",
+  "claimed": "pause_omission",
+  "clip": "human__manya_obama_B",
+  "words": [
+   28,
+   35
+  ]
+ },
+ "q18": {
+  "group": "extra",
+  "claimed": "monotone",
+  "clip": "human__manya_obama_C",
+  "words": [
+   16,
+   22
+  ]
+ },
+ "q19": {
+  "group": "extra",
+  "claimed": "pause_omission",
+  "clip": "human__manya_jfk_D",
+  "words": [
+   121,
+   124
+  ]
+ },
+ "q20": {
+  "group": "scripted",
+  "claimed": "pause_omission",
+  "clip": "human__prasad_jfk_D",
+  "words": [
+   7,
+   13
+  ]
+ },
+ "q21": {
+  "group": "scripted",
+  "claimed": "rushed",
+  "clip": "human__prasad_obama_B",
+  "words": [
+   0,
+   10
+  ]
+ },
+ "q22": {
+  "group": "null",
+  "claimed": null,
+  "clip": "human__aashrith_jfk_B",
+  "words": [
+   10,
+   14
+  ]
+ },
+ "q23": {
+  "group": "extra",
+  "claimed": "dragging",
+  "clip": "human__manya_obama_D",
+  "words": [
+   55,
+   64
+  ]
+ },
+ "q24": {
+  "group": "extra",
+  "claimed": "dragging",
+  "clip": "human__aashrith_obama_D",
+  "words": [
+   34,
+   42
+  ]
+ },
+ "q25": {
+  "group": "extra",
+  "claimed": "dragging",
+  "clip": "human__prasad_obama_C",
+  "words": [
+   99,
+   105
+  ]
+ },
+ "q26": {
+  "group": "extra",
+  "claimed": "pause_omission",
+  "clip": "human__aashrith_reagan_C",
+  "words": [
+   177,
+   184
+  ]
+ },
+ "q27": {
+  "group": "extra",
+  "claimed": "dragging",
+  "clip": "human__aashrith_jfk_B",
+  "words": [
+   27,
+   33
+  ]
+ },
+ "q28": {
+  "group": "extra",
+  "claimed": "pause_omission",
+  "clip": "human__manya_reagan_C",
+  "words": [
+   142,
+   147
+  ]
+ },
+ "q29": {
+  "group": "null",
+  "claimed": null,
+  "clip": "human__aashrith_jfk_C",
+  "words": [
+   91,
+   96
+  ]
+ },
+ "q30": {
+  "group": "extra",
+  "claimed": "dragging",
+  "clip": "human__aashrith_obama_B",
+  "words": [
+   35,
+   41
+  ]
+ }
+}

@@ -112,12 +112,21 @@ async def analyze(
             raise HTTPException(404, "Unknown sample.")
         reference_id = clip["source"]
         truth = clip["labels"]
+        if clip.get("reference_clip"):
+            reference_file = None
+            ref_y = audio.load(DATASET / "clips" / f"{clip['reference_clip']}.wav")
+            ref_text = clip["transcript"]
+            ref_url = f"/media/dataset/{clip['reference_clip']}.wav"
+            participant_text = clip["transcript"]
+            reference_id = None
     if reference_file is not None and reference_file.filename:
         ref_y = audio.load(await _save(reference_file))
         ref_text = reference_text
         if not ref_text:
             raise HTTPException(400, "Add the transcript for the reference recording.")
         ref_url = None
+    elif sample_id and reference_id is None:
+        pass  # human take: reference is the same person's clean take, set above
     elif reference_id:
         ref_dir = LIB / reference_id
         if not ref_dir.exists():

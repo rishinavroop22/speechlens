@@ -1,0 +1,1203 @@
+{
+ "id": "human__aashrith_obama_C",
+ "source": "obama",
+ "kind": "human",
+ "control": null,
+ "speaker": "aashrith",
+ "take": "C",
+ "title": "Aashrith, take C",
+ "duration": 48.32,
+ "labels": [
+  {
+   "type": "monotone",
+   "severity": 3,
+   "start": 1.1,
+   "end": 9.42,
+   "word_start": 0,
+   "word_end": 24,
+   "params": {
+    "scripted": "Read this sentence on one flat note, like a robot."
+   },
+   "performed": false,
+   "check": {
+    "measure": "pitch range (p10-p90) ratio",
+    "value": 0.843,
+    "criterion": "<= 0.65"
+   }
+  },
+  {
+   "type": "trailing_off",
+   "severity": 3,
+   "start": 20.06,
+   "end": 21.5,
+   "word_start": 50,
+   "word_end": 55,
+   "params": {
+    "scripted": "From the marked word, fade almost to a whisper by the end of the sentence."
+   },
+   "performed": false,
+   "check": {
+    "measure": "loudness change over the second half, dB",
+    "value": -0.297,
+    "criterion": "<= -4.0"
+   }
+  },
+  {
+   "type": "mumbling",
+   "severity": 3,
+   "start": 28.56,
+   "end": 33.44,
+   "word_start": 72,
+   "word_end": 85,
+   "params": {
+    "scripted": "Mumble this sentence: barely open your mouth, swallow the consonants."
+   },
+   "performed": false,
+   "check": {
+    "measure": "energy above 4 kHz ratio",
+    "value": 1.288,
+    "criterion": "<= 0.7"
+   }
+  }
+ ],
+ "max_severity": 3,
+ "align_conf": 0.83,
+ "words": [
+  {
+   "i": 0,
+   "text": "I",
+   "norm": "I",
+   "start": 1.1,
+   "end": 1.36,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 1,
+   "text": "stand",
+   "norm": "STAND",
+   "start": 1.36,
+   "end": 1.76,
+   "conf": 0.9234,
+   "punct_after": null
+  },
+  {
+   "i": 2,
+   "text": "here",
+   "norm": "HERE",
+   "start": 1.76,
+   "end": 1.96,
+   "conf": 0.9622,
+   "punct_after": null
+  },
+  {
+   "i": 3,
+   "text": "today",
+   "norm": "TODAY",
+   "start": 1.96,
+   "end": 2.29,
+   "conf": 0.9995,
+   "punct_after": null
+  },
+  {
+   "i": 4,
+   "text": "humbled",
+   "norm": "HUMBLED",
+   "start": 2.29,
+   "end": 2.62,
+   "conf": 0.9697,
+   "punct_after": null
+  },
+  {
+   "i": 5,
+   "text": "by",
+   "norm": "BY",
+   "start": 2.62,
+   "end": 2.76,
+   "conf": 0.0008,
+   "punct_after": null
+  },
+  {
+   "i": 6,
+   "text": "the",
+   "norm": "THE",
+   "start": 2.76,
+   "end": 2.9,
+   "conf": 0.2907,
+   "punct_after": null
+  },
+  {
+   "i": 7,
+   "text": "task",
+   "norm": "TASK",
+   "start": 2.92,
+   "end": 3.25,
+   "conf": 0.9891,
+   "punct_after": null
+  },
+  {
+   "i": 8,
+   "text": "before",
+   "norm": "BEFORE",
+   "start": 3.26,
+   "end": 3.74,
+   "conf": 0.9697,
+   "punct_after": null
+  },
+  {
+   "i": 9,
+   "text": "us,",
+   "norm": "US",
+   "start": 3.74,
+   "end": 3.92,
+   "conf": 0.5894,
+   "punct_after": "comma"
+  },
+  {
+   "i": 10,
+   "text": "grateful",
+   "norm": "GRATEFUL",
+   "start": 3.92,
+   "end": 4.34,
+   "conf": 0.9995,
+   "punct_after": null
+  },
+  {
+   "i": 11,
+   "text": "for",
+   "norm": "FOR",
+   "start": 4.34,
+   "end": 4.46,
+   "conf": 0.999,
+   "punct_after": null
+  },
+  {
+   "i": 12,
+   "text": "the",
+   "norm": "THE",
+   "start": 4.46,
+   "end": 4.61,
+   "conf": 0.9856,
+   "punct_after": null
+  },
+  {
+   "i": 13,
+   "text": "trust",
+   "norm": "TRUST",
+   "start": 4.62,
+   "end": 4.9,
+   "conf": 0.9693,
+   "punct_after": null
+  },
+  {
+   "i": 14,
+   "text": "you",
+   "norm": "YOU",
+   "start": 4.9,
+   "end": 5.04,
+   "conf": 0.8624,
+   "punct_after": null
+  },
+  {
+   "i": 15,
+   "text": "have",
+   "norm": "HAVE",
+   "start": 5.04,
+   "end": 5.71,
+   "conf": 0.9982,
+   "punct_after": null
+  },
+  {
+   "i": 16,
+   "text": "bestowed,",
+   "norm": "BESTOWED",
+   "start": 5.73,
+   "end": 6.29,
+   "conf": 0.9133,
+   "punct_after": "comma"
+  },
+  {
+   "i": 17,
+   "text": "mindful",
+   "norm": "MINDFUL",
+   "start": 6.96,
+   "end": 7.38,
+   "conf": 0.9501,
+   "punct_after": null
+  },
+  {
+   "i": 18,
+   "text": "of",
+   "norm": "OF",
+   "start": 7.38,
+   "end": 7.48,
+   "conf": 0.9977,
+   "punct_after": null
+  },
+  {
+   "i": 19,
+   "text": "the",
+   "norm": "THE",
+   "start": 7.48,
+   "end": 7.6,
+   "conf": 0.9936,
+   "punct_after": null
+  },
+  {
+   "i": 20,
+   "text": "sacrifices",
+   "norm": "SACRIFICES",
+   "start": 7.6,
+   "end": 8.26,
+   "conf": 0.9583,
+   "punct_after": null
+  },
+  {
+   "i": 21,
+   "text": "borne",
+   "norm": "BORNE",
+   "start": 8.26,
+   "end": 8.51,
+   "conf": 0.6736,
+   "punct_after": null
+  },
+  {
+   "i": 22,
+   "text": "by",
+   "norm": "BY",
+   "start": 8.51,
+   "end": 8.64,
+   "conf": 0.4988,
+   "punct_after": null
+  },
+  {
+   "i": 23,
+   "text": "our",
+   "norm": "OUR",
+   "start": 8.64,
+   "end": 8.8,
+   "conf": 0.141,
+   "punct_after": null
+  },
+  {
+   "i": 24,
+   "text": "ancestors.",
+   "norm": "ANCESTORS",
+   "start": 8.8,
+   "end": 9.42,
+   "conf": 0.9506,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 25,
+   "text": "I",
+   "norm": "I",
+   "start": 10.04,
+   "end": 10.32,
+   "conf": 0.999,
+   "punct_after": null
+  },
+  {
+   "i": 26,
+   "text": "thank",
+   "norm": "THANK",
+   "start": 10.32,
+   "end": 10.64,
+   "conf": 0.8573,
+   "punct_after": null
+  },
+  {
+   "i": 27,
+   "text": "President",
+   "norm": "PRESIDENT",
+   "start": 10.64,
+   "end": 11.1,
+   "conf": 0.5548,
+   "punct_after": null
+  },
+  {
+   "i": 28,
+   "text": "Bush",
+   "norm": "BUSH",
+   "start": 11.1,
+   "end": 11.48,
+   "conf": 0.8451,
+   "punct_after": null
+  },
+  {
+   "i": 29,
+   "text": "for",
+   "norm": "FOR",
+   "start": 11.91,
+   "end": 12.16,
+   "conf": 0.9824,
+   "punct_after": null
+  },
+  {
+   "i": 30,
+   "text": "his",
+   "norm": "HIS",
+   "start": 12.16,
+   "end": 12.28,
+   "conf": 0.7137,
+   "punct_after": null
+  },
+  {
+   "i": 31,
+   "text": "service",
+   "norm": "SERVICE",
+   "start": 12.28,
+   "end": 12.64,
+   "conf": 0.9658,
+   "punct_after": null
+  },
+  {
+   "i": 32,
+   "text": "to",
+   "norm": "TO",
+   "start": 12.64,
+   "end": 12.78,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 33,
+   "text": "our",
+   "norm": "OUR",
+   "start": 12.78,
+   "end": 12.88,
+   "conf": 0.3577,
+   "punct_after": null
+  },
+  {
+   "i": 34,
+   "text": "nation,",
+   "norm": "NATION",
+   "start": 12.88,
+   "end": 13.44,
+   "conf": 0.9704,
+   "punct_after": "comma"
+  },
+  {
+   "i": 35,
+   "text": "as",
+   "norm": "AS",
+   "start": 13.44,
+   "end": 13.56,
+   "conf": 1.0,
+   "punct_after": null
+  },
+  {
+   "i": 36,
+   "text": "well",
+   "norm": "WELL",
+   "start": 13.56,
+   "end": 13.74,
+   "conf": 0.9982,
+   "punct_after": null
+  },
+  {
+   "i": 37,
+   "text": "as",
+   "norm": "AS",
+   "start": 13.74,
+   "end": 13.84,
+   "conf": 0.9998,
+   "punct_after": null
+  },
+  {
+   "i": 38,
+   "text": "the",
+   "norm": "THE",
+   "start": 13.84,
+   "end": 13.94,
+   "conf": 0.5229,
+   "punct_after": null
+  },
+  {
+   "i": 39,
+   "text": "generosity",
+   "norm": "GENEROSITY",
+   "start": 13.94,
+   "end": 14.62,
+   "conf": 0.989,
+   "punct_after": null
+  },
+  {
+   "i": 40,
+   "text": "and",
+   "norm": "AND",
+   "start": 14.62,
+   "end": 14.76,
+   "conf": 0.9003,
+   "punct_after": null
+  },
+  {
+   "i": 41,
+   "text": "cooperation",
+   "norm": "COOPERATION",
+   "start": 14.76,
+   "end": 15.32,
+   "conf": 0.6511,
+   "punct_after": null
+  },
+  {
+   "i": 42,
+   "text": "he",
+   "norm": "HE",
+   "start": 15.32,
+   "end": 15.44,
+   "conf": 0.9994,
+   "punct_after": null
+  },
+  {
+   "i": 43,
+   "text": "has",
+   "norm": "HAS",
+   "start": 15.44,
+   "end": 15.62,
+   "conf": 0.9865,
+   "punct_after": null
+  },
+  {
+   "i": 44,
+   "text": "shown",
+   "norm": "SHOWN",
+   "start": 15.62,
+   "end": 15.94,
+   "conf": 0.9941,
+   "punct_after": null
+  },
+  {
+   "i": 45,
+   "text": "throughout",
+   "norm": "THROUGHOUT",
+   "start": 15.94,
+   "end": 16.43,
+   "conf": 0.6498,
+   "punct_after": null
+  },
+  {
+   "i": 46,
+   "text": "this",
+   "norm": "THIS",
+   "start": 16.96,
+   "end": 17.2,
+   "conf": 0.5564,
+   "punct_after": null
+  },
+  {
+   "i": 47,
+   "text": "transition.",
+   "norm": "TRANSITION",
+   "start": 17.2,
+   "end": 17.77,
+   "conf": 0.9561,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 48,
+   "text": "Forty-four",
+   "norm": "FORTY|FOUR",
+   "start": 18.51,
+   "end": 19.0,
+   "conf": 0.6287,
+   "punct_after": null
+  },
+  {
+   "i": 49,
+   "text": "Americans",
+   "norm": "AMERICANS",
+   "start": 19.0,
+   "end": 19.62,
+   "conf": 0.9726,
+   "punct_after": null
+  },
+  {
+   "i": 50,
+   "text": "have",
+   "norm": "HAVE",
+   "start": 20.06,
+   "end": 20.23,
+   "conf": 0.7622,
+   "punct_after": null
+  },
+  {
+   "i": 51,
+   "text": "now",
+   "norm": "NOW",
+   "start": 20.23,
+   "end": 20.44,
+   "conf": 0.7186,
+   "punct_after": null
+  },
+  {
+   "i": 52,
+   "text": "taken",
+   "norm": "TAKEN",
+   "start": 20.44,
+   "end": 20.78,
+   "conf": 0.9987,
+   "punct_after": null
+  },
+  {
+   "i": 53,
+   "text": "the",
+   "norm": "THE",
+   "start": 20.78,
+   "end": 20.9,
+   "conf": 0.9465,
+   "punct_after": null
+  },
+  {
+   "i": 54,
+   "text": "presidential",
+   "norm": "PRESIDENTIAL",
+   "start": 20.9,
+   "end": 21.26,
+   "conf": 0.3364,
+   "punct_after": null
+  },
+  {
+   "i": 55,
+   "text": "oath.",
+   "norm": "OATH",
+   "start": 21.26,
+   "end": 21.5,
+   "conf": 0.0989,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 56,
+   "text": "The",
+   "norm": "THE",
+   "start": 21.5,
+   "end": 21.63,
+   "conf": 0.5117,
+   "punct_after": null
+  },
+  {
+   "i": 57,
+   "text": "words",
+   "norm": "WORDS",
+   "start": 22.3,
+   "end": 22.64,
+   "conf": 0.9574,
+   "punct_after": null
+  },
+  {
+   "i": 58,
+   "text": "have",
+   "norm": "HAVE",
+   "start": 22.64,
+   "end": 22.84,
+   "conf": 0.9099,
+   "punct_after": null
+  },
+  {
+   "i": 59,
+   "text": "been",
+   "norm": "BEEN",
+   "start": 22.84,
+   "end": 23.04,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 60,
+   "text": "spoken",
+   "norm": "SPOKEN",
+   "start": 23.04,
+   "end": 23.4,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 61,
+   "text": "during",
+   "norm": "DURING",
+   "start": 23.4,
+   "end": 23.72,
+   "conf": 0.86,
+   "punct_after": null
+  },
+  {
+   "i": 62,
+   "text": "rising",
+   "norm": "RISING",
+   "start": 23.72,
+   "end": 24.04,
+   "conf": 0.8435,
+   "punct_after": null
+  },
+  {
+   "i": 63,
+   "text": "tides",
+   "norm": "TIDES",
+   "start": 24.04,
+   "end": 24.34,
+   "conf": 0.6898,
+   "punct_after": null
+  },
+  {
+   "i": 64,
+   "text": "of",
+   "norm": "OF",
+   "start": 24.34,
+   "end": 24.46,
+   "conf": 0.9978,
+   "punct_after": null
+  },
+  {
+   "i": 65,
+   "text": "prosperity",
+   "norm": "PROSPERITY",
+   "start": 24.46,
+   "end": 25.2,
+   "conf": 0.962,
+   "punct_after": null
+  },
+  {
+   "i": 66,
+   "text": "and",
+   "norm": "AND",
+   "start": 25.2,
+   "end": 25.34,
+   "conf": 0.9313,
+   "punct_after": null
+  },
+  {
+   "i": 67,
+   "text": "the",
+   "norm": "THE",
+   "start": 25.34,
+   "end": 25.44,
+   "conf": 0.9659,
+   "punct_after": null
+  },
+  {
+   "i": 68,
+   "text": "still",
+   "norm": "STILL",
+   "start": 25.44,
+   "end": 25.66,
+   "conf": 0.8132,
+   "punct_after": null
+  },
+  {
+   "i": 69,
+   "text": "waters",
+   "norm": "WATERS",
+   "start": 25.66,
+   "end": 26.04,
+   "conf": 0.9711,
+   "punct_after": null
+  },
+  {
+   "i": 70,
+   "text": "of",
+   "norm": "OF",
+   "start": 26.04,
+   "end": 26.16,
+   "conf": 0.9958,
+   "punct_after": null
+  },
+  {
+   "i": 71,
+   "text": "peace.",
+   "norm": "PEACE",
+   "start": 26.2,
+   "end": 26.61,
+   "conf": 0.9955,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 72,
+   "text": "Yet,",
+   "norm": "YET",
+   "start": 28.56,
+   "end": 28.99,
+   "conf": 0.9962,
+   "punct_after": "comma"
+  },
+  {
+   "i": 73,
+   "text": "every",
+   "norm": "EVERY",
+   "start": 29.01,
+   "end": 29.5,
+   "conf": 0.9557,
+   "punct_after": null
+  },
+  {
+   "i": 74,
+   "text": "so",
+   "norm": "SO",
+   "start": 29.5,
+   "end": 29.79,
+   "conf": 0.9727,
+   "punct_after": null
+  },
+  {
+   "i": 75,
+   "text": "often",
+   "norm": "OFTEN",
+   "start": 30.16,
+   "end": 30.5,
+   "conf": 0.9955,
+   "punct_after": null
+  },
+  {
+   "i": 76,
+   "text": "the",
+   "norm": "THE",
+   "start": 30.5,
+   "end": 30.74,
+   "conf": 0.9733,
+   "punct_after": null
+  },
+  {
+   "i": 77,
+   "text": "oath",
+   "norm": "OATH",
+   "start": 30.74,
+   "end": 30.92,
+   "conf": 0.2266,
+   "punct_after": null
+  },
+  {
+   "i": 78,
+   "text": "is",
+   "norm": "IS",
+   "start": 30.92,
+   "end": 31.02,
+   "conf": 0.6297,
+   "punct_after": null
+  },
+  {
+   "i": 79,
+   "text": "taken",
+   "norm": "TAKEN",
+   "start": 31.02,
+   "end": 31.38,
+   "conf": 0.5805,
+   "punct_after": null
+  },
+  {
+   "i": 80,
+   "text": "amidst",
+   "norm": "AMIDST",
+   "start": 31.38,
+   "end": 31.74,
+   "conf": 0.566,
+   "punct_after": null
+  },
+  {
+   "i": 81,
+   "text": "gathering",
+   "norm": "GATHERING",
+   "start": 31.95,
+   "end": 32.4,
+   "conf": 0.9196,
+   "punct_after": null
+  },
+  {
+   "i": 82,
+   "text": "clouds",
+   "norm": "CLOUDS",
+   "start": 32.4,
+   "end": 32.74,
+   "conf": 0.7289,
+   "punct_after": null
+  },
+  {
+   "i": 83,
+   "text": "and",
+   "norm": "AND",
+   "start": 32.74,
+   "end": 32.86,
+   "conf": 0.8489,
+   "punct_after": null
+  },
+  {
+   "i": 84,
+   "text": "raging",
+   "norm": "RAGING",
+   "start": 32.86,
+   "end": 33.1,
+   "conf": 0.6742,
+   "punct_after": null
+  },
+  {
+   "i": 85,
+   "text": "storms.",
+   "norm": "STORMS",
+   "start": 33.1,
+   "end": 33.44,
+   "conf": 0.8525,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 86,
+   "text": "At",
+   "norm": "AT",
+   "start": 34.39,
+   "end": 34.54,
+   "conf": 0.4373,
+   "punct_after": null
+  },
+  {
+   "i": 87,
+   "text": "these",
+   "norm": "THESE",
+   "start": 34.54,
+   "end": 34.74,
+   "conf": 0.5382,
+   "punct_after": null
+  },
+  {
+   "i": 88,
+   "text": "moments,",
+   "norm": "MOMENTS",
+   "start": 34.74,
+   "end": 35.24,
+   "conf": 0.8219,
+   "punct_after": "comma"
+  },
+  {
+   "i": 89,
+   "text": "America",
+   "norm": "AMERICA",
+   "start": 35.24,
+   "end": 35.7,
+   "conf": 0.959,
+   "punct_after": null
+  },
+  {
+   "i": 90,
+   "text": "has",
+   "norm": "HAS",
+   "start": 35.7,
+   "end": 36.2,
+   "conf": 0.9606,
+   "punct_after": null
+  },
+  {
+   "i": 91,
+   "text": "carried",
+   "norm": "CARRIED",
+   "start": 36.24,
+   "end": 36.63,
+   "conf": 0.8416,
+   "punct_after": null
+  },
+  {
+   "i": 92,
+   "text": "on",
+   "norm": "ON",
+   "start": 36.66,
+   "end": 36.96,
+   "conf": 0.4755,
+   "punct_after": null
+  },
+  {
+   "i": 93,
+   "text": "not",
+   "norm": "NOT",
+   "start": 37.56,
+   "end": 37.82,
+   "conf": 0.207,
+   "punct_after": null
+  },
+  {
+   "i": 94,
+   "text": "simply",
+   "norm": "SIMPLY",
+   "start": 37.82,
+   "end": 38.24,
+   "conf": 0.9271,
+   "punct_after": null
+  },
+  {
+   "i": 95,
+   "text": "because",
+   "norm": "BECAUSE",
+   "start": 38.24,
+   "end": 38.52,
+   "conf": 0.9867,
+   "punct_after": null
+  },
+  {
+   "i": 96,
+   "text": "of",
+   "norm": "OF",
+   "start": 38.52,
+   "end": 38.61,
+   "conf": 0.9943,
+   "punct_after": null
+  },
+  {
+   "i": 97,
+   "text": "the",
+   "norm": "THE",
+   "start": 38.61,
+   "end": 39.04,
+   "conf": 0.8802,
+   "punct_after": null
+  },
+  {
+   "i": 98,
+   "text": "skill",
+   "norm": "SKILL",
+   "start": 39.04,
+   "end": 39.46,
+   "conf": 0.8379,
+   "punct_after": null
+  },
+  {
+   "i": 99,
+   "text": "or",
+   "norm": "OR",
+   "start": 39.46,
+   "end": 39.57,
+   "conf": 0.2788,
+   "punct_after": null
+  },
+  {
+   "i": 100,
+   "text": "vision",
+   "norm": "VISION",
+   "start": 39.57,
+   "end": 39.97,
+   "conf": 0.8902,
+   "punct_after": null
+  },
+  {
+   "i": 101,
+   "text": "of",
+   "norm": "OF",
+   "start": 39.97,
+   "end": 40.11,
+   "conf": 0.9968,
+   "punct_after": null
+  },
+  {
+   "i": 102,
+   "text": "those",
+   "norm": "THOSE",
+   "start": 40.11,
+   "end": 40.4,
+   "conf": 0.838,
+   "punct_after": null
+  },
+  {
+   "i": 103,
+   "text": "in",
+   "norm": "IN",
+   "start": 40.4,
+   "end": 40.5,
+   "conf": 0.9961,
+   "punct_after": null
+  },
+  {
+   "i": 104,
+   "text": "high",
+   "norm": "HIGH",
+   "start": 40.5,
+   "end": 40.72,
+   "conf": 0.9621,
+   "punct_after": null
+  },
+  {
+   "i": 105,
+   "text": "office,",
+   "norm": "OFFICE",
+   "start": 40.72,
+   "end": 41.13,
+   "conf": 0.9998,
+   "punct_after": "comma"
+  },
+  {
+   "i": 106,
+   "text": "but",
+   "norm": "BUT",
+   "start": 41.52,
+   "end": 41.7,
+   "conf": 0.9438,
+   "punct_after": null
+  },
+  {
+   "i": 107,
+   "text": "because",
+   "norm": "BECAUSE",
+   "start": 41.7,
+   "end": 42.08,
+   "conf": 0.9608,
+   "punct_after": null
+  },
+  {
+   "i": 108,
+   "text": "We",
+   "norm": "WE",
+   "start": 42.08,
+   "end": 42.26,
+   "conf": 0.9407,
+   "punct_after": null
+  },
+  {
+   "i": 109,
+   "text": "the",
+   "norm": "THE",
+   "start": 42.26,
+   "end": 42.44,
+   "conf": 0.9628,
+   "punct_after": null
+  },
+  {
+   "i": 110,
+   "text": "People",
+   "norm": "PEOPLE",
+   "start": 42.44,
+   "end": 42.78,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 111,
+   "text": "have",
+   "norm": "HAVE",
+   "start": 42.78,
+   "end": 43.04,
+   "conf": 0.9948,
+   "punct_after": null
+  },
+  {
+   "i": 112,
+   "text": "remained",
+   "norm": "REMAINED",
+   "start": 43.04,
+   "end": 43.46,
+   "conf": 0.9982,
+   "punct_after": null
+  },
+  {
+   "i": 113,
+   "text": "faithful",
+   "norm": "FAITHFUL",
+   "start": 43.46,
+   "end": 43.92,
+   "conf": 0.9456,
+   "punct_after": null
+  },
+  {
+   "i": 114,
+   "text": "to",
+   "norm": "TO",
+   "start": 43.92,
+   "end": 44.06,
+   "conf": 0.9924,
+   "punct_after": null
+  },
+  {
+   "i": 115,
+   "text": "the",
+   "norm": "THE",
+   "start": 44.06,
+   "end": 44.2,
+   "conf": 0.9946,
+   "punct_after": null
+  },
+  {
+   "i": 116,
+   "text": "ideals",
+   "norm": "IDEALS",
+   "start": 44.2,
+   "end": 44.6,
+   "conf": 0.8539,
+   "punct_after": null
+  },
+  {
+   "i": 117,
+   "text": "of",
+   "norm": "OF",
+   "start": 44.6,
+   "end": 44.74,
+   "conf": 0.9989,
+   "punct_after": null
+  },
+  {
+   "i": 118,
+   "text": "our",
+   "norm": "OUR",
+   "start": 44.74,
+   "end": 45.04,
+   "conf": 0.9904,
+   "punct_after": null
+  },
+  {
+   "i": 119,
+   "text": "forbearers,",
+   "norm": "FORBEARERS",
+   "start": 45.06,
+   "end": 45.89,
+   "conf": 0.9149,
+   "punct_after": "comma"
+  },
+  {
+   "i": 120,
+   "text": "and",
+   "norm": "AND",
+   "start": 46.38,
+   "end": 46.62,
+   "conf": 0.9627,
+   "punct_after": null
+  },
+  {
+   "i": 121,
+   "text": "true",
+   "norm": "TRUE",
+   "start": 46.62,
+   "end": 46.86,
+   "conf": 0.9417,
+   "punct_after": null
+  },
+  {
+   "i": 122,
+   "text": "to",
+   "norm": "TO",
+   "start": 46.86,
+   "end": 46.94,
+   "conf": 0.4974,
+   "punct_after": null
+  },
+  {
+   "i": 123,
+   "text": "our",
+   "norm": "OUR",
+   "start": 46.94,
+   "end": 47.08,
+   "conf": 0.275,
+   "punct_after": null
+  },
+  {
+   "i": 124,
+   "text": "founding",
+   "norm": "FOUNDING",
+   "start": 47.08,
+   "end": 47.4,
+   "conf": 0.8111,
+   "punct_after": null
+  },
+  {
+   "i": 125,
+   "text": "documents.",
+   "norm": "DOCUMENTS",
+   "start": 47.4,
+   "end": 48.01,
+   "conf": 0.8909,
+   "punct_after": "sentence"
+  }
+ ],
+ "reference_clip": "human__aashrith_obama_A",
+ "transcript": "I stand here today humbled by the task before us, grateful for the trust you have bestowed, mindful of the sacrifices borne by our ancestors. I thank President Bush for his service to our nation, as well as the generosity and cooperation he has shown throughout this transition. Forty-four Americans have now taken the presidential oath. The words have been spoken during rising tides of prosperity and the still waters of peace. Yet, every so often the oath is taken amidst gathering clouds and raging storms. At these moments, America has carried on not simply because of the skill or vision of those in high office, but because We the People have remained faithful to the ideals of our forbearers, and true to our founding documents."
+}

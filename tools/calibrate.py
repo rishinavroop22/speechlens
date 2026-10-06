@@ -78,8 +78,12 @@ def main():
                       "bias": round(float(np.mean(e)), 3), "n": len(e)}
     report = {"default_tables": summ(err_default), "calibrated_leave_one_speech_out": summ(err_loso)}
     final = fit(rows)
-    (ROOT / "speechlens/calibration.json").write_text(json.dumps({t: {k: v[k] for k in ("table", "increasing")}
-                                                                  for t, v in final.items()}, indent=1))
+    path = ROOT / "speechlens/calibration.json"
+    old = json.loads(path.read_text()) if path.exists() else {}
+    out = {t: {k: v[k] for k in ("table", "increasing")} for t, v in final.items()}
+    if "_gates" in old:
+        out["_gates"] = old["_gates"]
+    path.write_text(json.dumps(out, indent=1))
     ev = ROOT / "results/evaluation.json"
     if ev.exists():
         e = json.loads(ev.read_text())

@@ -37,7 +37,8 @@ TH = {
     "vol_db": -3.5,             # quieter than reference by > 3.5 dB (speaker-relative)
     "clar_log2": -0.75,         # high-band articulation energy < 59 % of reference
     "pause_keep": 0.40,         # a reference pause >= 180 ms shrunk to < 40 %
-    "pause_extra_s": 0.30,      # >= 300 ms longer than the reference pause
+    "pause_extra_s": 0.30,      # >= 300 ms longer than the reference pause, mid-phrase
+    "pause_extra_punct_s": 1.20,  # at punctuation, only a pause >= 1.2 s longer counts
     "filled_s": 0.15,           # >= 150 ms of voicing inside a pause
 }
 # global (whole-reading) thresholds
@@ -274,7 +275,14 @@ def _resolve(regions: list[Region]) -> list[Region]:
     muffled articulation (low-pass) also lowers measured loudness, so a mild
     volume drop inside a mumbling region is not reported twice."""
     out = []
+    gate = {} if os.environ.get("SPEECHLENS_NO_GATE") else GATES
     for r in regions:
+        g = gate.get(r.type)
+        if g is not None and r.magnitude is not None and r.scope == "local":
+            # data-fitted significance gate (tools/fit_thresholds.py): deviations
+            # within natural take-to-take variation are not reported
+            if (r.magnitude < g["min"]) if g["worse"] == "higher" else (r.magnitude > g["min"]):
+                continue
         z = r.metrics[0].z if r.metrics else None
         if r.scope == "local" and z is not None and abs(z) < MIN_Z.get(r.type, MIN_Z_DEFAULT):
             continue
@@ -315,11 +323,15 @@ class Sev(int):
         return obj
 
 
+import os
+
 CALIBRATION = {}
+GATES = {}
 _cal_path = __import__("pathlib").Path(__file__).with_name("calibration.json")
 if _cal_path.exists():
     import json as _json
     CALIBRATION = _json.loads(_cal_path.read_text())
+    GATES = CALIBRATION.pop("_gates", {})
 
 
 def _sevt(ftype, value, table, increasing=True):
@@ -542,7 +554,10 @@ def compare(ref: Analysis, par: Analysis) -> dict:
                 continue
 
         pe = pause_extra[j] - max(0.0, local_base(pause_extra, j))
-        if pe >= TH["pause_extra_s"] and pp > 1.8 * pb + 0.15:
+        # at punctuation a longer pause is usually a deliberate, dramatic one;
+        # only an extreme one counts there. Mid-phrase, the normal threshold.
+        need = TH["pause_extra_s"] if not R[j].punct_after else TH["pause_extra_punct_s"]
+        if pe >= need and pp > 1.8 * pb + 0.15:
             regions.append(Region("awkward_pause", round(Pw[j].end, 3), round(b.start, 3), P(j), P(j + 1),
                                   _sevt("awkward_pause", pp - pb, [0.35, 0.60, 0.90, 1.30, 1.80]), _conf((pp - pb) / 0.15),
                                   [Metric("pause_length", "s", pb, pp, pp - pb, None,
@@ -565,7 +580,7 @@ def compare(ref: Analysis, par: Analysis) -> dict:
     for grp in groups:
         pbs = np.array([pause_info[j][0] for j in grp])
         pps = np.array([pause_info[j][1] for j in grp])
-        if len(grp) == 1 and pbs[0] < 0.35:
+        if len(grp) < 2:  # running through a passage, not one shortened pause
             continue
         keep = float((pps / pbs).mean())
         j0, j1 = grp[0], min(n - 1, grp[-1] + 1)
