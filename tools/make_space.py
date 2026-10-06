@@ -35,13 +35,32 @@ EXPOSE 7860
 CMD ["python", "-m", "uvicorn", "speechlens.app:app", "--host", "0.0.0.0", "--port", "7860"]
 """
 
+APP_PY = """\"\"\"Hugging Face Space entry point: fetch the alignment model on first start,
+then serve the SpeechLens web app on port 7860.\"\"\"
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+if not (ROOT / "models/wav2vec2/onnx/model.onnx").exists():
+    import runpy
+    runpy.run_path(str(ROOT / "tools/get_model.py"), run_name="__main__")
+
+import uvicorn  # noqa: E402
+
+from speechlens.app import app  # noqa: E402
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=7860)
+"""
+
 README = """---
 title: SpeechLens
 emoji: 🎙️
 colorFrom: blue
 colorTo: indigo
-sdk: docker
-app_port: 7860
+sdk: gradio
+sdk_version: 4.44.1
+python_version: "3.11"
+app_file: app.py
 pinned: true
 short_description: Finds where a spoken delivery goes wrong, and why.
 ---
@@ -75,7 +94,9 @@ def main():
     (OUT / "tools").mkdir(parents=True)
     shutil.copy(ROOT / "tools/get_model.py", OUT / "tools/get_model.py")
     shutil.copy(ROOT / "requirements.txt", OUT / "requirements.txt")
-    (OUT / "Dockerfile").write_text(DOCKERFILE)
+    (OUT / "Dockerfile").write_text(DOCKERFILE)  # for self-hosting; the Space uses app.py
+    (OUT / "app.py").write_text(APP_PY)
+    (OUT / "packages.txt").write_text("ffmpeg\n")
     (OUT / "README.md").write_text(README)
     (OUT / ".gitattributes").write_text("*.wav filter=lfs diff=lfs merge=lfs -text\n*.flac filter=lfs diff=lfs merge=lfs -text\n"
                                         "*.woff2 filter=lfs diff=lfs merge=lfs -text\n")
