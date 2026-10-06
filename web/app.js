@@ -41,7 +41,45 @@ function route() {
 }
 addEventListener("hashchange", route);
 
+// Hosted static demo (tools/make_static.py): the same dashboard served as
+// plain files. Dataset clips use reports pre-computed by the real pipeline and
+// only the rubric score is computed here; new uploads need the full app.
+const STATIC = !!window.SPEECHLENS_STATIC;
+const STATIC_ROUTES = { "/api/rubrics": "data/rubrics.json", "/api/library": "data/library.json",
+  "/api/samples": "data/samples.json", "/api/status": "data/status.json", "/api/evaluation": "data/evaluation.json" };
+const DIMS = ["pace", "pausing", "fluency", "pitch_variety", "volume", "clarity"];
+
+function scoreRegions(regions, nWords, rubric) {  // mirrors speechlens/explain.py:score
+  const pen = Object.fromEntries(DIMS.map((d) => [d, 0]));
+  for (const r of regions) {
+    const d = DIM_OF[r.type];
+    if (r.scope === "global") pen[d] += r.severity * 2.4;
+    else if (["awkward_pause", "filler", "stutter"].includes(r.type)) pen[d] += r.severity * 0.7;
+    else pen[d] += r.severity * (0.8 + 6.0 * (r.word_end - r.word_start + 1) / Math.max(1, nWords));
+  }
+  const dims = Object.fromEntries(DIMS.map((d) => [d, Math.round(Math.max(0, 10 - pen[d]) * 100) / 100]));
+  const w = rubric.weights, total = DIMS.reduce((a, d) => a + w[d], 0);
+  const overall = Math.round(10 * DIMS.reduce((a, d) => a + dims[d] * w[d], 0) / total * 10) / 10;
+  return { overall, dimensions: dims, rubric: rubric.name, band: rubric.bands.find((b) => overall >= b.min).label };
+}
+
+async function staticApi(path, opts) {
+  if (STATIC_ROUTES[path]) return (await fetch(STATIC_ROUTES[path])).json();
+  if (path === "/api/analyze") {
+    const id = opts.body.get("sample_id");
+    if (!id) throw new Error("This hosted demo shows recordings analysed in advance. To analyse your own recording, run SpeechLens from GitHub (one command, see the README).");
+    const r = await fetch(`reports/${id}.json`);
+    if (!r.ok) throw new Error("This clip is not part of the hosted demo.");
+    const rep = await r.json();
+    const rubric = S.rubrics.find((x) => x.id === opts.body.get("rubric")) || S.rubrics[0];
+    rep.score = scoreRegions(rep.regions, rep.words.length, rubric);
+    return rep;
+  }
+  throw new Error("Not available in the hosted demo.");
+}
+
 async function api(path, opts) {
+  if (STATIC) return staticApi(path, opts);
   const r = await fetch(path, opts);
   if (!r.ok) {
     let msg = `${r.status}`;
@@ -64,7 +102,11 @@ async function boot() {
     : `<option value="">No reference speeches yet</option>`;
   renderSamples();
   renderDataset();
-  if (status.aligner !== "wav2vec2-ctc") setStatus("Alignment model not found: using the approximate fallback aligner.", true);
+  if (STATIC) {
+    $("#go").textContent = "Analyze delivery (full app)";
+    setStatus("Hosted demo: pick a dataset clip below. Analysing your own recording needs the full app from GitHub.");
+    analyzeSample(S.manifest.clips.find((c) => c.id === "human__manya_reagan_B")?.id || S.manifest.clips[0].id);
+  } else if (status.aligner !== "wav2vec2-ctc") setStatus("Alignment model not found: using the approximate fallback aligner.", true);
 }
 
 function setStatus(msg, err = false) {
@@ -114,7 +156,7 @@ document.addEventListener("click", (e) => {
 async function analyzeSample(id) {
   S.sample = id;
   const clip = S.manifest.clips.find((c) => c.id === id);
-  if (clip && !clip.reference_clip) $("#ref-select").value = clip.source;
+  if (clip) $("#ref-select").value = clip.source;
   $$(".sample").forEach((b) => b.classList.toggle("active", b.dataset.id === id));
   const fd = new FormData();
   fd.append("sample_id", id);
@@ -181,8 +223,8 @@ function showReport() {
   const r = S.rep;
   $("#empty").hidden = true;
   $("#report").hidden = false;
-  audioEl.src = r.audio_url;
-  refAudio.src = r.reference_url || "";
+  audioEl.src = STATIC ? r.audio_url.replace(/^\//, "") : r.audio_url;
+  refAudio.src = r.reference_url ? (STATIC ? r.reference_url.replace(/^\//, "") : r.reference_url) : "";
   $("#score-num").textContent = Math.round(r.score.overall);
   $("#score-band").textContent = r.score.band;
   $("#score-rubric").textContent = `${r.score.rubric} rubric`;
