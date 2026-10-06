@@ -222,6 +222,9 @@ button.primary:disabled { opacity: .5; cursor: progress; }
 .abtn { display: flex; gap: 8px; margin: 4px 0 14px; flex-wrap: wrap; }
 .abtn button { border: 1px solid var(--line); background: var(--surface); padding: 6px 12px; border-radius: 999px; cursor: pointer; font-weight: 600; font-size: 13px; }
 .abtn button:hover { border-color: var(--c); }
+.abtn button.cf { background: var(--c); border-color: var(--c); color: #fff; }
+.abtn button.cf:disabled { opacity: .6; cursor: wait; }
+.cfnote { font-size: 13px; color: var(--muted); border-left: 3px solid var(--c); padding: 4px 0 4px 10px; margin: -4px 0 12px; }
 .mt { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
 .mt th { text-align: left; font-weight: 600; color: var(--muted); padding: 4px 6px; border-bottom: 1px solid var(--line); }
 .mt td { padding: 5px 6px; border-bottom: 1px solid var(--soft); }
@@ -262,6 +265,21 @@ button.primary:disabled { opacity: .5; cursor: progress; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
+.rec { width: 100%; margin: 8px 0 4px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); font: inherit; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.rec::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: #d23b4e; }
+.rec.on { border-color: #d23b4e; color: #d23b4e; }
+.rec.on::before { animation: recblink 1s infinite; }
+@keyframes recblink { 50% { opacity: .2; } }
+
+.ebar { display: inline-block; width: 70px; height: 6px; border-radius: 3px; background: var(--line); vertical-align: middle; margin-left: 6px; overflow: hidden; }
+.ebar i { display: block; height: 100%; border-radius: 3px; }
+.et tr.best td { font-weight: 700; }
+
+.warnbar { background: color-mix(in srgb, #e0a100 16%, var(--surface)); border: 1px solid color-mix(in srgb, #e0a100 55%, transparent);
+  border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; font-size: 14px; }
+.warnbar::before { content: "Recording check: "; font-weight: 700; }
+
 </style>
 
 <header class="top">
@@ -292,7 +310,7 @@ button.primary:disabled { opacity: .5; cursor: progress; }
           <details id="ref-upload">
             <summary>Use my own reference</summary>
             <input type="file" id="ref-file" accept="audio/*">
-            <textarea id="ref-text" rows="4" placeholder="Paste the transcript of the reference recording"></textarea>
+            <textarea id="ref-text" rows="4" placeholder="Transcript of the reference (optional: recognised automatically if left empty)"></textarea>
           </details>
         </fieldset>
         <fieldset>
@@ -302,6 +320,7 @@ button.primary:disabled { opacity: .5; cursor: progress; }
             <span class="drop-main">Drop a recording or choose a file</span>
             <span class="drop-sub" id="par-name">WAV, MP3, M4A, OGG</span>
           </label>
+          <button type="button" id="rec" class="rec">Record with microphone</button>
           <details>
             <summary>Transcript differs from the reference</summary>
             <textarea id="par-text" rows="4" placeholder="Leave empty if the participant read the reference transcript"></textarea>
@@ -325,6 +344,7 @@ button.primary:disabled { opacity: .5; cursor: progress; }
       </div>
 
       <div class="report" id="report" hidden>
+        <div class="warnbar" id="warnbar" hidden></div>
         <div class="scoreline">
           <div class="score">
             <div class="score-num"><span id="score-num">0</span><small>/100</small></div>
@@ -463,6 +483,9 @@ addEventListener("hashchange", route);
 // plain files. Dataset clips use reports pre-computed by the real pipeline and
 // only the rubric score is computed here; new uploads need the full app.
 const STATIC = !!window.SPEECHLENS_STATIC;
+// optional live backend for the hosted page: uploads, recordings and repairs
+// go there, dataset clips stay pre-computed (window.SPEECHLENS_API = "https://…")
+const API = (window.SPEECHLENS_API || "").replace(/\/$/, "");
 const STATIC_ROUTES = { "/api/rubrics": "data/rubrics.json", "/api/library": "data/library.json",
   "/api/samples": "data/samples.json", "/api/status": "data/status.json", "/api/evaluation": "data/evaluation.json" };
 const DIMS = ["pace", "pausing", "fluency", "pitch_variety", "volume", "clarity"];
@@ -485,6 +508,7 @@ async function staticApi(path, opts) {
   if (STATIC_ROUTES[path]) return (await fetch(STATIC_ROUTES[path])).json();
   if (path === "/api/analyze") {
     const id = opts.body.get("sample_id");
+    if (!id && API) return liveApi(path, opts);
     if (!id) throw new Error("This hosted demo shows recordings analysed in advance. To analyse your own recording, run SpeechLens from GitHub (one command, see the README).");
     const r = await fetch(`reports/${id}.json`);
     if (!r.ok) throw new Error("This clip is not part of the hosted demo.");
@@ -494,6 +518,19 @@ async function staticApi(path, opts) {
     return rep;
   }
   throw new Error("Not available in the hosted demo.");
+}
+
+async function liveApi(path, opts) {
+  const r = await fetch(API + path, opts);
+  if (!r.ok) {
+    let msg = `${r.status}`;
+    try { msg = (await r.json()).detail || msg; } catch {}
+    throw new Error(msg);
+  }
+  const rep = await r.json();
+  for (const k of ["audio_url", "reference_url"]) if (rep[k] && rep[k].startsWith("/")) rep[k] = API + rep[k];
+  rep.live = true;
+  return rep;
 }
 
 async function api(path, opts) {
@@ -584,7 +621,44 @@ async function analyzeSample(id) {
 
 // ------------------------------------------------------------------ form --
 const parFile = $("#par-file");
-parFile.addEventListener("change", () => ($("#par-name").textContent = parFile.files[0]?.name || "WAV, MP3, M4A, OGG"));
+parFile.addEventListener("change", () => {
+  S.recorded = null;
+  $("#par-name").textContent = parFile.files[0]?.name || "WAV, MP3, M4A, OGG";
+});
+
+// record straight from the microphone (MediaRecorder -> webm/ogg; the server
+// decodes any container with ffmpeg)
+let rec = null, recT0 = 0, recTimer = null;
+$("#rec").addEventListener("click", async () => {
+  const btn = $("#rec");
+  if (rec) { rec.stop(); return; }
+  if (STATIC && !API) return setStatus("Recording needs the full app (run SpeechLens from GitHub, see the README).", true);
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+  } catch { return setStatus("Microphone access was blocked.", true); }
+  const chunks = [];
+  rec = new MediaRecorder(stream);
+  rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+  rec.onstop = () => {
+    stream.getTracks().forEach((t) => t.stop());
+    clearInterval(recTimer);
+    const type = rec.mimeType || "audio/webm";
+    const secs = Math.round((Date.now() - recT0) / 1000);
+    S.recorded = new File([new Blob(chunks, { type })], `recording.${type.includes("ogg") ? "ogg" : "webm"}`, { type });
+    parFile.value = "";
+    $("#par-name").textContent = `Microphone recording, ${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
+    btn.classList.remove("on");
+    btn.textContent = "Record with microphone";
+    rec = null;
+  };
+  rec.start();
+  recT0 = Date.now();
+  btn.classList.add("on");
+  const tick = () => { const s = Math.round((Date.now() - recT0) / 1000); btn.textContent = `Stop recording (${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")})`; };
+  tick();
+  recTimer = setInterval(tick, 500);
+});
 const drop = $("#drop");
 ["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("over"); }));
 ["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("over"); }));
@@ -594,18 +668,18 @@ drop.addEventListener("drop", (e) => {
 
 $("#form").addEventListener("submit", async (e) => {
   e.preventDefault();
-  if (!parFile.files[0]) return setStatus("Choose the participant recording first.", true);
+  const pf = parFile.files[0] || S.recorded;
+  if (!pf) return setStatus("Choose or record the participant recording first.", true);
   S.sample = null;
   $$(".sample").forEach((b) => b.classList.remove("active"));
   const fd = new FormData();
   fd.append("rubric", $("#rubric").value);
-  fd.append("participant_file", parFile.files[0]);
+  fd.append("participant_file", pf);
   if ($("#par-text").value.trim()) fd.append("participant_text", $("#par-text").value.trim());
   const rf = $("#ref-file").files[0];
   if (rf) {
-    if (!$("#ref-text").value.trim()) return setStatus("Paste the transcript for your reference recording.", true);
     fd.append("reference_file", rf);
-    fd.append("reference_text", $("#ref-text").value.trim());
+    if ($("#ref-text").value.trim()) fd.append("reference_text", $("#ref-text").value.trim());
   } else {
     if (!$("#ref-select").value) return setStatus("Choose a reference speech.", true);
     fd.append("reference_id", $("#ref-select").value);
@@ -628,7 +702,8 @@ async function run(fd, msg) {
     showReport();
     const clip = S.sample && S.manifest.clips.find((c) => c.id === S.sample);
     const vs = clip && clip.reference_clip ? ` Compared with ${clip.speaker[0].toUpperCase() + clip.speaker.slice(1)}'s own clean take.` : "";
-    setStatus(`Done. ${rep.regions.length} finding${rep.regions.length === 1 ? "" : "s"} in ${rep.duration.toFixed(1)} s of speech.${vs}`);
+    const auto = rep.auto_transcript ? ` Reference transcript recognised automatically: “${rep.auto_transcript.slice(0, 80)}${rep.auto_transcript.length > 80 ? "…" : ""}”` : "";
+    setStatus(`Done. ${rep.regions.length} finding${rep.regions.length === 1 ? "" : "s"} in ${rep.duration.toFixed(1)} s of speech.${vs}${auto}`);
   } catch (err) {
     setStatus(err.message, true);
   } finally {
@@ -641,8 +716,12 @@ function showReport() {
   const r = S.rep;
   $("#empty").hidden = true;
   $("#report").hidden = false;
-  audioEl.src = STATIC ? r.audio_url.replace(/^\//, "") : r.audio_url;
-  refAudio.src = r.reference_url ? (STATIC ? r.reference_url.replace(/^\//, "") : r.reference_url) : "";
+  const rel = (u) => (STATIC && !/^https?:/.test(u) ? u.replace(/^\//, "") : u);
+  audioEl.src = rel(r.audio_url);
+  refAudio.src = r.reference_url ? rel(r.reference_url) : "";
+  const wb = $("#warnbar"), warn = r.recording_check && r.recording_check.warning;
+  wb.hidden = !warn;
+  wb.textContent = warn || "";
   $("#score-num").textContent = Math.round(r.score.overall);
   $("#score-band").textContent = r.score.band;
   $("#score-rubric").textContent = `${r.score.rubric} rubric`;
@@ -814,6 +893,7 @@ $("#words").addEventListener("click", (e) => {
   if (w) { audioEl.currentTime = +w.dataset.t; placeHead(); e.stopPropagation(); }
 });
 function playSpan(el, a, b) {
+  fixAudio.pause();
   (el === audioEl ? refAudio : audioEl).pause();
   activeEl = el;
   el.currentTime = Math.max(0, a);
@@ -863,7 +943,9 @@ function select(i, scroll) {
     <div class="abtn">
       ${g.scope === "local" ? `<button data-play="par">Play this part</button>` : ""}
       ${g.scope === "local" && S.rep.reference_url ? `<button data-play="ref">Play the reference here</button>` : ""}
+      ${g.scope === "local" && (g.fix || ((!STATIC || S.rep.live) && S.rep.report_id)) ? `<button data-fix class="cf">Hear it fixed</button>` : ""}
     </div>
+    <p class="cfnote" hidden></p>
     <p>${esc(lead)}</p><p>${esc(why)}</p>${fix ? `<p class="fix">${esc(fix)}</p>` : ""}
     <table class="mt"><thead><tr><th>Measure</th><th>Reference</th><th>Participant</th><th>Change</th><th>z</th></tr></thead><tbody>
     ${g.metrics.map((m) => `<tr><td>${esc(METRIC_NAMES[m.name] || m.name)}</td><td>${fmtV(m.reference, m.unit)}</td><td>${fmtV(m.participant, m.unit)}</td>
@@ -873,11 +955,45 @@ function select(i, scroll) {
   $$("#fdetail [data-play]").forEach((b) => (b.onclick = () => b.dataset.play === "par"
     ? playSpan(audioEl, g.start - 0.35, g.end + 0.35)
     : playSpan(refAudio, g.ref_start - 0.35, g.ref_end + 0.35)));
+  const fb = $("#fdetail [data-fix]");
+  if (fb) fb.onclick = () => hearFixed(i, fb);
   if (scroll && g.scope === "local") {
     const lanes = $("#lanes");
     const x = g.start * S.pps;
     if (x < lanes.scrollLeft || x > lanes.scrollLeft + lanes.clientWidth - 60) lanes.scrollTo({ left: x - 60, behavior: "smooth" });
     audioEl.currentTime = g.start;
+  }
+}
+
+// Counterfactual repair (speechlens/counterfactual.py): the participant's own
+// audio with only the named cause moved to the reference value.
+const fixAudio = new Audio();
+async function hearFixed(i, btn) {
+  const g = S.rep.regions[i];
+  const note = $("#fdetail .cfnote");
+  try {
+    if (!g.fix) {
+      btn.disabled = true;
+      btn.textContent = "Repairing…";
+      const base = S.rep.live ? API : "";
+      const r = await fetch(`${base}/api/fix/${S.rep.report_id}/${i}`);
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || `${r.status}`);
+      g.fix = await r.json();
+      if (base) g.fix.url = base + g.fix.url;
+    }
+    btn.disabled = false;
+    btn.textContent = "Hear it fixed";
+    note.hidden = false;
+    note.innerHTML = `<b>Counterfactual:</b> your own recording with only this cause changed: ${esc(g.fix.edit)}.` +
+      (g.fix.verified ? ` Re-analysed afterwards: ${esc(g.fix.verified)}.` : "");
+    audioEl.pause(); refAudio.pause();
+    fixAudio.src = STATIC && !/^https?:/.test(g.fix.url) ? g.fix.url.replace(/^\//, "") : g.fix.url;
+    fixAudio.play();
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = "Hear it fixed";
+    note.hidden = false;
+    note.textContent = `No repair available here: ${e.message}`;
   }
 }
 
@@ -950,6 +1066,9 @@ async function renderEval() {
     ${mc ? `<h2>Manipulation check</h2><p class="note">How many scripted flaws each type's recordings actually contained, measured against the speaker's clean take with fixed criteria independent of the detector.</p>
     <table class="et"><thead><tr><th>Flaw</th><th>Performed</th><th>Criterion</th></tr></thead><tbody>${Object.entries(mc.performed).map(([t, v]) => `<tr><td>${NAMES[t]}</td><td>${v.performed}/${v.scripted}</td><td>${esc(mc.criteria[t].measure)} ${esc(mc.criteria[t].criterion)}</td></tr>`).join("")}</tbody></table>` : ""}
     ${e.audit ? `<h2>Blind listening audit</h2><p class="note">${esc(e.audit.summary)}</p>` : ""}
+    ${ablationHtml(e.ablation, pct)}
+    ${stressHtml(e.stress, pct)}
+    ${counterfactualHtml(e.counterfactual, pct)}
     <h2>Detection rate by severity</h2>
     <p class="note">Severity 1 is designed to be near-perfect and sits inside the natural variation of a person rereading a text, so it is mostly not reported; the rate should climb toward severity 5.</p>
     <table class="et heat"><thead><tr><th>Flaw</th>${[1, 2, 3, 4, 5].map((s) => `<th>Severity ${s}</th>`).join("")}</tr></thead><tbody>
@@ -963,6 +1082,40 @@ async function renderEval() {
     <h2>Score follows delivery quality</h2>
     <p class="note">Mean overall score by mixed-flaw level (1 = two mild flaws, 8 = six severe flaws). Spearman ρ = ${sv.spearman_mix_level_vs_score ?? "–"}.</p>
     ${mixChart(sv.mean_score_by_mix_level)}`;
+}
+
+const bar = (v, max = 1, c = "var(--accent)") => v === null || v === undefined ? "" :
+  `<span class="ebar"><i style="width:${Math.max(0, Math.min(100, (v / max) * 100))}%;background:${c}"></i></span>`;
+
+function ablationHtml(a, pct) {
+  if (!a || !a.variants) return "";
+  const v = a.variants;
+  const rows = Object.entries(v).map(([k, r]) => `<tr class="${k === "full" ? "best" : ""}"><td>${esc(r.label)}</td>
+    <td>${pct(r.precision)}</td><td>${pct(r.recall)}</td><td>${pct(r.f1)} ${bar(r.f1)}</td><td>${r.controls_false_per_min}</td>
+    <td>${pct(r.human_precision)}</td><td>${pct(r.human_recall)}</td></tr>`).join("");
+  const full = v.full, ref = v.self_ref_oracle || v.self_ref;
+  return `<h2>Why the reference matters: ablations</h2>
+    <p class="note">The same detector on the same alignments and features, with one part removed at a time (in-sample thresholds, so the full system's numbers here are slightly higher than the cross-validated ones above). The reference-free baseline keeps the whole detector but compares each passage with the speaker's own running median instead of a reference reading, which is how delivery tools work without one. ${full && ref ? `Even with thresholds tuned on the test labels, it reaches F1 ${pct(ref.f1)} against ${pct(full.f1)}, and reports ${ref.controls_false_per_min.toFixed(1)} false findings per minute on unflawed recordings against ${full.controls_false_per_min.toFixed(2)}.` : ""}</p>
+    <table class="et"><thead><tr><th>Variant</th><th>Precision</th><th>Recall</th><th>F1</th><th>Controls, false/min</th><th>Human precision</th><th>Human recall</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function stressHtml(st, pct) {
+  if (!st || !st.conditions) return "";
+  const c = st.conditions;
+  const rows = Object.values(c).map((r) => `<tr><td>${esc(r.label)}</td><td>${pct(r.precision)}</td><td>${pct(r.recall)}</td>
+    <td>${pct(r.f1)} ${bar(r.f1)}</td><td>${r.mean_tiou === null ? "–" : r.mean_tiou.toFixed(2)}</td><td>${r.null_false_per_min.toFixed(2)}</td><td>${Math.round(r.align_err_ms)} ms</td></tr>`).join("");
+  return `<h2>Stress test: degraded recordings</h2>
+    <p class="note">The reference stays the clean speech; only the participant's recording is degraded, as with a phone in a noisy room. ${st.n_clips} clips per condition: every severity-4 single flaw, the level-6 mixed clips, and each clean speech as a null (any finding on it is false). Babble noise is the other four speeches mixed together. Tempo changes the whole reading by 10 %, a habit that must not be reported as a local flaw. The last column is how far word onsets move against the clean recording's own alignment. Compression, a phone channel, a uniform tempo change and moderate echo barely matter; background noise does, because it fills the pauses and quiet word endings that the contrast with a clean reference measures. Putting the reference through the participant's estimated noise channel (the “channel-matched” rows) recovers part of it, so the app does that and warns when a recording is more than 6 dB noisier than its reference.</p>
+    <table class="et"><thead><tr><th>Condition</th><th>Precision</th><th>Recall</th><th>F1</th><th>tIoU</th><th>False/min on clean speech</th><th>Word onset shift</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function counterfactualHtml(cf, pct) {
+  if (!cf || !cf.repaired) return "";
+  const rows = Object.entries(cf.by_type).map(([t, r]) => `<tr><td>${NAMES[t]}</td><td>${r.n}</td><td>${pct(r.removed)} ${bar(r.removed)}</td>
+    <td>${r.median_gap_recovered === null ? "–" : pct(r.median_gap_recovered)}</td></tr>`).join("");
+  return `<h2>Counterfactual check: fixing the stated cause</h2>
+    <p class="note">For each injected flaw SpeechLens found (severity 3 and 4, ${cf.repaired} clips), we edited the recording to move only the variable the explanation names to the reference value (the “Hear it fixed” button), then ran the full pipeline again. If the explanation names the true cause, the finding should go and the score should recover. Result: the finding disappeared in ${pct(cf.finding_removed)} of cases and was reduced or removed in ${pct(cf.severity_reduced_or_removed)}; a different new finding appeared nearby in ${pct(cf.new_finding_nearby)}. Mean score went from ${cf.mean_score_before} to ${cf.mean_score_after}; the median repair recovered ${pct(cf.median_gap_recovered)} of the gap to the clean reading. Clips with several instances of a point flaw get only the found one repaired, so they recover partly.</p>
+    <table class="et"><thead><tr><th>Flaw</th><th>Repaired</th><th>Finding removed</th><th>Score gap recovered (median)</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 function mixChart(m) {
