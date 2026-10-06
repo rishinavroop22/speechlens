@@ -22,6 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 LIB = ROOT / "data" / "library"
 DATASET = ROOT / "data" / "dataset"
 UPLOADS = ROOT / ".cache" / "uploads"
+PRECOMP = ROOT / "data" / "precomputed"
 EVAL = ROOT / "results"
 WEB = ROOT / "web"
 
@@ -105,6 +106,8 @@ async def analyze(
 ):
     UPLOADS.mkdir(parents=True, exist_ok=True)
     truth = None
+    if sample_id and sample_id in _precomp():
+        return _precomputed(sample_id, rubric)
     # ---- reference
     if sample_id:
         clip = next((c for c in _manifest()["clips"] if c["id"] == sample_id), None)
@@ -158,6 +161,34 @@ async def analyze(
     rep["reference_url"] = ref_url
     rep["peaks"] = peaks(par_y)
     rep["truth"] = truth
+    return rep
+
+
+_PRECOMP_CACHE: dict | None = None
+
+
+def _precomp() -> dict:
+    global _PRECOMP_CACHE
+    if _PRECOMP_CACHE is None:
+        _PRECOMP_CACHE = {}
+        for f in sorted(PRECOMP.glob("*.json")) if PRECOMP.exists() else []:
+            _PRECOMP_CACHE.update(json.loads(f.read_text()))
+    return _PRECOMP_CACHE
+
+
+def _precomputed(sample_id: str, rubric: str) -> dict:
+    """Dataset clips analysed ahead of time (tools/make_space.py): the report is
+    stored once and only the rubric score is recomputed, so samples open
+    instantly on a small server. Uploads are always analysed live."""
+    from types import SimpleNamespace
+
+    from .contrast import DIMENSION
+    from .explain import load_rubric, score
+
+    rep = json.loads(json.dumps(_precomp()[sample_id]))  # deep copy
+    regs = [SimpleNamespace(**{k: r[k] for k in ("type", "scope", "severity", "word_start", "word_end")},
+                            dimension=DIMENSION[r["type"]]) for r in rep["regions"]]
+    rep["score"] = score(regs, len(rep["words"]), rep["duration"], load_rubric(rubric))
     return rep
 
 

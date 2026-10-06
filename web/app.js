@@ -150,7 +150,7 @@ $("#form").addEventListener("submit", async (e) => {
     if (!$("#ref-select").value) return setStatus("Choose a reference speech.", true);
     fd.append("reference_id", $("#ref-select").value);
   }
-  await run(fd, "Aligning words and extracting features…");
+  await run(fd, "Aligning words and extracting features. This takes 20-40 seconds…");
 });
 
 $("#rubric").addEventListener("change", () => {
