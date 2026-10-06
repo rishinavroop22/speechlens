@@ -38,10 +38,10 @@ def run_clip(clip, cross_speaker=False):
     from speechlens.pipeline import evaluate
     src = LIB / clip["source"]
     if clip.get("reference_clip") and not cross_speaker:
-        ref_y, ref_t = audio.load(DS / "clips" / f"{clip['reference_clip']}.wav"), clip["transcript"]
+        ref_y, ref_t = audio.load(audio.clip_path(DS / "clips", clip['reference_clip'])), clip["transcript"]
     else:
         ref_y, ref_t = audio.load(src / "audio.wav"), (src / "transcript.txt").read_text()
-    rep = evaluate(ref_y, ref_t, audio.load(DS / "clips" / f"{clip['id']}.wav"), clip.get("transcript"), "declamation")
+    rep = evaluate(ref_y, ref_t, audio.load(audio.clip_path(DS / "clips", clip['id'])), clip.get("transcript"), "declamation")
     preds = [{k: r[k] for k in ("type", "start", "end", "severity", "scope", "confidence", "magnitude")} for r in rep["regions"]]
     return {"id": clip["id"], "preds": preds, "score": rep["score"], "align_method": rep["align_method"]}
 

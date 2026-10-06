@@ -41,3 +41,12 @@ def save(path: str | Path, y: np.ndarray, sr: int = SR) -> None:
 
 def crop(y: np.ndarray, start: float, end: float, sr: int = SR) -> np.ndarray:
     return y[int(round(start * sr)): int(round(end * sr))]
+
+
+def clip_path(clips_dir: str | Path, clip_id: str) -> Path:
+    """A dataset clip as .wav (as built) or .flac (as distributed); same samples."""
+    d = Path(clips_dir)
+    for ext in (".wav", ".flac"):
+        if (d / f"{clip_id}{ext}").exists():
+            return d / f"{clip_id}{ext}"
+    return d / f"{clip_id}.wav"

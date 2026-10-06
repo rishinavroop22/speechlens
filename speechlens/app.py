@@ -90,7 +90,7 @@ def media(kind: str, name: str):
     p = (base / name).resolve()
     if base.resolve() not in p.parents or not p.exists():
         raise HTTPException(404)
-    return FileResponse(p, media_type="audio/wav")
+    return FileResponse(p, media_type="audio/flac" if p.suffix == ".flac" else "audio/wav")
 
 
 @app.post("/api/analyze")
@@ -114,9 +114,9 @@ async def analyze(
         truth = clip["labels"]
         if clip.get("reference_clip"):
             reference_file = None
-            ref_y = audio.load(DATASET / "clips" / f"{clip['reference_clip']}.wav")
+            ref_y = audio.load(audio.clip_path(DATASET / "clips", clip['reference_clip']))
             ref_text = clip["transcript"]
-            ref_url = f"/media/dataset/{clip['reference_clip']}.wav"
+            ref_url = f"/media/dataset/{audio.clip_path(DATASET / 'clips', clip['reference_clip']).name}"
             participant_text = clip["transcript"]
             reference_id = None
     if reference_file is not None and reference_file.filename:
@@ -138,15 +138,15 @@ async def analyze(
         raise HTTPException(400, "Choose a reference speech or upload one.")
     # ---- participant
     if sample_id:
-        par_path = DATASET / "clips" / f"{sample_id}.wav"
-        par_url = f"/media/dataset/{sample_id}.wav"
+        par_path = audio.clip_path(DATASET / "clips", sample_id)
+        par_url = f"/media/dataset/{par_path.name}"
     elif participant_file is not None and participant_file.filename:
         par_path = await _save(participant_file)
         par_url = f"/media/uploads/{par_path.name}"
     else:
         raise HTTPException(400, "Upload the participant recording.")
     par_y = audio.load(par_path)
-    if par_path.suffix != ".wav" or sample_id is None:
+    if par_path.suffix not in (".wav", ".flac") or sample_id is None:
         wav = UPLOADS / (hashlib.sha1(par_y.tobytes()).hexdigest()[:12] + ".wav")
         audio.save(wav, par_y)
         par_url = f"/media/uploads/{wav.name}"

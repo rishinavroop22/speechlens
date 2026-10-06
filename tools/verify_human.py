@@ -64,8 +64,8 @@ def main():
     for c in man["clips"]:
         if c["kind"] != "human":
             continue
-        ref = analyze_cached(audio.load(DS / "clips" / f"{c['reference_clip']}.wav"), c["transcript"])
-        par = analyze_cached(audio.load(DS / "clips" / f"{c['id']}.wav"), c["transcript"])
+        ref = analyze_cached(audio.load(audio.clip_path(DS / "clips", c['reference_clip'])), c["transcript"])
+        par = analyze_cached(audio.load(audio.clip_path(DS / "clips", c['id'])), c["transcript"])
         for l in c["labels"]:
             name, op, lvl = CRITERIA[l["type"]]
             v = float(measure(l["type"], ref, par, l["word_start"], l["word_end"]))

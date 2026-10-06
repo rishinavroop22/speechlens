@@ -19,6 +19,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from evaluate import human_view, match  # noqa: E402
+from speechlens import audio  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 DS = ROOT / "data/dataset"
@@ -85,8 +86,8 @@ def main():
         if pb - pa > 9:
             pb = pa + 9
         iid = f"q{n:02d}"
-        cut(DS / "clips" / f"{it['clip']}.wav", pa, pb, OUT / "clips" / f"{iid}_p.mp3")
-        cut(DS / "clips" / f"{c['reference_clip']}.wav", ra, rb, OUT / "clips" / f"{iid}_r.mp3")
+        cut(audio.clip_path(DS / "clips", it['clip']), pa, pb, OUT / "clips" / f"{iid}_p.mp3")
+        cut(audio.clip_path(DS / "clips", c['reference_clip']), ra, rb, OUT / "clips" / f"{iid}_r.mp3")
         text = " ".join(w["text"] for w in Wp[max(0, a - 1): b + 2])
         items.append({"id": iid, "text": text})
         key[iid] = {"group": g, "claimed": it["type"], "clip": it["clip"], "words": [a, b]}
