@@ -146,3 +146,31 @@ def test_ablation_switches_default_off(monkeypatch):
     assert _ablations() == set()
     monkeypatch.setenv("SPEECHLENS_ABLATE", "self_ref,no_rules")
     assert _ablations() == {"self_ref", "no_rules"}
+
+
+# --------------------------------------------------------- reading errors --
+def test_repeat_finds_restart_but_not_plain_text():
+    from speechlens.lexical import _repeat
+    assert _repeat("to our secretary to our secretary of state".split()) == (0, 3)
+    assert _repeat("the united states of america".split()) is None
+    # a one-letter echo is never a restart
+    assert _repeat("a a man".split()) is None
+
+
+def test_fuzzy_word_match_tolerates_recogniser_slips():
+    from speechlens.lexical import _same
+    assert _same("JOPANESE", "japanese")
+    assert _same("FRAM", "FROM")
+    assert not _same("of", "or")
+
+
+def test_skipped_and_restart_injection_labels():
+    from speechlens.inject import Injector
+    y, words = _toy_speech()
+    for ft in ("skipped_word", "restart"):
+        out, nw, lb = Injector(y, words, 140.0, seed=7).apply([(ft, 4)])
+        assert lb and all(l.type == ft and 0 <= l.start < l.end <= len(out) / SR + 1e-6 for l in lb)
+        if ft == "skipped_word":
+            assert len(out) < len(y)
+        else:
+            assert len(out) > len(y)

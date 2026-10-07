@@ -167,21 +167,21 @@ Each explanation names one cause. We change exactly that variable in the partici
 
 ### Stress test (`tools/stress.py`)
 
-The reference stays the clean speech; only the participant recording is degraded, as with a phone in a noisy room. 55 clips per condition: every severity-4 single flaw, the level-6 mixed clips, and each clean speech as a null (any finding on it is false). Babble is the other four speeches mixed together.
+The reference stays the clean speech; only the participant recording is degraded, as with a phone in a noisy room. 65 clips per condition: every severity-4 single flaw (all 11 types), the level-6 mixed clips, and each clean speech as a null (any finding on it is false). Babble is the other four speeches mixed together.
 
 ![Stress test](docs/figures/stress.png)
 
 | Condition | P | R | F1 | False/min on clean speech | Word onset shift |
 |---|---|---|---|---|---|
-| Clean | 0.90 | 0.79 | **0.84** | 0.00 | 0 ms |
-| MP3 32 kbit/s | 0.92 | 0.80 | 0.85 | 0.00 | 0 ms |
-| Tempo -10 % / +10 % (whole reading) | 0.89 / 0.91 | 0.76 / 0.75 | 0.82 / 0.82 | 0.00 | 9 / 7 ms |
-| Telephone band (8 kHz, 300-3400 Hz) | 0.82 | 0.74 | 0.78 | 0.00 | 0 ms |
-| Reverb RT60 0.4 s / 0.8 s | 0.75 / 0.48 | 0.73 / 0.58 | 0.74 / 0.53 | 0.14 / 0.69 | 20 / 30 ms |
-| White noise, SNR 10 dB | 0.24 | 0.47 | 0.32 | 1.51 | 20 ms |
-| Babble, SNR 20 / 10 / 5 dB | 0.30 / 0.05 / 0.04 | 0.56 / 0.27 / 0.24 | 0.39 / 0.08 / 0.06 | 1.5 / 6.7 / 9.6 | 0 / 20 / 60 ms |
+| Clean | 0.84 | 0.74 | **0.79** | 0.00 | 0 ms |
+| MP3 32 kbit/s | 0.85 | 0.74 | 0.79 | 0.00 | 0 ms |
+| Tempo -10 % / +10 % (whole reading) | 0.87 / 0.83 | 0.73 / 0.70 | 0.79 / 0.76 | 0.12 / 0.00 | 9 / 7 ms |
+| Telephone band (8 kHz, 300-3400 Hz) | 0.79 | 0.68 | 0.73 | 0.00 | 0 ms |
+| Reverb RT60 0.4 s / 0.8 s | 0.70 / 0.36 | 0.66 / 0.51 | 0.68 / 0.42 | 0.14 / 0.82 | 20 / 30 ms |
+| White noise, SNR 10 dB | 0.16 | 0.41 | 0.23 | 2.20 | 20 ms |
+| Babble, SNR 20 / 10 / 5 dB | 0.28 / 0.04 / 0.03 | 0.52 / 0.21 / 0.21 | 0.36 / 0.06 / 0.05 | 1.4 / 6.5 / 9.6 | 0 / 20 / 60 ms |
 
-Compression, a phone channel, a uniformly faster or slower reading and moderate echo barely matter: the alignment stays within tens of milliseconds and the habit/local split absorbs a uniform tempo change. **Background noise is the weakness.** Noise fills the pauses and the quiet ends of words, so the contrast with a clean reference reports shorter pauses, longer words and held sounds that are really the room. Putting the reference through the participant's estimated noise channel (`speechlens/channel.py`) recovers only part of it (babble 20 dB: F1 0.39 → 0.44; white noise: 0.32 → 0.38, false findings 1.5 → 1.0 per minute). The app therefore measures both noise floors and, when the participant is more than 6 dB noisier (no recording in our dataset is), applies that matching and **warns that the result is unreliable**.
+Compression, a phone channel, a uniformly faster or slower reading and moderate echo barely matter: the alignment stays within tens of milliseconds and the habit/local split absorbs a uniform tempo change. **Background noise is the weakness.** Noise fills the pauses and the quiet ends of words, so the contrast with a clean reference reports shorter pauses, longer words and held sounds that are really the room. Putting the reference through the participant's estimated noise channel (`speechlens/channel.py`) recovers only part of it (babble 20 dB: F1 0.36 → 0.42; white noise: 0.23 → 0.33, false findings 2.2 → 1.0 per minute). The app therefore measures both noise floors and, when the participant is more than 6 dB noisier (no recording in our dataset is), applies that matching and **warns that the result is unreliable**.
 
 Reproduce everything with `./reproduce.sh`. Full write-up: [`docs/SpeechLens_Technical_Documentation.pdf`](docs/SpeechLens_Technical_Documentation.pdf).
 

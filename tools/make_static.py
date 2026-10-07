@@ -44,7 +44,8 @@ def add_fixes(sample_id, rep):
     ref, par = analyze_cached(ref_y, ref_t), analyze_cached(par_y, par_t or ref_t)
     res = compare(ref, par, par_y)
     from speechlens.voice import compare_profiles, profile
-    rep["voice"] = compare_profiles(profile(ref_y, ref.ff.f0_median_hz), profile(par_y, par.ff.f0_median_hz))
+    if not rep.get("voice"):  # reports from the API already carry it
+        rep["voice"] = compare_profiles(profile(ref_y, ref.ff.f0_median_hz), profile(par_y, par.ff.f0_median_hz))
     (OUT / "media/fix").mkdir(parents=True, exist_ok=True)
     for i, r in enumerate(rep["regions"]):
         if r["scope"] != "local":

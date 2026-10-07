@@ -26,7 +26,22 @@ from .audio import SR
 NORMS = {"jitter_pct": (1.04, "max"), "shimmer_pct": (3.81, "max"), "hnr_db": (20.0, "min")}
 
 
+_MEMO: dict = {}
+
+
 def profile(y: np.ndarray, f0_median_hz: float | None = None) -> dict:
+    """Voice-quality profile of a whole reading (memoised by content: the
+    reference is profiled once, not once per participant)."""
+    import hashlib
+    key = hashlib.sha1(y.tobytes()).hexdigest() + str(f0_median_hz)
+    if key not in _MEMO:
+        if len(_MEMO) > 64:
+            _MEMO.clear()
+        _MEMO[key] = _profile(y, f0_median_hz)
+    return dict(_MEMO[key])
+
+
+def _profile(y: np.ndarray, f0_median_hz: float | None = None) -> dict:
     snd = parselmouth.Sound(y.astype(np.float64), sampling_frequency=SR)
     med = f0_median_hz or 150.0
     floor, ceil = max(50.0, med * 0.55), min(800.0, med * 2.4)

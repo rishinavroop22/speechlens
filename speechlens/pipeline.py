@@ -55,7 +55,7 @@ def recording_check(ref_y, par_y) -> dict:
     similar channels. Background noise in the participant's pauses, measured
     relative to their own speech level, beyond the reference's makes timing and
     clarity findings unreliable (tools/stress.py: at babble SNR 20 dB, about
-    9 dB of excess noise, precision falls from 0.90 to 0.30)."""
+    9 dB of excess noise, precision falls from 0.84 to 0.28)."""
     from .channel import noise_psd
     _, p_db = noise_psd(par_y)
     _, r_db = noise_psd(ref_y)

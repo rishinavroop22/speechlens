@@ -134,6 +134,8 @@ def degrade(y, source, cond, key):
         import parselmouth
         from parselmouth.praat import call
         snd = parselmouth.Sound(y, SR)
+        # Praat's overlap-add draws random numbers: seed it so the run is reproducible
+        parselmouth.praat.run(f"random_initializeWithSeedUnsafelyButPredictably ({zlib.crc32((key + cond).encode())})")
         y = call(snd, "Lengthen (overlap-add)", 60, 500, p["tempo"]).values[0]
     pk = np.max(np.abs(y))
     if pk > 0.99:

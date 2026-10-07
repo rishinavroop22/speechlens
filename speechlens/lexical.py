@@ -31,6 +31,7 @@ LOW_POSTERIOR = 0.10      # a skipped word's mean posterior of its own character
 REF_POSTERIOR = 0.50      # ... while the reference says it clearly
 SQUEEZE = 0.55            # and its aligned duration shrinks below this share
 RESTART_EXTRA_S = 0.30    # time added at a boundary before we listen for a restart
+MAX_WINDOWS = 12          # beyond this many candidate windows, one full recognition pass
 
 
 def recognize(y: np.ndarray, a: float, b: float) -> list[tuple[str, float, float]]:
@@ -102,6 +103,10 @@ def detect(ref, par, par_y, pairs, raw_extra, Region, Metric, sevt) -> list:
         wp, wr = par.words[k], ref.words[i]
         dp, dr = wp.end - wp.start, wr.end - wr.start
         flag[j] = wp.conf < LOW_POSTERIOR and wr.conf >= REF_POSTERIOR and dp < SQUEEZE * dr
+    n_runs = int(np.sum(flag[1:] & ~flag[:-1]) + (flag[0] if n else 0))
+    full_rec = None
+    if par_y is not None and n_runs > MAX_WINDOWS:
+        full_rec = recognize(par_y, 0.0, len(par_y) / SR)   # noisy audio: one pass
     j = 0
     while j < n:
         if not flag[j]:
@@ -124,7 +129,8 @@ def detect(ref, par, par_y, pairs, raw_extra, Region, Metric, sevt) -> list:
         s, e = par.words[P(a)].start, par.words[P(b)].end
         heard = None
         if par_y is not None:
-            rec = recognize(par_y, s - 0.15, e + 0.15)
+            rec = (recognize(par_y, s - 0.15, e + 0.15) if full_rec is None
+                   else [w for w in full_rec if w[1] >= s - 0.2 and w[2] <= e + 0.2])
             heard = " ".join(w for w, _, _ in rec).lower()
             found = sum(any(_same(m, w) for w, _, _ in rec) for m in missing)
             if found * 2 >= len(missing) and len(missing) > 0:
@@ -153,12 +159,17 @@ def detect(ref, par, par_y, pairs, raw_extra, Region, Metric, sevt) -> list:
         if (np.isfinite(raw_extra[j]) and raw_extra[j] >= RESTART_EXTRA_S) or dp - dr >= RESTART_EXTRA_S + 0.05:
             cands.append(j)
     done_until = -1.0
+    full = None
+    if len(cands) > MAX_WINDOWS:
+        # many candidates only happen in noisy audio: recognise the whole
+        # recording once and read each window from it (same model, much cheaper)
+        full = recognize(par_y, 0.0, len(par_y) / SR)
     for j in cands:
         a, b = max(0, j - 4), min(n - 1, j + 4)
         s, e = par.words[P(a)].start, par.words[P(b)].end
         if s < done_until:
             continue
-        rec = recognize(par_y, s, e)
+        rec = recognize(par_y, s, e) if full is None else [w for w in full if w[1] >= s - 0.05 and w[2] <= e + 0.05]
         txt_all = [ref.words[pairs[q][0]].norm.replace("|", " ") for q in range(a, b + 1)]
 
         def real_words(k, m):
