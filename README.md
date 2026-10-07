@@ -120,8 +120,8 @@ All numbers run the full pipeline on raw audio. Detection thresholds and severit
 | Severity estimate, held-out speeches | 0.49 levels mean error, 93 % within one level |
 | Team recordings: performed flaws found (leave-one-speaker-out) | **53 %** (31/58, 95 % CI 39-68 %) |
 | Team recordings: precision | 0.21 against scripted flaws only; about **0.80** (95 % range 0.61-0.92) after a blind listening audit |
-| Without a reference (same detector) | F1 0.08; 0.16 even with thresholds tuned on the test labels |
-| Fixing the named cause (counterfactual) | finding removed in **COUNTERFACTUAL_REMOVED** of repaired flaws |
+| Without a reference (same detector) | F1 0.07; 0.14 even with thresholds tuned on the test labels |
+| Fixing the named cause (counterfactual) | finding removed in **91 %** of repaired flaws |
 | Re-run in a fresh process | byte-identical |
 
 | Flaw | Synthetic P | Synthetic R | Synthetic F1 | Team recordings found |
@@ -151,19 +151,19 @@ The same detector on the same alignments and features with one component removed
 
 | Variant (in-sample thresholds) | P | R | F1 | Controls, false/min | Human P | Human R |
 |---|---|---|---|---|---|---|
-| **SpeechLens (full)** | 0.91 | 0.59 | **0.72** | **0.03** | 0.24 | 0.57 |
-| Without data-fitted gates | 0.78 | 0.70 | 0.74 | 0.03 | 0.11 | 0.64 |
-| Without conflict rules | 0.83 | 0.60 | 0.69 | 0.03 | 0.20 | 0.59 |
-| Without habit / local split | 0.92 | 0.59 | 0.71 | 0.03 | 0.20 | 0.48 |
-| Without speaker-relative scale | 0.90 | 0.51 | 0.65 | 0.03 | 0.18 | 0.48 |
-| Reference-free baseline | 0.05 | 0.33 | 0.08 | 9.58 | 0.10 | 0.36 |
-| Reference-free, thresholds tuned on the test labels | 0.12 | 0.27 | 0.16 | 2.68 | 0.19 | 0.21 |
+| **SpeechLens (full)** | 0.85 | 0.56 | **0.68** | **0.03** | 0.23 | 0.55 |
+| Without data-fitted gates | 0.72 | 0.66 | 0.69 | 0.03 | 0.10 | 0.62 |
+| Without conflict rules | 0.71 | 0.57 | 0.64 | 0.03 | 0.20 | 0.59 |
+| Without habit / local split | 0.85 | 0.56 | 0.67 | 0.03 | 0.20 | 0.47 |
+| Without speaker-relative scale | 0.85 | 0.50 | 0.63 | 0.03 | 0.17 | 0.47 |
+| Reference-free baseline | 0.04 | 0.26 | 0.07 | 9.44 | 0.10 | 0.36 |
+| Reference-free, thresholds tuned on the test labels | 0.10 | 0.21 | 0.14 | 2.30 | 0.21 | 0.21 |
 
-Without a reference, ordinary expressive variation (a rhetorical pause, an emphatic slow phrase) looks like a flaw; even an upper-bound tuning on the evaluation labels reaches F1 0.16.
+Without a reference, ordinary expressive variation (a rhetorical pause, an emphatic slow phrase) looks like a flaw; even an upper-bound tuning on the evaluation labels reaches F1 0.14.
 
 ### Counterfactual check (`tools/counterfactual_eval.py`)
 
-Each explanation names one cause. We change exactly that variable in the participant's own recording (PSOLA time-scaling or pitch widening, a per-word gain curve, a high shelf, cutting or reinserting audio), moving it to the reference value, and run the full pipeline again. Over 73 severity-3/4 flaws that were found, the **finding disappeared in 90 %** and was reduced or removed in 93 %; a new finding appeared nearby in 1.4 %. Mean score rose from 93.0 to 98.4. Muffled speech is the exception (1 of 8): a low-pass filter destroys the high band, so it cannot be restored. The dashboard offers the same repair as **Hear it fixed**.
+Each explanation names one cause. We change exactly that variable in the participant's own recording (PSOLA time-scaling or pitch widening, a per-word gain curve, a high shelf, cutting or reinserting audio), moving it to the reference value, and run the full pipeline again. Over 87 severity-3/4 flaws of all 11 types that were found, the **finding disappeared in 91 %** and was reduced or removed in 92 %; a new finding appeared nearby in 4.6 %. Mean score rose from 93.1 to 98.0. Restarts are repaired by cutting the second saying (7 of 7 removed), skipped words by restoring the missing words from the reference reading (8 of 9). Muffled speech is the exception (1 of 8): a low-pass filter destroys the high band, so it cannot be restored. The dashboard offers the same repair as **Hear it fixed**.
 
 ### Stress test (`tools/stress.py`)
 

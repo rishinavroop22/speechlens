@@ -1,13 +1,13 @@
 {
  "summary": {
-  "clips": 90,
-  "found": 73,
-  "repaired": 73,
-  "finding_removed": 0.904,
-  "severity_reduced_or_removed": 0.932,
-  "new_finding_nearby": 0.014,
-  "mean_score_before": 93.0,
-  "mean_score_after": 98.4,
+  "clips": 110,
+  "found": 87,
+  "repaired": 87,
+  "finding_removed": 0.908,
+  "severity_reduced_or_removed": 0.92,
+  "new_finding_nearby": 0.046,
+  "mean_score_before": 93.1,
+  "mean_score_after": 98.0,
   "median_gap_recovered": 1.0,
   "by_type": {
    "awkward_pause": {
@@ -16,7 +16,7 @@
     "median_gap_recovered": 0.62
    },
    "dragging": {
-    "n": 10,
+    "n": 9,
     "removed": 1.0,
     "median_gap_recovered": 1.0
    },
@@ -40,13 +40,23 @@
     "removed": 1.0,
     "median_gap_recovered": 1.0
    },
+   "restart": {
+    "n": 7,
+    "removed": 1.0,
+    "median_gap_recovered": 0.64
+   },
    "rushed": {
     "n": 10,
     "removed": 1.0,
     "median_gap_recovered": 1.0
    },
+   "skipped_word": {
+    "n": 9,
+    "removed": 0.89,
+    "median_gap_recovered": 0.5
+   },
    "stutter": {
-    "n": 6,
+    "n": 5,
     "removed": 1.0,
     "median_gap_recovered": 1.0
    },
@@ -521,27 +531,17 @@
    "repaired": true,
    "edit": "high frequencies boosted 14.1 dB (share 0.2 % -> 5.2 %)",
    "gone": false,
-   "residual_severity": 2,
+   "residual_severity": 3,
    "before_severity": 3,
    "new_nearby": [],
    "score_before": 94.4,
-   "score_after": 96.7,
+   "score_after": 95.0,
    "score_gold": 100.0
   },
   {
    "id": "jfk__stutter_s3",
    "type": "stutter",
-   "severity": 3,
-   "found": true,
-   "repaired": true,
-   "edit": "2 repeated onset fragment(s) removed (0.48 s)",
-   "gone": true,
-   "residual_severity": 0,
-   "before_severity": 3,
-   "new_nearby": [],
-   "score_before": 96.8,
-   "score_after": 100.0,
-   "score_gold": 100.0
+   "found": false
   },
   {
    "id": "jfk__stutter_s4",
@@ -591,17 +591,7 @@
   {
    "id": "lbj__dragging_s3",
    "type": "dragging",
-   "severity": 3,
-   "found": true,
-   "repaired": true,
-   "edit": "time-scaled 9.54 s by x0.73 to 2.88 syll/s",
-   "gone": true,
-   "residual_severity": 0,
-   "before_severity": 3,
-   "new_nearby": [],
-   "score_before": 94.0,
-   "score_after": 100.0,
-   "score_gold": 100.0
+   "found": false
   },
   {
    "id": "lbj__dragging_s4",
@@ -784,7 +774,7 @@
    "residual_severity": 0,
    "before_severity": 3,
    "new_nearby": [],
-   "score_before": 96.8,
+   "score_before": 95.7,
    "score_after": 100.0,
    "score_gold": 100.0
   },
@@ -797,9 +787,9 @@
    "edit": "time-scaled 2.16 s by x1.50 to 4.33 syll/s",
    "gone": true,
    "residual_severity": 0,
-   "before_severity": 4,
+   "before_severity": 3,
    "new_nearby": [],
-   "score_before": 91.8,
+   "score_before": 93.9,
    "score_after": 100.0,
    "score_gold": 100.0
   },
@@ -954,8 +944,8 @@
    "residual_severity": 0,
    "before_severity": 2,
    "new_nearby": [],
-   "score_before": 81.6,
-   "score_after": 83.7,
+   "score_before": 80.5,
+   "score_after": 82.7,
    "score_gold": 100.0
   },
   {
@@ -1238,6 +1228,272 @@
    "new_nearby": [],
    "score_before": 96.8,
    "score_after": 100.0,
+   "score_gold": 100.0
+  },
+  {
+   "id": "fdr__skipped_word_s3",
+   "type": "skipped_word",
+   "severity": 3,
+   "found": true,
+   "repaired": true,
+   "edit": "the missing \u201cforces of\u201d restored from the reference reading",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 4,
+   "new_nearby": [],
+   "score_before": 95.7,
+   "score_after": 100.0,
+   "score_gold": 100.0
+  },
+  {
+   "id": "fdr__skipped_word_s4",
+   "type": "skipped_word",
+   "severity": 4,
+   "found": true,
+   "repaired": true,
+   "edit": "the missing \u201creply stated\u201d restored from the reference reading",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 4,
+   "new_nearby": [],
+   "score_before": 91.4,
+   "score_after": 95.7,
+   "score_gold": 100.0
+  },
+  {
+   "id": "fdr__restart_s3",
+   "type": "restart",
+   "severity": 3,
+   "found": true,
+   "repaired": true,
+   "edit": "the repeated \u201camerican island\u201d removed (1.36 s)",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 2,
+   "new_nearby": [],
+   "score_before": 94.6,
+   "score_after": 96.8,
+   "score_gold": 100.0
+  },
+  {
+   "id": "fdr__restart_s4",
+   "type": "restart",
+   "severity": 4,
+   "found": true,
+   "repaired": true,
+   "edit": "the repeated \u201cit will be\u201d removed (2.00 s)",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 4,
+   "new_nearby": [],
+   "score_before": 90.3,
+   "score_after": 94.6,
+   "score_gold": 100.0
+  },
+  {
+   "id": "jfk__skipped_word_s3",
+   "type": "skipped_word",
+   "severity": 3,
+   "found": true,
+   "repaired": true,
+   "edit": "the missing \u201csame\u201d restored from the reference reading",
+   "gone": false,
+   "residual_severity": 1,
+   "before_severity": 1,
+   "new_nearby": [
+    "pause_omission"
+   ],
+   "score_before": 98.9,
+   "score_after": 91.7,
+   "score_gold": 100.0
+  },
+  {
+   "id": "jfk__skipped_word_s4",
+   "type": "skipped_word",
+   "severity": 4,
+   "found": true,
+   "repaired": true,
+   "edit": "the missing \u201cmortal hands\u201d restored from the reference reading",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 4,
+   "new_nearby": [],
+   "score_before": 87.1,
+   "score_after": 95.7,
+   "score_gold": 100.0
+  },
+  {
+   "id": "jfk__restart_s3",
+   "type": "restart",
+   "severity": 3,
+   "found": true,
+   "repaired": true,
+   "edit": "the repeated \u201chave sworn\u201d removed (0.88 s)",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 2,
+   "new_nearby": [],
+   "score_before": 97.8,
+   "score_after": 100.0,
+   "score_gold": 100.0
+  },
+  {
+   "id": "jfk__restart_s4",
+   "type": "restart",
+   "found": false
+  },
+  {
+   "id": "lbj__skipped_word_s3",
+   "type": "skipped_word",
+   "severity": 3,
+   "found": true,
+   "repaired": true,
+   "edit": "the missing \u201ctheir\u201d restored from the reference reading",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 1,
+   "new_nearby": [
+    "rushed"
+   ],
+   "score_before": 98.9,
+   "score_after": 95.4,
+   "score_gold": 100.0
+  },
+  {
+   "id": "lbj__skipped_word_s4",
+   "type": "skipped_word",
+   "severity": 4,
+   "found": true,
+   "repaired": true,
+   "edit": "the missing \u201cspeak tonight for\u201d restored from the reference reading",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 5,
+   "new_nearby": [],
+   "score_before": 89.5,
+   "score_after": 93.5,
+   "score_gold": 100.0
+  },
+  {
+   "id": "lbj__restart_s3",
+   "type": "restart",
+   "found": false
+  },
+  {
+   "id": "lbj__restart_s4",
+   "type": "restart",
+   "severity": 4,
+   "found": true,
+   "repaired": true,
+   "edit": "the repeated \u201cplace to shape a\u201d removed (2.72 s)",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 5,
+   "new_nearby": [],
+   "score_before": 94.6,
+   "score_after": 100.0,
+   "score_gold": 100.0
+  },
+  {
+   "id": "obama__skipped_word_s3",
+   "type": "skipped_word",
+   "severity": 3,
+   "found": true,
+   "repaired": true,
+   "edit": "the missing \u201chave\u201d restored from the reference reading",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 1,
+   "new_nearby": [],
+   "score_before": 98.9,
+   "score_after": 100.0,
+   "score_gold": 100.0
+  },
+  {
+   "id": "obama__skipped_word_s4",
+   "type": "skipped_word",
+   "severity": 4,
+   "found": true,
+   "repaired": true,
+   "edit": "the missing \u201cto our\u201d restored from the reference reading",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 4,
+   "new_nearby": [],
+   "score_before": 95.7,
+   "score_after": 100.0,
+   "score_gold": 100.0
+  },
+  {
+   "id": "obama__restart_s3",
+   "type": "restart",
+   "found": false
+  },
+  {
+   "id": "obama__restart_s4",
+   "type": "restart",
+   "severity": 4,
+   "found": true,
+   "repaired": true,
+   "edit": "the repeated \u201cthe people have\u201d removed (2.20 s)",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 4,
+   "new_nearby": [],
+   "score_before": 88.2,
+   "score_after": 95.7,
+   "score_gold": 100.0
+  },
+  {
+   "id": "reagan__skipped_word_s3",
+   "type": "skipped_word",
+   "severity": 3,
+   "found": true,
+   "repaired": true,
+   "edit": "the missing \u201cToday is\u201d restored from the reference reading",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 4,
+   "new_nearby": [
+    "trailing_off"
+   ],
+   "score_before": 95.7,
+   "score_after": 95.9,
+   "score_gold": 100.0
+  },
+  {
+   "id": "reagan__skipped_word_s4",
+   "type": "skipped_word",
+   "found": false
+  },
+  {
+   "id": "reagan__restart_s3",
+   "type": "restart",
+   "severity": 3,
+   "found": true,
+   "repaired": true,
+   "edit": "the repeated \u201cto change\u201d removed (0.66 s)",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 2,
+   "new_nearby": [],
+   "score_before": 96.8,
+   "score_after": 98.9,
+   "score_gold": 100.0
+  },
+  {
+   "id": "reagan__restart_s4",
+   "type": "restart",
+   "severity": 4,
+   "found": true,
+   "repaired": true,
+   "edit": "the repeated \u201cperhaps we've forgotten\u201d removed (1.14 s)",
+   "gone": true,
+   "residual_severity": 0,
+   "before_severity": 4,
+   "new_nearby": [],
+   "score_before": 88.1,
+   "score_after": 92.4,
    "score_gold": 100.0
   }
  ]
