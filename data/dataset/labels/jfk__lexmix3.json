@@ -1,0 +1,1260 @@
+{
+ "id": "jfk__lexmix3",
+ "source": "jfk",
+ "kind": "lexmix",
+ "duration": 76.14,
+ "labels": [
+  {
+   "type": "skipped_word",
+   "severity": 4,
+   "start": 10.62,
+   "end": 12.01,
+   "word_start": 12,
+   "word_end": 15,
+   "params": {
+    "skipped": "symbolizing an",
+    "words": 2
+   }
+  },
+  {
+   "type": "filler",
+   "severity": 4,
+   "start": 26.65,
+   "end": 27.36,
+   "word_start": 38,
+   "word_end": 39,
+   "params": {
+    "filler_s": 0.55
+   }
+  },
+  {
+   "type": "pause_omission",
+   "severity": 4,
+   "start": 33.72,
+   "end": 36.917,
+   "word_start": 49,
+   "word_end": 56,
+   "params": {
+    "pause_kept": 0.15,
+    "pauses_shortened": 2
+   }
+  },
+  {
+   "type": "filler",
+   "severity": 4,
+   "start": 54.687,
+   "end": 55.397,
+   "word_start": 86,
+   "word_end": 87,
+   "params": {
+    "filler_s": 0.55
+   }
+  },
+  {
+   "type": "skipped_word",
+   "severity": 4,
+   "start": 59.177,
+   "end": 60.367,
+   "word_start": 95,
+   "word_end": 98,
+   "params": {
+    "skipped": "the belief",
+    "words": 2
+   }
+  },
+  {
+   "type": "filler",
+   "severity": 4,
+   "start": 64.347,
+   "end": 65.057,
+   "word_start": 107,
+   "word_end": 108,
+   "params": {
+    "filler_s": 0.55
+   }
+  }
+ ],
+ "max_severity": 4,
+ "lexical_mix": 3,
+ "words": [
+  {
+   "i": 0,
+   "text": "We",
+   "norm": "WE",
+   "start": 3.74,
+   "end": 4.08,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 1,
+   "text": "observe",
+   "norm": "OBSERVE",
+   "start": 4.08,
+   "end": 4.5,
+   "conf": 0.9662,
+   "punct_after": null
+  },
+  {
+   "i": 2,
+   "text": "today",
+   "norm": "TODAY",
+   "start": 4.5,
+   "end": 5.19,
+   "conf": 0.996,
+   "punct_after": null
+  },
+  {
+   "i": 3,
+   "text": "not",
+   "norm": "NOT",
+   "start": 6.59,
+   "end": 7.01,
+   "conf": 0.9983,
+   "punct_after": null
+  },
+  {
+   "i": 4,
+   "text": "a",
+   "norm": "A",
+   "start": 7.01,
+   "end": 7.14,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 5,
+   "text": "victory",
+   "norm": "VICTORY",
+   "start": 7.14,
+   "end": 7.62,
+   "conf": 0.9379,
+   "punct_after": null
+  },
+  {
+   "i": 6,
+   "text": "of",
+   "norm": "OF",
+   "start": 7.62,
+   "end": 7.76,
+   "conf": 0.9992,
+   "punct_after": null
+  },
+  {
+   "i": 7,
+   "text": "party",
+   "norm": "PARTY",
+   "start": 7.76,
+   "end": 8.44,
+   "conf": 0.2022,
+   "punct_after": null
+  },
+  {
+   "i": 8,
+   "text": "but",
+   "norm": "BUT",
+   "start": 9.5,
+   "end": 9.69,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 9,
+   "text": "a",
+   "norm": "A",
+   "start": 9.69,
+   "end": 9.82,
+   "conf": 0.9993,
+   "punct_after": null
+  },
+  {
+   "i": 10,
+   "text": "celebration",
+   "norm": "CELEBRATION",
+   "start": 9.82,
+   "end": 10.5,
+   "conf": 0.9619,
+   "punct_after": null
+  },
+  {
+   "i": 11,
+   "text": "of",
+   "norm": "OF",
+   "start": 10.5,
+   "end": 10.62,
+   "conf": 0.9992,
+   "punct_after": null
+  },
+  {
+   "i": 12,
+   "text": "freedom\u2014",
+   "norm": "FREEDOM",
+   "start": 10.62,
+   "end": 11.11,
+   "conf": 0.9892,
+   "punct_after": "clause"
+  },
+  {
+   "i": 13,
+   "text": "symbolizing",
+   "norm": "SYMBOLIZING",
+   "start": 11.65,
+   "end": 11.65,
+   "conf": 0.9499,
+   "punct_after": null
+  },
+  {
+   "i": 14,
+   "text": "an",
+   "norm": "AN",
+   "start": 11.65,
+   "end": 11.65,
+   "conf": 0.8603,
+   "punct_after": null
+  },
+  {
+   "i": 15,
+   "text": "end",
+   "norm": "END",
+   "start": 11.65,
+   "end": 12.01,
+   "conf": 0.8073,
+   "punct_after": null
+  },
+  {
+   "i": 16,
+   "text": "as",
+   "norm": "AS",
+   "start": 13.04,
+   "end": 13.25,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 17,
+   "text": "well",
+   "norm": "WELL",
+   "start": 13.25,
+   "end": 13.51,
+   "conf": 0.9959,
+   "punct_after": null
+  },
+  {
+   "i": 18,
+   "text": "as",
+   "norm": "AS",
+   "start": 13.51,
+   "end": 13.65,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 19,
+   "text": "a",
+   "norm": "A",
+   "start": 13.65,
+   "end": 13.75,
+   "conf": 0.9992,
+   "punct_after": null
+  },
+  {
+   "i": 20,
+   "text": "beginning\u2014",
+   "norm": "BEGINNING",
+   "start": 13.75,
+   "end": 14.46,
+   "conf": 0.9995,
+   "punct_after": "clause"
+  },
+  {
+   "i": 21,
+   "text": "signifying",
+   "norm": "SIGNIFYING",
+   "start": 15.39,
+   "end": 16.29,
+   "conf": 0.9858,
+   "punct_after": null
+  },
+  {
+   "i": 22,
+   "text": "renewal",
+   "norm": "RENEWAL",
+   "start": 16.29,
+   "end": 17.07,
+   "conf": 0.9987,
+   "punct_after": null
+  },
+  {
+   "i": 23,
+   "text": "as",
+   "norm": "AS",
+   "start": 17.89,
+   "end": 18.09,
+   "conf": 0.9995,
+   "punct_after": null
+  },
+  {
+   "i": 24,
+   "text": "well",
+   "norm": "WELL",
+   "start": 18.09,
+   "end": 18.3,
+   "conf": 0.9811,
+   "punct_after": null
+  },
+  {
+   "i": 25,
+   "text": "as",
+   "norm": "AS",
+   "start": 18.3,
+   "end": 18.45,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 26,
+   "text": "change.",
+   "norm": "CHANGE",
+   "start": 18.45,
+   "end": 19.04,
+   "conf": 0.9838,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 27,
+   "text": "For",
+   "norm": "FOR",
+   "start": 20.19,
+   "end": 20.51,
+   "conf": 0.9992,
+   "punct_after": null
+  },
+  {
+   "i": 28,
+   "text": "I",
+   "norm": "I",
+   "start": 20.51,
+   "end": 20.61,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 29,
+   "text": "have",
+   "norm": "HAVE",
+   "start": 20.61,
+   "end": 20.79,
+   "conf": 0.9786,
+   "punct_after": null
+  },
+  {
+   "i": 30,
+   "text": "sworn",
+   "norm": "SWORN",
+   "start": 20.79,
+   "end": 21.29,
+   "conf": 0.9622,
+   "punct_after": null
+  },
+  {
+   "i": 31,
+   "text": "before",
+   "norm": "BEFORE",
+   "start": 21.29,
+   "end": 21.75,
+   "conf": 0.9965,
+   "punct_after": null
+  },
+  {
+   "i": 32,
+   "text": "you",
+   "norm": "YOU",
+   "start": 21.75,
+   "end": 22.28,
+   "conf": 0.9979,
+   "punct_after": null
+  },
+  {
+   "i": 33,
+   "text": "and",
+   "norm": "AND",
+   "start": 22.89,
+   "end": 23.23,
+   "conf": 0.938,
+   "punct_after": null
+  },
+  {
+   "i": 34,
+   "text": "Almighty",
+   "norm": "ALMIGHTY",
+   "start": 23.23,
+   "end": 23.73,
+   "conf": 0.9867,
+   "punct_after": null
+  },
+  {
+   "i": 35,
+   "text": "God",
+   "norm": "GOD",
+   "start": 23.73,
+   "end": 24.31,
+   "conf": 0.6667,
+   "punct_after": null
+  },
+  {
+   "i": 36,
+   "text": "the",
+   "norm": "THE",
+   "start": 25.15,
+   "end": 25.34,
+   "conf": 0.9703,
+   "punct_after": null
+  },
+  {
+   "i": 37,
+   "text": "same",
+   "norm": "SAME",
+   "start": 25.35,
+   "end": 25.97,
+   "conf": 0.996,
+   "punct_after": null
+  },
+  {
+   "i": 38,
+   "text": "solemn",
+   "norm": "SOLEMN",
+   "start": 26.23,
+   "end": 26.65,
+   "conf": 0.997,
+   "punct_after": null
+  },
+  {
+   "i": 39,
+   "text": "oath",
+   "norm": "OATH",
+   "start": 27.36,
+   "end": 27.76,
+   "conf": 0.9471,
+   "punct_after": null
+  },
+  {
+   "i": 40,
+   "text": "our",
+   "norm": "OUR",
+   "start": 28.81,
+   "end": 29.12,
+   "conf": 0.5006,
+   "punct_after": null
+  },
+  {
+   "i": 41,
+   "text": "forebears",
+   "norm": "FOREBEARS",
+   "start": 29.12,
+   "end": 29.88,
+   "conf": 0.8993,
+   "punct_after": null
+  },
+  {
+   "i": 42,
+   "text": "prescribed",
+   "norm": "PRESCRIBED",
+   "start": 29.9,
+   "end": 30.77,
+   "conf": 0.8847,
+   "punct_after": null
+  },
+  {
+   "i": 43,
+   "text": "nearly",
+   "norm": "NEARLY",
+   "start": 31.57,
+   "end": 32.0,
+   "conf": 0.9539,
+   "punct_after": null
+  },
+  {
+   "i": 44,
+   "text": "a",
+   "norm": "A",
+   "start": 32.0,
+   "end": 32.16,
+   "conf": 0.9936,
+   "punct_after": null
+  },
+  {
+   "i": 45,
+   "text": "century",
+   "norm": "CENTURY",
+   "start": 32.17,
+   "end": 32.76,
+   "conf": 0.9444,
+   "punct_after": null
+  },
+  {
+   "i": 46,
+   "text": "and",
+   "norm": "AND",
+   "start": 32.76,
+   "end": 32.94,
+   "conf": 0.867,
+   "punct_after": null
+  },
+  {
+   "i": 47,
+   "text": "three",
+   "norm": "THREE",
+   "start": 32.94,
+   "end": 33.23,
+   "conf": 0.9986,
+   "punct_after": null
+  },
+  {
+   "i": 48,
+   "text": "quarters",
+   "norm": "QUARTERS",
+   "start": 33.23,
+   "end": 33.72,
+   "conf": 0.9846,
+   "punct_after": null
+  },
+  {
+   "i": 49,
+   "text": "ago.",
+   "norm": "AGO",
+   "start": 33.72,
+   "end": 34.28,
+   "conf": 0.9975,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 50,
+   "text": "The",
+   "norm": "THE",
+   "start": 34.5,
+   "end": 34.64,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 51,
+   "text": "world",
+   "norm": "WORLD",
+   "start": 34.64,
+   "end": 35.16,
+   "conf": 0.9874,
+   "punct_after": null
+  },
+  {
+   "i": 52,
+   "text": "is",
+   "norm": "IS",
+   "start": 35.16,
+   "end": 35.28,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 53,
+   "text": "very",
+   "norm": "VERY",
+   "start": 35.28,
+   "end": 35.57,
+   "conf": 0.9985,
+   "punct_after": null
+  },
+  {
+   "i": 54,
+   "text": "different",
+   "norm": "DIFFERENT",
+   "start": 35.57,
+   "end": 35.96,
+   "conf": 0.9361,
+   "punct_after": null
+  },
+  {
+   "i": 55,
+   "text": "now.",
+   "norm": "NOW",
+   "start": 35.96,
+   "end": 36.49,
+   "conf": 0.989,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 56,
+   "text": "For",
+   "norm": "FOR",
+   "start": 36.727,
+   "end": 36.917,
+   "conf": 0.9982,
+   "punct_after": null
+  },
+  {
+   "i": 57,
+   "text": "man",
+   "norm": "MAN",
+   "start": 36.917,
+   "end": 37.457,
+   "conf": 0.9978,
+   "punct_after": null
+  },
+  {
+   "i": 58,
+   "text": "holds",
+   "norm": "HOLDS",
+   "start": 37.457,
+   "end": 37.947,
+   "conf": 0.8997,
+   "punct_after": null
+  },
+  {
+   "i": 59,
+   "text": "in",
+   "norm": "IN",
+   "start": 37.947,
+   "end": 38.027,
+   "conf": 0.9935,
+   "punct_after": null
+  },
+  {
+   "i": 60,
+   "text": "his",
+   "norm": "HIS",
+   "start": 38.027,
+   "end": 38.247,
+   "conf": 0.9843,
+   "punct_after": null
+  },
+  {
+   "i": 61,
+   "text": "mortal",
+   "norm": "MORTAL",
+   "start": 38.247,
+   "end": 38.607,
+   "conf": 0.9991,
+   "punct_after": null
+  },
+  {
+   "i": 62,
+   "text": "hands",
+   "norm": "HANDS",
+   "start": 38.607,
+   "end": 39.177,
+   "conf": 0.8513,
+   "punct_after": null
+  },
+  {
+   "i": 63,
+   "text": "the",
+   "norm": "THE",
+   "start": 40.347,
+   "end": 40.517,
+   "conf": 0.9986,
+   "punct_after": null
+  },
+  {
+   "i": 64,
+   "text": "power",
+   "norm": "POWER",
+   "start": 40.527,
+   "end": 41.047,
+   "conf": 0.9908,
+   "punct_after": null
+  },
+  {
+   "i": 65,
+   "text": "to",
+   "norm": "TO",
+   "start": 41.047,
+   "end": 41.247,
+   "conf": 0.9906,
+   "punct_after": null
+  },
+  {
+   "i": 66,
+   "text": "abolish",
+   "norm": "ABOLISH",
+   "start": 41.247,
+   "end": 41.847,
+   "conf": 0.966,
+   "punct_after": null
+  },
+  {
+   "i": 67,
+   "text": "all",
+   "norm": "ALL",
+   "start": 42.987,
+   "end": 43.407,
+   "conf": 0.9381,
+   "punct_after": null
+  },
+  {
+   "i": 68,
+   "text": "forms",
+   "norm": "FORMS",
+   "start": 43.407,
+   "end": 43.987,
+   "conf": 0.9946,
+   "punct_after": null
+  },
+  {
+   "i": 69,
+   "text": "of",
+   "norm": "OF",
+   "start": 43.987,
+   "end": 44.087,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 70,
+   "text": "human",
+   "norm": "HUMAN",
+   "start": 44.107,
+   "end": 44.507,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 71,
+   "text": "poverty",
+   "norm": "POVERTY",
+   "start": 44.507,
+   "end": 45.037,
+   "conf": 0.9962,
+   "punct_after": null
+  },
+  {
+   "i": 72,
+   "text": "and",
+   "norm": "AND",
+   "start": 46.137,
+   "end": 46.427,
+   "conf": 0.999,
+   "punct_after": null
+  },
+  {
+   "i": 73,
+   "text": "all",
+   "norm": "ALL",
+   "start": 46.427,
+   "end": 46.687,
+   "conf": 0.8905,
+   "punct_after": null
+  },
+  {
+   "i": 74,
+   "text": "forms",
+   "norm": "FORMS",
+   "start": 46.687,
+   "end": 47.167,
+   "conf": 0.9613,
+   "punct_after": null
+  },
+  {
+   "i": 75,
+   "text": "of",
+   "norm": "OF",
+   "start": 47.167,
+   "end": 47.287,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 76,
+   "text": "human",
+   "norm": "HUMAN",
+   "start": 47.287,
+   "end": 47.607,
+   "conf": 0.9394,
+   "punct_after": null
+  },
+  {
+   "i": 77,
+   "text": "life.",
+   "norm": "LIFE",
+   "start": 47.607,
+   "end": 47.927,
+   "conf": 0.9926,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 78,
+   "text": "And",
+   "norm": "AND",
+   "start": 49.467,
+   "end": 49.707,
+   "conf": 0.8905,
+   "punct_after": null
+  },
+  {
+   "i": 79,
+   "text": "yet",
+   "norm": "YET",
+   "start": 49.707,
+   "end": 49.987,
+   "conf": 0.9138,
+   "punct_after": null
+  },
+  {
+   "i": 80,
+   "text": "the",
+   "norm": "THE",
+   "start": 49.997,
+   "end": 50.207,
+   "conf": 0.9994,
+   "punct_after": null
+  },
+  {
+   "i": 81,
+   "text": "same",
+   "norm": "SAME",
+   "start": 50.247,
+   "end": 50.897,
+   "conf": 0.9199,
+   "punct_after": null
+  },
+  {
+   "i": 82,
+   "text": "revolutionary",
+   "norm": "REVOLUTIONARY",
+   "start": 51.107,
+   "end": 51.967,
+   "conf": 0.9298,
+   "punct_after": null
+  },
+  {
+   "i": 83,
+   "text": "beliefs",
+   "norm": "BELIEFS",
+   "start": 51.967,
+   "end": 52.517,
+   "conf": 0.8571,
+   "punct_after": null
+  },
+  {
+   "i": 84,
+   "text": "for",
+   "norm": "FOR",
+   "start": 53.847,
+   "end": 54.107,
+   "conf": 0.9983,
+   "punct_after": null
+  },
+  {
+   "i": 85,
+   "text": "which",
+   "norm": "WHICH",
+   "start": 54.107,
+   "end": 54.487,
+   "conf": 0.9498,
+   "punct_after": null
+  },
+  {
+   "i": 86,
+   "text": "our",
+   "norm": "OUR",
+   "start": 54.487,
+   "end": 54.687,
+   "conf": 0.3391,
+   "punct_after": null
+  },
+  {
+   "i": 87,
+   "text": "forebears",
+   "norm": "FOREBEARS",
+   "start": 55.397,
+   "end": 56.087,
+   "conf": 0.8856,
+   "punct_after": null
+  },
+  {
+   "i": 88,
+   "text": "fought",
+   "norm": "FOUGHT",
+   "start": 56.117,
+   "end": 56.527,
+   "conf": 0.4643,
+   "punct_after": null
+  },
+  {
+   "i": 89,
+   "text": "are",
+   "norm": "ARE",
+   "start": 57.577,
+   "end": 57.877,
+   "conf": 0.0637,
+   "punct_after": null
+  },
+  {
+   "i": 90,
+   "text": "still",
+   "norm": "STILL",
+   "start": 57.877,
+   "end": 58.177,
+   "conf": 0.7864,
+   "punct_after": null
+  },
+  {
+   "i": 91,
+   "text": "at",
+   "norm": "AT",
+   "start": 58.177,
+   "end": 58.277,
+   "conf": 0.6707,
+   "punct_after": null
+  },
+  {
+   "i": 92,
+   "text": "issue",
+   "norm": "ISSUE",
+   "start": 58.277,
+   "end": 58.707,
+   "conf": 0.9605,
+   "punct_after": null
+  },
+  {
+   "i": 93,
+   "text": "around",
+   "norm": "AROUND",
+   "start": 58.707,
+   "end": 59.077,
+   "conf": 0.988,
+   "punct_after": null
+  },
+  {
+   "i": 94,
+   "text": "the",
+   "norm": "THE",
+   "start": 59.077,
+   "end": 59.177,
+   "conf": 0.9915,
+   "punct_after": null
+  },
+  {
+   "i": 95,
+   "text": "globe\u2014",
+   "norm": "GLOBE",
+   "start": 59.177,
+   "end": 59.647,
+   "conf": 0.9929,
+   "punct_after": "clause"
+  },
+  {
+   "i": 96,
+   "text": "the",
+   "norm": "THE",
+   "start": 60.182,
+   "end": 60.182,
+   "conf": 0.9431,
+   "punct_after": null
+  },
+  {
+   "i": 97,
+   "text": "belief",
+   "norm": "BELIEF",
+   "start": 60.182,
+   "end": 60.182,
+   "conf": 0.9577,
+   "punct_after": null
+  },
+  {
+   "i": 98,
+   "text": "that",
+   "norm": "THAT",
+   "start": 60.207,
+   "end": 60.367,
+   "conf": 0.9837,
+   "punct_after": null
+  },
+  {
+   "i": 99,
+   "text": "the",
+   "norm": "THE",
+   "start": 60.367,
+   "end": 60.517,
+   "conf": 0.975,
+   "punct_after": null
+  },
+  {
+   "i": 100,
+   "text": "rights",
+   "norm": "RIGHTS",
+   "start": 60.517,
+   "end": 60.877,
+   "conf": 0.9392,
+   "punct_after": null
+  },
+  {
+   "i": 101,
+   "text": "of",
+   "norm": "OF",
+   "start": 60.877,
+   "end": 60.987,
+   "conf": 0.9997,
+   "punct_after": null
+  },
+  {
+   "i": 102,
+   "text": "man",
+   "norm": "MAN",
+   "start": 60.987,
+   "end": 61.577,
+   "conf": 0.9967,
+   "punct_after": null
+  },
+  {
+   "i": 103,
+   "text": "come",
+   "norm": "COME",
+   "start": 62.567,
+   "end": 62.927,
+   "conf": 0.9753,
+   "punct_after": null
+  },
+  {
+   "i": 104,
+   "text": "not",
+   "norm": "NOT",
+   "start": 62.927,
+   "end": 63.287,
+   "conf": 0.9993,
+   "punct_after": null
+  },
+  {
+   "i": 105,
+   "text": "from",
+   "norm": "FROM",
+   "start": 63.287,
+   "end": 63.457,
+   "conf": 0.9965,
+   "punct_after": null
+  },
+  {
+   "i": 106,
+   "text": "the",
+   "norm": "THE",
+   "start": 63.457,
+   "end": 63.587,
+   "conf": 0.9239,
+   "punct_after": null
+  },
+  {
+   "i": 107,
+   "text": "generosity",
+   "norm": "GENEROSITY",
+   "start": 63.587,
+   "end": 64.347,
+   "conf": 0.9648,
+   "punct_after": null
+  },
+  {
+   "i": 108,
+   "text": "of",
+   "norm": "OF",
+   "start": 65.057,
+   "end": 65.157,
+   "conf": 0.9998,
+   "punct_after": null
+  },
+  {
+   "i": 109,
+   "text": "the",
+   "norm": "THE",
+   "start": 65.157,
+   "end": 65.297,
+   "conf": 0.9984,
+   "punct_after": null
+  },
+  {
+   "i": 110,
+   "text": "state",
+   "norm": "STATE",
+   "start": 65.297,
+   "end": 65.657,
+   "conf": 0.9875,
+   "punct_after": null
+  },
+  {
+   "i": 111,
+   "text": "but",
+   "norm": "BUT",
+   "start": 66.637,
+   "end": 66.887,
+   "conf": 0.8854,
+   "punct_after": null
+  },
+  {
+   "i": 112,
+   "text": "from",
+   "norm": "FROM",
+   "start": 66.887,
+   "end": 67.087,
+   "conf": 0.9397,
+   "punct_after": null
+  },
+  {
+   "i": 113,
+   "text": "the",
+   "norm": "THE",
+   "start": 67.087,
+   "end": 67.227,
+   "conf": 1.0,
+   "punct_after": null
+  },
+  {
+   "i": 114,
+   "text": "hand",
+   "norm": "HAND",
+   "start": 67.227,
+   "end": 67.527,
+   "conf": 0.9894,
+   "punct_after": null
+  },
+  {
+   "i": 115,
+   "text": "of",
+   "norm": "OF",
+   "start": 67.527,
+   "end": 67.627,
+   "conf": 0.9998,
+   "punct_after": null
+  },
+  {
+   "i": 116,
+   "text": "God.",
+   "norm": "GOD",
+   "start": 67.647,
+   "end": 68.137,
+   "conf": 0.9999,
+   "punct_after": "sentence"
+  },
+  {
+   "i": 117,
+   "text": "We",
+   "norm": "WE",
+   "start": 69.627,
+   "end": 69.947,
+   "conf": 0.9541,
+   "punct_after": null
+  },
+  {
+   "i": 118,
+   "text": "dare",
+   "norm": "DARE",
+   "start": 69.947,
+   "end": 70.227,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 119,
+   "text": "not",
+   "norm": "NOT",
+   "start": 70.227,
+   "end": 70.517,
+   "conf": 0.9766,
+   "punct_after": null
+  },
+  {
+   "i": 120,
+   "text": "forget",
+   "norm": "FORGET",
+   "start": 70.517,
+   "end": 70.877,
+   "conf": 0.9999,
+   "punct_after": null
+  },
+  {
+   "i": 121,
+   "text": "today",
+   "norm": "TODAY",
+   "start": 70.877,
+   "end": 71.447,
+   "conf": 0.9749,
+   "punct_after": null
+  },
+  {
+   "i": 122,
+   "text": "that",
+   "norm": "THAT",
+   "start": 72.437,
+   "end": 72.697,
+   "conf": 0.9886,
+   "punct_after": null
+  },
+  {
+   "i": 123,
+   "text": "we",
+   "norm": "WE",
+   "start": 72.697,
+   "end": 73.087,
+   "conf": 0.9958,
+   "punct_after": null
+  },
+  {
+   "i": 124,
+   "text": "are",
+   "norm": "ARE",
+   "start": 73.087,
+   "end": 73.257,
+   "conf": 0.9218,
+   "punct_after": null
+  },
+  {
+   "i": 125,
+   "text": "the",
+   "norm": "THE",
+   "start": 73.257,
+   "end": 73.387,
+   "conf": 1.0,
+   "punct_after": null
+  },
+  {
+   "i": 126,
+   "text": "heirs",
+   "norm": "HEIRS",
+   "start": 73.447,
+   "end": 73.917,
+   "conf": 0.8658,
+   "punct_after": null
+  },
+  {
+   "i": 127,
+   "text": "of",
+   "norm": "OF",
+   "start": 73.917,
+   "end": 73.997,
+   "conf": 0.9996,
+   "punct_after": null
+  },
+  {
+   "i": 128,
+   "text": "that",
+   "norm": "THAT",
+   "start": 73.997,
+   "end": 74.277,
+   "conf": 0.9503,
+   "punct_after": null
+  },
+  {
+   "i": 129,
+   "text": "first",
+   "norm": "FIRST",
+   "start": 74.277,
+   "end": 74.647,
+   "conf": 0.9295,
+   "punct_after": null
+  },
+  {
+   "i": 130,
+   "text": "revolution.",
+   "norm": "REVOLUTION",
+   "start": 74.837,
+   "end": 75.477,
+   "conf": 0.9998,
+   "punct_after": "sentence"
+  }
+ ]
+}

@@ -2,7 +2,7 @@
 
 Paired good/flawed recordings of the same transcripts, with time-bounded labels.
 
-**Audio download:** _link added at submission (Google Drive)_. Unzip into this folder so that `data/library/` and `data/dataset/clips/` exist. Labels, alignments and the manifest are in the repository itself.
+**Audio download:** [Google Drive folder](https://drive.google.com/drive/folders/1Vmpboj6Q3OR9rY-jeGtRW6ri0HlaXDfk?usp=sharing) (386 clips, lossless FLAC, about 520 MB). Put the `.flac` files in `data/dataset/clips/`; the code reads FLAC and WAV alike. The gold excerpts are the `<speech>__gold` clips; `tools/build_dataset.py` also rebuilds everything from the raw speeches. Labels, alignments and the manifest are in the repository itself.
 
 ## Layout
 

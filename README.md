@@ -34,7 +34,7 @@ Prerequisites: Python 3.10+, `ffmpeg` on PATH (for MP3/M4A input). With Docker i
 docker build -t speechlens . && docker run -p 8000:8000 speechlens
 ```
 
-The dataset audio is distributed separately (see [Dataset](#dataset)); unpack it into `data/` to use the sample clips and re-run the evaluation.
+The dataset audio is on [Google Drive](https://drive.google.com/drive/folders/1Vmpboj6Q3OR9rY-jeGtRW6ri0HlaXDfk?usp=sharing) (see [Dataset](#dataset)); unpack it into `data/` to use the sample clips and re-run the evaluation.
 
 ### Command line
 
@@ -102,7 +102,7 @@ data/dataset/clips/     <clip>.wav
 data/dataset/labels/    <clip>.json   labels + word timings of the flawed recording
 data/dataset/manifest.json
 ```
-Audio download: see the link in [`data/README.md`](data/README.md).
+**Audio download: [Google Drive](https://drive.google.com/drive/folders/1Vmpboj6Q3OR9rY-jeGtRW6ri0HlaXDfk?usp=sharing)** (386 clips, lossless FLAC). Details in [`data/README.md`](data/README.md).
 
 ---
 
