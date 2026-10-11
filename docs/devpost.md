@@ -24,7 +24,7 @@ SpeechLens compares a participant's reading with a well-delivered reference read
 - **Dataset.** No public dataset pairs good and bad deliveries of identical text with time-exact labels, so we built one. Five public-domain presidential speeches are the gold standard. A **Flaw Injection Engine** edits them with Praat PSOLA in the speaker's own voice. 350 synthetic clips cover 11 flaw types × 5 severities, mixed-flaw gradients and unflawed controls (voice shifted ±4 semitones, 12 dB quieter), and every label is exact to the sample. Three of us also recorded 36 takes with scripted flaws.
 - **Pipeline.** wav2vec2 CTC forced alignment (ONNX, exact Viterbi, CPU only) → speaker-normalised features on a 10 ms grid (Praat F0, intensity, HNR, STFT band energies, MFCC) → word-paired contrast that separates the speaker's overall habit from local deviations, scored against the reference speaker's own variability → data-fitted significance gates → template explanations → rubric score.
 - **Reading errors.** A skipped word leaves the aligner squeezing letters into a few frames with near-zero confidence. A restart adds speech at one boundary. A short recognition pass over just that neighbourhood confirms each one and becomes the evidence shown to the user ("recognised here: *to our secretary to our secretary of state*").
-- **Stack.** Python, FastAPI, numpy/scipy, Parselmouth (Praat), librosa, onnxruntime, and a no-build vanilla-JS dashboard with canvas timelines. Deployed as a static site on GitHub Pages; the full app runs with one command or Docker.
+- **Stack.** Python, FastAPI, numpy/scipy, Parselmouth (Praat), librosa, onnxruntime, and a no-build vanilla-JS dashboard with canvas timelines. Dashboard on GitHub Pages; live uploads analysed by the same pipeline in a Docker container on Azure Container Apps (image built by GitHub Actions). Runs locally with one command or Docker.
 
 ## How we know it works
 Every number runs the full pipeline on raw audio, and thresholds are cross-validated (leave-one-speech-out / leave-one-speaker-out).
@@ -37,7 +37,7 @@ Every number runs the full pipeline on raw audio, and thresholds are cross-valid
 - **Feature evidence:** each flaw is carried by exactly the signal its explanation names (e.g. muffled speech by high-frequency energy, Cohen's d = −5.1).
 - **Stress test:** robust to MP3 compression, telephone audio, ±10 % tempo and moderate echo. Background noise is the honest weakness, so the app measures it, compensates partly and warns.
 - **Real people:** on our own recordings it finds 53 % of verified performed flaws. A manipulation check and a blind listening audit show most "extra" findings are real slips (estimated precision ~0.80).
-- Byte-identical results on every rerun; 22 unit tests and CI.
+- Byte-identical results on every rerun; 25 unit tests and CI.
 
 ## Challenges we ran into
 - Natural take-to-take variation: a person never reads the same sentence twice at the same pace. We fitted per-type significance gates on data and cross-validated them, which doubled precision on human recordings.
@@ -57,7 +57,7 @@ Contrast is the signal: the same measurements without a reference are close to u
 Accent-diverse and spontaneous-speech evaluation, noise-robust features, more languages through multilingual alignment models, and a mobile practice app for speech coaches.
 
 ## Built with
-python · fastapi · praat · parselmouth · wav2vec2 · onnxruntime · librosa · numpy · scipy · javascript · html-canvas · github-pages · docker
+python · fastapi · praat · parselmouth · wav2vec2 · onnxruntime · librosa · numpy · scipy · javascript · html-canvas · github-pages · docker · azure
 
 ## Team
 (Full names of all members, each with a Devpost account)
