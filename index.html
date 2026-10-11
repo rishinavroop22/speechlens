@@ -516,7 +516,7 @@ button.primary:disabled { opacity: .5; cursor: progress; }
 <audio id="ref-audio" preload="auto"></audio>
 
 
-<script>window.SPEECHLENS_STATIC = true;</script>
+<script>window.SPEECHLENS_STATIC = true; window.SPEECHLENS_API = "https://speechlens.orangemushroom-adbe4b00.centralindia.azurecontainerapps.io";</script>
 <script type="module">
 // SpeechLens dashboard - no build step, no external requests.
 const $ = (s, el = document) => el.querySelector(s);
@@ -641,8 +641,11 @@ async function boot() {
   renderSamples();
   renderDataset();
   if (STATIC) {
-    $("#go").textContent = "Analyze delivery (full app)";
-    setStatus("Hosted demo: pick a dataset clip below. Analysing your own recording needs the full app from GitHub.");
+    if (API) setStatus("Pick a dataset clip below, or upload or record your own reading. The first live analysis can take a minute while the server wakes up.");
+    else {
+      $("#go").textContent = "Analyze delivery (full app)";
+      setStatus("Hosted demo: pick a dataset clip below. Analysing your own recording needs the full app from GitHub.");
+    }
     analyzeSample(S.manifest.clips.find((c) => c.id === "human__manya_reagan_B")?.id || S.manifest.clips[0].id);
   } else if (status.aligner !== "wav2vec2-ctc") setStatus("Alignment model not found: using the approximate fallback aligner.", true);
 }
