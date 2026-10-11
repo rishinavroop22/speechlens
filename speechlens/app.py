@@ -89,7 +89,7 @@ def evaluation():
     rep = json.loads(p.read_text()) | {"available": True}
     # later experiments, each written by its own tool
     for key, name in (("stress", "stress.json"), ("ablation", "ablation.json"), ("counterfactual", "counterfactual.json"),
-                      ("stats", "stats.json")):
+                      ("stats", "stats.json"), ("librispeech", "librispeech.json")):
         f = EVAL / name
         if f.exists():
             d = json.loads(f.read_text())

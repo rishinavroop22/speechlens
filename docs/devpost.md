@@ -33,6 +33,7 @@ Every number runs the full pipeline on raw audio, and thresholds are cross-valid
 - Score falls steadily with flaw level: Spearman **ρ = −0.95**; severity within one level 93 % of the time.
 - **Why the reference matters:** the same detector without a reference reaches F1 0.07, and only 0.14 even with thresholds tuned on the test answers.
 - **Counterfactual test:** repairing only the named cause makes the finding disappear in **91 %** of cases, so the explanations name real causes.
+- **New voices:** on 20 unseen LibriSpeech readers, 10 women and 10 men, with every threshold frozen: **F1 0.85** (women 0.86, men 0.85).
 - **Feature evidence:** each flaw is carried by exactly the signal its explanation names (e.g. muffled speech by high-frequency energy, Cohen's d = −5.1).
 - **Stress test:** robust to MP3 compression, telephone audio, ±10 % tempo and moderate echo. Background noise is the honest weakness, so the app measures it, compensates partly and warns.
 - **Real people:** on our own recordings it finds 53 % of verified performed flaws. A manipulation check and a blind listening audit show most "extra" findings are real slips (estimated precision ~0.80).
@@ -53,7 +54,7 @@ Every number runs the full pipeline on raw audio, and thresholds are cross-valid
 Contrast is the signal: the same measurements without a reference are close to useless. And the evaluation design (controls, ablations, interventions, stress, listening audits) taught us more about the system than any single accuracy number.
 
 ## What's next
-A gender- and accent-balanced generalisation test on public read-speech corpora, noise-robust features, more languages through multilingual alignment models, and a mobile practice app for speech coaches.
+Accent-diverse and spontaneous-speech evaluation, noise-robust features, more languages through multilingual alignment models, and a mobile practice app for speech coaches.
 
 ## Built with
 python · fastapi · praat · parselmouth · wav2vec2 · onnxruntime · librosa · numpy · scipy · javascript · html-canvas · github-pages · docker

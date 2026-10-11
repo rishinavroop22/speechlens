@@ -120,6 +120,7 @@ All numbers run the full pipeline on raw audio. Detection thresholds and severit
 | Severity estimate, held-out speeches | 0.49 levels mean error, 93 % within one level |
 | Team recordings: performed flaws found (leave-one-speaker-out) | **53 %** (31/58, 95 % CI 39-68 %) |
 | Team recordings: precision | 0.21 against scripted flaws only; about **0.80** (95 % range 0.61-0.92) after a blind listening audit |
+| 20 unseen LibriSpeech speakers (10 women), thresholds frozen | **F1 0.85** (women 0.86, men 0.85) |
 | Without a reference (same detector) | F1 0.07; 0.14 even with thresholds tuned on the test labels |
 | Fixing the named cause (counterfactual) | finding removed in **91 %** of repaired flaws |
 | Re-run in a fresh process | byte-identical |
@@ -144,6 +145,18 @@ All numbers run the full pipeline on raw audio. Detection thresholds and severit
 ![Feature evidence](docs/figures/feature_evidence.svg)
 
 **Team recordings.** Each flawed take is compared with the same person's clean take. A manipulation check, with fixed criteria independent of the detector, found that 58 of 90 scripted flaws were actually performed (phone gain control erased most fades, and "mumbles" were usually whispered); only those are scored. Findings outside a scripted flaw count as false, yet in a blind listening audit 12 of 16 of them were heard as genuinely worse delivery, against 0 of 7 random spans. The listener named the same problem as the detector in only 17 % of those cases: SpeechLens locates unscripted problems more reliably than it labels them.
+
+### New voices: 20 unseen speakers (`tools/librispeech.py`)
+
+All five gold speakers are male presidents, so we tested on 20 LibriSpeech dev-clean readers SpeechLens never saw, **10 women and 10 men** (CC BY 4.0). About a minute of each reader's consecutive utterances becomes a new gold passage; the same engine injects every flaw type at severity 4; **every threshold, gate and severity table stays frozen** as fitted on our dataset.
+
+| | Precision | Recall | F1 |
+|---|---|---|---|
+| All 20 speakers, 11 flaw types (334 flaws) | 0.90 | 0.81 | **0.85** |
+| Women | 0.92 | 0.80 | 0.86 |
+| Men | 0.89 | 0.81 | 0.85 |
+
+Prosodic flaws transfer almost perfectly (rushed 0.98, dragging 1.00, monotone 0.97, awkward pause 1.00, filler 0.92, muffled 0.95); the weakest types are again repeated onsets (0.57) and skipped words (0.61). Clean audiobook reading is easier than our 1940s–2000s speech recordings, so this is an upper-range figure, but it shows the speaker normalisation works across voices.
 
 ### Why the reference matters (ablations, `tools/ablate.py`)
 

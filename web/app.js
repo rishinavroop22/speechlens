@@ -823,6 +823,7 @@ async function renderEval() {
     <table class="et"><thead><tr><th>Flaw</th><th>Performed</th><th>Criterion</th></tr></thead><tbody>${Object.entries(mc.performed).map(([t, v]) => `<tr><td>${NAMES[t]}</td><td>${v.performed}/${v.scripted}</td><td>${esc(mc.criteria[t].measure)} ${esc(mc.criteria[t].criterion)}</td></tr>`).join("")}</tbody></table>` : ""}
     ${e.audit ? `<h2>Blind listening audit</h2><p class="note">${esc(e.audit.summary)}</p>` : ""}
     ${statsHtml(e.stats, pct)}
+    ${libriHtml(e.librispeech, pct)}
     ${ablationHtml(e.ablation, pct)}
     ${stressHtml(e.stress, pct)}
     ${counterfactualHtml(e.counterfactual, pct)}
@@ -869,6 +870,14 @@ function statsHtml(st, pct) {
     <p class="note">Cohen's d between the labelled words and the rest of the reading, per word-level contrast signal (severity 3–5 single-flaw clips). Blue: higher than the reference inside the flaw; red: lower. Each flaw lights up the signal its explanation names.</p>
     <table class="et heat fe"><thead><tr><th>Flaw</th>${sigs.map((g) => `<th>${esc(g.split(" (")[0])}</th>`).join("")}</tr></thead><tbody>
       ${Object.entries(fe).filter(([, v]) => Object.keys(v).length).map(([t, v]) => `<tr><td>${NAMES[t]}</td>${sigs.map((g) => cell(v[g])).join("")}</tr>`).join("")}</tbody></table>`;
+}
+
+function libriHtml(l, pct) {
+  if (!l || !l.all) return "";
+  const rows = Object.entries(l.by_type).map(([t, r]) => `<tr><td>${NAMES[t]}</td><td>${pct(r.precision)}</td><td>${pct(r.recall)}</td><td>${pct(r.f1)} ${bar(r.f1)}</td></tr>`).join("");
+  return `<h2>New voices: 20 unseen speakers, half of them women</h2>
+    <p class="note">Our gold speakers are five male presidents, so we tested on LibriSpeech dev-clean audiobook readers (CC BY 4.0) that SpeechLens never saw: 10 women and 10 men. For each, about a minute of consecutive reading becomes a new gold passage, and the same engine injects every flaw type at severity 4. Every threshold, gate and severity table stays exactly as fitted on our dataset. F1 is <b>${pct(l.all.f1)}</b> (precision ${pct(l.all.precision)}, recall ${pct(l.all.recall)}); women ${pct(l.by_sex.F.f1)}, men ${pct(l.by_sex.M.f1)}.</p>
+    <table class="et"><thead><tr><th>Flaw</th><th>Precision</th><th>Recall</th><th>F1</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 function ablationHtml(a, pct) {

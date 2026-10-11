@@ -11,12 +11,13 @@ A deterministic analysis pipeline, not a trained network: forced alignment with 
 - Synthetic flaws, leave-one-speech-out: see `results/evaluation.json` (`cross_validated`).
 - Team recordings, leave-one-speaker-out: recall about 0.55; precision 0.22 against scripted flaws only, about 0.80 after a blind listening audit.
 - Unflawed controls: about 0.03 false findings per minute.
+- 20 unseen LibriSpeech speakers (10 women, 10 men), thresholds frozen: F1 0.85 (women 0.86, men 0.85).
 - Robustness: stable under MP3 compression, telephone band, ±10 % tempo and moderate reverberation; **degrades sharply with background noise** in the participant recording (`results/stress.json`).
 
 ## Limitations and risks
 - Needs a reference reading of the same text; English only (alignment model).
 - Background noise the reference lacks produces false timing and clarity findings; the app warns above 6 dB of excess noise.
-- Gold speakers are all male; calibration may not transfer equally to every voice.
+- Gold speakers are all male; on 20 unseen LibriSpeech readers (10 women) with frozen thresholds F1 is 0.85 for women and men alike, but accents and non-read speech are untested.
 - Labels of unscripted findings agree with human listeners less often than their locations do.
 - Delivery norms are those of the reference: a stylistic choice that differs from the reference is reported as a deviation. The tool supports a coach or judge; it should not be the sole basis of a high-stakes decision.
 

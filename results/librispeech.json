@@ -1,0 +1,120 @@
+{
+ "speakers": 20,
+ "severity": 4,
+ "all": {
+  "precision": 0.903,
+  "recall": 0.805,
+  "f1": 0.851,
+  "tp": 269,
+  "fp": 29,
+  "fn": 65
+ },
+ "by_sex": {
+  "F": {
+   "precision": 0.918,
+   "recall": 0.802,
+   "f1": 0.856,
+   "tp": 134,
+   "fp": 12,
+   "fn": 33
+  },
+  "M": {
+   "precision": 0.888,
+   "recall": 0.808,
+   "f1": 0.846,
+   "tp": 135,
+   "fp": 17,
+   "fn": 32
+  }
+ },
+ "by_type": {
+  "rushed": {
+   "precision": 0.952,
+   "recall": 1.0,
+   "f1": 0.976,
+   "tp": 20,
+   "fp": 1,
+   "fn": 0
+  },
+  "dragging": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 20,
+   "fp": 0,
+   "fn": 0
+  },
+  "monotone": {
+   "precision": 1.0,
+   "recall": 0.95,
+   "f1": 0.974,
+   "tp": 19,
+   "fp": 0,
+   "fn": 1
+  },
+  "trailing_off": {
+   "precision": 1.0,
+   "recall": 0.9,
+   "f1": 0.947,
+   "tp": 18,
+   "fp": 0,
+   "fn": 2
+  },
+  "pause_omission": {
+   "precision": 1.0,
+   "recall": 0.571,
+   "f1": 0.727,
+   "tp": 8,
+   "fp": 0,
+   "fn": 6
+  },
+  "awkward_pause": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 40,
+   "fp": 0,
+   "fn": 0
+  },
+  "filler": {
+   "precision": 0.931,
+   "recall": 0.9,
+   "f1": 0.915,
+   "tp": 54,
+   "fp": 4,
+   "fn": 6
+  },
+  "mumbling": {
+   "precision": 1.0,
+   "recall": 0.9,
+   "f1": 0.947,
+   "tp": 18,
+   "fp": 0,
+   "fn": 2
+  },
+  "stutter": {
+   "precision": 0.783,
+   "recall": 0.45,
+   "f1": 0.571,
+   "tp": 18,
+   "fp": 5,
+   "fn": 22
+  },
+  "skipped_word": {
+   "precision": 0.615,
+   "recall": 0.6,
+   "f1": 0.608,
+   "tp": 24,
+   "fp": 15,
+   "fn": 16
+  },
+  "restart": {
+   "precision": 0.882,
+   "recall": 0.75,
+   "f1": 0.811,
+   "tp": 30,
+   "fp": 4,
+   "fn": 10
+  }
+ }
+}

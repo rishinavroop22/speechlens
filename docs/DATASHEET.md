@@ -19,7 +19,7 @@ Following the "Datasheets for Datasets" template (Gebru et al., 2021).
 - **Flaw types.** Rushed, dragging, monotone, trailing off, missing pauses, awkward pause, filler (uh/um), muffled articulation, repeated onset (stutter), skipped words, restarted phrase.
 - **Severity scale.** 1 = near-perfect (inside natural take-to-take variation) to 5 = egregious; each type's parameter per level is listed in `speechlens/inject.py` (`P`, `COUNT`).
 - **Labels.** Per clip `data/dataset/labels/<id>.json`: every flaw with type, severity, start/end seconds, word indices, generation parameters, and the word timeline of the new audio. Synthetic labels are exact to the sample, since we performed every edit; human labels come from the recording script, verified by an independent manipulation check (`results/manipulation_check.json`: 58 of 90 scripted flaws were performed).
-- **Speakers.** 5 male US presidents (gold) and 3 team members (human takes). **Known gap:** no female gold speaker; the speaker-normalisation is tested through ±4 semitone controls and the team recordings, not through a gender-balanced corpus.
+- **Speakers.** 5 male US presidents (gold) and 3 team members (human takes). No female gold speaker in the main set; generalisation across voices is tested separately on 20 LibriSpeech dev-clean readers (10 women, 10 men, CC BY 4.0), built the same way with frozen thresholds (`tools/librispeech.py`, F1 0.85; women 0.86, men 0.85).
 - **Format.** 16 kHz mono; WAV as built, FLAC as distributed. About 9 hours of audio in total.
 
 ## Collection process
