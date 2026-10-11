@@ -1,0 +1,9 @@
+.git
+.cache
+build
+models
+data/raw
+data/dataset/clips
+data/dev
+results/stress_rows.jsonl
+**/__pycache__

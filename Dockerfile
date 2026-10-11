@@ -6,4 +6,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 RUN python tools/get_model.py
 EXPOSE 8000
+ENV SPEECHLENS_THREADS=2
 CMD ["uvicorn", "speechlens.app:app", "--host", "0.0.0.0", "--port", "8000"]

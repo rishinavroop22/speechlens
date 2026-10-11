@@ -121,8 +121,11 @@ async function boot() {
   renderSamples();
   renderDataset();
   if (STATIC) {
-    $("#go").textContent = "Analyze delivery (full app)";
-    setStatus("Hosted demo: pick a dataset clip below. Analysing your own recording needs the full app from GitHub.");
+    if (API) setStatus("Pick a dataset clip below, or upload or record your own reading. The first live analysis can take a minute while the server wakes up.");
+    else {
+      $("#go").textContent = "Analyze delivery (full app)";
+      setStatus("Hosted demo: pick a dataset clip below. Analysing your own recording needs the full app from GitHub.");
+    }
     analyzeSample(S.manifest.clips.find((c) => c.id === "human__manya_reagan_B")?.id || S.manifest.clips[0].id);
   } else if (status.aligner !== "wav2vec2-ctc") setStatus("Alignment model not found: using the approximate fallback aligner.", true);
 }

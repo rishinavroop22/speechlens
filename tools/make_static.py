@@ -6,6 +6,7 @@ byte-for-byte what the server returns) and rubric scores are recomputed in the
 browser. Requires build/space/ (tools/make_space.py) for the curated clip set.
 """
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -105,7 +106,8 @@ def main():
     title = re.search(r"<title>.*?</title>", html).group(0)
     body = re.search(r"<body>(.*)</body>", html, re.S).group(1)
     body = re.sub(r'<script src="app.js" type="module"></script>', "", body)
-    page = (f"<meta charset=\"utf-8\">\n{title}\n<style>\n{css}\n</style>\n{body}\n<script>window.SPEECHLENS_STATIC = true;</script>\n"
+    api = os.environ.get("SPEECHLENS_API", "").rstrip("/")   # live backend for uploads, if any
+    page = (f"<meta charset=\"utf-8\">\n{title}\n<style>\n{css}\n</style>\n{body}\n<script>window.SPEECHLENS_STATIC = true;{f' window.SPEECHLENS_API = "{api}";' if api else ""}</script>\n"
             f"<script type=\"module\">\n{js}\n</script>\n")
     (OUT / "index.html").write_text(page)
     size = sum(p.stat().st_size for p in OUT.rglob("*") if p.is_file())
