@@ -3,7 +3,7 @@
 **Contrastive speech analytics with temporal flaw grounding.**
 Multimodal AI Hackathon 2026, Track C.
 
-**Live demo: https://rishinavroop22.github.io/speechlens/** (every dataset clip with its full report, the counterfactual "Hear it fixed" audio, and the complete evaluation; analysing your own recordings needs the full app below)
+**Live demo: https://rishinavroop22.github.io/speechlens/** (every dataset clip with its full report and "Hear it fixed" audio, the complete evaluation, and **live analysis of your own upload or microphone recording**, served by a container on Azure; the first analysis after a quiet spell takes about a minute while the server wakes up)
 
 SpeechLens compares a participant's spoken delivery against a well-delivered reference reading of the *same transcript*. It aligns both readings word by word, measures how pace, pausing, pitch, loudness, articulation and fluency differ, marks every delivery flaw with exact start and end times, and explains each one with the numbers behind it and a concrete fix. A rubric turns the findings into a reproducible score.
 
