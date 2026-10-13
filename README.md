@@ -1,7 +1,9 @@
 # SpeechLens
 
 **Contrastive speech analytics with temporal flaw grounding.**
-Multimodal AI Hackathon 2026, Track C.
+Multimodal AI Hackathon 2026, Track C · Team: Rishi Navroop, Aashrith M P, Prasad A M
+
+**Demo video: https://youtu.be/LYFDkIlhIqA**
 
 **Live demo: https://rishinavroop22.github.io/speechlens/** (every dataset clip with its full report and "Hear it fixed" audio, the complete evaluation, and **live analysis of your own upload or microphone recording**, served by a container on Azure; the first analysis after a quiet spell takes about a minute while the server wakes up)
 
@@ -207,6 +209,10 @@ Reproduce everything with `./reproduce.sh`. Full write-up: [`docs/SpeechLens_Tec
 - Fillers and repeated onsets are found inside pauses; a filler fused into a word with no gap can be missed.
 - The alignment model is English-only.
 - Thresholds were set on the synthetic data, and human recordings are the out-of-distribution check.
+
+## Team
+
+Rishi Navroop · Aashrith M P · Prasad A M
 
 ## Attributions
 

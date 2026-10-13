@@ -4,7 +4,7 @@
 
 **Track:** C — Contrastive Speech Analytics & Temporal Flaw Grounding
 
-**Links:** Live demo https://rishinavroop22.github.io/speechlens/ · Code https://github.com/rishinavroop22/speechlens · Video: (YouTube link) · Dataset: https://drive.google.com/drive/folders/1Vmpboj6Q3OR9rY-jeGtRW6ri0HlaXDfk?usp=sharing
+**Links:** Live demo https://rishinavroop22.github.io/speechlens/ · Code https://github.com/rishinavroop22/speechlens · Video: https://youtu.be/LYFDkIlhIqA · Dataset: https://drive.google.com/drive/folders/1Vmpboj6Q3OR9rY-jeGtRW6ri0HlaXDfk?usp=sharing
 
 ---
 
@@ -60,4 +60,4 @@ Accent-diverse and spontaneous-speech evaluation, noise-robust features, more la
 python · fastapi · praat · parselmouth · wav2vec2 · onnxruntime · librosa · numpy · scipy · javascript · html-canvas · github-pages · docker · azure
 
 ## Team
-(Full names of all members, each with a Devpost account)
+Rishi Navroop · Aashrith M P · Prasad A M
